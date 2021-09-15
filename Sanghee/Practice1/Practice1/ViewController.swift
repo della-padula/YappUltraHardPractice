@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var page: Int = 0
     var noticeList: [Notice] = []
+    var isGettingData: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +27,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         configureRefreshControl()
         
         getData()
+        isGettingData = false
     }
     
     func getData() {
+        if !isGettingData { return }
         guard let url = URL(string: "https://cse.snu.ac.kr/department-notices?&keys=&page=\(page)") else { return }
         AF.request(url).responseString { response in
             guard let html = response.value else { return }
@@ -61,6 +64,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } catch {
                 print(error.localizedDescription)
             }
+        }
+        isGettingData = false
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollViewHeight = scrollView.frame.height
+        let contentHeight = scrollView.contentSize.height
+        let contentOffset = scrollView.contentOffset.y
+        
+        if contentHeight - contentOffset < scrollViewHeight {
+            isGettingData = true
+            page += 1
+            getData()
         }
     }
     
