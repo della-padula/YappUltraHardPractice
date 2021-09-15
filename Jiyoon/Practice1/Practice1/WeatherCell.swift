@@ -28,7 +28,6 @@ class WeatherCell: UITableViewCell{
         line.backgroundColor = .white
         super.init(style: .default, reuseIdentifier: "cell")
         
-        
         contentView.addSubview(locationLabel)
         contentView.addSubview(tempLabel)
         contentView.addSubview(iconImage)

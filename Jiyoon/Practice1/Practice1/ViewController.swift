@@ -34,7 +34,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         table.register(WeatherCell.self, forCellReuseIdentifier: "cell")
         table.backgroundColor = .black
         self.table.separatorStyle = .none
-        
         view.addSubview(table)
         
         table.snp.makeConstraints { maker in
