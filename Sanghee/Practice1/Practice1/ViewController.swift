@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         isGettingData = false
     }
     
-    func getData() {
+    private func getData() {
         if !isGettingData { return }
         guard let url = URL(string: "https://cse.snu.ac.kr/department-notices?&keys=&page=\(page)") else { return }
         AF.request(url).responseString { response in
@@ -85,20 +85,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func configureRefreshControl() {
+    private func configureRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
     
     @objc
-    func handleRefreshControl() {
+    private func handleRefreshControl() {
         page = 0
         noticeList = []
         getData()
         tableView.refreshControl?.endRefreshing()
     }
     
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         let navigationBar = navigationController?.navigationBar
         
         navigationItem.title = "컴퓨터공학부"
@@ -109,7 +109,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         navigationBar?.tintColor = .white
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -120,6 +120,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tableView.separatorStyle = .none
         tableView.register(NoticeCell.self, forCellReuseIdentifier: NoticeCell.identifier)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(DetailController(noticeList[indexPath.row]), animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
