@@ -14,7 +14,6 @@ class PageViewController: UIViewController{
     let temperatures = UIStackView()
     var tempHigh = UILabel()
     var tempLow = UILabel()
-    
     var backButton = UIButton()
     
     override func viewDidLoad() {
@@ -24,7 +23,8 @@ class PageViewController: UIViewController{
         view.addSubview(locationTemp)
         view.addSubview(temperatures)
         
-        backButton.imageView?.image = UIImage(systemName: "list.bullet")?.withTintColor(.black)
+        backButton.setBackgroundImage(UIImage(systemName: "list.bullet")?.withTintColor(.black), for: .normal)
+        backButton.addTarget(self, action: #selector(tappedBack) , for: .touchUpInside)
         view.addSubview(backButton)
         
         temperatures.addArrangedSubview(tempHigh)
@@ -55,9 +55,15 @@ class PageViewController: UIViewController{
             maker.top.equalTo(locationTemp.snp.bottom)
         }
         backButton.snp.makeConstraints { maker in
-            maker.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
-            maker.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
+            maker.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+            maker.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-50)
+            maker.height.equalTo(CGSize(width: 30, height: 30))
+            maker.width.equalTo(CGSize(width: 30, height: 30))
         }
+    }
+    @objc
+    func tappedBack(){
+        dismiss(animated: true, completion: nil)
     }
 
     
