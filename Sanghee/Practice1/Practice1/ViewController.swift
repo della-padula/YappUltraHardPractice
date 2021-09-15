@@ -55,6 +55,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         link = ""
                     }
                 }
+                self.tableView.reloadData()
             } catch {
                 print(error.localizedDescription)
             }
@@ -65,22 +66,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "noticeCell")
-        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        tableView.separatorStyle = .none
+        tableView.register(NoticeCell.self, forCellReuseIdentifier: NoticeCell.identifier)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return noticeList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "noticeCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: NoticeCell.identifier, for: indexPath) as! NoticeCell
         
-        cell.textLabel?.text = "공지사항"
+        cell.titleLabel.text = noticeList[indexPath.row].title
+        cell.timeLabel.text = noticeList[indexPath.row].time
         
         return cell
     }
