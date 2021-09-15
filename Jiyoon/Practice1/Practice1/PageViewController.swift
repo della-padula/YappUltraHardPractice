@@ -17,7 +17,6 @@ class PageViewController: UIViewController{
     
     var backButton = UIButton()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
