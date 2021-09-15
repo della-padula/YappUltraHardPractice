@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.backgroundColor = .white
         
         configureTableView()
+        configureNavigationBar()
         
         getData()
     }
@@ -60,6 +61,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func configureNavigationBar() {
+        let navigationBar = navigationController?.navigationBar
+        
+        navigationItem.title = "컴퓨터공학부"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: nil, action: nil)
+        
+        navigationBar?.barTintColor = UIColor(red: 0.5, green: 0.5, blue: 0.7, alpha: 1)
+        navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationBar?.tintColor = .white
     }
     
     func configureTableView() {

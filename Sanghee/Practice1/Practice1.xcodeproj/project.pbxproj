@@ -64,12 +64,12 @@
 			isa = PBXGroup;
 			children = (
 				5EC2C56626F287BE00AEBAB2 /* Notice.swift */,
+				5EC2C56826F28D4B00AEBAB2 /* NoticeCell.swift */,
 				5EC2C55626F2724300AEBAB2 /* ViewController.swift */,
 				5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */,
 				5EC2C55B26F2724500AEBAB2 /* Assets.xcassets */,
 				5EC2C55D26F2724500AEBAB2 /* LaunchScreen.storyboard */,
 				5EC2C56026F2724500AEBAB2 /* Info.plist */,
-				5EC2C56826F28D4B00AEBAB2 /* NoticeCell.swift */,
 			);
 			path = Practice1;
 			sourceTree = "<group>";
