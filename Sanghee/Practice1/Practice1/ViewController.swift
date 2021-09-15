@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         configureTableView()
         configureNavigationBar()
+        configureRefreshControl()
         
         getData()
     }
@@ -61,6 +62,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func configureRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    @objc
+    func handleRefreshControl() {
+        getData()
+        tableView.refreshControl?.endRefreshing()
     }
     
     func configureNavigationBar() {
