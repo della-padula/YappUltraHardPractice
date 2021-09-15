@@ -15,7 +15,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let tableView = UITableView()
     
     var page: Int = 0
-    var noticeList: [Notice] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,27 +32,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do {
                 let doc = try Kanna.HTML(html: html, encoding: .utf8)
                 let docTexts = doc.css("td")
-                
-                var textList: [String] = []
-                var link: String = ""
-                
                 for docText in docTexts{
-                    if let docLink = docText.css("a").first?["href"] {
-                        link = "https://cse.snu.ac.kr\(docLink)"
-                    }
-                    
                     guard let text = docText.text else { return }
                     let startIdx: String.Index = text.index(text.startIndex, offsetBy: 13)
                     let endIdx: String.Index = text.index(text.endIndex, offsetBy: -11)
-                    let slicedText = String(text[startIdx...endIdx])
-
-                    textList.append(slicedText)
-                    if textList.count > 2 {
-                        let notice = Notice(title: textList[0], time: textList[1], url: link)
-                        self.noticeList.append(notice)
-                        textList = []
-                        link = ""
-                    }
+                    let slicedText = text[startIdx...endIdx]
+                    print(slicedText)
                 }
             } catch {
                 print(error.localizedDescription)
