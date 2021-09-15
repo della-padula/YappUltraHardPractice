@@ -12,7 +12,6 @@
 		5EC2C55C26F2724500AEBAB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC2C55B26F2724500AEBAB2 /* Assets.xcassets */; };
 		5EC2C55F26F2724500AEBAB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC2C55D26F2724500AEBAB2 /* LaunchScreen.storyboard */; };
 		5EC2C56726F287BE00AEBAB2 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C56626F287BE00AEBAB2 /* Notice.swift */; };
-		5EC2C56926F28D4B00AEBAB2 /* NoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C56826F28D4B00AEBAB2 /* NoticeCell.swift */; };
 		EB32E70B2A70ED00270647F0 /* Pods_Practice1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E74B6C62C84B3C54FEB276D /* Pods_Practice1.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +25,6 @@
 		5EC2C55E26F2724500AEBAB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EC2C56026F2724500AEBAB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EC2C56626F287BE00AEBAB2 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
-		5EC2C56826F28D4B00AEBAB2 /* NoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCell.swift; sourceTree = "<group>"; };
 		E4605DBE51AE2C1240700A42 /* Pods-Practice1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice1.debug.xcconfig"; path = "Target Support Files/Pods-Practice1/Pods-Practice1.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +67,6 @@
 				5EC2C55B26F2724500AEBAB2 /* Assets.xcassets */,
 				5EC2C55D26F2724500AEBAB2 /* LaunchScreen.storyboard */,
 				5EC2C56026F2724500AEBAB2 /* Info.plist */,
-				5EC2C56826F28D4B00AEBAB2 /* NoticeCell.swift */,
 			);
 			path = Practice1;
 			sourceTree = "<group>";
@@ -205,7 +202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EC2C56726F287BE00AEBAB2 /* Notice.swift in Sources */,
-				5EC2C56926F28D4B00AEBAB2 /* NoticeCell.swift in Sources */,
 				5EC2C55726F2724300AEBAB2 /* ViewController.swift in Sources */,
 				5EC2C55326F2724300AEBAB2 /* AppDelegate.swift in Sources */,
 			);
