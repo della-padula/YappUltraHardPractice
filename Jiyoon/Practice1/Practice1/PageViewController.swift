@@ -8,7 +8,7 @@
 import Foundation
 import SnapKit
 
-class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate{
     var time = ["12", "1", "2", "3", "4", "5", "6"]
     
     var locationName = UILabel()
@@ -17,6 +17,10 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     var tempHigh = UILabel()
     var tempLow = UILabel()
     var backButton = UIButton()
+    
+//    var pageControll: UIPageControl{
+//        let pageControl = UIPageControl(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+//    }
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

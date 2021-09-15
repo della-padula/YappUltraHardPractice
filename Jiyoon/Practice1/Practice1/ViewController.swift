@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     private var table = UITableView()
     
     var location: [String] = ["서울특별시", "대전시", "대구시", "부산시", "뉴욕", "로스앤젤레스"]
