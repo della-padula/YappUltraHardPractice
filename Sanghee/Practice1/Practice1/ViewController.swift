@@ -39,6 +39,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let doc = try Kanna.HTML(html: html, encoding: .utf8)
                 let docTexts = doc.css("td")
                 
+                if docTexts.count == 0 {
+                    self.page -= 0
+                    return
+                }
+                
                 var textList: [String] = []
                 var link: String = ""
                 
@@ -87,6 +92,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc
     func handleRefreshControl() {
+        page = 0
+        noticeList = []
         getData()
         tableView.refreshControl?.endRefreshing()
     }
