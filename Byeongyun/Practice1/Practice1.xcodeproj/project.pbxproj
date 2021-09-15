@@ -13,6 +13,11 @@
 		A83BDD0626F24CA600E499B3 /* Practice1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD0426F24CA600E499B3 /* Practice1.xcdatamodeld */; };
 		A83BDD0826F24CA800E499B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83BDD0726F24CA800E499B3 /* Assets.xcassets */; };
 		A83BDD0B26F24CA800E499B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A83BDD0926F24CA800E499B3 /* LaunchScreen.storyboard */; };
+		A83BDD1626F25F1200E499B3 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1526F25F1200E499B3 /* Feed.swift */; };
+		A83BDD1826F260BD00E499B3 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1726F260BD00E499B3 /* FeedTableViewCell.swift */; };
+		A83BDD1A26F2695F00E499B3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1926F2695F00E499B3 /* TabBarController.swift */; };
+		A83BDD1D26F26AAB00E499B3 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1C26F26AAB00E499B3 /* UserViewController.swift */; };
+		A83BDD1F26F26FBD00E499B3 /* PlusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1E26F26FBD00E499B3 /* PlusViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		A83BDD0726F24CA800E499B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A83BDD0A26F24CA800E499B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A83BDD0C26F24CA800E499B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A83BDD1526F25F1200E499B3 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		A83BDD1726F260BD00E499B3 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		A83BDD1926F2695F00E499B3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		A83BDD1C26F26AAB00E499B3 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		A83BDD1E26F26FBD00E499B3 /* PlusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +94,7 @@
 		A83BDD1226F2527400E499B3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A83BDD1526F25F1200E499B3 /* Feed.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -92,6 +103,10 @@
 			isa = PBXGroup;
 			children = (
 				A83BDCFF26F24CA600E499B3 /* MainViewController.swift */,
+				A83BDD1726F260BD00E499B3 /* FeedTableViewCell.swift */,
+				A83BDD1926F2695F00E499B3 /* TabBarController.swift */,
+				A83BDD1C26F26AAB00E499B3 /* UserViewController.swift */,
+				A83BDD1E26F26FBD00E499B3 /* PlusViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -217,9 +232,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83BDD1D26F26AAB00E499B3 /* UserViewController.swift in Sources */,
 				A83BDD0026F24CA600E499B3 /* MainViewController.swift in Sources */,
+				A83BDD1626F25F1200E499B3 /* Feed.swift in Sources */,
 				A83BDCFC26F24CA600E499B3 /* AppDelegate.swift in Sources */,
+				A83BDD1A26F2695F00E499B3 /* TabBarController.swift in Sources */,
 				A83BDD0626F24CA600E499B3 /* Practice1.xcdatamodeld in Sources */,
+				A83BDD1F26F26FBD00E499B3 /* PlusViewController.swift in Sources */,
+				A83BDD1826F260BD00E499B3 /* FeedTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,11 +8,13 @@
 import UIKit
 
 class UserViewController: UIViewController {
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
     }
     
 
