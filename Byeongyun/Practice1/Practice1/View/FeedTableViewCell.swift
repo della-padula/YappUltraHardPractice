@@ -17,7 +17,9 @@ class FeedTableViewCell: UITableViewCell {
     let userName = UILabel()
     let userImage = UIImageView()
     let textUserName = UILabel()
+    let likeStatus = UILabel()
     
+    // 위에 유저 이름이랑 사진 스택 뷰
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [userImage, userName])
         stackView.axis = .horizontal
@@ -44,21 +46,40 @@ class FeedTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    
+    // 아래 텍스트 창의 스택 뷰
     lazy var textStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [textUserName, userText])
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 1
         textUserName.font = UIFont.boldSystemFont(ofSize: 15)
         textUserName.snp.makeConstraints {
-            $0.leading.equalTo(10)
+            $0.leading.equalTo(15)
+            //$0.height.equalTo(30)
         }
         
         userText.font = UIFont.systemFont(ofSize: 15)
         
-        stackView.alignment = .trailing
+        stackView.alignment = .fill
         
         return stackView
     }()
+    
+    
+    // 좋아요 정보와 함께 묶여있는 스택 뷰 (얘는 vertical)
+    lazy var likeSV: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [likeStatus, textStackView])
+        likeStatus.font = UIFont.systemFont(ofSize: 15)
+        stackView.axis = .vertical
+        //stackView.spacing = 1
+        likeStatus.snp.makeConstraints {
+            $0.top.equalTo(10)
+            $0.leading.equalTo(10)
+        }
+        
+        return stackView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         settingUI()
@@ -68,6 +89,7 @@ class FeedTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Cell UI 세팅
     func settingUI() {
         
         self.addSubview(stackView)
@@ -80,7 +102,7 @@ class FeedTableViewCell: UITableViewCell {
         self.addSubview(userUploadImage)
         userUploadImage.snp.makeConstraints {
             $0.top.equalTo(stackView.snp.bottom).offset(10)
-            $0.bottom.equalTo(self.snp.bottom).offset(-40)
+            //$0.bottom.equalTo(self.snp.bottom).offset(-30)
             //$0.width.equalTo(60)
             $0.height.equalTo(300)
             $0.left.equalTo(self.snp.left)
@@ -88,11 +110,11 @@ class FeedTableViewCell: UITableViewCell {
         }
         
         
-        self.addSubview(textStackView)
-        textStackView.snp.makeConstraints {
+        self.addSubview(likeSV)
+        likeSV.snp.makeConstraints {
             $0.top.equalTo(userUploadImage.snp.bottom)
-            $0.height.equalTo(30)
-            
+            $0.height.equalTo(70)
+            $0.bottom.equalTo(self.snp.bottom).offset(-20)
         }
         
         

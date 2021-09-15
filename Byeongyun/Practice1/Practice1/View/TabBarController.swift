@@ -15,11 +15,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
 
         self.tabBar.backgroundColor = #colorLiteral(red: 0.9160357603, green: 0.9160357603, blue: 0.9160357603, alpha: 1)
-        self.tabBarController?.delegate = self
+        tabBarController?.delegate = self
         settingTabBar()
     }
     
     func settingTabBar() {
+        //let button = UIButton()
         let mainVC = MainViewController()
         
         mainVC.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
@@ -27,7 +28,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         let plusVC = PlusViewController()
         
-        plusVC.tabBarItem.selectedImage = UIImage(systemName: "plus.rectangle.fill")
+        //plusVC.tabBarItem.selectedImage = UIImage(systemName: "plus.rectangle.fill")
         plusVC.tabBarItem.image = UIImage(systemName: "plus.rectangle")
         //plusVC.modalPresentationStyle = .automatic
         
@@ -38,17 +39,20 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         //present(plusVC, animated: true)
         viewControllers = [mainVC, plusVC, userVC]
     }
-
+    
+    /*
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        let isModalView = viewController is PlusViewController
-        if isModalView {
-            let plVC = UINavigationController(rootViewController: PlusViewController())
+        
+        if viewController is PlusViewController {
+            let plVC = PlusViewController()
+            //plVC.modalPresentationStyle = .fullScreen
             self.present(plVC, animated: true, completion: nil)
             
             return false
-        } else {
-            return true
         }
         
+        return true
+        
     }
+    */
 }
