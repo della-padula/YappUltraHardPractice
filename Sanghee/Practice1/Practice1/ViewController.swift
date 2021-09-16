@@ -22,8 +22,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        configureTableView()
         configureNavigationBar()
+        configureTableView()
         configureRefreshControl()
         
         getData()
@@ -109,6 +109,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         navigationBar?.barTintColor = Constants.Color.blue
         navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationBar?.tintColor = .white
+        navigationBar?.barStyle = .black
     }
     
     private func configureTableView() {

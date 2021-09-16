@@ -11,8 +11,6 @@ import SnapKit
 import UIKit
 import WebKit
 
-
-
 class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     private let labelView = UIView()
