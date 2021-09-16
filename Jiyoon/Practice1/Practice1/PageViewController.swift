@@ -9,7 +9,7 @@ import Foundation
 import SnapKit
 
 class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate{
-    var time = ["12", "1", "2", "3", "4", "5", "6"]
+    var time = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
     
     var locationName = UILabel()
     var locationTemp = UILabel()
@@ -25,6 +25,11 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: 60, height: 150)
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(CollectionCell.self, forCellWithReuseIdentifier: "CollectionCell")
         return cv
@@ -32,7 +37,7 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(.white)
+        view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
         view.addSubview(locationName)
         view.addSubview(locationTemp)
         view.addSubview(temperatures)
@@ -41,6 +46,7 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.contentInset.left = 5
+        collectionView.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
 
         temperatures.addArrangedSubview(tempHigh)
         temperatures.addArrangedSubview(tempLow)
@@ -50,6 +56,11 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         locationTemp.font = UIFont.systemFont(ofSize: 80)
         tempHigh.font = UIFont.systemFont(ofSize: 15)
         tempLow.font = UIFont.systemFont(ofSize: 15)
+        
+        locationName.textColor = .white
+        locationTemp.textColor = .white
+        tempHigh.textColor = .white
+        tempLow.textColor = .white
         
         backButton.setBackgroundImage(UIImage(systemName: "list.bullet")?.withTintColor(.black), for: .normal)
         backButton.addTarget(self, action: #selector(tappedBack) , for: .touchUpInside)
@@ -95,11 +106,7 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         cell.cellTimeLabel.text = time[indexPath.row]
         cell.cellWeatherIcon.image = UIImage(systemName: "sun.max.fill")?.withTintColor(.yellow)
         cell.cellTempLabel.text = "19"
-        cell.backgroundColor = .white
-        cell.snp.makeConstraints { maker in
-            maker.height.equalTo(CGSize(width: 0, height: 150))
-            maker.width.equalTo(CGSize(width: 60, height: 0))
-        }
+        cell.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
         return cell
     }
     

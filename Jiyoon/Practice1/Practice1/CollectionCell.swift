@@ -15,8 +15,11 @@ class CollectionCell: UICollectionViewCell{
     
     override init(frame: CGRect) {
         self.cellTimeLabel = UILabel()
+        cellTimeLabel.textColor = .white
         self.cellWeatherIcon = UIImageView()
+        cellWeatherIcon.tintColor = .yellow
         self.cellTempLabel = UILabel()
+        cellTempLabel.textColor = .white
         super.init(frame: frame)
         
         self.addSubview(cellTimeLabel)

@@ -10,17 +10,17 @@ import SnapKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     private var table = UITableView()
+    var weatherManager = WeatherManager()
     
-    var location: [String] = ["서울특별시", "대전시", "대구시", "부산시", "뉴욕", "로스앤젤레스"]
-    var temp: [String] = ["22", "26", "25", "24", "28", "19"]
-    var tempHigh: [String] = ["29", "30", "32", "30", "26", "28"]
-    var tempLow: [String] = ["17", "19", "20", "19", "14", "16"]
+    var location: [String] = ["서울특별시", "대전시", "대구시", "부산시"]
+    var location_eng: [String] = ["Seoul", "Daejeon", "Daegu", "Busan"]
+    var temp: [String] = []
+    var tempHigh: [String] = []
+    var tempLow: [String] = []
     var icons = [UIImage(systemName: "moon.stars")?.withTintColor(.white),
                 UIImage(systemName: "sun.max")?.withTintColor(.white),
                 UIImage(systemName: "sparkles")?.withTintColor(.white),
-                UIImage(systemName: "cloud.sleet")?.withTintColor(.white),
-                UIImage(systemName: "sun.max.fill")?.withTintColor(.white),
-                UIImage(systemName: "cloud")?.withTintColor(.white)]
+                UIImage(systemName: "cloud.sleet")?.withTintColor(.white)]
     var scaledIcons: [UIImage] = []
     let targetSize = CGSize(width: 50, height: 50)
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
@@ -42,12 +42,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             maker.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             maker.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        for city in location_eng{
+            let weather = weatherManager.fetchWeather(cityName: city)
+        }
+        
         for icon in icons{
             let scaledIcon = renderer.image {
                 draw in icon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
             }
             scaledIcons.append(scaledIcon)
         }
+        
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
