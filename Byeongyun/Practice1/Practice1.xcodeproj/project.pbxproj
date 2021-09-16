@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5873E2928883ADB36FC366C1 /* Pods_Practice1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7052837E12F8500BF53747 /* Pods_Practice1.framework */; };
-		A829179326F30E0600135C73 /* FeedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829179226F30E0600135C73 /* FeedArray.swift */; };
 		A83BDCFC26F24CA600E499B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDCFB26F24CA600E499B3 /* AppDelegate.swift */; };
 		A83BDD0026F24CA600E499B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDCFF26F24CA600E499B3 /* MainViewController.swift */; };
 		A83BDD0626F24CA600E499B3 /* Practice1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD0426F24CA600E499B3 /* Practice1.xcdatamodeld */; };
@@ -25,7 +24,6 @@
 		4A479CDFCE94E89017E45E22 /* Pods-Practice1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice1.release.xcconfig"; path = "Target Support Files/Pods-Practice1/Pods-Practice1.release.xcconfig"; sourceTree = "<group>"; };
 		9655A746DCC25D6F7CFA69AB /* Pods-Practice1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice1.debug.xcconfig"; path = "Target Support Files/Pods-Practice1/Pods-Practice1.debug.xcconfig"; sourceTree = "<group>"; };
 		9E7052837E12F8500BF53747 /* Pods_Practice1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A829179226F30E0600135C73 /* FeedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedArray.swift; sourceTree = "<group>"; };
 		A83BDCF826F24CA600E499B3 /* Practice1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Practice1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A83BDCFB26F24CA600E499B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A83BDCFF26F24CA600E499B3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				A83BDD1526F25F1200E499B3 /* Feed.swift */,
-				A829179226F30E0600135C73 /* FeedArray.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -235,7 +232,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A829179326F30E0600135C73 /* FeedArray.swift in Sources */,
 				A83BDD1D26F26AAB00E499B3 /* UserViewController.swift in Sources */,
 				A83BDD0026F24CA600E499B3 /* MainViewController.swift in Sources */,
 				A83BDD1626F25F1200E499B3 /* Feed.swift in Sources */,

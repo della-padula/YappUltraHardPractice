@@ -8,6 +8,7 @@
 import SnapKit
 import UIKit
 
+// 기본 세팅 값이 들어가있는 전역변수 어레이
 var feedArray : [Feed] = [
     Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
     Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
@@ -15,15 +16,17 @@ var feedArray : [Feed] = [
     Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!)
 ]
 
+
 class MainViewController: UIViewController {
     
+    // 뷰가 보이기 전 실행
     override func viewWillAppear(_ animated: Bool) {
-        print("여기로 옴")
         tableView.reloadData()
         
     }
     
     
+    // MARK: - Main 타이틀
     let mainTitle: UILabel = {
         let label = UILabel()
         label.text = "CloneStagram"
@@ -32,10 +35,8 @@ class MainViewController: UIViewController {
         return label
     }()
     
-    //let tabBar = TabBarController()
+    
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
-    var feed: [Feed] = [
-        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!) ]
     
     // MARK: - ViewDidLoad()
     override func viewDidLoad() {
@@ -62,14 +63,8 @@ class MainViewController: UIViewController {
     
     // MARK: - UI 세팅
     func settingUI() {
-        //view.addSubview(tabBar)
-        /*
-        tabBar.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            $0.left.equalTo(view.safeAreaLayoutGuide.snp.left)
-            $0.right.equalTo(view.safeAreaLayoutGuide.snp.right)
-        }
-        */
+        
+        // 메인 타이틀
         view.addSubview(mainTitle)
         mainTitle.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -77,6 +72,7 @@ class MainViewController: UIViewController {
             
         }
         
+        // 테이블 뷰
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
             $0.top.equalTo(mainTitle.snp.bottom).offset(20)
@@ -88,11 +84,8 @@ class MainViewController: UIViewController {
 }
 
 
+// MARK: - TableView 익스텐션
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        <#code#>
-    }
     
     // 테이블 뷰 셀 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,8 +97,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
         
         cell.userUploadImage.image = feedArray[indexPath.row].uploadImage
-        //cell.userImage.sizeThatFits(CGSize(width: 400, height: 50))
-        //cell.userImage.sizeToFit()
         cell.userName.text = feedArray[indexPath.row].userName
         cell.userText.text = feedArray[indexPath.row].text
         cell.userImage.image = feedArray[indexPath.row].userImage

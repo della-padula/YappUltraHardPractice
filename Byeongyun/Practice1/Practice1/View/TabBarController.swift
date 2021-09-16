@@ -10,15 +10,14 @@ import UIKit
 class TabBarController: UITabBarController{
 
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tabBar.backgroundColor = #colorLiteral(red: 0.9160357603, green: 0.9160357603, blue: 0.9160357603, alpha: 1)
-        //tabBarController?.delegate = self
         settingTabBar()
     }
     
+    // MARK: - TabBar 세팅
     func settingTabBar() {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus.rectangle"), for: UIControl.State.normal)
@@ -42,7 +41,6 @@ class TabBarController: UITabBarController{
         let userVC = UserViewController()
         userVC.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         userVC.tabBarItem.image = UIImage(systemName: "person")
-        //storyboard
         
         viewControllers = [mainVC, plusVC, userVC]
     }

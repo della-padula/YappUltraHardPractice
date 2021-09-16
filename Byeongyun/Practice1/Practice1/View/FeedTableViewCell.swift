@@ -27,17 +27,15 @@ class FeedTableViewCell: UITableViewCell {
         userImage.layer.cornerRadius = frame.height/2
         userImage.layer.borderWidth = 1
         userImage.clipsToBounds = true
+        
         userImage.snp.makeConstraints {
             $0.height.equalTo(45)
             $0.width.equalTo(45)
             
-            //$0.left.equalTo(self.snp.trailing).offset(-10)
             $0.leading.equalTo(5)
         }
         userName.font = UIFont.boldSystemFont(ofSize: 15)
         userName.snp.makeConstraints {
-            //$0.centerX.equalTo(0)
-            //$0.centerY.equalTo(0)
             $0.bottom.equalTo(-12)
         }
         
@@ -53,13 +51,7 @@ class FeedTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 1
         textUserName.font = UIFont.boldSystemFont(ofSize: 15)
-        /*
-        textUserName.snp.makeConstraints {
-            $0.left.equalTo(5)
-            //$0.leading.equalTo(15)
-            //$0.right.equalTo(0)
-        }
-        */
+        
         userText.snp.makeConstraints {
             $0.left.equalTo(30)
         }
@@ -97,24 +89,26 @@ class FeedTableViewCell: UITableViewCell {
     // MARK: - Cell UI 세팅
     func settingUI() {
         
+        // 셀 상단의 유저 사진과 이름
         self.addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.height.equalTo(55)
-            //$0.bottom.equalTo(20)
+            
         }
         
+        // 셀 중앙에 위치한 업로드한 사진
         self.addSubview(userUploadImage)
         userUploadImage.snp.makeConstraints {
             $0.top.equalTo(stackView.snp.bottom).offset(10)
-            //$0.bottom.equalTo(self.snp.bottom).offset(-30)
-            //$0.width.equalTo(60)
+            
             $0.height.equalTo(300)
             $0.left.equalTo(self.snp.left)
             $0.right.equalTo(self.snp.right)
         }
         
         
+        // 셀 하단에 위치한 하트 개수와 유저이름, 내용
         self.addSubview(likeSV)
         likeSV.snp.makeConstraints {
             $0.top.equalTo(userUploadImage.snp.bottom)
