@@ -12,11 +12,11 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let tableView = UITableView()
+    private let tableView = UITableView()
     
-    var page: Int = 0
-    var noticeList: [Notice] = []
-    var isGettingData: Bool = true
+    private var page: Int = 0
+    private var noticeList: [Notice] = []
+    private var isGettingData: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()

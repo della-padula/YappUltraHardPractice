@@ -16,9 +16,10 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private let labelView = UIView()
     private let webView = WKWebView()
     private let modalView = UIView()
+    private let tableView = UITableView()
     
     private var notice: Notice?
-    private var fileUrlList: [String] = []
+    private var fileUrlList: [FileUrl] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,6 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         DispatchQueue.main.async {
             self.configureWebView()
-            self.configureModalView()
             self.getData()
         }
         
@@ -53,12 +53,17 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
                 let docTexts = doc.css("p")
                 let htmlString = "<p style=\"font-size: 42;\">" + docTexts.compactMap({ $0.text }).reduce("") { $0 + $1 } + "</p>"
                 self.webView.loadHTMLString(htmlString, baseURL: nil)
-                
-                let fileUrlTexts = doc.css("span")
+
+                let fileUrlTexts = doc.css("td")
                 for fileUrlText in fileUrlTexts {
+                    let fileName = fileUrlText.css("a").first?.text
                     if let fileUrl = fileUrlText.css("a").first?["href"] {
-                        self.fileUrlList.append(fileUrl)
+                        self.fileUrlList.append(FileUrl(title: fileName ?? "첨부 파일", url: fileUrl))
                     }
+                }
+                if !self.fileUrlList.isEmpty {
+                    self.configureModalView()
+                    self.tableView.reloadData()
                 }
             } catch {
                 print(error.localizedDescription)
@@ -69,8 +74,9 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func configureLabelView() {
         view.addSubview(labelView)
         labelView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.right.equalToSuperview().offset(8)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(50)
         }
         
         let titleLabel = UILabel()
@@ -98,18 +104,17 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func configureWebView() {
         view.addSubview(webView)
         webView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
-            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(labelView.snp.bottom)
+            make.left.right.bottom.equalToSuperview().inset(8)
         }
     }
     
     private func configureModalView() {
-        let modalTableView = UITableView()
         let separatorView = UIView()
         
-        modalTableView.delegate = self
-        modalTableView.dataSource = self
-        modalTableView.register(UITableViewCell.self, forCellReuseIdentifier: "FileUrlCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(FileUrlCell.self, forCellReuseIdentifier: FileUrlCell.identifier)
                 
         view.addSubview(modalView)
         modalView.snp.makeConstraints { make in
@@ -123,8 +128,8 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
             make.height.equalTo(8)
         }
         
-        modalView.addSubview(modalTableView)
-        modalTableView.snp.makeConstraints { make in
+        modalView.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
             make.top.equalTo(modalView.snp.top).offset(8)
             make.left.right.bottom.equalToSuperview()
         }
@@ -133,13 +138,13 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3 // fileUrlList.count
+        return fileUrlList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FileUrlCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlCell.identifier, for: indexPath) as! FileUrlCell
         
-        cell.textLabel?.text = "첨부파일"
+        cell.titleLabel.text = fileUrlList[indexPath.row].title
         
         return cell
     }
