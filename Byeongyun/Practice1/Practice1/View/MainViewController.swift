@@ -95,7 +95,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     // 커스텀 셀 정의
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
-        
+        cell.selectionStyle = .none
         cell.userUploadImage.image = feedArray[indexPath.row].uploadImage
         cell.userName.text = feedArray[indexPath.row].userName
         cell.userText.text = feedArray[indexPath.row].text
