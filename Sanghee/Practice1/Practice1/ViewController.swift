@@ -112,6 +112,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(NoticeCell.self, forCellReuseIdentifier: NoticeCell.identifier)
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -119,7 +120,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         tableView.separatorStyle = .none
-        tableView.register(NoticeCell.self, forCellReuseIdentifier: NoticeCell.identifier)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
