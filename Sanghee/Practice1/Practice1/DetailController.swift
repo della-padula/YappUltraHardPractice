@@ -127,13 +127,13 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableView.dataSource = self
         tableView.register(FileUrlCell.self, forCellReuseIdentifier: FileUrlCell.identifier)
         
-        let maY = view.frame.origin.y + view.frame.size.height
-        let rect = CGRect(x: 0, y: maY, width: view.bounds.width, height: 160)
+        let maxY = view.frame.origin.y + view.frame.size.height
+        let rect = CGRect(x: 0, y: maxY, width: view.bounds.width, height: 160)
         let myView = UIView(frame: rect)
         view.addSubview(myView)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-            myView.frame = CGRect(x: 0, y: maY - 160, width: self.view.bounds.width, height: 160)
+            myView.frame = CGRect(x: 0, y: maxY - 160, width: self.view.bounds.width, height: 160)
         } completion: { _ in
         }
     
