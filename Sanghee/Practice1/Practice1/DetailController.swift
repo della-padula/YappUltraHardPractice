@@ -48,7 +48,13 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
             do {
                 let doc = try Kanna.HTML(html: html, encoding: .utf8)
                 let docTexts = doc.css("p")
-                let htmlString = "<p style=\"font-size: 42;\">" + docTexts.compactMap({ $0.text }).reduce("") { $0 + $1 } + "</p>"
+                
+                var trimmedTextArr = docTexts.compactMap({ $0.text })
+                if trimmedTextArr[0].trimmingCharacters(in: .whitespaces).isEmpty {
+                    trimmedTextArr.removeFirst()
+                }
+                
+                let htmlString = "<p style=\"font-size: 42;\">" + trimmedTextArr.map({ $0 + "<br>" }).reduce("") { $0 + $1 }  + "</p>"
                 self.webView.loadHTMLString(htmlString, baseURL: nil)
 
                 let fileUrlTexts = doc.css("td")
