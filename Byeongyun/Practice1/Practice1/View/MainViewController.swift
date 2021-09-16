@@ -8,9 +8,17 @@
 import SnapKit
 import UIKit
 
+var feedArray : [Feed] = [
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!)
+]
+
 class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
+        print("여기로 옴")
         tableView.reloadData()
     }
     
@@ -85,21 +93,21 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 테이블 뷰 셀 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feed.count
+        return feedArray.count
     }
     
     // 커스텀 셀 정의
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
         
-        cell.userUploadImage.image = feed[indexPath.row].uploadImage
+        cell.userUploadImage.image = feedArray[indexPath.row].uploadImage
         //cell.userImage.sizeThatFits(CGSize(width: 400, height: 50))
         //cell.userImage.sizeToFit()
-        cell.userName.text = feed[indexPath.row].userName
-        cell.userText.text = feed[indexPath.row].text
-        cell.userImage.image = feed[indexPath.row].userImage
-        cell.textUserName.text = feed[indexPath.row].userName
-        cell.likeStatus.text = "\(feed[indexPath.row].like) 명이 좋아합니다"
+        cell.userName.text = feedArray[indexPath.row].userName
+        cell.userText.text = feedArray[indexPath.row].text
+        cell.userImage.image = feedArray[indexPath.row].userImage
+        cell.textUserName.text = feedArray[indexPath.row].userName
+        cell.likeStatus.text = "\(feedArray[indexPath.row].like) 명이 좋아합니다"
         
         return cell
     }

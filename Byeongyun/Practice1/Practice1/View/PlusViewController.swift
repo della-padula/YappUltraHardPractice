@@ -11,7 +11,6 @@ import SnapKit
 class PlusViewController: UIViewController {
 
     let mainVC = MainViewController()
-    
     // MARK: - 버튼 선언 공간
     
     // 취소버튼
@@ -27,7 +26,7 @@ class PlusViewController: UIViewController {
     
     // 저장버튼
     let saveButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 150))
         button.setTitle("저장", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         button.setTitleColor(.white, for: .normal)
@@ -44,7 +43,7 @@ class PlusViewController: UIViewController {
     
     @objc func save() {
         let num : Int = Int(arc4random() % 100)
-        mainVC.feed.append(Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: textView.text, like: num, uploadImage: UIImage(named: "swift")!))
+        feedArray.append(Feed(userImage: UIImage(named:"user")!, userName: "IBY", text: textView.text, like: num, uploadImage: UIImage(named: "swift")!))
         setTextView()
     }
     
@@ -63,8 +62,8 @@ class PlusViewController: UIViewController {
     // MARK: - 텍스트 뷰 선언
     let textView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-        
+        textView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        textView.layer.borderWidth = 0.5
         return textView
     }()
     
@@ -74,6 +73,8 @@ class PlusViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         settingUI()
         setTextView()
+        
+        
     }
     
     // MARK: - 텍스트 뷰 초기 설정
@@ -81,8 +82,22 @@ class PlusViewController: UIViewController {
         textView.delegate = self
         textView.text = "이곳에 사진과 함께 적을 글을 입력해주세요!"
         textView.textColor = .lightGray
+        textView.font = UIFont.systemFont(ofSize: 13)
+        
+        // 키보드 나타날때를 감지하는 옵저버
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        // 키보드 사라질때를 감지하는 옵저버
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    // MARK: - 각 키보드 상황에 대한 액션 정리
+    @objc func keyboardWillShow(_ sender: Notification) {
+        self.view.frame.origin.y = -150
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        self.view.frame.origin.y = 0
+    }
     // MARK: - UI 세팅
     func settingUI() {
         view.addSubview(plusTitle)
@@ -92,27 +107,28 @@ class PlusViewController: UIViewController {
             
         }
         
-        /*
-        view.addSubview(imageViewer)
-        imageViewer.snp.makeConstraints {
-            $0.top.equalTo(plusTitle.snp.bottom).offset(20)
-            $0.height.equalTo(200)
-            $0.width.equalTo(200)
-        }
-        */
-        
         view.addSubview(textView)
         textView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
-            $0.height.equalTo(300)
-            $0.centerY.equalToSuperview()
+            
+            $0.height.equalTo(150)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.centerY.equalToSuperview().offset(100)
         }
         
         view.addSubview(cancelButton)
         cancelButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             $0.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-30)
+        }
+        
+        view.addSubview(saveButton)
+        saveButton.snp.makeConstraints {
+            $0.top.equalTo(textView.snp.bottom).offset(50)
+            //$0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(100)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-100)
         }
     }
     
@@ -126,7 +142,7 @@ extension PlusViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = UIColor.white
+            textView.textColor = UIColor.black
         }
     }
     
@@ -134,6 +150,8 @@ extension PlusViewController: UITextViewDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    
     
     // 입력 끝났을 때
     func textViewDidEndEditing(_ textView: UITextView) {

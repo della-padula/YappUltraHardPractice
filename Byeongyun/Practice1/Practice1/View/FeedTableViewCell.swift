@@ -53,11 +53,16 @@ class FeedTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 1
         textUserName.font = UIFont.boldSystemFont(ofSize: 15)
+        /*
         textUserName.snp.makeConstraints {
-            $0.leading.equalTo(15)
-            //$0.height.equalTo(30)
+            $0.left.equalTo(5)
+            //$0.leading.equalTo(15)
+            //$0.right.equalTo(0)
         }
-        
+        */
+        userText.snp.makeConstraints {
+            $0.left.equalTo(30)
+        }
         userText.font = UIFont.systemFont(ofSize: 15)
         
         stackView.alignment = .fill
