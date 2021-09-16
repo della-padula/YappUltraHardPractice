@@ -23,15 +23,13 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
+        configureView()
         configureLabelView()
         
         DispatchQueue.main.async {
             self.configureWebView()
             self.getData()
         }
-        
     }
     
     init(_ notice: Notice) {
@@ -69,6 +67,21 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func configureView() {
+        view.backgroundColor = .white
+        self.navigationItem.title = "상세보기"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(shareLink(_:)))
+    }
+    
+    @objc
+    private func shareLink(_ sender: UIButton) {
+        guard let link = notice?.url else { return }
+        
+        let activityVC = UIActivityViewController(activityItems: [link], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = view
+        self.present(activityVC, animated: true, completion: nil)
     }
 
     private func configureLabelView() {
@@ -119,9 +132,9 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         view.addSubview(modalView)
         modalView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(100)
+            make.height.equalTo(120)
         }
-        
+
         modalView.addSubview(separatorView)
         separatorView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()

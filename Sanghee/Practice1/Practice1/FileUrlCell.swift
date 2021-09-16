@@ -28,7 +28,7 @@ class FileUrlCell: UITableViewCell {
     
     @objc
     private func downloadFile(_ sender: UIButton) {
-        print(downloadFile)
+        print("downloadFile")
     }
     
     private func layout() {
