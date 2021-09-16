@@ -13,7 +13,13 @@ class FeedTableViewCell: UITableViewCell {
     static let cellId = "homeFeed"
     
     let userUploadImage = UIImageView()
-    let userText = UILabel()
+    let userText : UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        
+        return label
+        
+    }()
     let userName = UILabel()
     let userImage = UIImageView()
     let textUserName = UILabel()
@@ -62,6 +68,9 @@ class FeedTableViewCell: UITableViewCell {
         
         userText.snp.makeConstraints {
             $0.left.equalTo(30)
+            $0.width.equalTo(300)
+            $0.bottom.equalTo(0)
+            $0.right.equalTo(-10)
         }
         userText.font = UIFont.systemFont(ofSize: 15)
         
