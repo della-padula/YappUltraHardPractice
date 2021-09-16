@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("여기로 옴")
         tableView.reloadData()
+        
     }
     
     
@@ -89,7 +90,9 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        <#code#>
+    }
     
     // 테이블 뷰 셀 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
