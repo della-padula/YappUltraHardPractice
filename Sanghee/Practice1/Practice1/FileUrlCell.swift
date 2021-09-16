@@ -67,8 +67,8 @@ class FileUrlCell: UITableViewCell {
 
         self.selectionStyle = .none
         iconView.contentMode = .scaleAspectFit
-        iconView.tintColor = .systemBlue
-        downloadButton.setTitleColor(.systemBlue, for: .normal)
+        iconView.tintColor = Constants.Color.blue
+        downloadButton.setTitleColor(Constants.Color.blue, for: .normal)
         downloadButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
     }
     

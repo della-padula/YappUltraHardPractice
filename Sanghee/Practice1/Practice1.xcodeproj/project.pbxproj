@@ -16,6 +16,7 @@
 		5EC2C56D26F2B93200AEBAB2 /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C56C26F2B93200AEBAB2 /* DetailController.swift */; };
 		5EC2C56F26F38AB800AEBAB2 /* FileUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C56E26F38AB800AEBAB2 /* FileUrlCell.swift */; };
 		5EC2C57126F3981100AEBAB2 /* FileUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C57026F3981100AEBAB2 /* FileUrl.swift */; };
+		5EC2C57526F3D86B00AEBAB2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C57426F3D86B00AEBAB2 /* Constants.swift */; };
 		EB32E70B2A70ED00270647F0 /* Pods_Practice1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E74B6C62C84B3C54FEB276D /* Pods_Practice1.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		5EC2C56C26F2B93200AEBAB2 /* DetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
 		5EC2C56E26F38AB800AEBAB2 /* FileUrlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUrlCell.swift; sourceTree = "<group>"; };
 		5EC2C57026F3981100AEBAB2 /* FileUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUrl.swift; sourceTree = "<group>"; };
+		5EC2C57426F3D86B00AEBAB2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E4605DBE51AE2C1240700A42 /* Pods-Practice1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice1.debug.xcconfig"; path = "Target Support Files/Pods-Practice1/Pods-Practice1.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 				5EC2C56E26F38AB800AEBAB2 /* FileUrlCell.swift */,
 				5EC2C55626F2724300AEBAB2 /* ViewController.swift */,
 				5EC2C56C26F2B93200AEBAB2 /* DetailController.swift */,
+				5EC2C57426F3D86B00AEBAB2 /* Constants.swift */,
 				5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */,
 				5EC2C55B26F2724500AEBAB2 /* Assets.xcassets */,
 				5EC2C55D26F2724500AEBAB2 /* LaunchScreen.storyboard */,
@@ -220,6 +223,7 @@
 				5EC2C56D26F2B93200AEBAB2 /* DetailController.swift in Sources */,
 				5EC2C57126F3981100AEBAB2 /* FileUrl.swift in Sources */,
 				5EC2C55326F2724300AEBAB2 /* AppDelegate.swift in Sources */,
+				5EC2C57526F3D86B00AEBAB2 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

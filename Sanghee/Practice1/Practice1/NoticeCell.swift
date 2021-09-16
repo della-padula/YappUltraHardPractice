@@ -45,7 +45,7 @@ class NoticeCell: UITableViewCell {
         
         self.selectionStyle = .none
         
-        cellView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 1, alpha: 1)
+        cellView.backgroundColor = Constants.Color.blue.withAlphaComponent(0.1)
         cellView.layer.cornerRadius = 4
         
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
