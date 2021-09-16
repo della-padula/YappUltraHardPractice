@@ -10,6 +10,11 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
+    
     let mainTitle: UILabel = {
         let label = UILabel()
         label.text = "CloneStagram"
@@ -20,17 +25,8 @@ class MainViewController: UIViewController {
     
     //let tabBar = TabBarController()
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
-    let feed: [Feed] = [
-        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!)
-                        ]
-    
-    // MARK: - 탭 바 버튼 선언
-    
+    var feed: [Feed] = [
+        Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!) ]
     
     // MARK: - ViewDidLoad()
     override func viewDidLoad() {
