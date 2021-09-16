@@ -8,18 +8,24 @@
 import SnapKit
 import UIKit
 
+protocol ButtonDelegate {
+    func showAlert(index: Int)
+}
+
 class FileUrlCell: UITableViewCell {
     
+    var delegate: ButtonDelegate?
     static let identifier = "FileUrlCell"
     
     let cellView = UIView()
     let titleLabel = UILabel()
     let downloadButton = UIButton()
+    var index: Int = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
-        downloadButton.addTarget(self, action: #selector(downloadFile(_:)), for: .touchUpInside)
+        downloadButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -27,8 +33,8 @@ class FileUrlCell: UITableViewCell {
     }
     
     @objc
-    private func downloadFile(_ sender: UIButton) {
-        print("downloadFile")
+    private func buttonTapped(_ sender: UIButton) {
+        self.delegate?.showAlert(index: index)
     }
     
     private func layout() {

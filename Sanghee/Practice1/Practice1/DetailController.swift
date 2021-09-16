@@ -11,8 +11,10 @@ import SnapKit
 import UIKit
 import WebKit
 
+
+
 class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     private let labelView = UIView()
     private let webView = WKWebView()
     private let modalView = UIView()
@@ -72,16 +74,13 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func configureView() {
         view.backgroundColor = .white
         self.navigationItem.title = "상세보기"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(shareLink(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
     }
     
     @objc
-    private func shareLink(_ sender: UIButton) {
+    private func linkTapped(_ sender: UIButton) {
         guard let link = notice?.url else { return }
-        
-        let activityVC = UIActivityViewController(activityItems: [link], applicationActivities: nil)
-        activityVC.popoverPresentationController?.sourceView = view
-        self.present(activityVC, animated: true, completion: nil)
+        showActivityVC([link])
     }
 
     private func configureLabelView() {
@@ -156,10 +155,34 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlCell.identifier, for: indexPath) as! FileUrlCell
+        cell.contentView.isUserInteractionEnabled = false
+        cell.delegate = self
+        cell.index = indexPath.row
         
         cell.titleLabel.text = fileUrlList[indexPath.row].title
         
         return cell
+    }
+    
+    private func showActivityVC(_ items: [Any]) {
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = view
+        self.present(activityVC, animated: true, completion: nil)
+    }
+}
+
+extension DetailController: ButtonDelegate {
+    func showAlert(index: Int) {
+        let alert = UIAlertController(title: "파일 다운로드", message: "파일을 다운로드하시겠습니까?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "예", style: .default) { _ in
+            let link = self.fileUrlList[index].url
+            self.showActivityVC([link])
+        }
+        let noAction = UIAlertAction(title: "아니요", style: .destructive) { _ in
+        }
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
