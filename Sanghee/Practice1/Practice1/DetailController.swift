@@ -17,7 +17,6 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
 
     private let labelView = UIView()
     private let webView = WKWebView()
-    private let modalView = UIView()
     private let tableView = UITableView()
     
     private var notice: Notice?
@@ -84,15 +83,15 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
 
     private func configureLabelView() {
+        let titleLabel = UILabel()
+        let timeLabel = UILabel()
+        
         view.addSubview(labelView)
         labelView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(50)
         }
-        
-        let titleLabel = UILabel()
-        let timeLabel = UILabel()
         
         labelView.addSubview(titleLabel)
         labelView.addSubview(timeLabel)
@@ -107,7 +106,6 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         titleLabel.text = notice?.title
         timeLabel.text = notice?.time
-        
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         timeLabel.font = UIFont.systemFont(ofSize: 14)
         timeLabel.textColor = .gray
@@ -123,27 +121,37 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     private func configureModalView() {
         let separatorView = UIView()
+        let tableContainerView = UIView()
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(FileUrlCell.self, forCellReuseIdentifier: FileUrlCell.identifier)
-                
-        view.addSubview(modalView)
-        modalView.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(120)
+        
+        let maY = view.frame.origin.y + view.frame.size.height
+        let rect = CGRect(x: 0, y: maY, width: view.bounds.width, height: 160)
+        let myView = UIView(frame: rect)
+        view.addSubview(myView)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            myView.frame = CGRect(x: 0, y: maY - 160, width: self.view.bounds.width, height: 160)
+        } completion: { _ in
         }
-
-        modalView.addSubview(separatorView)
+    
+        myView.addSubview(separatorView)
         separatorView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(8)
         }
         
-        modalView.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(modalView.snp.top).offset(8)
+        myView.addSubview(tableContainerView)
+        tableContainerView.snp.makeConstraints { make in
+            make.top.equalTo(separatorView.snp.bottom)
             make.left.right.bottom.equalToSuperview()
+        }
+        
+        tableContainerView.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         separatorView.backgroundColor = .systemGroupedBackground
