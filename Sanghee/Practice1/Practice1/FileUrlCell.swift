@@ -43,31 +43,34 @@ class FileUrlCell: UITableViewCell {
         
         self.addSubview(cellView)
         cellView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview().inset(8)
+            make.left.right.equalToSuperview().inset(6)
         }
         
         cellView.addSubview(iconView)
         iconView.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview().inset(8)
-            make.width.height.equalTo(24)
+            make.width.height.equalTo(22)
         }
         
         cellView.addSubview(downloadButton)
         downloadButton.snp.makeConstraints { make in
-            make.top.right.bottom.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview().inset(8)
+            make.right.equalToSuperview()
             make.width.equalTo(80)
         }
         
         cellView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
-            make.left.equalTo(iconView.snp.right).offset(16)
-            make.right.equalTo(downloadButton.snp.left).offset(16)
+            make.left.equalTo(iconView.snp.right).offset(12)
+            make.right.equalTo(downloadButton.snp.left).offset(12)
         }
 
         self.selectionStyle = .none
         iconView.contentMode = .scaleAspectFit
-        iconView.tintColor = Constants.Color.blue
+        iconView.tintColor = Constants.Color.blue.withAlphaComponent(0.8)
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         downloadButton.setTitleColor(Constants.Color.blue, for: .normal)
         downloadButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
     }
