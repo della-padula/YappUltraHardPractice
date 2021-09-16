@@ -87,6 +87,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func configureRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.tintColor = Constants.Color.blue
         tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
     
@@ -94,6 +95,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func handleRefreshControl() {
         page = 0
         noticeList = []
+        tableView.reloadData()
         getData()
         tableView.refreshControl?.endRefreshing()
     }
