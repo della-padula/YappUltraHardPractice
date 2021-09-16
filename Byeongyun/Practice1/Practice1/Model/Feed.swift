@@ -13,4 +13,5 @@ struct Feed {
     let text: String
     let like: Int
     let uploadImage: UIImage
+    let time: Date
 }

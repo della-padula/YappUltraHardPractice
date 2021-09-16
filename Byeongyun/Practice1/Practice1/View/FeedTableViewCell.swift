@@ -19,6 +19,14 @@ class FeedTableViewCell: UITableViewCell {
     let textUserName = UILabel()
     let likeStatus = UILabel()
     
+    let date : UILabel = {
+        let label = UILabel()
+        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 10)
+        
+        return label
+    }()
+    
     // 위에 유저 이름이랑 사진 스택 뷰
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [userImage, userName])
@@ -113,9 +121,14 @@ class FeedTableViewCell: UITableViewCell {
         likeSV.snp.makeConstraints {
             $0.top.equalTo(userUploadImage.snp.bottom)
             $0.height.equalTo(70)
-            $0.bottom.equalTo(self.snp.bottom).offset(-20)
+            $0.bottom.equalTo(self.snp.bottom).offset(-25)
         }
         
-        
+        // 업로드 요일과 시간
+        self.addSubview(date)
+        date.snp.makeConstraints {
+            $0.bottom.equalTo(self.snp.bottom).offset(-5)
+            $0.leading.equalTo(self.snp.leading).offset(10)
+        }
     }
 }

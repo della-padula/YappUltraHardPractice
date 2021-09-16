@@ -10,10 +10,10 @@ import UIKit
 
 // 기본 세팅 값이 들어가있는 전역변수 어레이
 var feedArray : [Feed] = [
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!)
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date()),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date()),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date()),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date())
 ]
 
 
@@ -101,6 +101,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.userText.text = feedArray[indexPath.row].text
         cell.userImage.image = feedArray[indexPath.row].userImage
         cell.textUserName.text = feedArray[indexPath.row].userName
+        
+        var formatter = DateFormatter()
+        formatter.dateFormat = "MM월 dd일 HH:mm"
+        var currentString = formatter.string(from: feedArray[indexPath.row].time)
+        
+        cell.date.text = currentString
         cell.likeStatus.text = "\(feedArray[indexPath.row].like) 명이 좋아합니다"
         
         return cell

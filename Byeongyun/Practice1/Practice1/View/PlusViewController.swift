@@ -59,7 +59,7 @@ class PlusViewController: UIViewController {
     @objc func save() {
         let num : Int = Int(arc4random() % 100)
         if textView.text != "이곳에 사진과 함께 적을 글을 입력해주세요!" && !textView.text.isEmpty && imageViewer.image != nil {
-            feedArray.insert(Feed(userImage: UIImage(named:"user")!, userName: "IBY", text: textView.text, like: num, uploadImage: selectImage), at: 0)
+            feedArray.insert(Feed(userImage: UIImage(named:"user")!, userName: "IBY", text: textView.text, like: num, uploadImage: selectImage, time: Date()), at: 0)
             
             let done = UIAlertController(title: "등록성공", message: "등록이 성공되었습니다. \n 등록 뷰를 닫으시겠습니까?", preferredStyle: .alert)
             let ok = UIAlertAction(title: "닫기", style: .default, handler: { (action) in
