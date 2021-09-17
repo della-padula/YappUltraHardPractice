@@ -17,14 +17,19 @@ class FileUrlCell: UITableViewCell {
     var delegate: ButtonDelegate?
     static let identifier = "FileUrlCell"
     
-    let cellView = UIView()
-    let titleLabel = UILabel()
-    let downloadButton = UIButton()
+    var fileUrl: FileUrl? {
+        didSet {
+            layout()
+        }
+    }
+    
+    private let cellView = UIView()
+    private let titleLabel = UILabel()
+    private let downloadButton = UIButton()
     var index: Int = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layout()
         downloadButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
@@ -40,6 +45,8 @@ class FileUrlCell: UITableViewCell {
     private func layout() {
         let iconView = UIImageView(image: UIImage(systemName: "doc"))
         downloadButton.setTitle("다운로드", for: .normal)
+        
+        titleLabel.text = fileUrl?.title
         
         self.addSubview(cellView)
         cellView.snp.makeConstraints { make in

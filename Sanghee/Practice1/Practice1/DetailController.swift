@@ -172,7 +172,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         cell.delegate = self
         cell.index = indexPath.row
         
-        cell.titleLabel.text = fileUrlList[indexPath.row].title
+        cell.fileUrl = fileUrlList[indexPath.row]
         
         return cell
     }
