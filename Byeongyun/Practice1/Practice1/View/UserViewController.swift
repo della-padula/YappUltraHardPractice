@@ -21,29 +21,37 @@ class UserViewController: UIViewController {
     // 유저 대문짝 사진
     let userImage: UIImageView = {
         let imageView = UIImageView()
-        //imageView.layer.cornerRadius = imageView.layer.frame.
-        
+        imageView.image = UIImage(named: "user")
+        imageView.layer.borderWidth = 1
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
     // 업로드 개수 라벨
     let uploadLabel: UILabel = {
         let label = UILabel()
-        
+        label.text = " 10 \n 게시물  "
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
     // 팔로워 명수 라벨
     let followLabel: UILabel = {
         let label = UILabel()
-        
+        label.text = " 10 \n 팔로워  "
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
     // 팔로잉 명수 라벨
     let followingLabel: UILabel = {
         let label = UILabel()
-        
+        label.text = " 10 \n 팔로잉  "
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
@@ -57,8 +65,10 @@ class UserViewController: UIViewController {
     // 접근할 것이라는 의미이기 때문에 class 내에서 self로 접근이 가능하다.
     
     lazy var userStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [userImage, uploadLabel, followLabel, followingLabel])
+        let stackView = UIStackView(arrangedSubviews: [uploadLabel, followLabel, followingLabel])
         stackView.axis = .horizontal
+        stackView.spacing = 15
+        
         return stackView
     }()
     
@@ -66,8 +76,10 @@ class UserViewController: UIViewController {
     
     // 계정 이름 말고 실제 이름 라벨
     let name: UILabel = {
-        let label = UILabel()
         
+        let label = UILabel()
+        label.text = "인병윤"
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
     }()
     
@@ -122,6 +134,28 @@ class UserViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.equalTo(20)
         }
+        
+        view.addSubview(userImage)
+        userImage.snp.makeConstraints {
+            $0.top.equalTo(userViewTitle.snp.bottom).offset(20)
+            $0.leading.equalTo(20)
+            $0.height.equalTo(100)
+            $0.width.equalTo(100)
+            
+        }
+        
+        view.addSubview(userStackView)
+        userStackView.snp.makeConstraints {
+            $0.top.equalTo(userViewTitle.snp.bottom).offset(50)
+            $0.leading.equalTo(userImage.snp.trailing).offset(30)
+        }
+        
+        view.addSubview(name)
+        name.snp.makeConstraints {
+            $0.top.equalTo(userImage.snp.bottom).offset(10)
+            $0.leading.equalTo(userImage.snp.leading)
+        }
     }
+    
 
 }

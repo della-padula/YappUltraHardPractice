@@ -65,7 +65,7 @@ class FeedTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 1
         textUserName.font = UIFont.boldSystemFont(ofSize: 15)
-        
+        //userText.numberOfLines = 0
         userText.snp.makeConstraints {
             $0.left.equalTo(30)
             $0.width.equalTo(300)
@@ -85,6 +85,7 @@ class FeedTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [likeStatus, textStackView])
         likeStatus.font = UIFont.systemFont(ofSize: 15)
         stackView.axis = .vertical
+        
         //stackView.spacing = 1
         likeStatus.snp.makeConstraints {
             $0.top.equalTo(10)
