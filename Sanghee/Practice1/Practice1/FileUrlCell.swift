@@ -13,11 +13,9 @@ protocol ButtonDelegate: AnyObject {
 }
 
 class FileUrlCell: UITableViewCell {
-    
     weak var delegate: ButtonDelegate?
     static let identifier = "FileUrlCell"
     var index: Int = 0
-
     var fileUrl: FileUrl? {
         didSet {
             layout()

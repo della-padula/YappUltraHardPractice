@@ -11,12 +11,11 @@ import SnapKit
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    private let tableView = UITableView()
-    
     private var page: Int = 0
     private var noticeList: [Notice] = []
     private var isGettingData: Bool = true
+    
+    private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,9 +133,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NoticeCell.identifier, for: indexPath) as! NoticeCell
-
         cell.notice = noticeList[indexPath.row]
-        
         return cell
     }
 }

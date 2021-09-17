@@ -12,14 +12,13 @@ import UIKit
 import WebKit
 
 class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    private let labelView = UIView()
-    private let webView = WKWebView()
-    private let tableView = UITableView()
-    
     private var notice: Notice?
     private var fileUrlList: [FileUrl] = []
     private let modalHeight: CGFloat = 160
+    
+    private let labelView = UIView()
+    private let webView = WKWebView()
+    private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,5 +196,4 @@ extension DetailController: ButtonDelegate {
         alert.addAction(noAction)
         self.present(alert, animated: true, completion: nil)
     }
-    
 }

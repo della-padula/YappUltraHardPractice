@@ -9,9 +9,7 @@ import SnapKit
 import UIKit
 
 class NoticeCell: UITableViewCell {
-    
     static let identifier = "NoticeCell"
-    
     var notice: Notice? {
         didSet {
             layout()
@@ -21,6 +19,8 @@ class NoticeCell: UITableViewCell {
     private let cellView = UIView()
     private let titleLabel = UILabel()
     private let timeLabel = UILabel()
+    
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
