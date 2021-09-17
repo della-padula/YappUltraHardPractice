@@ -19,6 +19,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     private var notice: Notice?
     private var fileUrlList: [FileUrl] = []
+    private let modalHeight: CGFloat = 160
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +67,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
                 }
                 if !self.fileUrlList.isEmpty {
                     self.configureModalView()
+                    self.addBottomSpaceToWebView()
                     self.tableView.reloadData()
                 }
             } catch {
@@ -123,6 +125,12 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
     
+    private func addBottomSpaceToWebView() {
+        webView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(modalHeight * (-1))
+        }
+    }
+    
     private func configureModalView() {
         let separatorView = UIView()
         let tableContainerView = UIView()
@@ -132,12 +140,12 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableView.register(FileUrlCell.self, forCellReuseIdentifier: FileUrlCell.identifier)
         
         let maxY = view.frame.origin.y + view.frame.size.height
-        let rect = CGRect(x: 0, y: maxY, width: view.bounds.width, height: 160)
+        let rect = CGRect(x: 0, y: maxY, width: view.bounds.width, height: modalHeight)
         let myView = UIView(frame: rect)
         view.addSubview(myView)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-            myView.frame = CGRect(x: 0, y: maxY - 160, width: self.view.bounds.width, height: 160)
+            myView.frame = CGRect(x: 0, y: maxY - self.modalHeight, width: self.view.bounds.width, height: self.modalHeight)
         } completion: { _ in
         }
     
