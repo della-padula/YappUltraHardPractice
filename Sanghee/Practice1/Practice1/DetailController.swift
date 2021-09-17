@@ -66,6 +66,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
                 }
                 if !self.fileUrlList.isEmpty {
                     self.configureModalView()
+                    self.addBottomSpaceToWebView()
                     self.tableView.reloadData()
                 }
             } catch {
@@ -120,6 +121,12 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         webView.snp.makeConstraints { make in
             make.top.equalTo(labelView.snp.bottom)
             make.left.right.bottom.equalToSuperview().inset(8)
+        }
+    }
+    
+    private func addBottomSpaceToWebView() {
+        webView.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().offset(modalHeight * (-1))
         }
     }
     
