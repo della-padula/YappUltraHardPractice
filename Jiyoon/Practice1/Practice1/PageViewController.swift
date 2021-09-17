@@ -18,10 +18,6 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     var tempLow = UILabel()
     var backButton = UIButton()
     
-//    var pageControll: UIPageControl{
-//        let pageControl = UIPageControl(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
-//    }
-    
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -34,7 +30,7 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         cv.register(CollectionCell.self, forCellWithReuseIdentifier: "CollectionCell")
         return cv
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)

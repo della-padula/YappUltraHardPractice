@@ -14,9 +14,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var location: [String] = ["서울특별시", "대전시", "대구시", "부산시"]
     var location_eng: [String] = ["Seoul", "Daejeon", "Daegu", "Busan"]
-    var temp: [String] = []
-    var tempHigh: [String] = []
-    var tempLow: [String] = []
+    var temp: [String] = ["28", "29", "30", "31"]
+    var tempHigh: [String] = ["28", "29", "30", "31"]
+    var tempLow: [String] = ["28", "29", "30", "31"]
     var icons = [UIImage(systemName: "moon.stars")?.withTintColor(.white),
                 UIImage(systemName: "sun.max")?.withTintColor(.white),
                 UIImage(systemName: "sparkles")?.withTintColor(.white),
@@ -44,6 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         for city in location_eng{
             let weather = weatherManager.fetchWeather(cityName: city)
+            
         }
         
         for icon in icons{
@@ -91,7 +92,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         vc.locationTemp.text = "\(temp[indexPath.row])°"
         vc.tempHigh.text = "최고:\(tempHigh[indexPath.row])°"
         vc.tempLow.text = "최저:\(tempLow[indexPath.row])°"
+//        let vc = Views()
+//        vc.modalPresentationStyle = .fullScreen
     }
     
 
+}
+extension ViewController: weatherManagerDelegate{
+    func update(_ weatherManager: WeatherManager, weather: WeatherInfo) {
+        temp.append("\(weather.tempInfo)")
+        
+    }
 }

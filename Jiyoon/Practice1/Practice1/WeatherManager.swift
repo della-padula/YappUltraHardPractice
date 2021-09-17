@@ -7,8 +7,14 @@
 
 import Foundation
 
+protocol weatherManagerDelegate {
+    func update(_ weatherManager: WeatherManager, weather: WeatherInfo)
+}
+
 struct WeatherManager{
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=7c2ab3586163eeb83b5f5babed0f6050&units=metric"
+    
+//    let delegate = weatherManagerDelegate
     
     func fetchWeather(cityName: String){
         let urlString = "\(weatherURL)&q=\(cityName)"
@@ -16,33 +22,29 @@ struct WeatherManager{
     }
     func performRequest(with urlString: String){
         if let url = URL(string: urlString){
-            let session = URLSession(configuration: URLSessionConfiguration.default)
+            let session = URLSession.shared
+            
+            
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil{
                     print("perform request Error")
                     return
                 }
-                if let safeData = data{
-                    let parsing = parsonJSON(safeData)
+                let decoder = JSONDecoder()
+                do{
+                    let w = try decoder.decode(WeatherData.self, from: data!)
+                    let temp = w.main.temp
+                    let tempMax = w.main.temp_max
+                    let tempMin = w.main.temp_min
+                    let weather = WeatherInfo(tempInfo: temp, tempMaxInfo: tempMax, tempLowInfo: tempMin)
+                    print(weather)
+//                    self.delegate.update(self, weather: weather)
+                }
+                catch{
+                    print("Error in JSON parsing")
                 }
             }
             task.resume()
-        }
-    }
-    func parsonJSON(_ weatherData: Data) -> WeatherData? {
-        let decoder = JSONDecoder()
-        do{
-            let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
-            let weather_id = decodedData.id
-            let weather_location = decodedData.location
-            let weather_temp = decodedData.temp
-            
-            let weather = WeatherData(id: weather_id, location: weather_location, temp: weather_temp)
-            return weather
-        }
-        catch{
-            print("Error while do parseJSON")
-            return nil
         }
     }
 }
