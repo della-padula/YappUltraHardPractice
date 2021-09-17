@@ -134,9 +134,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NoticeCell.identifier, for: indexPath) as! NoticeCell
-        
-        cell.titleLabel.text = noticeList[indexPath.row].title
-        cell.timeLabel.text = noticeList[indexPath.row].time
+
+        cell.notice = noticeList[indexPath.row]
         
         return cell
     }

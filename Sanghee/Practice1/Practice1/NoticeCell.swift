@@ -12,13 +12,18 @@ class NoticeCell: UITableViewCell {
     
     static let identifier = "NoticeCell"
     
-    let cellView = UIView()
-    let titleLabel = UILabel()
-    let timeLabel = UILabel()
+    var notice: Notice? {
+        didSet {
+            layout()
+        }
+    }
+    
+    private let cellView = UIView()
+    private let titleLabel = UILabel()
+    private let timeLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layout()
     }
     
     required init?(coder: NSCoder) {
@@ -27,6 +32,10 @@ class NoticeCell: UITableViewCell {
     
     private func layout() {
         self.addSubview(cellView)
+        self.selectionStyle = .none
+        
+        titleLabel.text = notice?.title
+        timeLabel.text = notice?.time
         
         cellView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(8)
@@ -43,7 +52,6 @@ class NoticeCell: UITableViewCell {
             make.bottom.left.right.equalToSuperview().inset(8)
         }
         
-        self.selectionStyle = .none
         
         cellView.backgroundColor = Constants.Color.blue.withAlphaComponent(0.1)
         cellView.layer.cornerRadius = 4
