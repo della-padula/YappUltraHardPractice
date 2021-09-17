@@ -104,7 +104,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let navigationBar = navigationController?.navigationBar
         
         navigationItem.title = "컴퓨터공학부"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: nil, action: nil)
         
         navigationBar?.barTintColor = Constants.Color.blue
         navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
