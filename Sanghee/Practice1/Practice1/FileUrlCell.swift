@@ -8,15 +8,16 @@
 import SnapKit
 import UIKit
 
-protocol ButtonDelegate {
+protocol ButtonDelegate: AnyObject {
     func showAlert(index: Int)
 }
 
 class FileUrlCell: UITableViewCell {
     
-    var delegate: ButtonDelegate?
+    weak var delegate: ButtonDelegate?
     static let identifier = "FileUrlCell"
-    
+    var index: Int = 0
+
     var fileUrl: FileUrl? {
         didSet {
             layout()
@@ -26,7 +27,6 @@ class FileUrlCell: UITableViewCell {
     private let cellView = UIView()
     private let titleLabel = UILabel()
     private let downloadButton = UIButton()
-    var index: Int = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
