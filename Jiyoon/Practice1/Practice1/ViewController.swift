@@ -25,7 +25,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let targetSize = CGSize(width: 50, height: 50)
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,17 +43,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         for city in location_eng{
             let weather = weatherManager.fetchWeather(cityName: city)
-            
         }
-        
         for icon in icons{
             let scaledIcon = renderer.image {
                 draw in icon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
             }
             scaledIcons.append(scaledIcon)
         }
-        
-        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.location.count
@@ -95,8 +90,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        let vc = Views()
 //        vc.modalPresentationStyle = .fullScreen
     }
-    
-
 }
 extension ViewController: weatherManagerDelegate{
     func update(_ weatherManager: WeatherManager, weather: WeatherInfo) {

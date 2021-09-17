@@ -105,11 +105,8 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         cell.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
         return cell
     }
-    
     @objc
     func tappedBack(){
         dismiss(animated: true, completion: nil)
     }
-
-    
 }

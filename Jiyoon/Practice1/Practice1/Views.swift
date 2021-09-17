@@ -10,9 +10,7 @@ import UIKit
 import SnapKit
 
 class Views: UIViewController, UIScrollViewDelegate{
-    
     var view1: UIView = {
-        
         let view = UIView()
         var time = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         

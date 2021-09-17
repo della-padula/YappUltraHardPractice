@@ -24,7 +24,6 @@ struct WeatherManager{
         if let url = URL(string: urlString){
             let session = URLSession.shared
             
-            
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil{
                     print("perform request Error")
