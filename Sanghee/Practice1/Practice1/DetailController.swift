@@ -24,11 +24,8 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         super.viewDidLoad()
         configureView()
         configureLabelView()
-        
-        DispatchQueue.main.async {
-            self.configureWebView()
-            self.getData()
-        }
+        configureWebView()
+        getData()
     }
     
     init(_ notice: Notice) {
@@ -42,7 +39,6 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     private func getData() {
         guard let url = URL(string: notice?.url ?? "") else { return }
-        
         AF.request(url).responseString { response in
             guard let html = response.value else { return }
             do {
@@ -64,6 +60,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
                         self.fileUrlList.append(FileUrl(title: fileName ?? "첨부 파일", url: fileUrl))
                     }
                 }
+                
                 if !self.fileUrlList.isEmpty {
                     self.configureModalView()
                     self.addBottomSpaceToWebView()
@@ -92,15 +89,14 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         let timeLabel = UILabel()
         
         view.addSubview(labelView)
+        labelView.addSubview(titleLabel)
+        labelView.addSubview(timeLabel)
+        
         labelView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(50)
         }
-        
-        labelView.addSubview(titleLabel)
-        labelView.addSubview(timeLabel)
-        
         titleLabel.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
         }
@@ -131,38 +127,35 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     private func configureModalView() {
-        let separatorView = UIView()
-        let tableContainerView = UIView()
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(FileUrlCell.self, forCellReuseIdentifier: FileUrlCell.identifier)
         
+        let separatorView = UIView()
+        let tableContainerView = UIView()
         let maxY = view.frame.origin.y + view.frame.size.height
         let rect = CGRect(x: 0, y: maxY, width: view.bounds.width, height: modalHeight)
         let myView = UIView(frame: rect)
+
         view.addSubview(myView)
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-            myView.frame = CGRect(x: 0, y: maxY - self.modalHeight, width: self.view.bounds.width, height: self.modalHeight)
-        } completion: { _ in
-        }
-    
         myView.addSubview(separatorView)
+        myView.addSubview(tableContainerView)
+        tableContainerView.addSubview(tableView)
+        
         separatorView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(8)
         }
-        
-        myView.addSubview(tableContainerView)
         tableContainerView.snp.makeConstraints { make in
             make.top.equalTo(separatorView.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
-        
-        tableContainerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            myView.frame = CGRect(x: 0, y: maxY - self.modalHeight, width: self.view.bounds.width, height: self.modalHeight)
         }
         
         separatorView.backgroundColor = .systemGroupedBackground
@@ -174,9 +167,9 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlCell.identifier, for: indexPath) as! FileUrlCell
-        cell.contentView.isUserInteractionEnabled = false
-
         cell.delegate = self
+        cell.contentView.isUserInteractionEnabled = false
+        
         cell.index = indexPath.row
         cell.fileUrl = fileUrlList[indexPath.row]
         
@@ -197,8 +190,8 @@ extension DetailController: ButtonDelegate {
             let link = self.fileUrlList[index].url
             self.showActivityVC([link])
         }
-        let noAction = UIAlertAction(title: "아니요", style: .destructive) { _ in
-        }
+        let noAction = UIAlertAction(title: "아니요", style: .destructive)
+        
         alert.addAction(okAction)
         alert.addAction(noAction)
         self.present(alert, animated: true, completion: nil)

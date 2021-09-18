@@ -37,7 +37,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do {
                 let doc = try Kanna.HTML(html: html, encoding: .utf8)
                 let docTexts = doc.css("td")
-                
                 if docTexts.count == 0 {
                     self.page -= 0
                     return
@@ -50,12 +49,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     if let docLink = docText.css("a").first?["href"] {
                         link = "https://cse.snu.ac.kr\(docLink)"
                     }
-                    
                     guard let text = docText.text else { return }
                     let startIdx: String.Index = text.index(text.startIndex, offsetBy: 13)
                     let endIdx: String.Index = text.index(text.endIndex, offsetBy: -11)
                     let slicedText = String(text[startIdx...endIdx])
-
                     textList.append(slicedText)
                     if textList.count > 2 {
                         let notice = Notice(title: textList[0], time: textList[1], url: link)
@@ -86,8 +83,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func configureRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.tintColor = Constants.Color.blue
         tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        
+        tableView.refreshControl?.tintColor = Constants.Color.blue
     }
     
     @objc
@@ -101,9 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func configureNavigationBar() {
         let navigationBar = navigationController?.navigationBar
-        
         navigationItem.title = "컴퓨터공학부"
-        
         navigationBar?.barTintColor = Constants.Color.blue
         navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationBar?.tintColor = .white
@@ -114,13 +110,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(NoticeCell.self, forCellReuseIdentifier: NoticeCell.identifier)
+        tableView.separatorStyle = .none
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        tableView.separatorStyle = .none
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

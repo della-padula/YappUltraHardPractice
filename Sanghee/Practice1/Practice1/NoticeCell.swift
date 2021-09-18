@@ -20,8 +20,6 @@ class NoticeCell: UITableViewCell {
     private let titleLabel = UILabel()
     private let timeLabel = UILabel()
     
-
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -32,7 +30,8 @@ class NoticeCell: UITableViewCell {
     
     private func layout() {
         self.addSubview(cellView)
-        self.selectionStyle = .none
+        cellView.addSubview(titleLabel)
+        cellView.addSubview(timeLabel)
         
         titleLabel.text = notice?.title
         timeLabel.text = notice?.time
@@ -40,10 +39,6 @@ class NoticeCell: UITableViewCell {
         cellView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(8)
         }
-        
-        cellView.addSubview(titleLabel)
-        cellView.addSubview(timeLabel)
-        
         titleLabel.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview().inset(8)
         }
@@ -52,7 +47,7 @@ class NoticeCell: UITableViewCell {
             make.bottom.left.right.equalToSuperview().inset(8)
         }
         
-        
+        self.selectionStyle = .none
         cellView.backgroundColor = Constants.Color.blue.withAlphaComponent(0.1)
         cellView.layer.cornerRadius = 4
         
@@ -60,5 +55,4 @@ class NoticeCell: UITableViewCell {
         timeLabel.font = UIFont.systemFont(ofSize: 14)
         timeLabel.textColor = .gray
     }
-    
 }

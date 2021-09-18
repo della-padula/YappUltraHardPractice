@@ -42,30 +42,25 @@ class FileUrlCell: UITableViewCell {
     
     private func layout() {
         let iconView = UIImageView(image: UIImage(systemName: "doc"))
-        downloadButton.setTitle("다운로드", for: .normal)
-        
-        titleLabel.text = fileUrl?.title
         
         self.addSubview(cellView)
+        cellView.addSubview(iconView)
+        cellView.addSubview(downloadButton)
+        cellView.addSubview(titleLabel)
+        
         cellView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.left.right.equalToSuperview().inset(6)
         }
-        
-        cellView.addSubview(iconView)
         iconView.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview().inset(8)
             make.width.height.equalTo(22)
         }
-        
-        cellView.addSubview(downloadButton)
         downloadButton.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.right.equalToSuperview()
             make.width.equalTo(80)
         }
-        
-        cellView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.left.equalTo(iconView.snp.right).offset(12)
@@ -73,11 +68,13 @@ class FileUrlCell: UITableViewCell {
         }
 
         self.selectionStyle = .none
+        titleLabel.text = fileUrl?.title
+        downloadButton.setTitle("다운로드", for: .normal)
+        
         iconView.contentMode = .scaleAspectFit
         iconView.tintColor = Constants.Color.blue.withAlphaComponent(0.8)
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         downloadButton.setTitleColor(Constants.Color.blue, for: .normal)
         downloadButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
     }
-    
 }
