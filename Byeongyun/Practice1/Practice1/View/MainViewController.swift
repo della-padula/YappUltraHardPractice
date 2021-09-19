@@ -43,8 +43,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        
-        //tabBarSetting()
         tableViewCellSetting()
         settingUI()
         
@@ -109,9 +107,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.userImage.image = feedArray[indexPath.row].userImage
         cell.textUserName.text = feedArray[indexPath.row].userName
         
-        var formatter = DateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "MM월 dd일 HH:mm"
-        var currentString = formatter.string(from: feedArray[indexPath.row].time)
+        let currentString = formatter.string(from: feedArray[indexPath.row].time)
         
         cell.date.text = currentString
         cell.likeStatus.text = "\(feedArray[indexPath.row].like) 명이 좋아합니다"

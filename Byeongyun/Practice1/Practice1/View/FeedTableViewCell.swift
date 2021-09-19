@@ -65,13 +65,13 @@ class FeedTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 1
         textUserName.font = UIFont.boldSystemFont(ofSize: 15)
-        //userText.numberOfLines = 0
         userText.snp.makeConstraints {
             $0.left.equalTo(30)
             $0.width.equalTo(300)
             $0.bottom.equalTo(0)
             $0.right.equalTo(-10)
         }
+        
         userText.font = UIFont.systemFont(ofSize: 15)
         
         stackView.alignment = .fill
@@ -112,7 +112,6 @@ class FeedTableViewCell: UITableViewCell {
         stackView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.height.equalTo(55)
-            
         }
         
         // 셀 중앙에 위치한 업로드한 사진

@@ -10,6 +10,9 @@ import SnapKit
 
 class UserViewController: UIViewController {
     
+    //var collection = UICollectionView()
+    
+    // MARK: - 뷰가 나오기 전 액션
     override func viewWillAppear(_ animated: Bool) {
         uploadLabel.text = "\(feedArray.count) \n 게시물"
     }
@@ -37,6 +40,7 @@ class UserViewController: UIViewController {
     // MARK: - 첫 줄 스택 뷰
     // 유저 대문짝 사진
     let userImage: UIImageView = {
+        
         let imageView = UIImageView()
         imageView.image = UIImage(named: "user")
         imageView.layer.borderWidth = 0.5
@@ -44,7 +48,9 @@ class UserViewController: UIViewController {
         imageView.layer.cornerRadius = 40
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
+        
         return imageView
+        
     }()
     
     // 업로드 개수 라벨
@@ -130,7 +136,7 @@ class UserViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(editBtnClick), for: .touchUpInside)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        //button.sizeThatFits(CGSize(width: 30, height: 300))
+
         button.layer.cornerRadius = 3
         button.layer.borderWidth = 0.5
         button.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -149,17 +155,26 @@ class UserViewController: UIViewController {
     
     // MARK: - 중 하단 탭 바
     
-    let tabBar : UITabBarController = {
-        let bar = UITabBarController()
-        bar.setViewControllers(<#T##viewControllers: [UIViewController]?##[UIViewController]?#>, animated: <#T##Bool#>)
+    let tabBar : UITabBar = {
+        let tab = UITabBar(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
+        
+        let grid = UITabBarItem(title: "", image: UIImage(systemName: "squareshape.split.3x3"), selectedImage: UIImage(systemName: "squareshape.split.3x3"))
+        let tag = UITabBarItem(title: "", image: UIImage(systemName: "person.crop.square"), selectedImage: UIImage(systemName: "person.crop.square"))
+        tab.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        tab.layer.borderWidth = 0
+        tab.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        tab.barStyle = .default
+        let button = UIButton()
+        tab.items = [grid,tag]
+        return tab
     }()
     
     
-    //let barButton = UIBarButtonItem
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
         settingUI()
     }
     
@@ -209,10 +224,17 @@ class UserViewController: UIViewController {
             $0.height.equalTo(30)
             $0.width.equalTo(300)
             
-            
-            
+
         }
         
+        
+        // 탭 바
+        scrollView.addSubview(tabBar)
+        tabBar.snp.makeConstraints {
+            $0.top.equalTo(profileEditButton.snp.bottom).offset(10)
+            $0.leading.equalTo(scrollView.snp.leading).offset(15)
+            $0.trailing.equalTo(scrollView.snp.trailing).offset(10)
+        }
         
         // 전체 스크롤 뷰
         view.addSubview(scrollView)
