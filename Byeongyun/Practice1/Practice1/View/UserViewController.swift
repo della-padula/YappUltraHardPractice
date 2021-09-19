@@ -6,9 +6,26 @@
 //
 
 import UIKit
+import SnapKit
 
 class UserViewController: UIViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        uploadLabel.text = "\(feedArray.count) \n 게시물"
+    }
+    
+    let scrollView: UIScrollView = {
+       
+        let scroll = UIScrollView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
+        scroll.contentSize = CGSize(width: scroll.frame.size.width, height: 1000)
+        scroll.bounces = true
+        scroll.isPagingEnabled = false
+        
+        
+        return scroll
+    }()
+    
+
     let userViewTitle: UILabel = {
         let label = UILabel()
         label.text = "IBY"
@@ -22,7 +39,9 @@ class UserViewController: UIViewController {
     let userImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "user")
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        imageView.layer.cornerRadius = 40
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
         return imageView
@@ -67,7 +86,9 @@ class UserViewController: UIViewController {
     lazy var userStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [uploadLabel, followLabel, followingLabel])
         stackView.axis = .horizontal
-        stackView.spacing = 15
+        stackView.spacing = 30
+        
+        
         
         return stackView
     }()
@@ -79,14 +100,15 @@ class UserViewController: UIViewController {
         
         let label = UILabel()
         label.text = "인병윤"
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
         return label
     }()
     
     // 상태 메시지
     let statusMessage: UILabel = {
         let label = UILabel()
-        
+        label.text = "인스타그램 클론 합니다."
+        label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()
     
@@ -94,6 +116,7 @@ class UserViewController: UIViewController {
     lazy var nameStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [name, statusMessage])
         stackView.axis = .vertical
+        stackView.spacing = 5
         stackView.alignment = .leading
         
         return stackView
@@ -105,25 +128,42 @@ class UserViewController: UIViewController {
         let button = UIButton()
         button.setTitle("프로필 편집", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(editBtnClick), for: .touchUpInside)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        //button.sizeThatFits(CGSize(width: 30, height: 300))
+        button.layer.cornerRadius = 3
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         return button
     }()
     
-    // MARK: - 중 하단 탭 바
-    /*
-    let tabBar : UITabBarController = {
+    @objc func editBtnClick() {
+        let alert = UIAlertController(title: "프로필 편집", message: "버튼이 눌렸습니다.", preferredStyle: .alert)
         
+        let ok = UIAlertAction(title: "닫기", style: .default, handler: nil)
+        
+        alert.addAction(ok)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - 중 하단 탭 바
+    
+    let tabBar : UITabBarController = {
+        let bar = UITabBarController()
+        bar.setViewControllers(<#T##viewControllers: [UIViewController]?##[UIViewController]?#>, animated: <#T##Bool#>)
     }()
-    */
+    
     
     //let barButton = UIBarButtonItem
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         settingUI()
     }
+    
+    
     
 
     // MARK: - UI 세팅
@@ -134,28 +174,55 @@ class UserViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.equalTo(20)
         }
+        // MARK: - 스크롤 뷰에 들어가는 UI들
         
-        view.addSubview(userImage)
+        // 유저 사진
+        scrollView.addSubview(userImage)
         userImage.snp.makeConstraints {
-            $0.top.equalTo(userViewTitle.snp.bottom).offset(20)
-            $0.leading.equalTo(20)
-            $0.height.equalTo(100)
-            $0.width.equalTo(100)
-            
+            $0.top.equalTo(scrollView.snp.top).offset(10)
+            $0.leading.equalTo(scrollView.snp.leading).offset(18)
+            $0.width.equalTo(80)
+            $0.height.equalTo(80)
         }
         
-        view.addSubview(userStackView)
+        // 유저 게시물, 팔로워, 팔로잉 수
+        scrollView.addSubview(userStackView)
         userStackView.snp.makeConstraints {
-            $0.top.equalTo(userViewTitle.snp.bottom).offset(50)
+            $0.top.equalTo(scrollView.snp.top).offset(30)
             $0.leading.equalTo(userImage.snp.trailing).offset(30)
         }
         
-        view.addSubview(name)
-        name.snp.makeConstraints {
-            $0.top.equalTo(userImage.snp.bottom).offset(10)
-            $0.leading.equalTo(userImage.snp.leading)
+        // 실제 이름 표시 라벨
+        scrollView.addSubview(nameStackView)
+        nameStackView.snp.makeConstraints {
+            $0.top.equalTo(userImage.snp.bottom).offset(15)
+            $0.leading.equalTo(scrollView.snp.leading).offset(20)
+        }
+        
+        // 프로필 편집 버튼
+        scrollView.addSubview(profileEditButton)
+        profileEditButton.snp.makeConstraints {
+            $0.top.equalTo(nameStackView.snp.bottom).offset(15)
+            $0.centerX.equalToSuperview()
+            $0.leading.equalTo(scrollView.snp.leading).offset(15)
+            $0.trailing.equalTo(scrollView.snp.trailing).offset(15)
+            $0.height.equalTo(30)
+            $0.width.equalTo(300)
+            
+            
+            
+        }
+        
+        
+        // 전체 스크롤 뷰
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(userViewTitle.snp.bottom)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            
         }
     }
     
-
 }

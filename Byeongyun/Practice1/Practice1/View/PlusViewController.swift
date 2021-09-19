@@ -74,7 +74,6 @@ class PlusViewController: UIViewController {
             
             setTextView()
         } else {
-            print("응 등록 안됨~")
             let errorAlert = UIAlertController(title: "에러발생!", message: "입력된 것이 없거나, 사진이 없을 수 있습니다!", preferredStyle: .alert)
             let ok = UIAlertAction(title: "닫기", style: .default, handler: nil)
             
