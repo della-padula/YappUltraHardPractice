@@ -160,6 +160,8 @@ class UserViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    var lo : NSLayoutDimension?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -167,7 +169,7 @@ class UserViewController: UIViewController {
         scrollView.delegate = self
         scrollView.contentInset.top = tabBar.frame.height
         //let tabBarHeightAnchor = tabBar.snp.makeConstraints()
-        
+        lo = tabBar.heightAnchor
         
         settingUI()
     }
@@ -232,7 +234,7 @@ class UserViewController: UIViewController {
             $0.top.equalTo(nameStackView.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
             $0.leading.equalTo(scrollView.snp.leading).offset(15)
-            $0.trailing.equalTo(scrollView.snp.trailing).offset(15)
+            $0.trailing.equalTo(scrollView.snp.trailing).offset(-15)
             $0.height.equalTo(30)
             $0.width.equalTo(300)
 
@@ -257,8 +259,8 @@ class UserViewController: UIViewController {
         colorView.snp.makeConstraints {
             $0.top.equalTo(tabBar.snp.bottom).offset(15)
             $0.leading.equalTo(scrollView.snp.leading).offset(15)
-            $0.trailing.equalTo(scrollView.snp.trailing).offset(15)
-            $0.bottom.equalTo(-10)
+            $0.trailing.equalTo(scrollView.snp.trailing).offset(-15)
+            $0.bottom.equalTo(scrollView.snp.bottom)
             $0.height.equalTo(700)
         }
         
@@ -296,13 +298,19 @@ extension UserViewController: UITabBarDelegate {
 // MARK: - 스크롤링 시 액션 구성중
 extension UserViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //print(tabBar.frame.maxY)
+        let endY = scrollView.contentSize.height
+        print(endY)
+        let y = scrollView.contentOffset.y
+        print(y)
         
-        if scrollView.contentOffset.y > 200 {
+        if y > 200 && y < endY {
             tabBar.snp.remakeConstraints {
-                $0.leading.equalTo(scrollView.snp.leading)
-                $0.trailing.equalTo(scrollView.snp.trailing)
-                $0.top.equalTo(userViewTitle.snp.bottom)
+            $0.top.equalTo(scrollView.snp.top).offset(y)
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.trailing.equalTo(scrollView.snp.trailing)
             }
         }
+        
     }
 }
