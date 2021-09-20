@@ -36,8 +36,6 @@ class TabBarController: UITabBarController{
         
         let plusVC = PlusViewController()
         
-        
-        
         let userVC = UserViewController()
         userVC.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         userVC.tabBarItem.image = UIImage(systemName: "person")

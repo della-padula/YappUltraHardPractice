@@ -15,7 +15,6 @@ class PlusViewController: UIViewController {
     var selectImage = UIImage()
     // MARK: - 버튼 선언 공간
     
-    
     // 취소버튼
     let cancelButton: UIButton = {
         let button = UIButton()

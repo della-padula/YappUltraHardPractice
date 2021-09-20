@@ -10,17 +10,19 @@ import SnapKit
 
 class UserViewController: UIViewController {
     
-    //var collection = UICollectionView()
+    //var tabCollectionView = UICollectionView()
+    let cellId = "cellId"
+    
     
     // MARK: - 뷰가 나오기 전 액션
     override func viewWillAppear(_ animated: Bool) {
         uploadLabel.text = "\(feedArray.count) \n 게시물"
+        tabBar.selectedItem = tabBar.items?.first
     }
     
     let scrollView: UIScrollView = {
        
-        let scroll = UIScrollView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
-        scroll.contentSize = CGSize(width: scroll.frame.size.width, height: 1000)
+        let scroll = UIScrollView()
         scroll.bounces = true
         scroll.isPagingEnabled = false
         
@@ -28,7 +30,14 @@ class UserViewController: UIViewController {
         return scroll
     }()
     
-
+    
+    let colorView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 1000))
+        view.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+        
+        return view
+    }()
+    
     let userViewTitle: UILabel = {
         let label = UILabel()
         label.text = "IBY"
@@ -94,8 +103,6 @@ class UserViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.spacing = 30
         
-        
-        
         return stackView
     }()
     
@@ -153,33 +160,36 @@ class UserViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - 중 하단 탭 바
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        tabBar.delegate = self
+        scrollView.delegate = self
+        scrollView.contentInset.top = tabBar.frame.height
+        //let tabBarHeightAnchor = tabBar.snp.makeConstraints()
+        
+        
+        settingUI()
+    }
     
     let tabBar : UITabBar = {
-        let tab = UITabBar(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
-        
-        let grid = UITabBarItem(title: "", image: UIImage(systemName: "squareshape.split.3x3"), selectedImage: UIImage(systemName: "squareshape.split.3x3"))
-        let tag = UITabBarItem(title: "", image: UIImage(systemName: "person.crop.square"), selectedImage: UIImage(systemName: "person.crop.square"))
+        let tab = UITabBar(frame: CGRect(x: 0, y: 0, width: 500, height: 30))
+
+        let grid = UITabBarItem(title: "Feed", image: UIImage(systemName: "squareshape.split.3x3"), selectedImage: UIImage(systemName: "squareshape.split.3x3"))
+        let tag = UITabBarItem(title: "People", image: UIImage(systemName: "person.crop.square"), selectedImage: UIImage(systemName: "person.crop.square"))
+
         tab.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         tab.layer.borderWidth = 0
         tab.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         tab.barStyle = .default
         let button = UIButton()
-        tab.items = [grid,tag]
-        return tab
-    }()
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        settingUI()
-    }
-    
-    
-    
+        
+        
+        tab.items = [grid,tag]
+        
+        return tab
+       }()
 
     // MARK: - UI 세팅
     func settingUI() {
@@ -212,7 +222,9 @@ class UserViewController: UIViewController {
         nameStackView.snp.makeConstraints {
             $0.top.equalTo(userImage.snp.bottom).offset(15)
             $0.leading.equalTo(scrollView.snp.leading).offset(20)
+            //$0.bottom.equalTo(-20)
         }
+        
         
         // 프로필 편집 버튼
         scrollView.addSubview(profileEditButton)
@@ -223,18 +235,35 @@ class UserViewController: UIViewController {
             $0.trailing.equalTo(scrollView.snp.trailing).offset(15)
             $0.height.equalTo(30)
             $0.width.equalTo(300)
-            
 
         }
         
         
         // 탭 바
+        
         scrollView.addSubview(tabBar)
+        
         tabBar.snp.makeConstraints {
-            $0.top.equalTo(profileEditButton.snp.bottom).offset(10)
-            $0.leading.equalTo(scrollView.snp.leading).offset(15)
-            $0.trailing.equalTo(scrollView.snp.trailing).offset(10)
+            $0.top.equalTo(profileEditButton.snp.bottom).offset(15)
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.trailing.equalTo(scrollView.snp.trailing).offset(0)
+            $0.width.equalTo(scrollView.snp.width)
+            //$0.bottom.equalTo()
         }
+        
+        
+        scrollView.addSubview(colorView)
+        
+        colorView.snp.makeConstraints {
+            $0.top.equalTo(tabBar.snp.bottom).offset(15)
+            $0.leading.equalTo(scrollView.snp.leading).offset(15)
+            $0.trailing.equalTo(scrollView.snp.trailing).offset(15)
+            $0.bottom.equalTo(-10)
+            $0.height.equalTo(700)
+        }
+        
+        
+        
         
         // 전체 스크롤 뷰
         view.addSubview(scrollView)
@@ -247,4 +276,33 @@ class UserViewController: UIViewController {
         }
     }
     
+}
+
+
+extension UserViewController: UITabBarDelegate {
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        
+        if item.title == "People" {
+            print("준비중")
+            tabBar.selectedItem = tabBar.items?.first
+        } else {
+            
+        }
+    }
+}
+
+// MARK: - 스크롤링 시 액션 구성중
+extension UserViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y > 200 {
+            tabBar.snp.remakeConstraints {
+                $0.leading.equalTo(scrollView.snp.leading)
+                $0.trailing.equalTo(scrollView.snp.trailing)
+                $0.top.equalTo(userViewTitle.snp.bottom)
+            }
+        }
+    }
 }
