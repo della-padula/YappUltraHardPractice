@@ -18,6 +18,7 @@ class UserViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         uploadLabel.text = "\(feedArray.count) \n 게시물"
         tabBar.selectedItem = tabBar.items?.first
+        collectionView.reloadData()
     }
     
     let scrollView: UIScrollView = {
@@ -160,20 +161,36 @@ class UserViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    var lo : NSLayoutDimension?
     
+    let collectionView : UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .init(x: 0, y: 0, width: 100, height: 800), collectionViewLayout: flowLayout)
+        //collectionView.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        return collectionView
+        
+    }()
+    
+    // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         tabBar.delegate = self
         scrollView.delegate = self
         scrollView.contentInset.top = tabBar.frame.height
-        //let tabBarHeightAnchor = tabBar.snp.makeConstraints()
-        lo = tabBar.heightAnchor
         
+        collectionViewSetting()
         settingUI()
     }
     
+    // MARK: - 컬렉션 뷰 세팅
+    func collectionViewSetting() {
+        collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.cellId)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    // MARK: - 탭바 선언
     let tabBar : UITabBar = {
         let tab = UITabBar(frame: CGRect(x: 0, y: 0, width: 500, height: 30))
 
@@ -242,9 +259,7 @@ class UserViewController: UIViewController {
         
         
         // 탭 바
-        
         scrollView.addSubview(tabBar)
-        
         tabBar.snp.makeConstraints {
             $0.top.equalTo(profileEditButton.snp.bottom).offset(15)
             $0.leading.equalTo(scrollView.snp.leading)
@@ -254,6 +269,9 @@ class UserViewController: UIViewController {
         }
         
         
+        // 이 뷰를 추가했을 때는, 탭바가 고정이 되긴함.
+        // 근데 문제는, 고정만 되고, 사진이 여러개 추가될 시에는 더 내려가지가 않는다.
+        /*
         scrollView.addSubview(colorView)
         
         colorView.snp.makeConstraints {
@@ -261,11 +279,17 @@ class UserViewController: UIViewController {
             $0.leading.equalTo(scrollView.snp.leading).offset(15)
             $0.trailing.equalTo(scrollView.snp.trailing).offset(-15)
             $0.bottom.equalTo(scrollView.snp.bottom)
-            $0.height.equalTo(700)
+            $0.height.equalTo(400)
         }
+        */
         
-        
-        
+        scrollView.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(tabBar.snp.bottom)
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.trailing.equalTo(scrollView.snp.trailing)
+            $0.bottom.equalTo(scrollView.snp.bottom).offset(618)
+        }
         
         // 전체 스크롤 뷰
         view.addSubview(scrollView)
@@ -276,41 +300,82 @@ class UserViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             
         }
+        
+        
     }
     
 }
 
-
+// MARK: - 중간 탭 바 익스텐션
 extension UserViewController: UITabBarDelegate {
     
+    // 현재 선택된 탭바 아이템 확인 메서드
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
-        
         if item.title == "People" {
-            print("준비중")
+            let alert = UIAlertController(title: "태그", message: "준비중입니다.", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
             tabBar.selectedItem = tabBar.items?.first
-        } else {
-            
         }
     }
 }
 
-// MARK: - 스크롤링 시 액션 구성중
+// MARK: - 스크롤링 익스텐션
+// 아직 탭바 고정과 컬렉션 뷰와 같이 올라가는 뷰 구현 못함
 extension UserViewController: UIScrollViewDelegate {
+    
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print(tabBar.frame.maxY)
         let endY = scrollView.contentSize.height
         print(endY)
-        let y = scrollView.contentOffset.y
+        let y = -scrollView.contentOffset.y
         print(y)
         
-        if y > 200 && y < endY {
-            tabBar.snp.remakeConstraints {
-            $0.top.equalTo(scrollView.snp.top).offset(y)
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing)
-            }
+        userImage.snp.remakeConstraints {
+            $0.top.equalTo(y)
+            $0.leading.equalTo(20)
+            $0.height.equalTo(80)
+            $0.width.equalTo(80)
         }
         
+        userStackView.snp.remakeConstraints {
+            $0.top.equalTo(y)
+            $0.leading.equalTo(userImage.snp.trailing).offset(30)
+        }
+        
+        
+    }
+}
+
+// MARK: - 컬렉션 뷰 익스텐션
+extension UserViewController: UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    
+    // 컬렉션뷰 셀의 개수 설정
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return feedArray.count
+    }
+    
+    // 컬렉션뷰 셀에서 보여줄 것 설정
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.cellId, for: indexPath) as! FeedCollectionViewCell
+        
+        cell.imageView.image = feedArray[indexPath.row].uploadImage
+        
+        return cell
+    }
+    
+    // 컬렉션뷰 셀 크기와 한 줄에 보여줄 개수 설정
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        
+        layout.sectionInset = UIEdgeInsets(top: 1, left: 3, bottom: 3, right: 3)
+        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 1
+        layout.invalidateLayout()
+        
+        return CGSize(width: (self.view.frame.width/3)-3, height: (self.view.frame.width/3)-3)
     }
 }

@@ -119,7 +119,7 @@ class FeedTableViewCell: UITableViewCell {
         userUploadImage.snp.makeConstraints {
             $0.top.equalTo(stackView.snp.bottom).offset(10)
             
-            $0.height.equalTo(300)
+            $0.height.equalTo(360)
             $0.left.equalTo(self.snp.left)
             $0.right.equalTo(self.snp.right)
         }

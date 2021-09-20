@@ -10,10 +10,11 @@ import UIKit
 
 // 기본 세팅 값이 들어가있는 전역변수 어레이
 var feedArray : [Feed] = [
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "swift")!, time: Date())
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "two")!, time: Date()),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "three")!, time: Date()),
+    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "four")!, time: Date())
+
 ]
 
 
@@ -25,6 +26,10 @@ class MainViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let endIndex = IndexPath(row: 0, section: 0)
+        tableView.scrollToRow(at: endIndex, at: .top, animated: true)
+    }
     
     // MARK: - Main 타이틀
     let mainTitle: UILabel = {
