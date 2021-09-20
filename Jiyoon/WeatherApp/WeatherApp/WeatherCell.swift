@@ -8,17 +8,15 @@ import SnapKit
 import UIKit
 
 class WeatherCell: UITableViewCell{
-    var locationLabel: UILabel
-    var tempLabel: UILabel
-    var iconImage: UIImageView
-    let line: UIView
+    var locationLabel = UILabel()
+    var tempLabel = UILabel()
+    var iconImage = UIImageView()
+    var line = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
-        self.locationLabel = UILabel()
         locationLabel.font = UIFont.systemFont(ofSize: 22)
         locationLabel.textColor = .white
         
-        self.tempLabel = UILabel()
         tempLabel.font = UIFont.systemFont(ofSize: 30)
         tempLabel.textColor = .white
         
@@ -57,5 +55,4 @@ class WeatherCell: UITableViewCell{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

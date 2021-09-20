@@ -6,55 +6,71 @@
 //
 
 import Foundation
-import UIKit
 import SnapKit
+import UIKit
 
 class Views: UIViewController, UIScrollViewDelegate{
-    var view1: UIView = {
+    var viewSeoul: UIView = {
         let view = UIView()
-        var time = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
+        var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         
-        var locationName = UILabel()
-        var locationTemp = UILabel()
-        let temperatures = UIStackView()
-        var tempHigh = UILabel()
-        var tempLow = UILabel()
+        var locationNameLabel = UILabel()
+        var locationTempLabel = UILabel()
+        let temperaturesView = UIStackView()
+        var tempHighLabel = UILabel()
+        var tempLowLabel = UILabel()
         var backButton = UIButton()
         
         view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
         return view
     }()
     
-    var view2: UIView = {
+    var viewDaejeon: UIView = {
         let view = UIView()
-        var time = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
+        var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         
-        var locationName = UILabel()
-        var locationTemp = UILabel()
-        let temperatures = UIStackView()
-        var tempHigh = UILabel()
-        var tempLow = UILabel()
+        var locationNameLabel = UILabel()
+        var locationTempLabel = UILabel()
+        let temperaturesVIew = UIStackView()
+        var tempHighLabel = UILabel()
+        var tempLowLabel = UILabel()
         var backButton = UIButton()
         
         view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
         return view
     }()
     
-    var view3: UIView = {
+    var viewDaegu: UIView = {
         let view = UIView()
-        var time = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
+        var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         
-        var locationName = UILabel()
-        var locationTemp = UILabel()
-        let temperatures = UIStackView()
-        var tempHigh = UILabel()
-        var tempLow = UILabel()
+        var locationNameLabel = UILabel()
+        var locationTempLabel = UILabel()
+        let temperaturesVIew = UIStackView()
+        var tempHighLabel = UILabel()
+        var tempLowLabel = UILabel()
         var backButton = UIButton()
         
         view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
         return view
     }()
-    lazy var views = [view1, view2, view3]
+    
+    var viewBusan: UIView = {
+        let view = UIView()
+        var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
+        
+        var locationNameLabel = UILabel()
+        var locationTempLabel = UILabel()
+        let temperaturesVIew = UIStackView()
+        var tempHighLabel = UILabel()
+        var tempLowLabel = UILabel()
+        var backButton = UIButton()
+        
+        view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
+        return view
+    }()
+    
+    lazy var views = [viewSeoul, viewDaejeon, viewDaegu, viewBusan]
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()

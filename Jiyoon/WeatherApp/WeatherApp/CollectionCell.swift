@@ -9,22 +9,26 @@ import Foundation
 import UIKit
 
 class CollectionCell: UICollectionViewCell{
-    var cellTimeLabel : UILabel
-    var cellWeatherIcon : UIImageView
-    var cellTempLabel : UILabel
+    let times = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시"]
+    var cellTimeLabel = UILabel()
+    var cellWeatherIcon = UIImageView()
+    var cellTempLabel = UILabel()
     
     override init(frame: CGRect) {
-        self.cellTimeLabel = UILabel()
-        cellTimeLabel.textColor = .white
-        self.cellWeatherIcon = UIImageView()
-        cellWeatherIcon.tintColor = .yellow
-        self.cellTempLabel = UILabel()
-        cellTempLabel.textColor = .white
         super.init(frame: frame)
         
-        self.addSubview(cellTimeLabel)
-        self.addSubview(cellWeatherIcon)
-        self.addSubview(cellTempLabel)
+        cellTimeLabel.textColor = .white
+        cellWeatherIcon.tintColor = .yellow
+        cellTempLabel.textColor = .white
+        
+        self.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
+        self.cellTimeLabel.text = times[0] //indexPath.row를 어떻게 받아와야할지 몰라 일단 times[0]으로 처리해두었습니다!
+        self.cellTempLabel.text = "19"
+        self.cellWeatherIcon.image = UIImage(systemName: "sun.max.fill")?.withTintColor(.yellow)
+        
+        addSubview(cellTimeLabel)
+        addSubview(cellWeatherIcon)
+        addSubview(cellTempLabel)
         
         cellTimeLabel.snp.makeConstraints { maker in
             maker.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(10)
@@ -39,7 +43,6 @@ class CollectionCell: UICollectionViewCell{
             maker.centerX.equalTo(contentView.safeAreaLayoutGuide.snp.centerX)
         }
     }
-        
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
