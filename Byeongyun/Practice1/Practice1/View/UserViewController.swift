@@ -32,8 +32,8 @@ class UserViewController: UIViewController {
     }()
     
     
-    let colorView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 1000))
+    let userView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
         view.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
         
         return view
@@ -164,7 +164,7 @@ class UserViewController: UIViewController {
     
     let collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .init(x: 0, y: 0, width: 100, height: 800), collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: .init(x: 0, y: 0, width: 100, height: 1500), collectionViewLayout: flowLayout)
         //collectionView.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return collectionView
         
@@ -212,6 +212,7 @@ class UserViewController: UIViewController {
 
     // MARK: - UI 세팅
     func settingUI() {
+        
         // UserView 타이틀(아이디)
         view.addSubview(userViewTitle)
         userViewTitle.snp.makeConstraints {
@@ -220,6 +221,8 @@ class UserViewController: UIViewController {
         }
         // MARK: - 스크롤 뷰에 들어가는 UI들
         
+        
+        /*
         // 유저 사진
         scrollView.addSubview(userImage)
         userImage.snp.makeConstraints {
@@ -279,7 +282,7 @@ class UserViewController: UIViewController {
             $0.leading.equalTo(scrollView.snp.leading).offset(15)
             $0.trailing.equalTo(scrollView.snp.trailing).offset(-15)
             $0.bottom.equalTo(scrollView.snp.bottom)
-            $0.height.equalTo(400)
+            $0.height.equalTo(700)
         }
         */
         
@@ -290,6 +293,7 @@ class UserViewController: UIViewController {
             $0.trailing.equalTo(scrollView.snp.trailing)
             $0.bottom.equalTo(scrollView.snp.bottom).offset(618)
         }
+ */
         
         // 전체 스크롤 뷰
         view.addSubview(scrollView)
@@ -301,7 +305,25 @@ class UserViewController: UIViewController {
             
         }
         
+        scrollView.addSubview(userView)
+        userView.snp.makeConstraints {
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.trailing.equalTo(scrollView.snp.trailing)
+            $0.top.equalTo(userViewTitle.snp.bottom)
+            $0.bottom.equalTo(scrollView.snp.bottom)
+            
+            $0.width.equalTo(scrollView.snp.width)
+            $0.height.equalTo(350)
+        }
         
+        scrollView.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(userView.snp.bottom)
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.trailing.equalTo(scrollView.snp.trailing)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+ 
     }
     
 }
@@ -328,22 +350,34 @@ extension UserViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print(tabBar.frame.maxY)
+        scrollView.showsLargeContentViewer = false
         let endY = scrollView.contentSize.height
         print(endY)
         let y = -scrollView.contentOffset.y
         print(y)
-        
-        userImage.snp.remakeConstraints {
-            $0.top.equalTo(y)
-            $0.leading.equalTo(20)
-            $0.height.equalTo(80)
-            $0.width.equalTo(80)
+        /*
+        userView.snp.remakeConstraints {
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.trailing.equalTo(scrollView.snp.trailing)
+            $0.top.equalTo(userViewTitle.snp.bottom).offset(y)
+            $0.bottom.equalTo(collectionView.snp.top).offset(-y)
+            
+            $0.width.equalTo(view.safeAreaLayoutGuide.snp.width)
+            $0.height.equalTo(350)
         }
         
-        userStackView.snp.remakeConstraints {
-            $0.top.equalTo(y)
-            $0.leading.equalTo(userImage.snp.trailing).offset(30)
+        
+        collectionView.snp.remakeConstraints {
+            $0.top.equalTo(userView.snp.bottom).offset(y)
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.trailing.equalTo(scrollView.snp.trailing)
+            
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        
+        print(y)
+        */
+        
         
         
     }
