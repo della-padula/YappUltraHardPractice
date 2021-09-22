@@ -5,6 +5,10 @@
 //  Created by ITlearning on 2021/09/16.
 //
 
+// 아직 해결해야할 이 앱의 문제점
+// 1. 게시글이 2줄이 넘어가면 ...으로 안보인다.
+// 2. 유저 뷰 초기 실행시, 약간의 버벅임(?) 이 보인다. 또한, 기기의 layout을 계산한 것이 아닌, 단순히 숫자로 계산하여 sticky header를 구현하여 보완이 필요하다.
+
 import SnapKit
 import UIKit
 
