@@ -23,6 +23,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        configureBarBtns()
         configureLabelView()
         configureWebView()
         getData()
@@ -72,24 +73,39 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
     
-    private func configureView() {
-        view.backgroundColor = .white
-        self.navigationItem.title = "상세보기"
-        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: notice?.isBookmarked == true ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
-        let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
-        self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
-    }
-    
     @objc
     private func bookmarkTapped(_ sender: UIButton) {
-        notice?.isBookmarked.toggle()
-        configureView()
+        let defaults = UserDefaults.standard
+        let bookmarks = defaults.array(forKey: "Bookmark") as? [String] ?? []
+        var newBookmarks = bookmarks
+        
+        if let notice = notice {
+            if bookmarks.contains(notice.url) {
+                newBookmarks = newBookmarks.filter({ $0 != notice.url })
+            } else {
+                newBookmarks.append(notice.url)
+            }
+            defaults.set(newBookmarks, forKey: "Bookmark")
+            defaults.synchronize()
+        }
+        configureBarBtns()
     }
     
     @objc
     private func linkTapped(_ sender: UIButton) {
         guard let link = notice?.url else { return }
         showActivityVC([link])
+    }
+    
+    private func configureView() {
+        view.backgroundColor = .white
+        self.navigationItem.title = "상세보기"
+    }
+    
+    private func configureBarBtns() {
+        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: notice?.isBookmarked ?? false ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
+        let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+        self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
     }
 
     private func configureLabelView() {
