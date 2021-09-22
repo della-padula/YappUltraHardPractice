@@ -11,4 +11,5 @@ struct Notice {
     let title: String
     let time: String
     let url: String
+    var isBookmarked: Bool
 }

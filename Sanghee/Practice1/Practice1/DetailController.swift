@@ -75,7 +75,15 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func configureView() {
         view.backgroundColor = .white
         self.navigationItem.title = "상세보기"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: notice?.isBookmarked == true ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
+        let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+        self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
+    }
+    
+    @objc
+    private func bookmarkTapped(_ sender: UIButton) {
+        notice?.isBookmarked.toggle()
+        configureView()
     }
     
     @objc

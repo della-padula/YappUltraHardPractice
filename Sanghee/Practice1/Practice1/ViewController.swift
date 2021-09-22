@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let slicedText = String(text[startIdx...endIdx])
                     textList.append(slicedText)
                     if textList.count > 2 {
-                        let notice = Notice(title: textList[0], time: textList[1], url: link)
+                        let notice = Notice(title: textList[0], time: textList[1], url: link, isBookmarked: false)
                         self.noticeList.append(notice)
                         textList = []
                         link = ""
