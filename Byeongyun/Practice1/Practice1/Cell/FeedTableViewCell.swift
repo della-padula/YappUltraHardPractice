@@ -1,7 +1,7 @@
 //
 //  FeedTableViewCell.swift
 //  Practice1
-//
+//  메인 뷰 테이블 뷰 셀
 //  Created by ITlearning on 2021/09/16.
 //
 

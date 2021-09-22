@@ -1,7 +1,7 @@
 //
 //  PlusViewController.swift
 //  Practice1
-//
+//  게시글 추가 뷰 컨트롤러
 //  Created by ITlearning on 2021/09/16.
 //
 

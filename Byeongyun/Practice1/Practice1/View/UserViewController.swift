@@ -1,7 +1,7 @@
 //
 //  UserViewController.swift
 //  Practice1
-//
+//  유저 뷰 컨트롤러
 //  Created by ITlearning on 2021/09/16.
 //
 
@@ -10,8 +10,9 @@ import SnapKit
 
 class UserViewController: UIViewController {
     
-    //var tabCollectionView = UICollectionView()
     let cellId = "cellId"
+    let minHeight: CGFloat = -300
+    let stopHeight : CGFloat = -50
     
     
     // MARK: - 뷰가 나오기 전 액션
@@ -21,27 +22,30 @@ class UserViewController: UIViewController {
         collectionView.reloadData()
     }
     
-    let scrollView: UIScrollView = {
-       
-        let scroll = UIScrollView()
-        scroll.bounces = true
-        scroll.isPagingEnabled = false
-        
-        
-        return scroll
-    }()
     
+    // MARK: - 뼈대 뷰 선언과 메인 타이틀 선언
     
-    let userView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
-        view.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+    // 타이틀 뷰
+    let titleView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         return view
     }()
     
+    // 유저 뷰
+    let userView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        return view
+    }()
+    
+    // 타이틀 뷰에 입력될 계정
     let userViewTitle: UILabel = {
         let label = UILabel()
         label.text = "IBY"
+        
         label.font = UIFont.boldSystemFont(ofSize: 23)
         
         return label
@@ -162,10 +166,11 @@ class UserViewController: UIViewController {
     }
     
     
+    // MARK: - 컬렉션 뷰 선언
     let collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .init(x: 0, y: 0, width: 100, height: 1500), collectionViewLayout: flowLayout)
-        //collectionView.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        collectionView.contentInset = UIEdgeInsets(top: 250, left: 0, bottom: 0, right: 0)
         return collectionView
         
     }()
@@ -173,11 +178,10 @@ class UserViewController: UIViewController {
     // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         tabBar.delegate = self
-        scrollView.delegate = self
-        scrollView.contentInset.top = tabBar.frame.height
-        
         collectionViewSetting()
         settingUI()
     }
@@ -214,118 +218,86 @@ class UserViewController: UIViewController {
     func settingUI() {
         
         // UserView 타이틀(아이디)
-        view.addSubview(userViewTitle)
+        titleView.addSubview(userViewTitle)
         userViewTitle.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.top.equalTo(titleView.snp.top).offset(50)
             $0.leading.equalTo(20)
         }
-        // MARK: - 스크롤 뷰에 들어가는 UI들
+        view.addSubview(titleView)
+        titleView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.height.equalTo(100)
+        }
         
         
-        /*
-        // 유저 사진
-        scrollView.addSubview(userImage)
+        // 컬렉션 뷰 추가
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(titleView.snp.bottom)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.bottom.equalTo(view.snp.bottom)
+        }
+        
+        // 유저 뷰 추가(위에 사진이나, 팔로잉, 등등 쓰여져 있는 부분)
+        // 사진이 표시되는 컬렉션 뷰 빼고는 다 이 유저 뷰이다.
+        view.addSubview(userView)
+        userView.snp.makeConstraints {
+            $0.top.equalTo(titleView.snp.bottom)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.height.equalTo(250)
+        }
+        
+        // 유저 뷰 - 유저 이미지 추가
+        userView.addSubview(userImage)
         userImage.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.top).offset(10)
-            $0.leading.equalTo(scrollView.snp.leading).offset(18)
+            $0.top.equalTo(userView.snp.top).offset(10)
+            $0.leading.equalTo(userView.snp.leading).offset(15)
             $0.width.equalTo(80)
             $0.height.equalTo(80)
         }
         
-        // 유저 게시물, 팔로워, 팔로잉 수
-        scrollView.addSubview(userStackView)
+        // 유저 뷰 - 유저 게시글, 팔로우,팔로잉 수 추가
+        userView.addSubview(userStackView)
         userStackView.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.top).offset(30)
+            $0.top.equalTo(userView.snp.top).offset(30)
             $0.leading.equalTo(userImage.snp.trailing).offset(30)
         }
         
-        // 실제 이름 표시 라벨
-        scrollView.addSubview(nameStackView)
+        // 유저 뷰 - 유저 실제 이름과 상태메시지 라벨 추가
+        userView.addSubview(nameStackView)
         nameStackView.snp.makeConstraints {
             $0.top.equalTo(userImage.snp.bottom).offset(15)
-            $0.leading.equalTo(scrollView.snp.leading).offset(20)
-            //$0.bottom.equalTo(-20)
+            $0.leading.equalTo(userView.snp.leading).offset(20)
         }
         
-        
-        // 프로필 편집 버튼
-        scrollView.addSubview(profileEditButton)
+        // 유저 뷰 - 프로필 편집 버튼 추가
+        userView.addSubview(profileEditButton)
         profileEditButton.snp.makeConstraints {
             $0.top.equalTo(nameStackView.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
-            $0.leading.equalTo(scrollView.snp.leading).offset(15)
-            $0.trailing.equalTo(scrollView.snp.trailing).offset(-15)
+            $0.leading.equalTo(userView.snp.leading).offset(15)
+            $0.trailing.equalTo(userView.snp.trailing).offset(-15)
             $0.height.equalTo(30)
             $0.width.equalTo(300)
-
         }
         
-        
-        // 탭 바
-        scrollView.addSubview(tabBar)
+        // 유저 뷰 - 탭 바 추가
+        userView.addSubview(tabBar)
         tabBar.snp.makeConstraints {
-            $0.top.equalTo(profileEditButton.snp.bottom).offset(15)
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing).offset(0)
-            $0.width.equalTo(scrollView.snp.width)
-            //$0.bottom.equalTo()
+            $0.top.equalTo(profileEditButton.snp.bottom).offset(16)
+            $0.leading.equalTo(userView.snp.leading)
+            $0.trailing.equalTo(userView.snp.trailing).offset(0)
+            $0.width.equalTo(userView.snp.width)
         }
         
-        
-        // 이 뷰를 추가했을 때는, 탭바가 고정이 되긴함.
-        // 근데 문제는, 고정만 되고, 사진이 여러개 추가될 시에는 더 내려가지가 않는다.
-        /*
-        scrollView.addSubview(colorView)
-        
-        colorView.snp.makeConstraints {
-            $0.top.equalTo(tabBar.snp.bottom).offset(15)
-            $0.leading.equalTo(scrollView.snp.leading).offset(15)
-            $0.trailing.equalTo(scrollView.snp.trailing).offset(-15)
-            $0.bottom.equalTo(scrollView.snp.bottom)
-            $0.height.equalTo(700)
-        }
-        */
-        
-        scrollView.addSubview(collectionView)
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(tabBar.snp.bottom)
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing)
-            $0.bottom.equalTo(scrollView.snp.bottom).offset(618)
-        }
- */
-        
-        // 전체 스크롤 뷰
-        view.addSubview(scrollView)
-        scrollView.snp.makeConstraints {
-            $0.top.equalTo(userViewTitle.snp.bottom)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            
-        }
-        
-        scrollView.addSubview(userView)
-        userView.snp.makeConstraints {
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing)
-            $0.top.equalTo(userViewTitle.snp.bottom)
-            $0.bottom.equalTo(scrollView.snp.bottom)
-            
-            $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalTo(350)
-        }
-        
-        scrollView.addSubview(collectionView)
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(userView.snp.bottom)
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }
- 
+        // 가장 위 뷰로 타이틀(계정) 뷰를 올려놓음
+        self.view.bringSubviewToFront(titleView)
     }
-    
+
 }
 
 // MARK: - 중간 탭 바 익스텐션
@@ -344,42 +316,19 @@ extension UserViewController: UITabBarDelegate {
 }
 
 // MARK: - 스크롤링 익스텐션
-// 아직 탭바 고정과 컬렉션 뷰와 같이 올라가는 뷰 구현 못함
 extension UserViewController: UIScrollViewDelegate {
     
-    
+    // 스크롤 시 현재 움직이는 좌표를 볼 수 있는 메서드
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //print(tabBar.frame.maxY)
         scrollView.showsLargeContentViewer = false
-        let endY = scrollView.contentSize.height
-        print(endY)
-        let y = -scrollView.contentOffset.y
-        print(y)
-        /*
-        userView.snp.remakeConstraints {
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing)
-            $0.top.equalTo(userViewTitle.snp.bottom).offset(y)
-            $0.bottom.equalTo(collectionView.snp.top).offset(-y)
-            
-            $0.width.equalTo(view.safeAreaLayoutGuide.snp.width)
-            $0.height.equalTo(350)
+        
+        // 아직 숫자에 의존적인 UI 컨트롤이다.
+        // 추후에 능동적으로 움직이는 UI를 구현해보겠다.
+        if scrollView.contentOffset.y < -50 {
+            userView.frame.origin.y = max(abs(scrollView.contentOffset.y), minHeight)-150
+        } else {
+            userView.frame.origin.y = minHeight+200
         }
-        
-        
-        collectionView.snp.remakeConstraints {
-            $0.top.equalTo(userView.snp.bottom).offset(y)
-            $0.leading.equalTo(scrollView.snp.leading)
-            $0.trailing.equalTo(scrollView.snp.trailing)
-            
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }
-        
-        print(y)
-        */
-        
-        
-        
     }
 }
 
