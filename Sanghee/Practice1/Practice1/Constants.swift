@@ -9,6 +9,6 @@ import UIKit
 
 struct Constants {
     struct Color {
-        static let blue = UIColor(red: 0.15, green: 0.05, blue: 0.9, alpha: 1)
+        static let blue = UIColor(red: 0.3, green: 0.4, blue: 1.0, alpha: 1)
     }
 }
