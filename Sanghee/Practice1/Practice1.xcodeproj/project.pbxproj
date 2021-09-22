@@ -79,12 +79,12 @@
 				5EC2C56E26F38AB800AEBAB2 /* FileUrlCell.swift */,
 				5EC2C55626F2724300AEBAB2 /* ViewController.swift */,
 				5EC2C56C26F2B93200AEBAB2 /* DetailController.swift */,
+				5EC2C57C26FB76D700AEBAB2 /* BookmarkController.swift */,
 				5EC2C57426F3D86B00AEBAB2 /* Constants.swift */,
 				5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */,
 				5EC2C55B26F2724500AEBAB2 /* Assets.xcassets */,
 				5EC2C55D26F2724500AEBAB2 /* LaunchScreen.storyboard */,
 				5EC2C56026F2724500AEBAB2 /* Info.plist */,
-				5EC2C57C26FB76D700AEBAB2 /* BookmarkController.swift */,
 			);
 			path = Practice1;
 			sourceTree = "<group>";
