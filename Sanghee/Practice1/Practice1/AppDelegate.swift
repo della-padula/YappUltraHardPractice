@@ -15,10 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let navC = UINavigationController()
-        navC.viewControllers = [ViewController()]
+        let tabBarC = UITabBarController()
+        tabBarC.viewControllers = [ViewController(), BookmarkController()]
         
-        window?.rootViewController = navC
+        window?.rootViewController = tabBarC
         window?.makeKeyAndVisible()
         
         return true
