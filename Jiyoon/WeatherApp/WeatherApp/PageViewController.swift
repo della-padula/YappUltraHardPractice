@@ -10,6 +10,7 @@ import SnapKit
 import UIKit
 
 class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate{
+    private let timeList = WeatherCellModel.getTimes()
     
     var locationNameLabel = UILabel()
     var locationTempLabel = UILabel()
@@ -101,7 +102,7 @@ class PageViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = (collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as? CollectionCell)!
-        
+        cell.cellTimeLabel.text = timeList[indexPath.row]
         return cell
     }
     

@@ -40,8 +40,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 do{
                     let w = try decoder.decode(WeatherData.self, from: data!)
                     let temp = w.main.temp
-                    let tempMax = w.main.temp_max
-                    let tempMin = w.main.temp_min
+                    let tempMax = w.main.tempMax
+                    let tempMin = w.main.tempMin
                     let weather = WeatherInfo(tempInfo: temp, tempMaxInfo: tempMax, tempLowInfo: tempMin)
                     self.tempList.append(weather.tempInfo)
                     self.tempHighList.append(weather.tempMaxInfo)
@@ -72,10 +72,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             maker.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             maker.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        for locate in self.locationsInEngList {
+            self.fetchWeather(cityName: locate)
+        }
         DispatchQueue.global().sync {
-            for locate in self.locationsInEngList {
-                self.fetchWeather(cityName: locate)
-            }
+            tableView.reloadData()
         }
         for icon in iconsList {
             let scaledIcon = renderer.image {
