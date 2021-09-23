@@ -72,9 +72,9 @@ class FileUrlTableViewCell: UITableViewCell {
         downloadButton.setTitle("다운로드", for: .normal)
         
         iconView.contentMode = .scaleAspectFit
-        iconView.tintColor = Constants.Color.blue.withAlphaComponent(0.8)
+        iconView.tintColor = .mainBlue.withAlphaComponent(0.8)
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        downloadButton.setTitleColor(Constants.Color.blue, for: .normal)
+        downloadButton.setTitleColor(.mainBlue, for: .normal)
         downloadButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
     }
 }

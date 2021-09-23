@@ -30,7 +30,7 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
     private func configureNavigationBar() {
         let navigationBar = navigationController?.navigationBar
         navigationItem.title = "북마크"
-        navigationBar?.barTintColor = Constants.Color.blue
+        navigationBar?.barTintColor = .mainBlue
         navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationBar?.tintColor = .white
         navigationBar?.barStyle = .black

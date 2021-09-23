@@ -85,7 +85,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
         
-        tableView.refreshControl?.tintColor = Constants.Color.blue
+        tableView.refreshControl?.tintColor = .mainBlue
     }
     
     @objc
@@ -100,7 +100,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func configureNavigationBar() {
         let navigationBar = navigationController?.navigationBar
         navigationItem.title = "컴퓨터공학부"
-        navigationBar?.barTintColor = Constants.Color.blue
+        navigationBar?.barTintColor = .mainBlue
         navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationBar?.tintColor = .white
         navigationBar?.barStyle = .black

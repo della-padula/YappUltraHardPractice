@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         viewC.tabBarItem = UITabBarItem(title: "공지", image: UIImage(systemName: "megaphone"), selectedImage: UIImage(systemName: "megaphone.fill"))
         bookmarkC.tabBarItem = UITabBarItem(title: "북마크", image: UIImage(systemName: "bookmark"), selectedImage: UIImage(systemName: "bookmark.fill"))
 
-        tabC.tabBar.tintColor = Constants.Color.blue
+        tabC.tabBar.tintColor = .mainBlue
         
         window?.rootViewController = tabC
         window?.makeKeyAndVisible()
