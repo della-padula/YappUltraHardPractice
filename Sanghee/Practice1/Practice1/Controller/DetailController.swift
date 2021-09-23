@@ -103,7 +103,8 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     private func configureBarBtns() {
-        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: notice?.isBookmarked ?? false ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
+        let bookmarks = UserDefaults.standard.array(forKey: "Bookmark") as? [String] ?? []
+        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: bookmarks.contains(notice?.url ?? "") ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
         let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
         self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
     }

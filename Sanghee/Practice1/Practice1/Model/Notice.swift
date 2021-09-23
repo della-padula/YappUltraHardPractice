@@ -11,8 +11,4 @@ struct Notice {
     let title: String
     let time: String
     let url: String
-    var isBookmarked: Bool {
-        let bookmarks = UserDefaults.standard.array(forKey: "Bookmark") as? [String] ?? []
-        return bookmarks.contains(url)
-    }
 }
