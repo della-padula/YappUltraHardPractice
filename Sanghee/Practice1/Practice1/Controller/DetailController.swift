@@ -153,7 +153,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func configureModalView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(FileUrlCell.self, forCellReuseIdentifier: FileUrlCell.identifier)
+        tableView.register(FileUrlTableViewCell.self, forCellReuseIdentifier: FileUrlTableViewCell.identifier)
         
         let separatorView = UIView()
         let tableContainerView = UIView()
@@ -190,7 +190,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlCell.identifier, for: indexPath) as! FileUrlCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlTableViewCell.identifier, for: indexPath) as! FileUrlTableViewCell
         cell.delegate = self
         cell.contentView.isUserInteractionEnabled = false
         

@@ -109,7 +109,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(NoticeCell.self, forCellReuseIdentifier: NoticeCell.identifier)
+        tableView.register(NoticeTableViewCell.self, forCellReuseIdentifier: NoticeTableViewCell.identifier)
         tableView.separatorStyle = .none
         
         view.addSubview(tableView)
@@ -127,7 +127,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NoticeCell.identifier, for: indexPath) as! NoticeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: NoticeTableViewCell.identifier, for: indexPath) as! NoticeTableViewCell
         cell.notice = noticeList[indexPath.row]
         return cell
     }

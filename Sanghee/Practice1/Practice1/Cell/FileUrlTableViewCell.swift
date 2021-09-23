@@ -1,5 +1,5 @@
 //
-//  FileUrlCell.swift
+//  FileUrlTableViewCell.swift
 //  Practice1
 //
 //  Created by leeesangheee on 2021/09/16.
@@ -12,7 +12,7 @@ protocol ButtonDelegate: AnyObject {
     func showAlert(index: Int)
 }
 
-class FileUrlCell: UITableViewCell {
+class FileUrlTableViewCell: UITableViewCell {
     weak var delegate: ButtonDelegate?
     static let identifier = "FileUrlCell"
     var index: Int = 0

@@ -1,5 +1,5 @@
 //
-//  NoticeCell.swift
+//  NoticeTableViewCell.swift
 //  Practice1
 //
 //  Created by leeesangheee on 2021/09/16.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class NoticeCell: UITableViewCell {
+class NoticeTableViewCell: UITableViewCell {
     static let identifier = "NoticeCell"
     var notice: Notice? {
         didSet {
