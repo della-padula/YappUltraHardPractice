@@ -105,7 +105,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let navigationBarAppearance = UINavigationBarAppearance()
             navigationBarAppearance.backgroundColor = .mainBlue
             navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            navigationBar?.barStyle = .black
             
             navigationBar?.standardAppearance = navigationBarAppearance
             navigationBar?.compactAppearance = navigationBarAppearance
@@ -114,7 +113,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             navigationBar?.barTintColor = .mainBlue
             navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
             navigationBar?.tintColor = .white
-            navigationBar?.barStyle = .black
         }
     }
     

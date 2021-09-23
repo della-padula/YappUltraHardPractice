@@ -24,7 +24,7 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func getData() {
-        let bookmarks = UserDefaults.standard.array(forKey: "Bookmark") as? [String] ?? []
+        
     }
     
     private func configureNavigationBar() {
@@ -35,7 +35,6 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
             let navigationBarAppearance = UINavigationBarAppearance()
             navigationBarAppearance.backgroundColor = .mainBlue
             navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            navigationBar?.barStyle = .black
             
             navigationBar?.standardAppearance = navigationBarAppearance
             navigationBar?.compactAppearance = navigationBarAppearance
@@ -44,7 +43,6 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
             navigationBar?.barTintColor = .mainBlue
             navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
             navigationBar?.tintColor = .white
-            navigationBar?.barStyle = .black
         }
     }
     

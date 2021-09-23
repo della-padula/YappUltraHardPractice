@@ -12,6 +12,7 @@ import UIKit
 import WebKit
 
 class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let bookmarkKey = "Bookmark"
     private let labelView = UIView()
     private let webView = WKWebView()
     private let tableView = UITableView()
@@ -22,8 +23,10 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        configureBarBtns()
+        view.backgroundColor = .white
+        
+        configureNavigationBar()
+        configureNavigationBarBtns()
         configureLabelView()
         configureWebView()
         getData()
@@ -72,23 +75,27 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
             }
         }
     }
-    
+
     @objc
     private func bookmarkTapped(_ sender: UIButton) {
         let defaults = UserDefaults.standard
-        let bookmarks = defaults.array(forKey: "Bookmark") as? [String] ?? []
-        var newBookmarks = bookmarks
+        var bookmarks: [Notice]?
+        if let data =  UserDefaults.standard.value(forKey: bookmarkKey) as? Data {
+            bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data)
+        }
         
-        if let notice = notice {
-            if bookmarks.contains(notice.url) {
-                newBookmarks = newBookmarks.filter({ $0 != notice.url })
+        if let bookmarks = bookmarks, let notice = notice {
+            var newBookmarks = bookmarks
+            if bookmarks.contains(notice) {
+                newBookmarks = newBookmarks.filter({ $0 != notice })
             } else {
-                newBookmarks.append(notice.url)
+                newBookmarks.append(notice)
             }
-            defaults.set(newBookmarks, forKey: "Bookmark")
+            defaults.set(try? PropertyListEncoder().encode(newBookmarks), forKey: bookmarkKey)
             defaults.synchronize()
         }
-        configureBarBtns()
+        
+        configureNavigationBarBtns()
     }
     
     @objc
@@ -97,16 +104,23 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         showActivityVC([link])
     }
     
-    private func configureView() {
-        view.backgroundColor = .white
-        self.navigationItem.title = "상세보기"
+    private func configureNavigationBar() {
+        navigationItem.title = "상세보기"
+        let navigationBar = navigationController?.navigationBar
+        navigationBar?.tintColor = .white
     }
     
-    private func configureBarBtns() {
-        let bookmarks = UserDefaults.standard.array(forKey: "Bookmark") as? [String] ?? []
-        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: bookmarks.contains(notice?.url ?? "") ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
-        let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
-        self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
+    private func configureNavigationBarBtns() {
+        var bookmarks: [Notice]?
+        if let data =  UserDefaults.standard.value(forKey: bookmarkKey) as? Data {
+            bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data)
+        }
+        
+        if let bookmarks = bookmarks, let notice = notice {
+            let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: bookmarks.contains(notice) ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
+            let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+            self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
+        }
     }
 
     private func configureLabelView() {

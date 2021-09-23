@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Notice {
+struct Notice: Codable, Equatable {
     let title: String
     let time: String
     let url: String
