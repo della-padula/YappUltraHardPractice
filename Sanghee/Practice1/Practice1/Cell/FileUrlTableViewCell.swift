@@ -23,7 +23,7 @@ class FileUrlTableViewCell: UITableViewCell {
     var index: Int = 0
     var fileUrl: FileUrl? {
         didSet {
-            layout()
+            setLayout()
         }
     }
     
@@ -41,7 +41,7 @@ class FileUrlTableViewCell: UITableViewCell {
         self.delegate?.showAlert(index: index)
     }
     
-    private func layout() {
+    private func setLayout() {
         let iconView = UIImageView(image: UIImage(systemName: "doc"))
         
         self.addSubview(cellView)

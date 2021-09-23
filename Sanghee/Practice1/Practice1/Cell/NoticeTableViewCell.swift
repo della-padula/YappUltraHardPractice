@@ -17,7 +17,7 @@ class NoticeTableViewCell: UITableViewCell {
     
     var notice: Notice? {
         didSet {
-            layout()
+            setLayout()
         }
     }
     
@@ -29,7 +29,7 @@ class NoticeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func layout() {
+    private func setLayout() {
         self.addSubview(cellView)
         cellView.addSubview(titleLabel)
         cellView.addSubview(timeLabel)
