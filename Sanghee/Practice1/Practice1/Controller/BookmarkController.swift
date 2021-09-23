@@ -9,9 +9,10 @@ import SnapKit
 import UIKit
 
 class BookmarkController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let bookmarkKey = "Bookmark"
     private let tableView = UITableView()
 
-    private var noticeList: [Notice] = []
+    private var bookmarkList: [Notice] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,10 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func getData() {
-        
+        if let data =  UserDefaults.standard.value(forKey: bookmarkKey) as? Data {
+            guard let bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data) else { return }
+            bookmarkList = bookmarks
+        }
     }
     
     private func configureNavigationBar() {
@@ -59,16 +63,16 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(DetailController(noticeList[indexPath.row]), animated: true)
+        navigationController?.pushViewController(DetailController(bookmarkList[indexPath.row]), animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return noticeList.count
+        return bookmarkList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NoticeTableViewCell.identifier, for: indexPath) as! NoticeTableViewCell
-        cell.notice = noticeList[indexPath.row]
+        cell.notice = bookmarkList[indexPath.row]
         return cell
     }
 }

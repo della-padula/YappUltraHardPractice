@@ -80,7 +80,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func bookmarkTapped(_ sender: UIButton) {
         let defaults = UserDefaults.standard
         var bookmarks: [Notice]?
-        if let data =  UserDefaults.standard.value(forKey: bookmarkKey) as? Data {
+        if let data =  defaults.value(forKey: bookmarkKey) as? Data {
             bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data)
         }
         
