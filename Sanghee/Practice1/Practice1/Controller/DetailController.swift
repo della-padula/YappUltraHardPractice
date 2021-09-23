@@ -12,13 +12,13 @@ import UIKit
 import WebKit
 
 class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    private var notice: Notice?
-    private var fileUrlList: [FileUrl] = []
-    private let modalHeight: CGFloat = 160
-    
     private let labelView = UIView()
     private let webView = WKWebView()
     private let tableView = UITableView()
+    
+    private let modalHeight: CGFloat = 160
+    private var notice: Notice?
+    private var fileUrlList: [FileUrl] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

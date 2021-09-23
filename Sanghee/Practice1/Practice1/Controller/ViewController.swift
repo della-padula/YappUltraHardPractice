@@ -11,11 +11,11 @@ import SnapKit
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let tableView = UITableView()
+    
     private var page: Int = 0
     private var noticeList: [Notice] = []
     private var isGettingData: Bool = true
-    
-    private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

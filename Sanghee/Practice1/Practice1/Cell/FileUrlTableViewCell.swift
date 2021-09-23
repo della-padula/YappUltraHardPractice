@@ -13,18 +13,19 @@ protocol ButtonDelegate: AnyObject {
 }
 
 class FileUrlTableViewCell: UITableViewCell {
-    weak var delegate: ButtonDelegate?
     static let identifier = "FileUrlCell"
+    weak var delegate: ButtonDelegate?
+    
+    private let cellView = UIView()
+    private let titleLabel = UILabel()
+    private let downloadButton = UIButton()
+    
     var index: Int = 0
     var fileUrl: FileUrl? {
         didSet {
             layout()
         }
     }
-    
-    private let cellView = UIView()
-    private let titleLabel = UILabel()
-    private let downloadButton = UIButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -10,15 +10,16 @@ import UIKit
 
 class NoticeTableViewCell: UITableViewCell {
     static let identifier = "NoticeCell"
+    
+    private let cellView = UIView()
+    private let titleLabel = UILabel()
+    private let timeLabel = UILabel()
+    
     var notice: Notice? {
         didSet {
             layout()
         }
     }
-    
-    private let cellView = UIView()
-    private let titleLabel = UILabel()
-    private let timeLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

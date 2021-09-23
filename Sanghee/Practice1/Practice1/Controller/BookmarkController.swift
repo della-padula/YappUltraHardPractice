@@ -9,9 +9,9 @@ import SnapKit
 import UIKit
 
 class BookmarkController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    private var noticeList: [Notice] = []
-    
     private let tableView = UITableView()
+
+    private var noticeList: [Notice] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

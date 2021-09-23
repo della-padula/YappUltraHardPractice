@@ -64,8 +64,8 @@
 		5E2A4C5126FCCCA5001F9666 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5EC2C56C26F2B93200AEBAB2 /* DetailController.swift */,
 				5EC2C55626F2724300AEBAB2 /* ViewController.swift */,
+				5EC2C56C26F2B93200AEBAB2 /* DetailController.swift */,
 				5EC2C57C26FB76D700AEBAB2 /* BookmarkController.swift */,
 			);
 			path = Controller;
