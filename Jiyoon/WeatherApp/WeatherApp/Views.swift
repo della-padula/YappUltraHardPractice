@@ -11,7 +11,7 @@ import UIKit
 
 class Views: UIViewController, UIScrollViewDelegate{
     var viewSeoul: UIView = {
-        let view = UIView()
+        let pageView = UIView()
         var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         
         var locationNameLabel = UILabel()
@@ -21,12 +21,12 @@ class Views: UIViewController, UIScrollViewDelegate{
         var tempLowLabel = UILabel()
         var backButton = UIButton()
         
-        view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
-        return view
+        pageView.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
+        return pageView
     }()
     
     var viewDaejeon: UIView = {
-        let view = UIView()
+        let pageView = UIView()
         var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         
         var locationNameLabel = UILabel()
@@ -36,12 +36,12 @@ class Views: UIViewController, UIScrollViewDelegate{
         var tempLowLabel = UILabel()
         var backButton = UIButton()
         
-        view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
-        return view
+        pageView.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
+        return pageView
     }()
     
     var viewDaegu: UIView = {
-        let view = UIView()
+        let pageView = UIView()
         var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         
         var locationNameLabel = UILabel()
@@ -51,12 +51,12 @@ class Views: UIViewController, UIScrollViewDelegate{
         var tempLowLabel = UILabel()
         var backButton = UIButton()
         
-        view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
-        return view
+        pageView.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
+        return pageView
     }()
     
     var viewBusan: UIView = {
-        let view = UIView()
+        let pageView = UIView()
         var timeList = ["1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시"]
         
         var locationNameLabel = UILabel()
@@ -66,8 +66,8 @@ class Views: UIViewController, UIScrollViewDelegate{
         var tempLowLabel = UILabel()
         var backButton = UIButton()
         
-        view.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
-        return view
+        pageView.backgroundColor = UIColor(red: 0.24, green: 0.70, blue: 1.00, alpha: 1.00)
+        return pageView
     }()
     
     lazy var views = [viewSeoul, viewDaejeon, viewDaegu, viewBusan]
