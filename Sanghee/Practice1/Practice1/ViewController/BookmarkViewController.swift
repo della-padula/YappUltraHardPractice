@@ -28,6 +28,12 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
         configureTableView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        getData()
+        configureNavigationBarBtn()
+        tableView.reloadData()
+    }
+    
     private func getData() {
         bookmarkList = CoreDataManager.shared.getBookmarks()
     }
