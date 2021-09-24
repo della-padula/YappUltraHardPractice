@@ -6,13 +6,9 @@
 //
 
 import UIKit
-
 class TabBarController: UITabBarController{
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.tabBar.backgroundColor = #colorLiteral(red: 0.9160357603, green: 0.9160357603, blue: 0.9160357603, alpha: 1)
         settingTabBar()
     }
@@ -44,7 +40,8 @@ class TabBarController: UITabBarController{
     }
     
     // MARK: - 추가 버튼 클릭 시 작업 메서드
-    @objc func plusButtonAction(sender: UIButton) {
+    @objc
+    func plusButtonAction(sender: UIButton) {
         let plusVC = PlusViewController()
         plusVC.modalPresentationStyle = .fullScreen
         self.present(plusVC, animated: true, completion: nil)

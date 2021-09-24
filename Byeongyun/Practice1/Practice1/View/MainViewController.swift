@@ -26,8 +26,6 @@ var feedArray : [Feed] = [
     Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
     Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
     Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date())
-    
-
 ]
 
 
@@ -118,19 +116,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     // 커스텀 셀 정의
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
+        cell.userUploadImageSetting(feedArray[indexPath.row].uploadImage)
+        cell.userProfileImageSetting(feedArray[indexPath.row].userImage)
         cell.selectionStyle = .none
-        cell.userUploadImage.image = feedArray[indexPath.row].uploadImage
-        cell.userName.text = feedArray[indexPath.row].userName
-        cell.userText.text = feedArray[indexPath.row].text
-        cell.userImage.image = feedArray[indexPath.row].userImage
-        cell.textUserName.text = feedArray[indexPath.row].userName
+        cell.userNameLabel.text = feedArray[indexPath.row].userName
+        cell.userTextLabel.text = feedArray[indexPath.row].text
+        cell.textUserNameLabel.text = feedArray[indexPath.row].userName
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MM월 dd일 HH:mm"
         let currentString = formatter.string(from: feedArray[indexPath.row].time)
         
-        cell.date.text = currentString
-        cell.likeStatus.text = "\(feedArray[indexPath.row].like) 명이 좋아합니다"
+        cell.dateLabel.text = currentString
+        cell.likeStatusLabel.text = "\(feedArray[indexPath.row].like) 명이 좋아합니다"
         
         return cell
     }
