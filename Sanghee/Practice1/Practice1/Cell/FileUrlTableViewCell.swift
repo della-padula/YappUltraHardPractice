@@ -50,12 +50,11 @@ class FileUrlTableViewCell: UITableViewCell {
         cellView.addSubview(titleLabel)
         
         cellView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.left.right.equalToSuperview().inset(6)
+            make.edges.equalToSuperview().inset(8)
         }
         iconView.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview().inset(8)
-            make.width.height.equalTo(22)
+            make.width.equalTo(22)
         }
         downloadButton.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
