@@ -149,7 +149,6 @@ class PlusViewController: UIViewController {
         writingTextView.text = "이곳에 사진과 함께 적을 글을 입력해주세요!"
         writingTextView.textColor = .lightGray
         writingTextView.font = UIFont.systemFont(ofSize: 13)
-        
         // 키보드 나타날때를 감지하는 옵저버
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         // 키보드 사라질때를 감지하는 옵저버

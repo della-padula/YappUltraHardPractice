@@ -9,7 +9,13 @@ import UIKit
 class FeedCollectionViewCell: UICollectionViewCell {
     // Cell ID
     static let cellId = "FeedCell"
-    private let imageView = UIImageView()
+    private let collectionImageView = UIImageView()
+    // Property Observer
+    var cellDataSetting: Feed! {
+        didSet {
+            collectionImageView.image = cellDataSetting.uploadImage
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,15 +28,11 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     // MARK: - 컬렉션 뷰 이미지 뷰어 세팅
     func setUpCellImageViewer() {
-        contentView.addSubview(imageView)
-        imageView.snp.makeConstraints {
+        contentView.addSubview(collectionImageView)
+        collectionImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(self.snp.width)
             $0.height.equalTo(self.snp.height)
         }
-    }
-    // 세팅 이미지 뷰 외부 접근 메서드
-    func settingImageView(_ image: UIImage) {
-        imageView.image = image
     }
 }

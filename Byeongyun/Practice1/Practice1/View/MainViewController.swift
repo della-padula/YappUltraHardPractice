@@ -55,7 +55,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
         tableViewCellSetting()
         settingUI()
         
@@ -106,18 +105,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     // 커스텀 셀 정의
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM월 dd일 HH:mm"
-        let currentString = formatter.string(from: feedArray[indexPath.row].time)
-        cell.userUploadImageSetting(feedArray[indexPath.row].uploadImage)
-        cell.userProfileImageSetting(feedArray[indexPath.row].userImage)
+        // 클릭시 색 없게 설정
         cell.selectionStyle = .none
-        cell.userNameLabel.text = feedArray[indexPath.row].userName
-        cell.userTextLabel.text = feedArray[indexPath.row].text
-        cell.textUserNameLabel.text = feedArray[indexPath.row].userName
-        cell.dateLabel.text = currentString
-        cell.likeStatusLabel.text = "\(feedArray[indexPath.row].like) 명이 좋아합니다"
+        cell.cellDataSetting = feedArray[indexPath.row]
         return cell
     }
 }

@@ -288,7 +288,7 @@ extension UserViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     // 컬렉션뷰 셀에서 보여줄 것 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.cellId, for: indexPath) as! FeedCollectionViewCell
-        cell.settingImageView(feedArray[indexPath.row].uploadImage)
+        cell.cellDataSetting = feedArray[indexPath.row]
         return cell
     }
     // 컬렉션뷰 셀 크기와 한 줄에 보여줄 개수 설정
