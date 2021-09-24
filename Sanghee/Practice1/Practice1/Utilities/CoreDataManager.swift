@@ -1,5 +1,5 @@
 //
-//  PersistenceManager.swift
+//  CoreDataManager.swift
 //  Practice1
 //
 //  Created by leeesangheee on 2021/09/24.
@@ -8,8 +8,8 @@
 import CoreData
 import Foundation
 
-class PersistenceManager {
-    static var shared: PersistenceManager = PersistenceManager()
+class CoreDataManager {
+    static var shared: CoreDataManager = CoreDataManager()
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
@@ -37,31 +37,41 @@ class PersistenceManager {
         }
     }
     
-    func insertBookmark(_ notice: Notice) {
-        if let entity = bookmarkEntity {
-            let managedObject = NSManagedObject(entity: entity, insertInto: context)
-            managedObject.setValue(notice.url, forKey: "notice")
-            saveToContext()
-        }
-    }
-    
-    func fetchBookmark() -> [Bookmark] {
+    func fetchBookmarks() -> [Bookmark] {
         do {
             let request = Bookmark.fetchRequest()
-            let data = try context.fetch(request)
-            print(data)
-            return data
+            let results = try context.fetch(request)
+            return results
         } catch {
             print(error.localizedDescription)
         }
         return []
     }
     
-    func deleteBookmark() {
-        let fetchResult = fetchBookmark()
-        if let bookmark = fetchResult.last {
-            context.delete(bookmark)
+    func insertBookmark(_ notice: Notice) {
+        if let entity = bookmarkEntity {
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
+            managedObject.setValue(notice.title, forKey: "title")
+            managedObject.setValue(notice.time, forKey: "time")
+            managedObject.setValue(notice.url, forKey: "url")
+            saveToContext()
         }
+    }
+    
+    func getBookmarks() -> [Notice] {
+        var notices: [Notice] = []
+        let fetchResults = fetchBookmarks()
+        for result in fetchResults {
+            let notice = Notice(title: result.title ?? "", time: result.time ?? "", url: result.url ?? "")
+            notices.append(notice)
+        }
+        return notices
+    }
+    
+    func deleteBookmark(_ notice: Notice) {
+        let fetchResults = fetchBookmarks()
+        let notice = fetchResults.filter({ $0.url == notice.url })[0]
+        context.delete(notice)
         saveToContext()
     }
 }

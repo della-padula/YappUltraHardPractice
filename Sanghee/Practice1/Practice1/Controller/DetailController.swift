@@ -13,6 +13,7 @@ import UIKit
 import WebKit
 
 class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let manager = CoreDataManager.shared
     private let bookmarkKey = "Bookmark"
     private let labelView = UIView()
     private let webView = WKWebView()
@@ -79,13 +80,14 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
 
     @objc
     private func bookmarkTapped(_ sender: UIButton) {
-        let manager = PersistenceManager.shared
-        
+        let bookmarks = manager.getBookmarks()
         if let notice = notice {
-            manager.insertBookmark(notice)
-            manager.fetchBookmark()
+            if bookmarks.contains(notice) {
+                manager.deleteBookmark(notice)
+            } else {
+                manager.insertBookmark(notice)
+            }
         }
-        
         configureNavigationBarBtns()
     }
     
@@ -102,9 +104,13 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     private func configureNavigationBarBtns() {
-        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: true ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
-        let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
-        self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
+        let bookmarks = manager.getBookmarks()
+        
+        if let notice = notice {
+            let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: bookmarks.contains(notice) ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
+            let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+            self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
+        }
     }
 
     private func configureLabelView() {

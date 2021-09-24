@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E2A4C5526FCD08D001F9666 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C5426FCD08D001F9666 /* UIColor.swift */; };
 		5E2A4C5826FDAADC001F9666 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C5626FDAADC001F9666 /* Model.xcdatamodeld */; };
-		5E2A4C5F26FDAF8A001F9666 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C5E26FDAF8A001F9666 /* PersistenceManager.swift */; };
+		5E2A4C5F26FDAF8A001F9666 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C5E26FDAF8A001F9666 /* CoreDataManager.swift */; };
 		5E2A4C6426FDC014001F9666 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C6326FDC014001F9666 /* Functions.swift */; };
 		5EC2C55326F2724300AEBAB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */; };
 		5EC2C55726F2724300AEBAB2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C55626F2724300AEBAB2 /* ViewController.swift */; };
@@ -29,7 +29,7 @@
 		4E74B6C62C84B3C54FEB276D /* Pods_Practice1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E2A4C5426FCD08D001F9666 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5E2A4C5726FDAADC001F9666 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		5E2A4C5E26FDAF8A001F9666 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		5E2A4C5E26FDAF8A001F9666 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		5E2A4C6326FDC014001F9666 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		5EC2C54F26F2724300AEBAB2 /* Practice1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Practice1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				5E2A4C6326FDC014001F9666 /* Functions.swift */,
-				5E2A4C5E26FDAF8A001F9666 /* PersistenceManager.swift */,
+				5E2A4C5E26FDAF8A001F9666 /* CoreDataManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 				5EC2C57D26FB76D700AEBAB2 /* BookmarkController.swift in Sources */,
 				5E2A4C5826FDAADC001F9666 /* Model.xcdatamodeld in Sources */,
 				5EC2C57126F3981100AEBAB2 /* FileUrl.swift in Sources */,
-				5E2A4C5F26FDAF8A001F9666 /* PersistenceManager.swift in Sources */,
+				5E2A4C5F26FDAF8A001F9666 /* CoreDataManager.swift in Sources */,
 				5EC2C55326F2724300AEBAB2 /* AppDelegate.swift in Sources */,
 				5E2A4C6426FDC014001F9666 /* Functions.swift in Sources */,
 			);
