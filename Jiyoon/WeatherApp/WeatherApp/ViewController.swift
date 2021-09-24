@@ -72,11 +72,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             maker.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             maker.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-        for locate in self.locationsInEngList {
-            self.fetchWeather(cityName: locate)
+        func fetchFromCityName(completionHandler: @escaping () -> Void){
+            for locate in self.locationsInEngList{
+                self.fetchWeather(cityName: locate)
+            }
         }
-        DispatchQueue.global().sync {
-            tableView.reloadData()
+        fetchFromCityName {
+            self.tableView.reloadData()
         }
         for icon in iconsList {
             let scaledIcon = renderer.image {
