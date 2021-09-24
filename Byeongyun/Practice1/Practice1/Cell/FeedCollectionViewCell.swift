@@ -9,7 +9,6 @@ import UIKit
 class FeedCollectionViewCell: UICollectionViewCell {
     // Cell ID
     static let cellId = "FeedCell"
-    
     private let imageView = UIImageView()
     
     override init(frame: CGRect) {
@@ -17,7 +16,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         setUpCellImageViewer()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -31,8 +29,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
             $0.height.equalTo(self.snp.height)
         }
     }
-    
-    
+    // 세팅 이미지 뷰 외부 접근 메서드
     func settingImageView(_ image: UIImage) {
         imageView.image = image
     }

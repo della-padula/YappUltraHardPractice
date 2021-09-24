@@ -7,6 +7,7 @@
 
 import UIKit
 class TabBarController: UITabBarController{
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.backgroundColor = #colorLiteral(red: 0.9160357603, green: 0.9160357603, blue: 0.9160357603, alpha: 1)
@@ -29,13 +30,10 @@ class TabBarController: UITabBarController{
         }
         mainVC.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
         mainVC.tabBarItem.image = UIImage(systemName: "house")
-        
         let plusVC = PlusViewController()
-        
         let userVC = UserViewController()
         userVC.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         userVC.tabBarItem.image = UIImage(systemName: "person")
-        
         viewControllers = [mainVC, plusVC, userVC]
     }
     

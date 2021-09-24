@@ -7,13 +7,11 @@
 
 import UIKit
 import SnapKit
-
 class UserViewController: UIViewController {
     
     let cellId = "userViewCell"
     let minHeight: CGFloat = -300
     let stopHeight : CGFloat = -50
-    
     
     // MARK: - 뷰가 나오기 전 액션
     override func viewWillAppear(_ animated: Bool) {
@@ -26,29 +24,24 @@ class UserViewController: UIViewController {
     let titleView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
         return view
     }()
     // 유저 뷰
     let userView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
         return view
     }()
     // 타이틀 뷰에 입력될 계정
     let userViewTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "IBY"
-        
         label.font = UIFont.boldSystemFont(ofSize: 23)
-        
         return label
     }()
     // MARK: - 첫 줄 스택 뷰
     // 유저 프로필 사진
     let userImageView: UIImageView = {
-        
         let imageView = UIImageView()
         imageView.image = UIImage(named: "user")
         imageView.layer.borderWidth = 0.5
@@ -56,7 +49,6 @@ class UserViewController: UIViewController {
         imageView.layer.cornerRadius = 40
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
-        
         return imageView
         
     }()
@@ -97,13 +89,11 @@ class UserViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [uploadLabel, followerLabel, followingLabel])
         stackView.axis = .horizontal
         stackView.spacing = 30
-        
         return stackView
     }()
     // MARK: - 두 번째 스택 뷰
     // 계정 이름 말고 실제 이름 라벨
     let realNameLabel: UILabel = {
-        
         let label = UILabel()
         label.text = "인병윤"
         label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -132,7 +122,6 @@ class UserViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(editButtonClickAction), for: .touchUpInside)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-
         button.layer.cornerRadius = 3
         button.layer.borderWidth = 0.5
         button.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -142,11 +131,9 @@ class UserViewController: UIViewController {
     @objc
     func editButtonClickAction() {
         let alert = UIAlertController(title: "프로필 편집", message: "버튼이 눌렸습니다.", preferredStyle: .alert)
-        
         let ok = UIAlertAction(title: "닫기", style: .default, handler: nil)
         
         alert.addAction(ok)
-        
         present(alert, animated: true, completion: nil)
     }
     // MARK: - 컬렉션 뷰 선언
@@ -155,8 +142,8 @@ class UserViewController: UIViewController {
         let collectionView = UICollectionView(frame: .init(x: 0, y: 0, width: 100, height: 1500), collectionViewLayout: flowLayout)
         collectionView.contentInset = UIEdgeInsets(top: 250, left: 0, bottom: 0, right: 0)
         return collectionView
-        
     }()
+    
     // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,6 +152,7 @@ class UserViewController: UIViewController {
         collectionViewSetting()
         settingUI()
     }
+    
     // MARK: - 컬렉션 뷰 세팅
     func collectionViewSetting() {
         collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.cellId)
@@ -172,22 +160,21 @@ class UserViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
+    
     // MARK: - 탭바 선언
     let tabBar : UITabBar = {
         let tab = UITabBar(frame: CGRect(x: 0, y: 0, width: 500, height: 30))
-
         let grid = UITabBarItem(title: "Feed", image: UIImage(systemName: "squareshape.split.3x3"), selectedImage: UIImage(systemName: "squareshape.split.3x3"))
         let tag = UITabBarItem(title: "People", image: UIImage(systemName: "person.crop.square"), selectedImage: UIImage(systemName: "person.crop.square"))
-
+        let button = UIButton()
         tab.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         tab.layer.borderWidth = 0
         tab.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         tab.barStyle = .default
-        let button = UIButton()
         tab.items = [grid,tag]
-        
         return tab
        }()
+    
     // MARK: - UI 세팅
     func settingUI() {
         // UserView 타이틀(아이디)
@@ -264,6 +251,7 @@ class UserViewController: UIViewController {
     }
 
 }
+
 // MARK: - 중간 탭 바 익스텐션
 extension UserViewController: UITabBarDelegate {
     // 현재 선택된 탭바 아이템 확인 메서드
@@ -271,12 +259,15 @@ extension UserViewController: UITabBarDelegate {
         if item.title == "People" {
             let alert = UIAlertController(title: "태그", message: "준비중입니다.", preferredStyle: .alert)
             let ok = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
+            tabBar.selectedItem = tabBar.items?.first
+            
             alert.addAction(ok)
             present(alert, animated: true, completion: nil)
-            tabBar.selectedItem = tabBar.items?.first
+            
         }
     }
 }
+
 // MARK: - 스크롤링 익스텐션
 extension UserViewController: UIScrollViewDelegate {
     // 스크롤 시 현재 움직이는 좌표를 볼 수 있는 메서드
@@ -291,6 +282,7 @@ extension UserViewController: UIScrollViewDelegate {
         }
     }
 }
+
 // MARK: - 컬렉션 뷰 익스텐션
 extension UserViewController: UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     // 컬렉션뷰 셀의 개수 설정

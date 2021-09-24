@@ -28,7 +28,6 @@ var feedArray : [Feed] = [
     Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date())
 ]
 
-
 class MainViewController: UIViewController {
     
     // 뷰가 보이기 전 실행
@@ -36,7 +35,6 @@ class MainViewController: UIViewController {
         tableView.reloadData()
         
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         let endIndex = IndexPath(row: 0, section: 0)
         tableView.scrollToRow(at: endIndex, at: .top, animated: true)
@@ -50,7 +48,6 @@ class MainViewController: UIViewController {
         
         return label
     }()
-    
     
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
     
@@ -77,7 +74,6 @@ class MainViewController: UIViewController {
     
     // MARK: - UI 세팅
     func settingUI() {
-        
         // 메인 타이틀
         view.addSubview(mainTitle)
         mainTitle.snp.makeConstraints {
@@ -85,7 +81,6 @@ class MainViewController: UIViewController {
             $0.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
             
         }
-        
         // 테이블 뷰
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
@@ -100,37 +95,29 @@ class MainViewController: UIViewController {
 
 // MARK: - TableView 익스텐션
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    
     // 테이블 뷰 셀 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedArray.count
     }
-    
+    // 테이블 뷰 크기
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        
         return UITableView.automaticDimension
-        
     }
-    
     // 커스텀 셀 정의
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM월 dd일 HH:mm"
+        let currentString = formatter.string(from: feedArray[indexPath.row].time)
         cell.userUploadImageSetting(feedArray[indexPath.row].uploadImage)
         cell.userProfileImageSetting(feedArray[indexPath.row].userImage)
         cell.selectionStyle = .none
         cell.userNameLabel.text = feedArray[indexPath.row].userName
         cell.userTextLabel.text = feedArray[indexPath.row].text
         cell.textUserNameLabel.text = feedArray[indexPath.row].userName
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM월 dd일 HH:mm"
-        let currentString = formatter.string(from: feedArray[indexPath.row].time)
-        
         cell.dateLabel.text = currentString
         cell.likeStatusLabel.text = "\(feedArray[indexPath.row].like) 명이 좋아합니다"
-        
         return cell
     }
-    
 }
