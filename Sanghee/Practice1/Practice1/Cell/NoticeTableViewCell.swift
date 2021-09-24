@@ -30,7 +30,7 @@ class NoticeTableViewCell: UITableViewCell {
     }
     
     private func setLayout() {
-        self.addSubview(cellView)
+        self.contentView.addSubview(cellView)
         cellView.addSubview(titleLabel)
         cellView.addSubview(timeLabel)
         

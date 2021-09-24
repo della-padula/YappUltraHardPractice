@@ -44,7 +44,7 @@ class FileUrlTableViewCell: UITableViewCell {
     private func setLayout() {
         let iconView = UIImageView(image: UIImage(systemName: "doc"))
         
-        self.addSubview(cellView)
+        self.contentView.addSubview(cellView)
         cellView.addSubview(iconView)
         cellView.addSubview(downloadButton)
         cellView.addSubview(titleLabel)

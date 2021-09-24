@@ -160,11 +160,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         tableView.register(FileUrlTableViewCell.self, forCellReuseIdentifier: FileUrlTableViewCell.identifier)
         
-        let separatorView = UIView()
-        let tableContainerView = UIView()
         let maxY = view.frame.origin.y + view.frame.size.height
         let rect = CGRect(x: 0, y: maxY, width: view.bounds.width, height: modalHeight)
         let myView = UIView(frame: rect)
+        let separatorView = UIView()
+        let tableContainerView = UIView()
 
         view.addSubview(myView)
         myView.addSubview(separatorView)
