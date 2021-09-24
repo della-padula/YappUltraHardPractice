@@ -197,7 +197,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlTableViewCell.identifier, for: indexPath) as! FileUrlTableViewCell
         cell.delegate = self
-        cell.contentView.isUserInteractionEnabled = false
         
         cell.index = indexPath.row
         cell.fileUrl = fileUrlList[indexPath.row]
