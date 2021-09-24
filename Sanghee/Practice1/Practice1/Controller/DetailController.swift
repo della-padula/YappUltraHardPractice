@@ -17,7 +17,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private let webView = WKWebView()
     private let tableView = UITableView()
     
-    private let modalHeight: CGFloat = 160
+    private let modalHeight: CGFloat = 200
     private var notice: Notice?
     private var fileUrlList: [FileUrl] = []
     
