@@ -21,19 +21,19 @@ class UserViewController: UIViewController {
     }
     // MARK: - 뼈대 뷰 선언과 메인 타이틀 선언
     // 타이틀 뷰
-    let titleView: UIView = {
+    private let titleView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     // 유저 뷰
-    let userView: UIView = {
+    private let userView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     // 타이틀 뷰에 입력될 계정
-    let userViewTitleLabel: UILabel = {
+    private let userViewTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "IBY"
         label.font = UIFont.boldSystemFont(ofSize: 23)
@@ -41,7 +41,7 @@ class UserViewController: UIViewController {
     }()
     // MARK: - 첫 줄 스택 뷰
     // 유저 프로필 사진
-    let userImageView: UIImageView = {
+    private let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "user")
         imageView.layer.borderWidth = 0.5
@@ -53,7 +53,7 @@ class UserViewController: UIViewController {
         
     }()
     // 업로드 개수 라벨
-    let uploadLabel: UILabel = {
+    private let uploadLabel: UILabel = {
         let label = UILabel()
         label.text = " 10 \n 게시물  "
         label.numberOfLines = 0
@@ -61,7 +61,7 @@ class UserViewController: UIViewController {
         return label
     }()
     // 팔로워 명수 라벨
-    let followerLabel: UILabel = {
+    private let followerLabel: UILabel = {
         let label = UILabel()
         label.text = " 10 \n 팔로워  "
         label.numberOfLines = 0
@@ -69,7 +69,7 @@ class UserViewController: UIViewController {
         return label
     }()
     // 팔로잉 명수 라벨
-    let followingLabel: UILabel = {
+    private let followingLabel: UILabel = {
         let label = UILabel()
         label.text = " 10 \n 팔로잉  "
         label.numberOfLines = 0
@@ -78,13 +78,10 @@ class UserViewController: UIViewController {
     }()
     
     // 첫 스택 뷰
-    
     // stackView를 구성할 때 lazy를 사용하는 이유?
-    
     // 기본적으로 일반 변수들은 클래스가 생성된 이후에 접근이 가능하기 때문에 클래스 내의 다른 영역(메서드, 프로퍼티) 에서는
     // self를 통해 접근할 수 없지만 lazy 키워드가 붙으면 생성 후 추후에
     // 접근할 것이라는 의미이기 때문에 class 내에서 self로 접근이 가능하다.
-    
     lazy var userStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [uploadLabel, followerLabel, followingLabel])
         stackView.axis = .horizontal
@@ -93,14 +90,14 @@ class UserViewController: UIViewController {
     }()
     // MARK: - 두 번째 스택 뷰
     // 계정 이름 말고 실제 이름 라벨
-    let realNameLabel: UILabel = {
+    private let realNameLabel: UILabel = {
         let label = UILabel()
         label.text = "인병윤"
         label.font = UIFont.boldSystemFont(ofSize: 13)
         return label
     }()
     // 상태 메시지
-    let statusMessageLabel: UILabel = {
+    private let statusMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "인스타그램 클론 합니다."
         label.font = UIFont.systemFont(ofSize: 11)
@@ -112,11 +109,10 @@ class UserViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.alignment = .leading
-        
         return stackView
     }()
     // MARK: - 중간 프로필 편집 버튼
-    let profileEditButton: UIButton = {
+    private let profileEditButton: UIButton = {
         let button = UIButton()
         button.setTitle("프로필 편집", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -127,7 +123,6 @@ class UserViewController: UIViewController {
         button.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         return button
     }()
-    
     @objc
     func editButtonClickAction() {
         let alert = UIAlertController(title: "프로필 편집", message: "버튼이 눌렸습니다.", preferredStyle: .alert)
@@ -136,6 +131,7 @@ class UserViewController: UIViewController {
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
     }
+    
     // MARK: - 컬렉션 뷰 선언
     let collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()

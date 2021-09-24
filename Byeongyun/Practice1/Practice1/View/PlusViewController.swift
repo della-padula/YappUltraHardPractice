@@ -9,12 +9,12 @@ import UIKit
 import SnapKit
 class PlusViewController: UIViewController {
 
-    let picker = UIImagePickerController()
-    var selectImage = UIImage()
+    private let picker = UIImagePickerController()
+    private var selectImage = UIImage()
     
     // MARK: - 버튼 선언 공간
     // 취소버튼
-    let cancelButton: UIButton = {
+    private let cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("취소", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -23,7 +23,7 @@ class PlusViewController: UIViewController {
         return button
     }()
     // 저장버튼
-    let saveButton: UIButton = {
+    private let saveButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 150))
         button.setTitle("저장", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
@@ -33,7 +33,7 @@ class PlusViewController: UIViewController {
         return button
     }()
     // 사진 선택 버튼
-    let chooseImageButton: UIButton = {
+    private let chooseImageButton: UIButton = {
         let button = UIButton()
         button.setTitle("사진 선택하기", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -107,14 +107,14 @@ class PlusViewController: UIViewController {
     }
     
     // MARK: - 뷰 타이틀
-    let plusTitleLabel: UILabel = {
+    private let plusTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "피드 남기기"
         label.font = UIFont.boldSystemFont(ofSize: 25)
         return label
     }()
     // 선택 이미지 뷰어
-    let selectedImageViewer: UIImageView = {
+    private let selectedImageViewer: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         
         if imageView.image == nil {
@@ -127,7 +127,7 @@ class PlusViewController: UIViewController {
     }()
     
     // MARK: - 텍스트 뷰 선언
-    let writingTextView: UITextView = {
+    private let writingTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         textView.layer.borderWidth = 0.5
@@ -234,7 +234,6 @@ extension PlusViewController: UITextViewDelegate {
         }
     }
 }
-
 // Q: 왜 UIImagePickerControllerDelegate를 선언할 때 UINavigationControllerDelegate를 같이 선언해주는걸까?
 // A: UIImagePickerControllerDelegate의 delegate 속성은 UIImagePickerControllerDelegate와 UINavigationControllerDelegate 프로토콜을 모두 구현하는 객체로 정의되어있다.
 // picker의 delegate를 UINavigationControllerDelegate에 위임을 해준 상태다. delegate는 사용자가 이미지나 동영상을 선택하거나 화면을 종료할 때, 알림을 받는다.
