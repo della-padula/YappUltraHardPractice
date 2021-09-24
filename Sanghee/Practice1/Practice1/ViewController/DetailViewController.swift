@@ -1,5 +1,5 @@
 //
-//  DetailController.swift
+//  DetailViewController.swift
 //  Practice1
 //
 //  Created by leeesangheee on 2021/09/16.
@@ -12,7 +12,7 @@ import SnapKit
 import UIKit
 import WebKit
 
-class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let manager = CoreDataManager.shared
     private let bookmarkKey = "Bookmark"
     private let labelView = UIView()
@@ -212,7 +212,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
 }
 
-extension DetailController: ButtonDelegate {
+extension DetailViewController: ButtonDelegate {
     func showAlert(index: Int) {
         let alert = UIAlertController(title: "파일 다운로드", message: "파일을 다운로드하시겠습니까?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "예", style: .default) { _ in

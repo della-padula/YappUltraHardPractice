@@ -15,17 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let tabC = UITabBarController()
-        let viewNavC = UINavigationController()
+        let vcNavC = UINavigationController()
         let bookmarkNavC = UINavigationController()
-        let viewC = ViewController()
-        let bookmarkC = BookmarkController()
+        let vc = ViewController()
+        let bookmarkVC = BookmarkViewController()
         
-        tabC.viewControllers = [viewNavC, bookmarkNavC]
-        viewNavC.viewControllers = [viewC]
-        bookmarkNavC.viewControllers = [bookmarkC]
+        tabC.viewControllers = [vcNavC, bookmarkNavC]
+        vcNavC.viewControllers = [vc]
+        bookmarkNavC.viewControllers = [bookmarkVC]
         
-        viewC.tabBarItem = UITabBarItem(title: "공지", image: UIImage(systemName: "megaphone"), selectedImage: UIImage(systemName: "megaphone.fill"))
-        bookmarkC.tabBarItem = UITabBarItem(title: "북마크", image: UIImage(systemName: "bookmark"), selectedImage: UIImage(systemName: "bookmark.fill"))
+        vc.tabBarItem = UITabBarItem(title: "공지", image: UIImage(systemName: "megaphone"), selectedImage: UIImage(systemName: "megaphone.fill"))
+        bookmarkVC.tabBarItem = UITabBarItem(title: "북마크", image: UIImage(systemName: "bookmark"), selectedImage: UIImage(systemName: "bookmark.fill"))
 
         tabC.tabBar.backgroundColor = .systemGroupedBackground
         tabC.tabBar.tintColor = .mainBlue

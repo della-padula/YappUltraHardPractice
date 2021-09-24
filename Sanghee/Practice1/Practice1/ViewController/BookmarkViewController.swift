@@ -1,5 +1,5 @@
 //
-//  BookmarkController.swift
+//  BookmarkViewController.swift
 //  Practice1
 //
 //  Created by leeesangheee on 2021/09/22.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class BookmarkController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BookmarkViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let bookmarkKey = "Bookmark"
     private let tableView = UITableView()
 
@@ -76,7 +76,7 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(DetailController(bookmarkList[indexPath.row]), animated: true)
+        navigationController?.pushViewController(DetailViewController(bookmarkList[indexPath.row]), animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
