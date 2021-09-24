@@ -26,7 +26,8 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func getData() {
-        
+        bookmarkList = CoreDataManager.shared.getBookmarks()
+        configureTableView()
     }
     
     private func configureRefreshControl() {
