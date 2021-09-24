@@ -31,7 +31,7 @@ class FeedTableViewCell: UITableViewCell {
     var cellDataSetting: FeedArray? {
         didSet {
             guard let setting = cellDataSetting else { return }
-
+            
             if let uploadImage = setting.uploadImage {
                 let image = UIImage(data: uploadImage)
                 userUploadImage.image = image
@@ -49,7 +49,6 @@ class FeedTableViewCell: UITableViewCell {
             dateLabel.text = currentString
         }
     }
-    
     
     // 위에 유저 이름이랑 사진 스택 뷰
     private lazy var userStackView: UIStackView = {
@@ -122,7 +121,6 @@ class FeedTableViewCell: UITableViewCell {
         addSubview(userUploadImage)
         userUploadImage.snp.makeConstraints {
             $0.top.equalTo(userStackView.snp.bottom).offset(10)
-            
             $0.height.equalTo(360)
             $0.left.equalTo(self.snp.left)
             $0.right.equalTo(self.snp.right)

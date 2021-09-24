@@ -35,7 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-
+    
+    // 앱 종료시 일정시간 동안 작업할 수 있게 해주는 메서드
+    func applicationWillTerminate(_ application: UIApplication) {
+        saveContext()
+    }
     // MARK: - Core Data Saving support
 
     func saveContext () {
