@@ -80,14 +80,12 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     @objc
     private func bookmarkTapped(_ sender: UIButton) {
         let manager = PersistenceManager.shared
-        let context = manager.context
         
-        if let entity = manager.bookmarkEntity {
-            let managedObject = NSManagedObject(entity: entity, insertInto: context)
-            managedObject.setValue(notice?.url, forKey: "notice")
-            manager.saveToContext()
-            manager.fetchData()
+        if let notice = notice {
+            manager.insertBookmark(notice)
+            manager.fetchBookmark()
         }
+        
         configureNavigationBarBtns()
     }
     

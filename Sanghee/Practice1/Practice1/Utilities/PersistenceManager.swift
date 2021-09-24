@@ -37,18 +37,31 @@ class PersistenceManager {
         }
     }
     
-    func fetchData() {
+    func insertBookmark(_ notice: Notice) {
+        if let entity = bookmarkEntity {
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
+            managedObject.setValue(notice.url, forKey: "notice")
+            saveToContext()
+        }
+    }
+    
+    func fetchBookmark() -> [Bookmark] {
         do {
             let request = Bookmark.fetchRequest()
             let data = try context.fetch(request)
             print(data)
+            return data
         } catch {
             print(error.localizedDescription)
         }
+        return []
     }
     
-    func delete(_ object: NSManagedObject) {
-        context.delete(object)
+    func deleteBookmark() {
+        let fetchResult = fetchBookmark()
+        if let bookmark = fetchResult.last {
+            context.delete(bookmark)
+        }
         saveToContext()
     }
 }
