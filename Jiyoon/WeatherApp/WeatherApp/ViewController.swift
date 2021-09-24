@@ -4,10 +4,12 @@
 //
 //  Created by 박지윤 on 2021/09/18.
 //
+import CoreData
 import SnapKit
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    var container: NSPersistentContainer!
     private var tableView = UITableView()
     var locationsList: [String] = ["서울특별시", "대전시", "대구시", "부산시"]
     var locationsInEngList: [String] = ["Seoul", "Daejeon", "Daegu", "Busan"]
@@ -116,7 +118,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = PageViewController()
-        let cell = WeatherCell()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
         vc.locationNameLabel.text = locationsList[indexPath.row]
