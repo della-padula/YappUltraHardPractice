@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5E2A4C5526FCD08D001F9666 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C5426FCD08D001F9666 /* UIColor.swift */; };
+		5E2A4C5826FDAADC001F9666 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C5626FDAADC001F9666 /* Model.xcdatamodeld */; };
+		5E2A4C5F26FDAF8A001F9666 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C5E26FDAF8A001F9666 /* PersistenceManager.swift */; };
+		5E2A4C6426FDC014001F9666 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A4C6326FDC014001F9666 /* Functions.swift */; };
 		5EC2C55326F2724300AEBAB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */; };
 		5EC2C55726F2724300AEBAB2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC2C55626F2724300AEBAB2 /* ViewController.swift */; };
 		5EC2C55C26F2724500AEBAB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC2C55B26F2724500AEBAB2 /* Assets.xcassets */; };
@@ -25,6 +28,9 @@
 		2AC2C23534664D0F4DC0B351 /* Pods-Practice1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice1.release.xcconfig"; path = "Target Support Files/Pods-Practice1/Pods-Practice1.release.xcconfig"; sourceTree = "<group>"; };
 		4E74B6C62C84B3C54FEB276D /* Pods_Practice1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E2A4C5426FCD08D001F9666 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		5E2A4C5726FDAADC001F9666 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		5E2A4C5E26FDAF8A001F9666 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		5E2A4C6326FDC014001F9666 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		5EC2C54F26F2724300AEBAB2 /* Practice1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Practice1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC2C55626F2724300AEBAB2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +94,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		5E2A4C6026FDBFF0001F9666 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5E2A4C6326FDC014001F9666 /* Functions.swift */,
+				5E2A4C5E26FDAF8A001F9666 /* PersistenceManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		5EC2C54626F2724300AEBAB2 = {
 			isa = PBXGroup;
 			children = (
@@ -112,8 +127,10 @@
 				5E2A4C5026FCCC92001F9666 /* Model */,
 				5E2A4C5226FCCCC4001F9666 /* Cell */,
 				5E2A4C5126FCCCA5001F9666 /* Controller */,
+				5E2A4C6026FDBFF0001F9666 /* Utilities */,
 				5E2A4C5326FCD067001F9666 /* Extensions */,
 				5EC2C55226F2724300AEBAB2 /* AppDelegate.swift */,
+				5E2A4C5626FDAADC001F9666 /* Model.xcdatamodeld */,
 				5EC2C55B26F2724500AEBAB2 /* Assets.xcassets */,
 				5EC2C55D26F2724500AEBAB2 /* LaunchScreen.storyboard */,
 				5EC2C56026F2724500AEBAB2 /* Info.plist */,
@@ -258,8 +275,11 @@
 				5E2A4C5526FCD08D001F9666 /* UIColor.swift in Sources */,
 				5EC2C56D26F2B93200AEBAB2 /* DetailController.swift in Sources */,
 				5EC2C57D26FB76D700AEBAB2 /* BookmarkController.swift in Sources */,
+				5E2A4C5826FDAADC001F9666 /* Model.xcdatamodeld in Sources */,
 				5EC2C57126F3981100AEBAB2 /* FileUrl.swift in Sources */,
+				5E2A4C5F26FDAF8A001F9666 /* PersistenceManager.swift in Sources */,
 				5EC2C55326F2724300AEBAB2 /* AppDelegate.swift in Sources */,
+				5E2A4C6426FDC014001F9666 /* Functions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +475,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5E2A4C5626FDAADC001F9666 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5E2A4C5726FDAADC001F9666 /* Model.xcdatamodel */,
+			);
+			currentVersion = 5E2A4C5726FDAADC001F9666 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5EC2C54726F2724300AEBAB2 /* Project object */;
 }

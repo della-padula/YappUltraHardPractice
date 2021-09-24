@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import CoreData
 import Kanna
 import SnapKit
 import UIKit
@@ -78,23 +79,15 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
 
     @objc
     private func bookmarkTapped(_ sender: UIButton) {
-        let defaults = UserDefaults.standard
-        var bookmarks: [Notice]?
-        if let data =  defaults.value(forKey: bookmarkKey) as? Data {
-            bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data)
-        }
+        let manager = PersistenceManager.shared
+        let context = manager.context
         
-        if let bookmarks = bookmarks, let notice = notice {
-            var newBookmarks = bookmarks
-            if bookmarks.contains(notice) {
-                newBookmarks = newBookmarks.filter({ $0 != notice })
-            } else {
-                newBookmarks.append(notice)
-            }
-            defaults.set(try? PropertyListEncoder().encode(newBookmarks), forKey: bookmarkKey)
-            defaults.synchronize()
+        if let entity = manager.bookmarkEntity {
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
+            managedObject.setValue(notice?.url, forKey: "notice")
+            manager.saveToContext()
+            manager.fetchData()
         }
-        
         configureNavigationBarBtns()
     }
     
@@ -111,16 +104,9 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     private func configureNavigationBarBtns() {
-        var bookmarks: [Notice]?
-        if let data =  UserDefaults.standard.value(forKey: bookmarkKey) as? Data {
-            bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data)
-        }
-        
-        if let bookmarks = bookmarks, let notice = notice {
-            let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: bookmarks.contains(notice) ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
-            let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
-            self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
-        }
+        let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: true ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
+        let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+        self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
     }
 
     private func configureLabelView() {

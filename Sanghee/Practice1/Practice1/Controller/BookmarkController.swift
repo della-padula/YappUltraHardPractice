@@ -26,10 +26,7 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func getData() {
-        if let data =  UserDefaults.standard.value(forKey: bookmarkKey) as? Data {
-            guard let bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data) else { return }
-            bookmarkList = bookmarks
-        }
+        
     }
     
     private func configureRefreshControl() {
