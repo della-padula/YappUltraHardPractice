@@ -9,6 +9,7 @@ import SnapKit
 import UIKit
 
 class BookmarkViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let manager = CoreDataManager.shared
     private let bookmarkKey = "Bookmark"
     private let tableView = UITableView()
 
@@ -24,11 +25,11 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
         configureRefreshControl()
         
         getData()
+        configureTableView()
     }
     
     private func getData() {
         bookmarkList = CoreDataManager.shared.getBookmarks()
-        configureTableView()
     }
     
     private func configureRefreshControl() {
@@ -41,6 +42,7 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
     @objc
     private func handleRefreshControl() {
         getData()
+        configureNavigationBarBtn()
         tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
     }
@@ -49,7 +51,10 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
     private func showDeleteAlert(_ sender: UIButton) {
         let alert = UIAlertController(title: "북마크 삭제", message: "북마크를 다 삭제하시겠습니까?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
-            CoreDataManager.shared.deleteAllBookmarks()
+            self.manager.deleteAllBookmarks()
+            self.configureNavigationBarBtn()
+            self.getData()
+            self.tableView.reloadData()
         }
         let noAction = UIAlertAction(title: "아니요", style: .default)
         
@@ -59,7 +64,11 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func configureNavigationBarBtn() {
+        let bookmarks = manager.getBookmarks()
+        
         let deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(showDeleteAlert(_:)))
+        deleteBtn.isEnabled = bookmarks.count != 0
+        
         deleteBtn.tintColor = .white
         navigationItem.rightBarButtonItem = deleteBtn
     }
