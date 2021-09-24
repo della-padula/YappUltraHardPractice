@@ -20,6 +20,7 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
         
         configureNavigationBar()
         configureTableView()
+        configureRefreshControl()
         
         getData()
     }
@@ -29,6 +30,20 @@ class BookmarkController: UIViewController, UITableViewDelegate, UITableViewData
             guard let bookmarks = try? PropertyListDecoder().decode([Notice].self, from: data) else { return }
             bookmarkList = bookmarks
         }
+    }
+    
+    private func configureRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        
+        tableView.refreshControl?.tintColor = .mainBlue
+    }
+    
+    @objc
+    private func handleRefreshControl() {
+        getData()
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
     }
     
     private func configureNavigationBar() {

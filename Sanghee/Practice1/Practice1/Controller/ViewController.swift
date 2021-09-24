@@ -92,8 +92,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func handleRefreshControl() {
         page = 0
         noticeList = []
-        tableView.reloadData()
         getData()
+        tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
     }
     
