@@ -58,12 +58,12 @@ class PlusViewController: UIViewController {
             
             guard let text = writingTextView.text else { return }
             guard let uploadImage = selectedImageViewer.image?.pngData() else { return }
-            //selectedImageViewer.transform = CGAffineTransform(scaleX: 0, y: 0)
             guard let userImage = UIImage(named: "user")?.pngData() else { return }
             guard let like = num else { return }
-            
             if let feedContact = feedContact {
-                CoreDataWorker.shared.update(feedContact, userImage: userImage, userName: "IBY", text: text, like: Int(like), uploadImage: uploadImage, time: Date())
+                if let time = feedContact.time {
+                    CoreDataWorker.shared.update(feedContact, userImage: userImage, userName: "IBY", text: text, like: Int(like), uploadImage: uploadImage, time: time)
+                }
             } else {
                 CoreDataWorker.shared.insert(userImage: userImage, userName: "IBY", text: text, like: Int(like), uploadImage: uploadImage, time: Date())
             }
@@ -138,7 +138,9 @@ class PlusViewController: UIViewController {
         if feedContact?.uploadImage == nil {
             imageView.image = UIImage(named: "notSelected")
         } else {
-            imageView.image = UIImage(data: (feedContact?.uploadImage)!)
+            if let uploadImage = feedContact?.uploadImage {
+                imageView.image = UIImage(data: uploadImage)
+            }
         }
         
         imageView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)

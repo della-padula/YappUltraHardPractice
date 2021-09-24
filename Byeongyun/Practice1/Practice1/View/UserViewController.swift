@@ -297,7 +297,7 @@ extension UserViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     // 컬렉션뷰 셀에서 보여줄 것 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.cellId, for: indexPath) as! FeedCollectionViewCell
-        cell.collectionImage = UIImage(data: feedContacts[indexPath.row].uploadImage!)
+        cell.cellDataSetting = feedContacts[indexPath.row]
         
         return cell
     }

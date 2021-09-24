@@ -110,17 +110,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
         // 클릭시 색 없게 설정
         cell.selectionStyle = .none
-        
-        cell.titleNameText = feedContacts[indexPath.row].userName
-        cell.feedNameText = feedContacts[indexPath.row].userName
-        cell.writeText = feedContacts[indexPath.row].text
-        cell.likeText = "\(feedContacts[indexPath.row].like) 명이 좋아합니다."
-        cell.profileImage = UIImage(data: feedContacts[indexPath.row].userImage!)
-        cell.uploadImage = UIImage(data: feedContacts[indexPath.row].uploadImage!)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM월 dd일 HH:mm"
-        let currentString = formatter.string(from: feedContacts[indexPath.row].time!)
-        cell.dateNumber = currentString
+        cell.cellDataSetting = feedContacts[indexPath.row]
         
         return cell
     }

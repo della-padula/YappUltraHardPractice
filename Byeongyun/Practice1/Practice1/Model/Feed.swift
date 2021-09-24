@@ -8,10 +8,10 @@
 import UIKit
 
 struct Feed {
-    let userImage: UIImage
+    let userImage: Data
     let userName: String
     let text: String
     let like: Int
-    let uploadImage: UIImage
+    let uploadImage: Data
     let time: Date
 }
