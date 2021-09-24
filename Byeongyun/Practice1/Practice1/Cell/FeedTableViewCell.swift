@@ -27,17 +27,17 @@ class FeedTableViewCell: UITableViewCell {
         return label
     }()
     // Property Observer
-    var cellDataSetting: Feed! {
+    var cellDataSetting: Feed? {
         didSet {
-            userUploadImage.image = cellDataSetting.uploadImage
-            userProfileImageView.image = cellDataSetting.userImage
-            userNameLabel.text = cellDataSetting.userName
-            textUserNameLabel.text = cellDataSetting.userName
-            userTextLabel.text = cellDataSetting.text
-            likeStatusLabel.text = "\(cellDataSetting.like) 명이 좋아합니다."
+            userUploadImage.image = cellDataSetting?.uploadImage
+            userProfileImageView.image = cellDataSetting?.userImage
+            userNameLabel.text = cellDataSetting?.userName
+            textUserNameLabel.text = cellDataSetting?.userName
+            userTextLabel.text = cellDataSetting?.text
+            likeStatusLabel.text = "\(cellDataSetting?.like ?? 0) 명이 좋아합니다."
             let formatter = DateFormatter()
             formatter.dateFormat = "MM월 dd일 HH:mm"
-            let currentString = formatter.string(from: cellDataSetting.time)
+            let currentString = formatter.string(from: cellDataSetting?.time ?? Date(timeIntervalSinceNow: Date.timeIntervalBetween1970AndReferenceDate))
             dateLabel.text = currentString
         }
     }
