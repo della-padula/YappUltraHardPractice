@@ -19,6 +19,7 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
         view.backgroundColor = .white
         
         configureNavigationBar()
+        configureNavigationBarBtn()
         configureTableView()
         configureRefreshControl()
         
@@ -42,6 +43,25 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
         getData()
         tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
+    }
+    
+    @objc
+    private func showDeleteAlert(_ sender: UIButton) {
+        let alert = UIAlertController(title: "북마크 삭제", message: "북마크를 다 삭제하시겠습니까?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
+            CoreDataManager.shared.deleteAllBookmarks()
+        }
+        let noAction = UIAlertAction(title: "아니요", style: .default)
+        
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func configureNavigationBarBtn() {
+        let deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(showDeleteAlert(_:)))
+        deleteBtn.tintColor = .white
+        navigationItem.rightBarButtonItem = deleteBtn
     }
     
     private func configureNavigationBar() {

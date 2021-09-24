@@ -84,5 +84,13 @@ class CoreDataManager {
         context.delete(notice)
         saveToContext()
     }
+    
+    func deleteAllBookmarks() {
+        let fetchResults = fetchBookmarks()
+        for result in fetchResults {
+            context.delete(result)
+        }
+        saveToContext()
+    }
 }
 
