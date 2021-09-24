@@ -12,13 +12,16 @@ class UserViewController: UIViewController {
     let cellId = "userViewCell"
     let minHeight: CGFloat = -300
     let stopHeight : CGFloat = -50
+    private var feedContacts: [FeedArray] = []
     
     // MARK: - 뷰가 나오기 전 액션
     override func viewWillAppear(_ animated: Bool) {
-        uploadLabel.text = "\(feedArray.count) \n 게시물"
+        uploadLabel.text = "\(feedContacts.count) \n 게시물"
         tabBar.selectedItem = tabBar.items?.first
-        collectionView.reloadData()
+        readFeedContacts()
+        //collectionView.reloadData()
     }
+    
     // MARK: - 뼈대 뷰 선언과 메인 타이틀 선언
     // 타이틀 뷰
     private let titleView: UIView = {
@@ -147,6 +150,12 @@ class UserViewController: UIViewController {
         tabBar.delegate = self
         collectionViewSetting()
         settingUI()
+        readFeedContacts()
+    }
+    
+    private func readFeedContacts() {
+        feedContacts = CoreDataWorker.shared.read()
+        collectionView.reloadData()
     }
     
     // MARK: - 컬렉션 뷰 세팅
@@ -283,12 +292,13 @@ extension UserViewController: UIScrollViewDelegate {
 extension UserViewController: UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     // 컬렉션뷰 셀의 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return feedArray.count
+        return feedContacts.count
     }
     // 컬렉션뷰 셀에서 보여줄 것 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.cellId, for: indexPath) as! FeedCollectionViewCell
-        cell.cellDataSetting = feedArray[indexPath.row]
+        cell.collectionImage = UIImage(data: feedContacts[indexPath.row].uploadImage!)
+        
         return cell
     }
     // 컬렉션뷰 셀 크기와 한 줄에 보여줄 개수 설정

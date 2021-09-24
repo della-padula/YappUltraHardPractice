@@ -11,33 +11,30 @@
 
 import SnapKit
 import UIKit
+import CoreData
 
 // 기본 세팅 값이 들어가있는 전역변수 어레이
 // 테스트를 위해 추가했습니다.
-var feedArray : [Feed] = [
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "two")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "three")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "four")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date()),
-    Feed(userImage: UIImage(named: "user")!, userName: "IBY", text: "Hello", like: 88, uploadImage: UIImage(named: "one")!, time: Date())
-]
 
 class MainViewController: UIViewController {
     
     // 뷰가 보이기 전 실행
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        readFeedContacts()
         tableView.reloadData()
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
-        let endIndex = IndexPath(row: 0, section: 0)
-        tableView.scrollToRow(at: endIndex, at: .top, animated: true)
+        //let endIndex = IndexPath(row: 0, section: 0)
+        //tableView.scrollToRow(at: endIndex, at: .top, animated: true)
     }
     
     // MARK: - Main 타이틀
@@ -50,6 +47,7 @@ class MainViewController: UIViewController {
     }()
     
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+    private var feedContacts: [FeedArray] = []
     
     // MARK: - ViewDidLoad()
     override func viewDidLoad() {
@@ -57,7 +55,12 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         tableViewCellSetting()
         settingUI()
-        
+        readFeedContacts()
+    }
+    
+    private func readFeedContacts() {
+        feedContacts = CoreDataWorker.shared.read()
+        tableView.reloadData()
     }
     
     // MARK: - Table View Cell 세팅
@@ -96,7 +99,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     // 테이블 뷰 셀 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feedArray.count
+        return feedContacts.count
     }
     // 테이블 뷰 크기
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -107,7 +110,38 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
         // 클릭시 색 없게 설정
         cell.selectionStyle = .none
-        cell.cellDataSetting = feedArray[indexPath.row]
+        
+        cell.titleNameText = feedContacts[indexPath.row].userName
+        cell.feedNameText = feedContacts[indexPath.row].userName
+        cell.writeText = feedContacts[indexPath.row].text
+        cell.likeText = "\(feedContacts[indexPath.row].like) 명이 좋아합니다."
+        cell.profileImage = UIImage(data: feedContacts[indexPath.row].userImage!)
+        cell.uploadImage = UIImage(data: feedContacts[indexPath.row].uploadImage!)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM월 dd일 HH:mm"
+        let currentString = formatter.string(from: feedContacts[indexPath.row].time!)
+        cell.dateNumber = currentString
+        
         return cell
+    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let edit = UIContextualAction(style: .normal, title: "수정") { (_, _, success: @escaping (Bool) -> Void) in
+            let plusViewController = PlusViewController()
+            plusViewController.feedContact = self.feedContacts[indexPath.row]
+            plusViewController.modalPresentationStyle = .fullScreen
+            self.present(plusViewController, animated: true, completion: nil)
+            success(true)
+        }
+        edit.backgroundColor = .systemBlue
+        let delete = UIContextualAction(style: .normal, title: "삭제") { (_,_, success: @escaping (Bool) -> Void) in
+            let selectedFeedContact = self.feedContacts[indexPath.row]
+            CoreDataWorker.shared.delete(selectedFeedContact)
+            self.feedContacts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        delete.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [delete, edit])
     }
 }

@@ -12,9 +12,12 @@ class FeedCollectionViewCell: UICollectionViewCell {
     private let collectionImageView = UIImageView()
     // Property Observer
     
-    var cellDataSetting: Feed? {
-        didSet {
-            collectionImageView.image = cellDataSetting?.uploadImage
+    var collectionImage: UIImage? {
+        get {
+            return collectionImageView.image
+        }
+        set {
+            collectionImageView.image = newValue
         }
     }
     

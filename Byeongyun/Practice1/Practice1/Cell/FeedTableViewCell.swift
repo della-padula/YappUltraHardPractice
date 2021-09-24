@@ -27,6 +27,71 @@ class FeedTableViewCell: UITableViewCell {
         return label
     }()
     // Property Observer
+    
+    var uploadImage: UIImage? {
+        get {
+            return userUploadImage.image
+        }
+        set {
+            userUploadImage.image = newValue
+        }
+    }
+    
+    var profileImage: UIImage? {
+        get {
+            return userProfileImageView.image
+        }
+        set {
+            userProfileImageView.image = newValue
+        }
+    }
+    
+    var titleNameText: String? {
+        get {
+            return userNameLabel.text
+        }
+        set {
+            userNameLabel.text = newValue
+        }
+    }
+    
+    var writeText: String? {
+        get {
+            return userTextLabel.text
+        }
+        set {
+            userTextLabel.text = newValue
+        }
+    }
+    
+    var feedNameText: String? {
+        get {
+            return textUserNameLabel.text
+        }
+        set {
+            textUserNameLabel.text = newValue
+        }
+    }
+    
+    var likeText: String? {
+        get {
+            return likeStatusLabel.text
+        }
+        set {
+            likeStatusLabel.text = newValue
+        }
+    }
+    
+    var dateNumber: String? {
+        get {
+            return dateLabel.text
+        }
+        set {
+            dateLabel.text = newValue
+        }
+    }
+    
+    /*
     var cellDataSetting: Feed? {
         didSet {
             userUploadImage.image = cellDataSetting?.uploadImage
@@ -41,6 +106,8 @@ class FeedTableViewCell: UITableViewCell {
             dateLabel.text = currentString
         }
     }
+     */
+    
     // 위에 유저 이름이랑 사진 스택 뷰
     private lazy var userStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [userProfileImageView, userNameLabel])
