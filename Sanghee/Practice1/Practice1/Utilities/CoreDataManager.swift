@@ -68,6 +68,16 @@ class CoreDataManager {
         return notices
     }
     
+    func updateBookmarks(_ notice: Notice) {
+        let fetchResults = fetchBookmarks()
+        for result in fetchResults {
+            if result.url == notice.url {
+                result.title = "업데이트한 제목"
+            }
+        }
+        saveToContext()
+    }
+    
     func deleteBookmark(_ notice: Notice) {
         let fetchResults = fetchBookmarks()
         let notice = fetchResults.filter({ $0.url == notice.url })[0]
