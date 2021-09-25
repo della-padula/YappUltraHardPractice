@@ -1,28 +1,34 @@
 //
-//  DetailController.swift
+//  DetailViewController.swift
 //  Practice1
 //
 //  Created by leeesangheee on 2021/09/16.
 //
 
 import Alamofire
+import CoreData
 import Kanna
 import SnapKit
 import UIKit
 import WebKit
 
-class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    private var notice: Notice?
-    private var fileUrlList: [FileUrl] = []
-    private let modalHeight: CGFloat = 160
-    
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let manager = CoreDataManager.shared
+    private let bookmarkKey = "Bookmark"
     private let labelView = UIView()
     private let webView = WKWebView()
     private let tableView = UITableView()
     
+    private let modalHeight: CGFloat = 200
+    private var notice: Notice?
+    private var fileUrlList: [FileUrl] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
+        view.backgroundColor = .white
+        
+        configureNavigationBar()
+        configureNavigationBarBtns()
         configureLabelView()
         configureWebView()
         getData()
@@ -71,17 +77,40 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
             }
         }
     }
-    
-    private func configureView() {
-        view.backgroundColor = .white
-        self.navigationItem.title = "상세보기"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+
+    @objc
+    private func bookmarkTapped(_ sender: UIButton) {
+        let bookmarks = manager.getBookmarks()
+        if let notice = notice {
+            if bookmarks.contains(notice) {
+                manager.deleteBookmark(notice)
+            } else {
+                manager.insertBookmark(notice)
+            }
+        }
+        configureNavigationBarBtns()
     }
     
     @objc
     private func linkTapped(_ sender: UIButton) {
         guard let link = notice?.url else { return }
         showActivityVC([link])
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "상세보기"
+        let navigationBar = navigationController?.navigationBar
+        navigationBar?.tintColor = .white
+    }
+    
+    private func configureNavigationBarBtns() {
+        let bookmarks = manager.getBookmarks()
+        
+        if let notice = notice {
+            let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: bookmarks.contains(notice) ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
+            let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
+            navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
+        }
     }
 
     private func configureLabelView() {
@@ -129,13 +158,13 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func configureModalView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(FileUrlCell.self, forCellReuseIdentifier: FileUrlCell.identifier)
+        tableView.register(FileUrlTableViewCell.self, forCellReuseIdentifier: FileUrlTableViewCell.identifier)
         
-        let separatorView = UIView()
-        let tableContainerView = UIView()
         let maxY = view.frame.origin.y + view.frame.size.height
         let rect = CGRect(x: 0, y: maxY, width: view.bounds.width, height: modalHeight)
         let myView = UIView(frame: rect)
+        let separatorView = UIView()
+        let tableContainerView = UIView()
 
         view.addSubview(myView)
         myView.addSubview(separatorView)
@@ -166,10 +195,10 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlCell.identifier, for: indexPath) as! FileUrlCell
-        cell.delegate = self
-        cell.contentView.isUserInteractionEnabled = false
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlTableViewCell.identifier, for: indexPath) as? FileUrlTableViewCell else { return UITableViewCell() }
         
+        cell.delegate = self
+
         cell.index = indexPath.row
         cell.fileUrl = fileUrlList[indexPath.row]
         
@@ -179,11 +208,11 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func showActivityVC(_ items: [Any]) {
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = view
-        self.present(activityVC, animated: true, completion: nil)
+        present(activityVC, animated: true, completion: nil)
     }
 }
 
-extension DetailController: ButtonDelegate {
+extension DetailViewController: ButtonDelegate {
     func showAlert(index: Int) {
         let alert = UIAlertController(title: "파일 다운로드", message: "파일을 다운로드하시겠습니까?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "예", style: .default) { _ in
@@ -194,6 +223,6 @@ extension DetailController: ButtonDelegate {
         
         alert.addAction(okAction)
         alert.addAction(noAction)
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -11,11 +11,11 @@ import SnapKit
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private let tableView = UITableView()
+    
     private var page: Int = 0
     private var noticeList: [Notice] = []
     private var isGettingData: Bool = true
-    
-    private let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,31 +85,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
         
-        tableView.refreshControl?.tintColor = Constants.Color.blue
+        tableView.refreshControl?.tintColor = .mainBlue
     }
     
     @objc
     private func handleRefreshControl() {
         page = 0
         noticeList = []
-        tableView.reloadData()
         getData()
+        tableView.reloadData()
         tableView.refreshControl?.endRefreshing()
     }
     
     private func configureNavigationBar() {
-        let navigationBar = navigationController?.navigationBar
         navigationItem.title = "컴퓨터공학부"
-        navigationBar?.barTintColor = Constants.Color.blue
-        navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationBar?.tintColor = .white
-        navigationBar?.barStyle = .black
+        let navigationBar = navigationController?.navigationBar
+        
+        if #available(iOS 13.0, *) {
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.backgroundColor = .mainBlue
+            navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            
+            navigationBar?.standardAppearance = navigationBarAppearance
+            navigationBar?.compactAppearance = navigationBarAppearance
+            navigationBar?.scrollEdgeAppearance = navigationBarAppearance
+        } else {
+            navigationBar?.barTintColor = .mainBlue
+            navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
+            navigationBar?.tintColor = .white
+        }
     }
     
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(NoticeCell.self, forCellReuseIdentifier: NoticeCell.identifier)
+        tableView.register(NoticeTableViewCell.self, forCellReuseIdentifier: NoticeTableViewCell.identifier)
         tableView.separatorStyle = .none
         
         view.addSubview(tableView)
@@ -119,7 +129,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(DetailController(noticeList[indexPath.row]), animated: true)
+        navigationController?.pushViewController(DetailViewController(noticeList[indexPath.row]), animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,7 +137,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NoticeCell.identifier, for: indexPath) as! NoticeCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: NoticeTableViewCell.identifier, for: indexPath) as? NoticeTableViewCell else { return UITableViewCell() }
         cell.notice = noticeList[indexPath.row]
         return cell
     }

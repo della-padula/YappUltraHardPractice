@@ -1,5 +1,5 @@
 //
-//  FileUrlCell.swift
+//  FileUrlTableViewCell.swift
 //  Practice1
 //
 //  Created by leeesangheee on 2021/09/16.
@@ -12,19 +12,20 @@ protocol ButtonDelegate: AnyObject {
     func showAlert(index: Int)
 }
 
-class FileUrlCell: UITableViewCell {
-    weak var delegate: ButtonDelegate?
+class FileUrlTableViewCell: UITableViewCell {
     static let identifier = "FileUrlCell"
-    var index: Int = 0
-    var fileUrl: FileUrl? {
-        didSet {
-            layout()
-        }
-    }
+    weak var delegate: ButtonDelegate?
     
     private let cellView = UIView()
     private let titleLabel = UILabel()
     private let downloadButton = UIButton()
+    
+    var index: Int = 0
+    var fileUrl: FileUrl? {
+        didSet {
+            setLayout()
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,24 +38,23 @@ class FileUrlCell: UITableViewCell {
     
     @objc
     private func buttonTapped(_ sender: UIButton) {
-        self.delegate?.showAlert(index: index)
+        delegate?.showAlert(index: index)
     }
     
-    private func layout() {
+    private func setLayout() {
         let iconView = UIImageView(image: UIImage(systemName: "doc"))
         
-        self.addSubview(cellView)
+        contentView.addSubview(cellView)
         cellView.addSubview(iconView)
         cellView.addSubview(downloadButton)
         cellView.addSubview(titleLabel)
         
         cellView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.left.right.equalToSuperview().inset(6)
+            make.edges.equalToSuperview().inset(8)
         }
         iconView.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview().inset(8)
-            make.width.height.equalTo(22)
+            make.width.equalTo(22)
         }
         downloadButton.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
@@ -67,14 +67,14 @@ class FileUrlCell: UITableViewCell {
             make.right.equalTo(downloadButton.snp.left).offset(12)
         }
 
-        self.selectionStyle = .none
+        selectionStyle = .none
         titleLabel.text = fileUrl?.title
         downloadButton.setTitle("다운로드", for: .normal)
         
         iconView.contentMode = .scaleAspectFit
-        iconView.tintColor = Constants.Color.blue.withAlphaComponent(0.8)
+        iconView.tintColor = .mainBlue.withAlphaComponent(0.8)
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        downloadButton.setTitleColor(Constants.Color.blue, for: .normal)
+        downloadButton.setTitleColor(.mainBlue, for: .normal)
         downloadButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
     }
 }
