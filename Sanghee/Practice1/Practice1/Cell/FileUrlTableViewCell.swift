@@ -38,13 +38,13 @@ class FileUrlTableViewCell: UITableViewCell {
     
     @objc
     private func buttonTapped(_ sender: UIButton) {
-        self.delegate?.showAlert(index: index)
+        delegate?.showAlert(index: index)
     }
     
     private func setLayout() {
         let iconView = UIImageView(image: UIImage(systemName: "doc"))
         
-        self.contentView.addSubview(cellView)
+        contentView.addSubview(cellView)
         cellView.addSubview(iconView)
         cellView.addSubview(downloadButton)
         cellView.addSubview(titleLabel)
@@ -67,7 +67,7 @@ class FileUrlTableViewCell: UITableViewCell {
             make.right.equalTo(downloadButton.snp.left).offset(12)
         }
 
-        self.selectionStyle = .none
+        selectionStyle = .none
         titleLabel.text = fileUrl?.title
         downloadButton.setTitle("다운로드", for: .normal)
         

@@ -66,7 +66,7 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
         
         alert.addAction(okAction)
         alert.addAction(noAction)
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     private func configureNavigationBarBtn() {
@@ -119,7 +119,7 @@ class BookmarkViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NoticeTableViewCell.identifier, for: indexPath) as! NoticeTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: NoticeTableViewCell.identifier, for: indexPath) as? NoticeTableViewCell else { return UITableViewCell() }
         cell.notice = bookmarkList[indexPath.row]
         return cell
     }

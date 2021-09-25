@@ -109,7 +109,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let notice = notice {
             let bookmarkBtn = UIBarButtonItem(image: UIImage(systemName: bookmarks.contains(notice) ? "bookmark.fill" : "bookmark"), style: .plain, target: self, action: #selector(bookmarkTapped(_:)))
             let linkBtn = UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: self, action: #selector(linkTapped(_:)))
-            self.navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
+            navigationItem.rightBarButtonItems = [bookmarkBtn, linkBtn]
         }
     }
 
@@ -195,9 +195,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlTableViewCell.identifier, for: indexPath) as! FileUrlTableViewCell
-        cell.delegate = self
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FileUrlTableViewCell.identifier, for: indexPath) as? FileUrlTableViewCell else { return UITableViewCell() }
         
+        cell.delegate = self
+
         cell.index = indexPath.row
         cell.fileUrl = fileUrlList[indexPath.row]
         
@@ -207,7 +208,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private func showActivityVC(_ items: [Any]) {
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = view
-        self.present(activityVC, animated: true, completion: nil)
+        present(activityVC, animated: true, completion: nil)
     }
 }
 
@@ -222,6 +223,6 @@ extension DetailViewController: ButtonDelegate {
         
         alert.addAction(okAction)
         alert.addAction(noAction)
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

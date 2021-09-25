@@ -30,7 +30,7 @@ class NoticeTableViewCell: UITableViewCell {
     }
     
     private func setLayout() {
-        self.contentView.addSubview(cellView)
+        contentView.addSubview(cellView)
         cellView.addSubview(titleLabel)
         cellView.addSubview(timeLabel)
         
@@ -48,7 +48,7 @@ class NoticeTableViewCell: UITableViewCell {
             make.bottom.left.right.equalToSuperview().inset(8)
         }
         
-        self.selectionStyle = .none
+        selectionStyle = .none
         cellView.backgroundColor = .mainBlue.withAlphaComponent(0.1)
         cellView.layer.cornerRadius = 4
         
