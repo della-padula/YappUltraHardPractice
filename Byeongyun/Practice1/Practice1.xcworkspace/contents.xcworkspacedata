@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:FeedArray+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:FeedArray+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:Practice1.xcodeproj">
    </FileRef>
    <FileRef

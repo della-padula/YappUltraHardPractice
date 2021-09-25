@@ -11,10 +11,13 @@ class FeedCollectionViewCell: UICollectionViewCell {
     static let cellId = "FeedCell"
     private let collectionImageView = UIImageView()
     // Property Observer
-    
-    var cellDataSetting: Feed? {
+    var cellDataSetting: FeedArray? {
         didSet {
-            collectionImageView.image = cellDataSetting?.uploadImage
+            guard let setting = cellDataSetting else { return }
+            
+            if let uploadImage = setting.uploadImage {
+                collectionImageView.image = UIImage(data: uploadImage)
+            }
         }
     }
     
@@ -23,6 +26,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         setUpCellImageViewer()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

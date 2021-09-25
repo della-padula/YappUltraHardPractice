@@ -8,17 +8,17 @@
 import UIKit
 import SnapKit
 class UserViewController: UIViewController {
-    
-    let cellId = "userViewCell"
     let minHeight: CGFloat = -300
     let stopHeight : CGFloat = -50
+    private var feedContacts: [FeedArray] = []
     
     // MARK: - 뷰가 나오기 전 액션
     override func viewWillAppear(_ animated: Bool) {
-        uploadLabel.text = "\(feedArray.count) \n 게시물"
+        uploadLabel.text = "\(feedContacts.count) \n 게시물"
         tabBar.selectedItem = tabBar.items?.first
-        collectionView.reloadData()
+        readFeedContacts()
     }
+    
     // MARK: - 뼈대 뷰 선언과 메인 타이틀 선언
     // 타이틀 뷰
     private let titleView: UIView = {
@@ -147,6 +147,17 @@ class UserViewController: UIViewController {
         tabBar.delegate = self
         collectionViewSetting()
         settingUI()
+        readFeedContacts()
+    }
+    
+    private func readFeedContacts() {
+        let oldcount = feedContacts.count
+        
+        feedContacts = CoreDataWorker.shared.read()
+        
+        if oldcount < feedContacts.count {
+            collectionView.reloadData()
+        }
     }
     
     // MARK: - 컬렉션 뷰 세팅
@@ -230,16 +241,13 @@ class UserViewController: UIViewController {
             $0.top.equalTo(nameStackView.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
             $0.leading.equalTo(userView.snp.leading).offset(15)
-            $0.trailing.equalTo(userView.snp.trailing).offset(-15)
             $0.height.equalTo(30)
-            $0.width.equalTo(300)
         }
         // 유저 뷰 - 탭 바 추가
         userView.addSubview(tabBar)
         tabBar.snp.makeConstraints {
             $0.top.equalTo(profileEditButton.snp.bottom).offset(16)
             $0.leading.equalTo(userView.snp.leading)
-            $0.trailing.equalTo(userView.snp.trailing).offset(0)
             $0.width.equalTo(userView.snp.width)
         }
         // 가장 위 뷰로 타이틀(계정) 뷰를 올려놓음
@@ -283,12 +291,13 @@ extension UserViewController: UIScrollViewDelegate {
 extension UserViewController: UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     // 컬렉션뷰 셀의 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return feedArray.count
+        return feedContacts.count
     }
     // 컬렉션뷰 셀에서 보여줄 것 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.cellId, for: indexPath) as! FeedCollectionViewCell
-        cell.cellDataSetting = feedArray[indexPath.row]
+        cell.cellDataSetting = feedContacts[indexPath.row]
+        
         return cell
     }
     // 컬렉션뷰 셀 크기와 한 줄에 보여줄 개수 설정

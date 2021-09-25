@@ -11,7 +11,7 @@
 		A829179E26F8D6C800135C73 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829179D26F8D6C800135C73 /* FeedCollectionViewCell.swift */; };
 		A83BDCFC26F24CA600E499B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDCFB26F24CA600E499B3 /* AppDelegate.swift */; };
 		A83BDD0026F24CA600E499B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDCFF26F24CA600E499B3 /* MainViewController.swift */; };
-		A83BDD0626F24CA600E499B3 /* Practice1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD0426F24CA600E499B3 /* Practice1.xcdatamodeld */; };
+		A83BDD0626F24CA600E499B3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD0426F24CA600E499B3 /* Model.xcdatamodeld */; };
 		A83BDD0826F24CA800E499B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83BDD0726F24CA800E499B3 /* Assets.xcassets */; };
 		A83BDD0B26F24CA800E499B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A83BDD0926F24CA800E499B3 /* LaunchScreen.storyboard */; };
 		A83BDD1626F25F1200E499B3 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1526F25F1200E499B3 /* Feed.swift */; };
@@ -19,6 +19,9 @@
 		A83BDD1A26F2695F00E499B3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1926F2695F00E499B3 /* TabBarController.swift */; };
 		A83BDD1D26F26AAB00E499B3 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1C26F26AAB00E499B3 /* UserViewController.swift */; };
 		A83BDD1F26F26FBD00E499B3 /* PlusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83BDD1E26F26FBD00E499B3 /* PlusViewController.swift */; };
+		A8BF9ADB26FDF81C009D79D9 /* FeedArray+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9AD926FDF81C009D79D9 /* FeedArray+CoreDataClass.swift */; };
+		A8BF9ADC26FDF81C009D79D9 /* FeedArray+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9ADA26FDF81C009D79D9 /* FeedArray+CoreDataProperties.swift */; };
+		A8BF9ADE26FDF977009D79D9 /* CoreDataWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9ADD26FDF977009D79D9 /* CoreDataWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		A83BDD1926F2695F00E499B3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A83BDD1C26F26AAB00E499B3 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		A83BDD1E26F26FBD00E499B3 /* PlusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusViewController.swift; sourceTree = "<group>"; };
+		A8BF9AD926FDF81C009D79D9 /* FeedArray+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedArray+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A8BF9ADA26FDF81C009D79D9 /* FeedArray+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedArray+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A8BF9ADD26FDF977009D79D9 /* CoreDataWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,8 @@
 		A83BDCEF26F24CA600E499B3 = {
 			isa = PBXGroup;
 			children = (
+				A8BF9AD926FDF81C009D79D9 /* FeedArray+CoreDataClass.swift */,
+				A8BF9ADA26FDF81C009D79D9 /* FeedArray+CoreDataProperties.swift */,
 				A83BDCFA26F24CA600E499B3 /* Practice1 */,
 				A83BDCF926F24CA600E499B3 /* Products */,
 				86920D23589EAB5E80D08D5D /* Pods */,
@@ -98,7 +106,7 @@
 				A83BDD0726F24CA800E499B3 /* Assets.xcassets */,
 				A83BDD0926F24CA800E499B3 /* LaunchScreen.storyboard */,
 				A83BDD0C26F24CA800E499B3 /* Info.plist */,
-				A83BDD0426F24CA600E499B3 /* Practice1.xcdatamodeld */,
+				A83BDD0426F24CA600E499B3 /* Model.xcdatamodeld */,
 			);
 			path = Practice1;
 			sourceTree = "<group>";
@@ -107,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				A83BDD1526F25F1200E499B3 /* Feed.swift */,
+				A8BF9ADD26FDF977009D79D9 /* CoreDataWorker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -248,8 +257,11 @@
 				A83BDD1626F25F1200E499B3 /* Feed.swift in Sources */,
 				A83BDCFC26F24CA600E499B3 /* AppDelegate.swift in Sources */,
 				A83BDD1A26F2695F00E499B3 /* TabBarController.swift in Sources */,
+				A8BF9ADB26FDF81C009D79D9 /* FeedArray+CoreDataClass.swift in Sources */,
+				A8BF9ADC26FDF81C009D79D9 /* FeedArray+CoreDataProperties.swift in Sources */,
 				A829179E26F8D6C800135C73 /* FeedCollectionViewCell.swift in Sources */,
-				A83BDD0626F24CA600E499B3 /* Practice1.xcdatamodeld in Sources */,
+				A8BF9ADE26FDF977009D79D9 /* CoreDataWorker.swift in Sources */,
+				A83BDD0626F24CA600E499B3 /* Model.xcdatamodeld in Sources */,
 				A83BDD1F26F26FBD00E499B3 /* PlusViewController.swift in Sources */,
 				A83BDD1826F260BD00E499B3 /* FeedTableViewCell.swift in Sources */,
 			);
@@ -449,13 +461,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		A83BDD0426F24CA600E499B3 /* Practice1.xcdatamodeld */ = {
+		A83BDD0426F24CA600E499B3 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				A83BDD0526F24CA600E499B3 /* Practice1.xcdatamodel */,
 			);
 			currentVersion = A83BDD0526F24CA600E499B3 /* Practice1.xcdatamodel */;
-			path = Practice1.xcdatamodeld;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

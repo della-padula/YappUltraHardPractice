@@ -11,6 +11,7 @@ class PlusViewController: UIViewController {
 
     private let picker = UIImagePickerController()
     private var selectImage = UIImage()
+    var feedContact: FeedArray?
     
     // MARK: - 버튼 선언 공간
     // 취소버튼
@@ -43,7 +44,6 @@ class PlusViewController: UIViewController {
         return button
     }()
     
-    
     // MARK: - 버튼 액션 구현 공간
     @objc
     func plusViewDismissButtonAction() {
@@ -51,9 +51,21 @@ class PlusViewController: UIViewController {
     }
     @objc
     func saveButtonAction() {
-        let num : Int = Int(arc4random() % 100)
+        let num : Int16? = Int16(arc4random() % 100)
         if writingTextView.text != "이곳에 사진과 함께 적을 글을 입력해주세요!" && !writingTextView.text.isEmpty && selectedImageViewer.image != nil {
-            feedArray.insert(Feed(userImage: UIImage(named:"user")!, userName: "IBY", text: writingTextView.text, like: num, uploadImage: selectImage, time: Date()), at: 0)
+            
+            guard let text = writingTextView.text else { return }
+            guard let uploadImage = selectedImageViewer.image?.pngData() else { return }
+            guard let userImage = UIImage(named: "user")?.pngData() else { return }
+            guard let like = num else { return }
+            if let feedContact = feedContact {
+                if let time = feedContact.time {
+                    CoreDataWorker.shared.update(feedContact, userImage: userImage, userName: "IBY", text: text, like: Int(like), uploadImage: uploadImage, time: time)
+                }
+            } else {
+                CoreDataWorker.shared.insert(userImage: userImage, userName: "IBY", text: text, like: Int(like), uploadImage: uploadImage, time: Date())
+            }
+            
             let done = UIAlertController(title: "등록성공", message: "등록이 성공되었습니다. \n 등록 뷰를 닫으시겠습니까?", preferredStyle: .alert)
             let ok = UIAlertAction(title: "닫기", style: .default, handler: { (action) in
                 self.dismiss(animated: true, completion: nil)
@@ -107,18 +119,26 @@ class PlusViewController: UIViewController {
     }
     
     // MARK: - 뷰 타이틀
-    private let plusTitleLabel: UILabel = {
+    private lazy var plusTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "피드 남기기"
+        if feedContact?.text == nil {
+            label.text = "피드 남기기"
+        } else {
+            label.text = "글 수정하기"
+        }
         label.font = UIFont.boldSystemFont(ofSize: 25)
         return label
     }()
     // 선택 이미지 뷰어
-    private let selectedImageViewer: UIImageView = {
+    private lazy var selectedImageViewer: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         
-        if imageView.image == nil {
+        if feedContact?.uploadImage == nil {
             imageView.image = UIImage(named: "notSelected")
+        } else {
+            if let uploadImage = feedContact?.uploadImage {
+                imageView.image = UIImage(data: uploadImage)
+            }
         }
         
         imageView.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -140,7 +160,16 @@ class PlusViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         picker.delegate = self
         settingUI()
-        setTextView()
+        settingLoadText()
+        
+    }
+    
+    func settingLoadText() {
+        if feedContact?.text != nil {
+            writingTextView.text = feedContact?.text
+        } else {
+            setTextView()
+        }
     }
     
     // MARK: - 텍스트 뷰 초기 설정

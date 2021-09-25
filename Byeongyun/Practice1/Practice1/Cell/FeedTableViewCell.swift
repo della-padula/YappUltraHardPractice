@@ -26,21 +26,30 @@ class FeedTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
+    
     // Property Observer
-    var cellDataSetting: Feed? {
+    var cellDataSetting: FeedArray? {
         didSet {
-            userUploadImage.image = cellDataSetting?.uploadImage
-            userProfileImageView.image = cellDataSetting?.userImage
-            userNameLabel.text = cellDataSetting?.userName
-            textUserNameLabel.text = cellDataSetting?.userName
-            userTextLabel.text = cellDataSetting?.text
-            likeStatusLabel.text = "\(cellDataSetting?.like ?? 0) 명이 좋아합니다."
+            guard let setting = cellDataSetting else { return }
+            
+            if let uploadImage = setting.uploadImage {
+                let image = UIImage(data: uploadImage)
+                userUploadImage.image = image
+            }
+            if let userImage = setting.userImage {
+                userProfileImageView.image = UIImage(data: userImage)
+            }
+            userNameLabel.text = setting.userName
+            textUserNameLabel.text = setting.userName
+            userTextLabel.text = setting.text
+            likeStatusLabel.text = "\(setting.like) 명이 좋아합니다."
             let formatter = DateFormatter()
             formatter.dateFormat = "MM월 dd일 HH:mm"
-            let currentString = formatter.string(from: cellDataSetting?.time ?? Date(timeIntervalSinceNow: Date.timeIntervalBetween1970AndReferenceDate))
+            let currentString = formatter.string(from: setting.time ?? Date(timeIntervalSinceNow: Date.timeIntervalBetween1970AndReferenceDate))
             dateLabel.text = currentString
         }
     }
+    
     // 위에 유저 이름이랑 사진 스택 뷰
     private lazy var userStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [userProfileImageView, userNameLabel])
@@ -112,7 +121,6 @@ class FeedTableViewCell: UITableViewCell {
         addSubview(userUploadImage)
         userUploadImage.snp.makeConstraints {
             $0.top.equalTo(userStackView.snp.bottom).offset(10)
-            
             $0.height.equalTo(360)
             $0.left.equalTo(self.snp.left)
             $0.right.equalTo(self.snp.right)
