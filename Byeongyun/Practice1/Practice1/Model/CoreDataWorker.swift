@@ -51,7 +51,6 @@ class CoreDataWorker {
     
     func insert(userImage: Data, userName: String, text: String, like: Int, uploadImage: Data, time: Date, completion: ((_ error: NSError?) -> Void)? = nil) {
         let feedArray = FeedArray(context: feedContext)
-        
         feedArray.userImage = userImage
         feedArray.userName = userName
         feedArray.text = text
@@ -69,11 +68,9 @@ class CoreDataWorker {
             completion?(error)
             return
         }
-        
         // 그게 아니면 저장하는 방법을 택한다.
         saveFeed()
         completion?(nil)
-        
     }
     
     func read() -> [FeedArray] {

@@ -11,7 +11,6 @@ class PlusViewController: UIViewController {
 
     private let picker = UIImagePickerController()
     private var selectImage = UIImage()
-    
     var feedContact: FeedArray?
     
     // MARK: - 버튼 선언 공간
@@ -44,7 +43,6 @@ class PlusViewController: UIViewController {
 
         return button
     }()
-    
     
     // MARK: - 버튼 액션 구현 공간
     @objc
@@ -161,16 +159,17 @@ class PlusViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         picker.delegate = self
-        
-        
-        //selectImage = UIImage(data: (feedContact?.uploadImage!)!)!
         settingUI()
+        settingLoadText()
+        
+    }
+    
+    func settingLoadText() {
         if feedContact?.text != nil {
             writingTextView.text = feedContact?.text
         } else {
             setTextView()
         }
-        
     }
     
     // MARK: - 텍스트 뷰 초기 설정

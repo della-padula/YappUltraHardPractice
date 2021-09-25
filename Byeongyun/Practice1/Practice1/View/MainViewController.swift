@@ -9,13 +9,9 @@
 // 1. 게시글이 2줄이 넘어가면 ...으로 안보인다.
 // 2. 유저 뷰 초기 실행시, 약간의 버벅임(?) 이 보인다. 또한, 기기의 layout을 계산한 것이 아닌, 단순히 숫자로 계산하여 sticky header를 구현하여 보완이 필요하다.
 
-import SnapKit
-import UIKit
 import CoreData
-
-// 기본 세팅 값이 들어가있는 전역변수 어레이
-// 테스트를 위해 추가했습니다.
-
+import UIKit
+import SnapKit
 class MainViewController: UIViewController {
     
     // 뷰가 보이기 전 실행
@@ -27,14 +23,11 @@ class MainViewController: UIViewController {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
-        //let endIndex = IndexPath(row: 0, section: 0)
-        //tableView.scrollToRow(at: endIndex, at: .top, animated: true)
+        if feedContacts.count > 0 {
+            let endIndex = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: endIndex, at: .top, animated: true)
+        }
     }
     
     // MARK: - Main 타이틀
@@ -46,7 +39,7 @@ class MainViewController: UIViewController {
         return label
     }()
     
-    let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+    private let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
     private var feedContacts: [FeedArray] = []
     
     // MARK: - ViewDidLoad()
@@ -109,11 +102,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
      
     // 커스텀 셀 정의
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as! FeedTableViewCell
-        // 클릭시 색 없게 설정
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.cellId, for: indexPath) as? FeedTableViewCell else { return UITableViewCell() }
         cell.selectionStyle = .none
         cell.cellDataSetting = feedContacts[indexPath.row]
-        
         return cell
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

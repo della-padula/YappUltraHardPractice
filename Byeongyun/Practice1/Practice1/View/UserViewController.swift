@@ -8,8 +8,6 @@
 import UIKit
 import SnapKit
 class UserViewController: UIViewController {
-    
-    let cellId = "userViewCell"
     let minHeight: CGFloat = -300
     let stopHeight : CGFloat = -50
     private var feedContacts: [FeedArray] = []
