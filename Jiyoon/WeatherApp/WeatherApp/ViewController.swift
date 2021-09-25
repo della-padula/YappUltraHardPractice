@@ -9,16 +9,9 @@ import SnapKit
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    public var mainTableView = UITableView()
-    private var locationsList: [String] = ["서울특별시", "대전시", "대구시", "부산시"]
+    private var mainTableView = UITableView()
     private var locationsInEngList: [String] = ["Seoul", "Daejeon", "Daegu", "Busan"]
-    private var iconsList = [UIImage(systemName: "moon.stars")?.withTintColor(.white),
-                UIImage(systemName: "sun.max")?.withTintColor(.white),
-                UIImage(systemName: "sparkles")?.withTintColor(.white),
-                UIImage(systemName: "cloud.sleet")?.withTintColor(.white)]
-    private var scaledIconsList: [UIImage] = []
     private let targetSize: CGSize = CGSize(width: 50, height: 50)
-    private let renderer: UIGraphicsImageRenderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
     private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=7c2ab3586163eeb83b5f5babed0f6050&units=metric"
     
     func fetchWeather(cityName: String){
@@ -80,33 +73,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.mainTableView.reloadData()
         }
         
-        for icon in iconsList {
-            let scaledIcon = renderer.image {
-                draw in icon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
-            }
-            scaledIconsList.append(scaledIcon)
-        }
+        
     }
     //MARK: - Table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.locationsList.count
+        return 4
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "weatherTableViewCell", for: indexPath) as! WeatherCell
-        cell.locationLabel.text = locationsList[indexPath.row]
-        cell.iconImage.image = scaledIconsList[indexPath.row]
-        cell.backgroundColor = .black
-        cell.selectionStyle = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: WeatherCell.identifier, for: indexPath) as! WeatherCell
+        WeatherCell.indexPath = indexPath.row
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "삭제") { action, view, completionHandler in
 //            WeatherCoreDataManager.deleteWeathers(WeatherCoreDataManager)
-            self.locationsList.remove(at: indexPath.row)
-            self.iconsList.remove(at: indexPath.row)
+//            self.locationsList.remove(at: indexPath.row)
+//            self.iconsList.remove(at: indexPath.row)
             completionHandler(true)
         }
         deleteAction.backgroundColor = .red

@@ -8,17 +8,27 @@ import SnapKit
 import UIKit
 
 class WeatherCell: UITableViewCell {
-    public var locationLabel = UILabel()
-    public var tempLabel = UILabel()
-    public var iconImage = UIImageView()
-    public var line = UIView()
+    private var locationLabel = UILabel()
+    private var tempLabel = UILabel()
+    private var iconImage = UIImageView()
+    private var line = UIView()
     static let identifier = "weatherTableViewCell"
-    
+    static var indexPath = 0
+    private var locationsList: [String] = ["서울특별시", "대전시", "대구시", "부산시"]
+    private var iconsList = [UIImage(systemName: "moon.stars")?.withTintColor(.white),
+                UIImage(systemName: "sun.max")?.withTintColor(.white),
+                UIImage(systemName: "sparkles")?.withTintColor(.white),
+                UIImage(systemName: "cloud.sleet")?.withTintColor(.white)]
+    private let renderer: UIGraphicsImageRenderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
+    private var scaledIconsList: [UIImage] = []
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        selectionStyle = .none
+        backgroundColor = .black
         locationLabel.font = UIFont.systemFont(ofSize: 22)
         locationLabel.textColor = .white
+        locationLabel.text = locationsList[WeatherCell.indexPath]
         tempLabel.font = UIFont.systemFont(ofSize: 30)
         tempLabel.textColor = .white
         line.backgroundColor = .white
@@ -28,16 +38,24 @@ class WeatherCell: UITableViewCell {
         contentView.addSubview(iconImage)
         contentView.addSubview(line)
         
+        for icon in iconsList {
+            let scaledIcon = renderer.image {
+                draw in icon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
+            }
+            scaledIconsList.append(scaledIcon)
+        }
+        iconImage.image = scaledIconsList[WeatherCell.indexPath]
+        
         locationLabel.snp.makeConstraints { maker in
-            maker.top.equalTo(contentView.safeAreaLayoutGuide.snp.top)
+            maker.top.equalToSuperview()
             maker.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).offset(20)
-            maker.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom)
+            maker.bottom.equalToSuperview()
         }
         
         tempLabel.snp.makeConstraints { maker in
-            maker.top.equalTo(contentView.safeAreaLayoutGuide.snp.top)
+            maker.top.equalToSuperview()
             maker.trailing.equalTo(contentView.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            maker.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom)
+            maker.bottom.equalToSuperview()
         }
         
         iconImage.snp.makeConstraints { maker in

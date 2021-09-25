@@ -18,9 +18,9 @@ class WeatherCoreDataManager {
         } catch {
             print("Error saving context, \(error)")
         }
-        ViewController().mainTableView.reloadData()
     }
-    func loadWeathers(){
+    
+    func loadWeathers() {
         let request: NSFetchRequest<Weather> = Weather.fetchRequest()
         do{
             WeatherCoreDataManager.weatherArray = try WeatherCoreDataManager.context.fetch(request)
@@ -28,7 +28,8 @@ class WeatherCoreDataManager {
             print("Error fetching data, \(error)")
         }
     }
-    func deleteWeathers(indexPath: IndexPath){
+    
+    func deleteWeathers(indexPath: IndexPath) {
         WeatherCoreDataManager.context.delete(WeatherCoreDataManager.weatherArray[indexPath.row])
         WeatherCoreDataManager.weatherArray.remove(at: indexPath.row)
         WeatherCoreDataManager.saveWeathers()

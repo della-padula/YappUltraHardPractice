@@ -6,12 +6,10 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension Weather {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Weather> {
         return NSFetchRequest<Weather>(entityName: "Weather")
     }
@@ -21,5 +19,4 @@ extension Weather {
     @NSManaged public var tempMax: Double
     @NSManaged public var tempMin: Double
     @NSManaged public var time: String?
-
 }

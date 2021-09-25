@@ -5,8 +5,8 @@
 //  Created by 박지윤 on 2021/09/18.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
          return true
     }
+    
     lazy var persistentContainer: NSPersistentContainer = {
             let container = NSPersistentContainer(name: "WeatherCoreData")
             container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -31,8 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
             return container
         }()
-        
-        // MARK: - Core Data Saving support
         func saveContext () {
             let context = persistentContainer.viewContext
             if context.hasChanges {
