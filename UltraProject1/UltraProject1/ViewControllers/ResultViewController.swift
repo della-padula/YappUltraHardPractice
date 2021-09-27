@@ -11,42 +11,42 @@ import UIKit
 
 class ResultViewController: UIViewController {
     //MARK: - 라벨 선언
-    let resultTitleLabel: UILabel = {
+    private let resultTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "게임 결과"
         label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
-    let resultScoreLabel: UILabel = {
+    private let resultScoreLabel: UILabel = {
         let label = UILabel()
         label.text = "총 10회 성공"
         label.font = UIFont.boldSystemFont(ofSize: 50)
         return label
     }()
     
-    let firstTryCountLabel: UILabel = {
+    private let firstTryCountLabel: UILabel = {
         let label = UILabel()
         label.text = "1회 재시도: 7회"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let secondTryCountLabel: UILabel = {
+    private let secondTryCountLabel: UILabel = {
         let label = UILabel()
         label.text = "2회 재시도: 3회"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let failCountLabel: UILabel = {
+    private let failCountLabel: UILabel = {
         let label = UILabel()
         label.text = "실패(오답): 5회"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     //MARK: - 버튼 선언
-    let againButton: UIButton = {
+    private let againButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
         button.setTitle("다시 하기", for: .normal)
