@@ -64,6 +64,7 @@ class GameViewController: UIViewController {
         return label
     }()
     
+    private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var randomNumberShared: Int?
     var wrongNumber: Int = 0
     var count: Int = 0
@@ -159,17 +160,29 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
         cell.settingLabel = numbers[indexPath.row]
         return cell
     }
-    
-    
+    // 셀 크기 세팅
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return CGSize() }
         
-        layout.sectionInset = UIEdgeInsets(top: 3, left: 1, bottom: 3, right: 1)
-        layout.minimumLineSpacing = 1
-        layout.minimumInteritemSpacing = 1
-        layout.invalidateLayout()
-        return CGSize(width: (UIScreen.main.bounds.width*0.4)/2, height: (UIScreen.main.bounds.width*0.4)/2)
+        let width = collectionView.frame.width
+        let height = collectionView.frame.height
         
+        let itemsPerRow: CGFloat = 4
+        let widthPadding = sectionInset.left * (itemsPerRow+1)
+        let itemsPerCol: CGFloat = 4
+        let heightPadding = sectionInset.top * (itemsPerCol+1)
+        
+        let cellWidth = (width - widthPadding) / itemsPerRow
+        let cellheight = (height - heightPadding) / itemsPerCol
+        
+        return CGSize(width: cellWidth, height: cellheight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInset.left
     }
     
     // 셀 선택시 인덱스 받아오는 메서드
