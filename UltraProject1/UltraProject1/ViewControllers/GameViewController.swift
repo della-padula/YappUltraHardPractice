@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
     let selectNumberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 60)
-        label.text = "15"
+        label.text = "준비"
         label.textAlignment = .center
         return label
     }()
@@ -37,7 +37,7 @@ class GameViewController: UIViewController {
     let wrongCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "틀린 횟수 : 0"
+        label.text = "틀린 횟수 : 준비"
         label.textAlignment = .center
         
         return label
@@ -50,6 +50,22 @@ class GameViewController: UIViewController {
         return collectionView
     }()
     
+    let waitView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.5
+        return view
+    }()
+    
+    var waitCount: UILabel = {
+        let label = UILabel()
+        label.text = "3"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 80)
+        
+        return label
+    }()
+    
     var randomNumberShared: Int?
     var wrongNumber: Int = 0
     var count: Int = 0
@@ -57,9 +73,31 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         settingCollection()
         settingUI()
-        settingLabel()
+        waitPage()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            self.waitView.removeFromSuperview()
+            self.waitCount.removeFromSuperview()
+            self.settingLabel()
+        }
+        
+    }
+    
+    func waitPage() {
+        view.addSubview(waitView)
+        waitView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.top)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.bottom.equalTo(view.snp.bottom)
+        }
+        view.addSubview(waitCount)
+        waitCount.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
     }
     
     func settingLabel() {
