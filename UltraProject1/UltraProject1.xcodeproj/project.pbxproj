@@ -14,6 +14,7 @@
 		5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AA2701EF9200096AC6 /* RecordViewController.swift */; };
 		5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AE2701EFD400096AC6 /* UIColor.swift */; };
 		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
+		959DC67A27020062005C6C7A /* TimerFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC67927020062005C6C7A /* TimerFunction.swift */; };
 		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
 		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
 		A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BF2701C5C200C723F9 /* Numbers.swift */; };
@@ -54,6 +55,7 @@
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
 		959DC6772701B88B005C6C7A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		959DC67927020062005C6C7A /* TimerFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimerFunction.swift; path = UltraProject1/ViewControllers/TimerFunction.swift; sourceTree = SOURCE_ROOT; };
 		9A24A64A83D62F6DF40506B1 /* Pods_UltraProject1_UltraProject1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1_UltraProject1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7AE0C2FB73124A931484E2 /* Pods-UltraProject1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A87D70BB2701B97500C723F9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		5EB4679E2701B51300096AC6 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				959DC67927020062005C6C7A /* TimerFunction.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
 				959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */,
+				959DC67A27020062005C6C7A /* TimerFunction.swift in Sources */,
 				5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */,
 				5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */,
 			);
