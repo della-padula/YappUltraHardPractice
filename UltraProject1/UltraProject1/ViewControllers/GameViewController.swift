@@ -16,7 +16,9 @@ class GameViewController: UIViewController {
         13,14,15,16
     ]
     
-    let timeLabel: UILabel = {
+    private var tappedNumbers: [Int] = []
+    
+    private let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
         label.text = "남은 시간 "
@@ -24,37 +26,99 @@ class GameViewController: UIViewController {
         return label
     }()
     
-    let selectNumberLabel: UILabel = {
+    private let selectNumberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 60)
-        label.text = "15"
+        label.text = "준비"
         label.textAlignment = .center
         return label
     }()
     
-    let numberCollectionView: UICollectionView = {
+    private let wrongCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.text = "틀린 횟수 : 준비"
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let numberCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .white
         return collectionView
     }()
     
+    private let waitView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.5
+        return view
+    }()
+    
+    private var waitCountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "3"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 80)
+        return label
+    }()
+    
+    var randomNumberShared: Int?
+    var wrongNumber: Int = 0
+    var count: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .white
         settingCollection()
         settingUI()
+        waitPage()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            self.waitView.removeFromSuperview()
+            self.waitCountLabel.removeFromSuperview()
+            self.settingLabel()
+        }
     }
     
-    func settingCollection() {
+    private func waitPage() {
+        view.addSubview(waitView)
+        waitView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.top)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.bottom.equalTo(view.snp.bottom)
+        }
+        view.addSubview(waitCountLabel)
+        waitCountLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+    }
+    
+    private func settingLabel() {
+        guard let randomNumber = numbers.randomElement() else { return }
+        randomNumberShared = randomNumber
+        selectNumberLabel.text = "\(randomNumberShared!)"
+        wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+    }
+    
+    
+    private func gameOverCheck(_ count: Int, wrong: Int) {
+        if count == 16 || wrong == 3 {
+            let resultViewController = ResultViewController()
+            resultViewController.modalPresentationStyle = .fullScreen
+            present(resultViewController, animated: true, completion: nil)
+        }
+    }
+    
+    private func settingCollection() {
         numberCollectionView.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.cellId)
         numberCollectionView.delegate = self
         numberCollectionView.dataSource = self
     }
     
-    func settingUI() {
+    private func settingUI() {
         view.addSubview(timeLabel)
         timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
@@ -73,6 +137,12 @@ class GameViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
+        
+        view.addSubview(wrongCountLabel)
+        wrongCountLabel.snp.makeConstraints {
+            $0.top.equalTo(selectNumberLabel.snp.bottom).offset(15)
+            $0.centerX.equalToSuperview()
+        }
     }
 }
 
@@ -84,6 +154,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.cellId, for: indexPath) as? GameCollectionViewCell else { return UICollectionViewCell() }
+        
         cell.numberLabel.text = "\(numbers[indexPath.row])"
         
         return cell
@@ -102,6 +173,24 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        if tappedNumbers.contains(indexPath.row+1) || indexPath.row+1 != randomNumberShared! {
+            wrongNumber += 1
+            wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+            gameOverCheck(count, wrong: wrongNumber)
+        } else if indexPath.row+1 == randomNumberShared!{
+            wrongNumber = 0
+            tappedNumbers.append(randomNumberShared!)
+            
+            // 선택된 셀 백그라운드 색 변경
+            let cell = collectionView.cellForItem(at: indexPath)!
+            cell.contentView.backgroundColor = .gray
+            
+            if let firstIndex = numbers.firstIndex(of: indexPath.row+1) {
+                numbers.remove(at: firstIndex)
+            }
+            count += 1
+            gameOverCheck(count, wrong: wrongNumber)
+            settingLabel()
+        }
     }
 }
