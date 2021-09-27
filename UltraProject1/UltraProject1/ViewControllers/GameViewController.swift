@@ -7,10 +7,9 @@
 
 import UIKit
 import SnapKit
-
 class GameViewController: UIViewController {
 
-    var numbers = [
+    private var numbers = [
         1,2,3,4,
         5,6,7,8,
         9,10,11,12,
@@ -20,7 +19,7 @@ class GameViewController: UIViewController {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
-        label.text = "남은 시간 00:00:00"
+        label.text = "남은 시간 "
         label.textAlignment = .center
         return label
     }()
@@ -40,15 +39,14 @@ class GameViewController: UIViewController {
         return collectionView
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
         settingCollection()
         settingUI()
-        
     }
-
     
     func settingCollection() {
         numberCollectionView.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.cellId)
@@ -89,7 +87,6 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
         cell.numberLabel.text = "\(numbers[indexPath.row])"
         
         return cell
-        
     }
     
     

@@ -28,7 +28,7 @@ class GameCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func settingUI() {
+    private func settingUI() {
         contentView.addSubview(numberLabel)
         numberLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
