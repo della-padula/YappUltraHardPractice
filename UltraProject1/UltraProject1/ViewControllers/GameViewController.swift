@@ -107,7 +107,8 @@ class GameViewController: UIViewController {
     
     
     private func gameOverCheck(_ count: Int, wrong: Int) {
-        if count == 16 || wrong == 3 {
+        // 종료 조건 : 16개를 다 맞혔거나, 시간이 종료됐을 때
+        if count == 16 {
             let resultViewController = ResultViewController()
             resultViewController.modalPresentationStyle = .fullScreen
             present(resultViewController, animated: true, completion: nil)
@@ -193,7 +194,10 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
             gameOverCheck(count, wrong: wrongNumber)
-            
+            if wrongNumber == 3 {
+                wrongNumber = 0
+                settingLabel()
+            }
         } else if indexPath.row+1 == unwrappedRandomNumberShared{
             wrongNumber = 0
             tappedNumbers.append(unwrappedRandomNumberShared)
