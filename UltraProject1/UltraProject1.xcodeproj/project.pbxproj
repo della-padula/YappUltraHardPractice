@@ -10,10 +10,13 @@
 		4211F83F10C038BD7D283051 /* Pods_UltraProject1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */; };
 		56800BCB268B1085B891DB3C /* Pods_UltraProject1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E125606C2E51BE8946684D19 /* Pods_UltraProject1.framework */; };
 		5EB467A12701B55200096AC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A02701B55200096AC6 /* LoginViewController.swift */; };
+		5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A82701EF7800096AC6 /* MainViewController.swift */; };
+		5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AA2701EF9200096AC6 /* RecordViewController.swift */; };
+		5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AE2701EFD400096AC6 /* UIColor.swift */; };
+		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
 		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
 		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
 		A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BF2701C5C200C723F9 /* Numbers.swift */; };
-		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
 		B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D557D8270197BC00143B0E /* AppDelegate.swift */; };
 		B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0D557E1270197BC00143B0E /* UltraProject1.xcdatamodeld */; };
 		B0D557E5270197BD00143B0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D557E4270197BD00143B0E /* Assets.xcassets */; };
@@ -44,6 +47,9 @@
 		3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56139497094E3E3E42D81623 /* Pods-UltraProject1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.release.xcconfig"; sourceTree = "<group>"; };
 		5EB467A02701B55200096AC6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5EB467A82701EF7800096AC6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5EB467AA2701EF9200096AC6 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		5EB467AE2701EFD400096AC6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = UltraProject1/ViewControllers/UIColor.swift; sourceTree = SOURCE_ROOT; };
 		79CA3AD89B0763D055449BB2 /* Pods-UltraProject1-UltraProject1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1-UltraProject1UITests/Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,11 +123,10 @@
 			isa = PBXGroup;
 			children = (
 				5EB467A02701B55200096AC6 /* LoginViewController.swift */,
-
+				5EB467A82701EF7800096AC6 /* MainViewController.swift */,
 				A87D70BB2701B97500C723F9 /* GameViewController.swift */,
-
 				959DC6772701B88B005C6C7A /* ResultViewController.swift */,
-
+				5EB467AA2701EF9200096AC6 /* RecordViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 		5EB4679F2701B52100096AC6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5EB467AE2701EFD400096AC6 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -460,10 +466,13 @@
 				A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */,
 				A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */,
 				A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */,
+				5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */,
 				5EB467A12701B55200096AC6 /* LoginViewController.swift in Sources */,
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
 				959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */,
+				5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */,
+				5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
