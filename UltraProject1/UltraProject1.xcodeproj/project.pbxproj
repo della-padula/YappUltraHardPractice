@@ -10,6 +10,9 @@
 		4211F83F10C038BD7D283051 /* Pods_UltraProject1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */; };
 		56800BCB268B1085B891DB3C /* Pods_UltraProject1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E125606C2E51BE8946684D19 /* Pods_UltraProject1.framework */; };
 		5EB467A12701B55200096AC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A02701B55200096AC6 /* LoginViewController.swift */; };
+		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
+		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
+		A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BF2701C5C200C723F9 /* Numbers.swift */; };
 		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
 		B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D557D8270197BC00143B0E /* AppDelegate.swift */; };
 		B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0D557E1270197BC00143B0E /* UltraProject1.xcdatamodeld */; };
@@ -47,6 +50,9 @@
 		959DC6772701B88B005C6C7A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		9A24A64A83D62F6DF40506B1 /* Pods_UltraProject1_UltraProject1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1_UltraProject1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7AE0C2FB73124A931484E2 /* Pods-UltraProject1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		A87D70BB2701B97500C723F9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameCollectionViewCell.swift; path = UltraProject1/ViewControllers/GameCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		A87D70BF2701C5C200C723F9 /* Numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Numbers.swift; path = UltraProject1/ViewControllers/Numbers.swift; sourceTree = SOURCE_ROOT; };
 		B0D557D5270197BC00143B0E /* UltraProject1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltraProject1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0D557D8270197BC00143B0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0D557E2270197BC00143B0E /* UltraProject1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UltraProject1.xcdatamodel; sourceTree = "<group>"; };
@@ -94,6 +100,7 @@
 		5EB4679B2701B4F600096AC6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -101,6 +108,7 @@
 		5EB4679C2701B4FB00096AC6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A87D70BF2701C5C200C723F9 /* Numbers.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -109,7 +117,11 @@
 			isa = PBXGroup;
 			children = (
 				5EB467A02701B55200096AC6 /* LoginViewController.swift */,
+
+				A87D70BB2701B97500C723F9 /* GameViewController.swift */,
+
 				959DC6772701B88B005C6C7A /* ResultViewController.swift */,
+
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -445,6 +457,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */,
+				A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */,
+				A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */,
 				5EB467A12701B55200096AC6 /* LoginViewController.swift in Sources */,
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
