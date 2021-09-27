@@ -16,6 +16,8 @@ class GameViewController: UIViewController {
         13,14,15,16
     ]
     
+    private var tappedNumbers: [Int] = []
+    
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
@@ -32,6 +34,15 @@ class GameViewController: UIViewController {
         return label
     }()
     
+    let wrongCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.text = "틀린 횟수 : 0"
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
     let numberCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -39,13 +50,17 @@ class GameViewController: UIViewController {
         return collectionView
     }()
     
+    var randomNumberShared: Int?
+    var wrongNumber: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        guard let randomNumber = numbers.randomElement() else { return }
         view.backgroundColor = .white
         settingCollection()
         settingUI()
+        randomNumberShared = randomNumber
+        selectNumberLabel.text = "\(randomNumber)"
     }
     
     func settingCollection() {
@@ -72,6 +87,12 @@ class GameViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(10)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+        }
+        
+        view.addSubview(wrongCountLabel)
+        wrongCountLabel.snp.makeConstraints {
+            $0.top.equalTo(selectNumberLabel.snp.bottom).offset(15)
+            $0.centerX.equalToSuperview()
         }
     }
 }
@@ -102,6 +123,24 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        
+        print(indexPath.row + 1)
+        if tappedNumbers.contains(indexPath.row+1) || indexPath.row+1 != randomNumberShared! {
+            wrongNumber += 1
+            wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+        } else if indexPath.row+1 == randomNumberShared! {
+            wrongNumber = 0
+            tappedNumbers.append(randomNumberShared!)
+            if let firstIndex = numbers.firstIndex(of: indexPath.row+1) {
+                numbers.remove(at: firstIndex)
+            }
+            print("number Count : \(numbers.count)")
+            guard let randomNumber = numbers.randomElement() else { return }
+            randomNumberShared = randomNumber
+            selectNumberLabel.text = "\(randomNumberShared!)"
+            wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+        }
+        
+        
     }
 }
