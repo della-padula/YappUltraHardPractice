@@ -52,6 +52,7 @@ class GameViewController: UIViewController {
     
     var randomNumberShared: Int?
     var wrongNumber: Int = 0
+    var count: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +62,14 @@ class GameViewController: UIViewController {
         settingUI()
         randomNumberShared = randomNumber
         selectNumberLabel.text = "\(randomNumber)"
+    }
+    
+    func check(_ count: Int) {
+        if count == 15 {
+            let resultViewController = ResultViewController()
+            resultViewController.modalPresentationStyle = .fullScreen
+            present(resultViewController, animated: true, completion: nil)
+        }
     }
     
     func settingCollection() {
@@ -123,24 +132,21 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print(indexPath.row + 1)
         if tappedNumbers.contains(indexPath.row+1) || indexPath.row+1 != randomNumberShared! {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
-        } else if indexPath.row+1 == randomNumberShared! {
+        } else if indexPath.row+1 == randomNumberShared! && !numbers.isEmpty{
             wrongNumber = 0
             tappedNumbers.append(randomNumberShared!)
             if let firstIndex = numbers.firstIndex(of: indexPath.row+1) {
                 numbers.remove(at: firstIndex)
             }
-            print("number Count : \(numbers.count)")
             guard let randomNumber = numbers.randomElement() else { return }
             randomNumberShared = randomNumber
             selectNumberLabel.text = "\(randomNumberShared!)"
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+            count += 1
         }
-        
-        
+        check(count)
     }
 }
