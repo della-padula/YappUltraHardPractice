@@ -57,21 +57,21 @@ class GameViewController: UIViewController {
     func settingUI() {
         view.addSubview(timeLabel)
         timeLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
+            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
             $0.centerX.equalToSuperview()
         }
         view.addSubview(selectNumberLabel)
         selectNumberLabel.snp.makeConstraints {
-            $0.top.equalTo(timeLabel.snp.bottom).offset(50)
+            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.2)
             $0.centerX.equalToSuperview()
         }
         
         view.addSubview(numberCollectionView)
         numberCollectionView.snp.makeConstraints {
-            $0.top.equalTo(selectNumberLabel.snp.bottom).offset(60)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(30)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-30)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(30)
+            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.4)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(10)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
     }
 }
@@ -92,11 +92,11 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return CGSize() }
-        layout.sectionInset = UIEdgeInsets(top: 1, left: 3, bottom: 3, right: 1)
+        layout.sectionInset = UIEdgeInsets(top: 3, left: 1, bottom: 3, right: 1)
         layout.minimumLineSpacing = 1
         layout.minimumInteritemSpacing = 1
         layout.invalidateLayout()
-        return CGSize(width: (self.view.frame.width/5)-5, height: (self.view.frame.width/5)-5)
+        return CGSize(width: (UIScreen.main.bounds.width*0.4)/2, height: (UIScreen.main.bounds.width*0.4)/2)
         
     }
     
