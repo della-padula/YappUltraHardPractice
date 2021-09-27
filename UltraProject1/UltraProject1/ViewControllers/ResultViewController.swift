@@ -68,23 +68,23 @@ class ResultViewController: UIViewController {
         view.addSubview(failCountLabel)
         
         resultTitleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(150)
+            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.2)
             $0.centerX.equalToSuperview()
         }
         resultScoreLabel.snp.makeConstraints {
-            $0.top.equalTo(resultTitleLabel).offset(100)
+            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.3)
             $0.centerX.equalToSuperview()
         }
         firstTryCountLabel.snp.makeConstraints {
-            $0.top.equalTo(resultScoreLabel).offset(200)
+            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.5)
             $0.centerX.equalToSuperview()
         }
         secondTryCountLabel.snp.makeConstraints {
-            $0.top.equalTo(firstTryCountLabel).offset(50)
+            $0.top.equalTo(firstTryCountLabel).offset(30)
             $0.centerX.equalToSuperview()
         }
         failCountLabel.snp.makeConstraints {
-            $0.top.equalTo(secondTryCountLabel).offset(50)
+            $0.top.equalTo(secondTryCountLabel).offset(30)
             $0.centerX.equalToSuperview()
         }
     }
@@ -93,7 +93,7 @@ class ResultViewController: UIViewController {
         view.addSubview(againButton)
         
         againButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-150)
+            make.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.1)
             make.centerX.equalToSuperview()
         }
     }
