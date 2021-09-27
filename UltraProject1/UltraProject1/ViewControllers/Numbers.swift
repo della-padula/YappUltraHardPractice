@@ -8,5 +8,5 @@
 import Foundation
 
 struct Numbers {
-    let number: String
+    let number: Int
 }
