@@ -10,6 +10,7 @@
 		4211F83F10C038BD7D283051 /* Pods_UltraProject1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */; };
 		56800BCB268B1085B891DB3C /* Pods_UltraProject1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E125606C2E51BE8946684D19 /* Pods_UltraProject1.framework */; };
 		5EB467982701AD2E00096AC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467972701AD2E00096AC6 /* LoginViewController.swift */; };
+		5EB467A32701B91200096AC6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A22701B91200096AC6 /* UIColor.swift */; };
 		B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D557D8270197BC00143B0E /* AppDelegate.swift */; };
 		B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0D557E1270197BC00143B0E /* UltraProject1.xcdatamodeld */; };
 		B0D557E5270197BD00143B0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D557E4270197BD00143B0E /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56139497094E3E3E42D81623 /* Pods-UltraProject1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.release.xcconfig"; sourceTree = "<group>"; };
 		5EB467972701AD2E00096AC6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5EB467A22701B91200096AC6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		79CA3AD89B0763D055449BB2 /* Pods-UltraProject1-UltraProject1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1-UltraProject1UITests/Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		5EB467962701ACBB00096AC6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5EB467A22701B91200096AC6 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EB467982701AD2E00096AC6 /* LoginViewController.swift in Sources */,
+				5EB467A32701B91200096AC6 /* UIColor.swift in Sources */,
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
 			);
