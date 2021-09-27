@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class RecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RecordViewController: UIViewController {
     private let tableView = UITableView()
     
     override func viewDidLoad() {
@@ -29,7 +29,9 @@ class RecordViewController: UIViewController, UITableViewDelegate, UITableViewDa
             make.edges.equalToSuperview()
         }
     }
-    
+}
+
+extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
