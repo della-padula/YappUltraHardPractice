@@ -69,8 +69,8 @@ class GameViewController: UIViewController {
         wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
     }
     
-    func check(_ count: Int) {
-        if count == 16 {
+    func check(_ count: Int, wrong: Int) {
+        if count == 16 || wrong == 3 {
             let resultViewController = ResultViewController()
             resultViewController.modalPresentationStyle = .fullScreen
             present(resultViewController, animated: true, completion: nil)
@@ -143,6 +143,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
         if tappedNumbers.contains(indexPath.row+1) || indexPath.row+1 != randomNumberShared! {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+            check(count, wrong: wrongNumber)
         } else if indexPath.row+1 == randomNumberShared!{
             wrongNumber = 0
             tappedNumbers.append(randomNumberShared!)
@@ -154,7 +155,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
                 numbers.remove(at: firstIndex)
             }
             count += 1
-            check(count)
+            check(count, wrong: wrongNumber)
             settingLabel()
         }
         
