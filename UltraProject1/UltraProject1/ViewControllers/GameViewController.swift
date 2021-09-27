@@ -56,16 +56,21 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let randomNumber = numbers.randomElement() else { return }
         view.backgroundColor = .white
         settingCollection()
         settingUI()
+        settingLabel()
+    }
+    
+    func settingLabel() {
+        guard let randomNumber = numbers.randomElement() else { return }
         randomNumberShared = randomNumber
-        selectNumberLabel.text = "\(randomNumber)"
+        selectNumberLabel.text = "\(randomNumberShared!)"
+        wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
     }
     
     func check(_ count: Int) {
-        if count == 15 {
+        if count == 16 {
             let resultViewController = ResultViewController()
             resultViewController.modalPresentationStyle = .fullScreen
             present(resultViewController, animated: true, completion: nil)
@@ -114,6 +119,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.cellId, for: indexPath) as? GameCollectionViewCell else { return UICollectionViewCell() }
+        
         cell.numberLabel.text = "\(numbers[indexPath.row])"
         
         return cell
@@ -132,21 +138,25 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(randomNumberShared!)
+        print(indexPath.row+1)
         if tappedNumbers.contains(indexPath.row+1) || indexPath.row+1 != randomNumberShared! {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
-        } else if indexPath.row+1 == randomNumberShared! && !numbers.isEmpty{
+        } else if indexPath.row+1 == randomNumberShared!{
             wrongNumber = 0
             tappedNumbers.append(randomNumberShared!)
+            
+            let cell = collectionView.cellForItem(at: indexPath)!
+            cell.contentView.backgroundColor = .gray
             if let firstIndex = numbers.firstIndex(of: indexPath.row+1) {
+                print("삭제됨")
                 numbers.remove(at: firstIndex)
             }
-            guard let randomNumber = numbers.randomElement() else { return }
-            randomNumberShared = randomNumber
-            selectNumberLabel.text = "\(randomNumberShared!)"
-            wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
             count += 1
+            check(count)
+            settingLabel()
         }
-        check(count)
+        
     }
 }
