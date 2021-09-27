@@ -3,16 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4211F83F10C038BD7D283051 /* Pods_UltraProject1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */; };
 		56800BCB268B1085B891DB3C /* Pods_UltraProject1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E125606C2E51BE8946684D19 /* Pods_UltraProject1.framework */; };
 		B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D557D8270197BC00143B0E /* AppDelegate.swift */; };
-		B0D557DB270197BC00143B0E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D557DA270197BC00143B0E /* SceneDelegate.swift */; };
 		B0D557DD270197BC00143B0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D557DC270197BC00143B0E /* ViewController.swift */; };
-		B0D557E0270197BC00143B0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D557DE270197BC00143B0E /* Main.storyboard */; };
 		B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0D557E1270197BC00143B0E /* UltraProject1.xcdatamodeld */; };
 		B0D557E5270197BD00143B0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D557E4270197BD00143B0E /* Assets.xcassets */; };
 		B0D557E8270197BD00143B0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D557E6270197BD00143B0E /* LaunchScreen.storyboard */; };
@@ -48,9 +46,7 @@
 		9B7AE0C2FB73124A931484E2 /* Pods-UltraProject1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B0D557D5270197BC00143B0E /* UltraProject1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltraProject1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0D557D8270197BC00143B0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B0D557DA270197BC00143B0E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B0D557DC270197BC00143B0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B0D557DF270197BC00143B0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0D557E2270197BC00143B0E /* UltraProject1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UltraProject1.xcdatamodel; sourceTree = "<group>"; };
 		B0D557E4270197BD00143B0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0D557E7270197BD00143B0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -129,9 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				B0D557D8270197BC00143B0E /* AppDelegate.swift */,
-				B0D557DA270197BC00143B0E /* SceneDelegate.swift */,
 				B0D557DC270197BC00143B0E /* ViewController.swift */,
-				B0D557DE270197BC00143B0E /* Main.storyboard */,
 				B0D557E4270197BD00143B0E /* Assets.xcassets */,
 				B0D557E6270197BD00143B0E /* LaunchScreen.storyboard */,
 				B0D557E9270197BD00143B0E /* Info.plist */,
@@ -168,7 +162,6 @@
 				9B7AE0C2FB73124A931484E2 /* Pods-UltraProject1Tests.debug.xcconfig */,
 				837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -282,7 +275,6 @@
 			files = (
 				B0D557E8270197BD00143B0E /* LaunchScreen.storyboard in Resources */,
 				B0D557E5270197BD00143B0E /* Assets.xcassets in Resources */,
-				B0D557E0270197BC00143B0E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,7 +405,6 @@
 				B0D557DD270197BC00143B0E /* ViewController.swift in Sources */,
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
-				B0D557DB270197BC00143B0E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,14 +440,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B0D557DE270197BC00143B0E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0D557DF270197BC00143B0E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B0D557E6270197BD00143B0E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
