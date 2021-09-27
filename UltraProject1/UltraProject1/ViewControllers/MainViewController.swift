@@ -9,8 +9,23 @@ import SnapKit
 import UIKit
 
 class MainViewController: UIViewController {
-    private let startButton = UIButton()
-    private let recordButton = UIButton()
+    private let startButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("게임 시작", for: .normal)
+        button.backgroundColor = .systemGray2
+        button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(startButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private let recordButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("게임 기록", for: .normal)
+        button.backgroundColor = .systemGray2
+        button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(recordButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,33 +38,21 @@ class MainViewController: UIViewController {
     private func configureStartButton() {
         view.addSubview(startButton)
         
-        startButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(160)
-            make.height.equalTo(60)
+        startButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(160)
+            $0.height.equalTo(60)
         }
-        
-        startButton.setTitle("게임 시작", for: .normal)
-        startButton.backgroundColor = .systemGray2
-        startButton.layer.cornerRadius = 16
-        
-        startButton.addTarget(self, action: #selector(startButtonTapped(_:)), for: .touchUpInside)
     }
     
     private func configureRecordButton() {
         view.addSubview(recordButton)
         
-        recordButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.top.equalTo(startButton.snp.bottom).offset(12)
-            make.height.equalTo(60)
+        recordButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(24)
+            $0.top.equalTo(startButton.snp.bottom).offset(12)
+            $0.height.equalTo(60)
         }
-        
-        recordButton.setTitle("게임 기록", for: .normal)
-        recordButton.backgroundColor = .systemGray2
-        recordButton.layer.cornerRadius = 16
-        
-        recordButton.addTarget(self, action: #selector(recordButtonTapped(_:)), for: .touchUpInside)
     }
     
     @objc

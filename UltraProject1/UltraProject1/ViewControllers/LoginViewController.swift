@@ -9,7 +9,15 @@ import SnapKit
 import UIKit
 
 class LoginViewController: UIViewController {
-    private let loginButton = UIButton()
+    private var loginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("카카오톡 로그인", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .kakaoYellow
+        button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(loginButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,18 +29,11 @@ class LoginViewController: UIViewController {
     private func configureLoginButton() {
         view.addSubview(loginButton)
         
-        loginButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(160)
-            make.height.equalTo(60)
+        loginButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(160)
+            $0.height.equalTo(60)
         }
-        
-        loginButton.setTitle("카카오톡 로그인", for: .normal)
-        loginButton.setTitleColor(.black, for: .normal)
-        loginButton.backgroundColor = .kakaoYellow
-        loginButton.layer.cornerRadius = 16
-        
-        loginButton.addTarget(self, action: #selector(loginButtonTapped(_:)), for: .touchUpInside)
     }
     
     @objc
