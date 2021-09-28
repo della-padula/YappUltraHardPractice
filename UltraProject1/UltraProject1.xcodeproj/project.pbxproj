@@ -18,6 +18,7 @@
 		5EB467C82702C52900096AC6 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C72702C52900096AC6 /* Score.swift */; };
 		5EB467CB2702F24A00096AC6 /* PrintFn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467CA2702F24A00096AC6 /* PrintFn.swift */; };
 		5EB467CD2702F9E800096AC6 /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */; };
+		5EB467D127032FB400096AC6 /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467D027032FB400096AC6 /* ScoreTableViewCell.swift */; };
 		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
 		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
 		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
@@ -60,6 +61,7 @@
 		5EB467C72702C52900096AC6 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Score.swift; path = UltraProject1/Models/Score.swift; sourceTree = SOURCE_ROOT; };
 		5EB467CA2702F24A00096AC6 /* PrintFn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintFn.swift; sourceTree = "<group>"; };
 		5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
+		5EB467D027032FB400096AC6 /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTableViewCell.swift; sourceTree = "<group>"; };
 		79CA3AD89B0763D055449BB2 /* Pods-UltraProject1-UltraProject1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1-UltraProject1UITests/Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */,
+				5EB467D027032FB400096AC6 /* ScoreTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 			files = (
 				A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */,
 				A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */,
+				5EB467D127032FB400096AC6 /* ScoreTableViewCell.swift in Sources */,
 				A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */,
 				5EB467C82702C52900096AC6 /* Score.swift in Sources */,
 				5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */,
