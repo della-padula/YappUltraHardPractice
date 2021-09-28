@@ -10,11 +10,6 @@ import SnapKit
 import UIKit
 
 class ResultViewController: UIViewController {
-    var score: Score? {
-        didSet {
-            setLabelText()
-        }
-    }
 
     private let resultTitleLabel: UILabel = {
         let label = UILabel()
@@ -54,11 +49,11 @@ class ResultViewController: UIViewController {
         return button
     }()
     
-    private let backButton: UIButton = {
+    private let homeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
+        button.setTitle("홈으로", for: .normal)
+        button.addTarget(self, action: #selector(homeButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -77,22 +72,6 @@ class ResultViewController: UIViewController {
         
         setLabelUI()
         setButtonUI()
-    }
-    
-    init(_ score: Score) {
-        super.init(nibName: nil, bundle: nil)
-        self.score = score
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setLabelText() {
-        resultScoreLabel.text = "총 10회 성공"
-        firstTryCountLabel.text = "1회 재시도: 7회"
-        secondTryCountLabel.text = "2회 재시도: 3회"
-        failCountLabel.text = "실패(오답): 5회"
     }
     
     private func setLabelUI(){
@@ -126,15 +105,15 @@ class ResultViewController: UIViewController {
     
     private func setButtonUI(){
         view.addSubview(againButton)
-        view.addSubview(backButton)
+        view.addSubview(homeButton)
         
         againButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.1)
+            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.25)
             $0.centerX.equalToSuperview()
         }
-        backButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(60)
-            $0.left.equalToSuperview().inset(40)
+        homeButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.15)
+            $0.centerX.equalToSuperview()
         }
     }
     
@@ -145,8 +124,7 @@ class ResultViewController: UIViewController {
     }
     
     @objc
-    private func backButtonTapped() {
-        print()
-        self.dismiss(animated: true, completion: nil)
+    private func homeButtonTapped() {
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }
