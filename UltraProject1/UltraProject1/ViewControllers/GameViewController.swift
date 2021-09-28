@@ -101,7 +101,6 @@ class GameViewController: UIViewController {
     @objc
     func timerCallBack() {
         waitCountLabel.text = "\(timerNum)"
-        
         if timerNum == 0 {
             timer?.invalidate()
             timer = nil

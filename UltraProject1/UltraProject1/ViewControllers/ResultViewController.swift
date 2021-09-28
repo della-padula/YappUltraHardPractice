@@ -110,7 +110,6 @@ class ResultViewController: UIViewController {
     
     @objc
     func buttonTapped() {
-        // 코어 데이터 테스트
         print(CoreDataManager.shared.getScores())
     }
 }
