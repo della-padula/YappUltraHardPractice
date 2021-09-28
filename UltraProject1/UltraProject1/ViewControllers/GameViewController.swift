@@ -41,7 +41,7 @@ class GameViewController: UIViewController {
     
     private let selectNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 60)
+        label.font = UIFont.boldSystemFont(ofSize: UIScreen.main.bounds.width/5)
         label.text = "준비"
         label.textAlignment = .center
         return label
