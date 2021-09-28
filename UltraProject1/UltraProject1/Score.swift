@@ -1,5 +1,5 @@
 //
-//  GameScore.swift
+//  Score.swift
 //  UltraProject1
 //
 //  Created by leeesangheee on 2021/09/28.
