@@ -88,6 +88,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.setHidesBackButton(true, animated: true)
+        
         settingCollection()
         settingUI()
         waitPage()
