@@ -13,6 +13,9 @@
 		5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A82701EF7800096AC6 /* MainViewController.swift */; };
 		5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AA2701EF9200096AC6 /* RecordViewController.swift */; };
 		5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AE2701EFD400096AC6 /* UIColor.swift */; };
+		5EB467C42702C28D00096AC6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C22702C28D00096AC6 /* Model.xcdatamodeld */; };
+		5EB467C62702C33C00096AC6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C52702C33C00096AC6 /* CoreDataManager.swift */; };
+		5EB467C82702C52900096AC6 /* GameScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C72702C52900096AC6 /* GameScore.swift */; };
 		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
 		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
 		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
@@ -50,6 +53,9 @@
 		5EB467A82701EF7800096AC6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5EB467AA2701EF9200096AC6 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		5EB467AE2701EFD400096AC6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = UltraProject1/ViewControllers/UIColor.swift; sourceTree = SOURCE_ROOT; };
+		5EB467C32702C28D00096AC6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		5EB467C52702C33C00096AC6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = UltraProject1/CoreDataManager.swift; sourceTree = SOURCE_ROOT; };
+		5EB467C72702C52900096AC6 /* GameScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScore.swift; path = UltraProject1/GameScore.swift; sourceTree = SOURCE_ROOT; };
 		79CA3AD89B0763D055449BB2 /* Pods-UltraProject1-UltraProject1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1-UltraProject1UITests/Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				A87D70BF2701C5C200C723F9 /* Numbers.swift */,
+				5EB467C72702C52900096AC6 /* GameScore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -134,6 +141,7 @@
 		5EB4679E2701B51300096AC6 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				5EB467C52702C33C00096AC6 /* CoreDataManager.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -186,6 +194,7 @@
 				5EB4679D2701B50800096AC6 /* ViewControllers */,
 				5EB4679E2701B51300096AC6 /* Functions */,
 				5EB4679F2701B52100096AC6 /* Extensions */,
+				5EB467C22702C28D00096AC6 /* Model.xcdatamodeld */,
 				B0D557D8270197BC00143B0E /* AppDelegate.swift */,
 				B0D557E4270197BD00143B0E /* Assets.xcassets */,
 				B0D557E6270197BD00143B0E /* LaunchScreen.storyboard */,
@@ -466,12 +475,15 @@
 				A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */,
 				A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */,
 				A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */,
+				5EB467C82702C52900096AC6 /* GameScore.swift in Sources */,
 				5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */,
 				5EB467A12701B55200096AC6 /* LoginViewController.swift in Sources */,
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
+				5EB467C62702C33C00096AC6 /* CoreDataManager.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
 				959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */,
 				5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */,
+				5EB467C42702C28D00096AC6 /* Model.xcdatamodeld in Sources */,
 				5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -805,6 +817,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		5EB467C22702C28D00096AC6 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5EB467C32702C28D00096AC6 /* Model.xcdatamodel */,
+			);
+			currentVersion = 5EB467C32702C28D00096AC6 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B0D557E1270197BC00143B0E /* UltraProject1.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
