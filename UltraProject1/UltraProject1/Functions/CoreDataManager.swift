@@ -53,8 +53,6 @@ class CoreDataManager {
             let request: NSFetchRequest<GameScore> = GameScore.fetchRequest()
             let results = try context.fetch(request)
             return results
-//            guard let gameScores = try context.fetch(GameScore.fetchRequest()) as? [GameScore] else { return [] }
-//            return gameScores
         } catch {
             print(error.localizedDescription)
         }
@@ -70,5 +68,13 @@ class CoreDataManager {
         }
         saveContext()
         return scores
+    }
+    
+    func deleteAllScores() {
+        let fetchResults = fetchGameScores()
+        for result in fetchResults {
+            context.delete(result)
+        }
+        saveContext()
     }
 }

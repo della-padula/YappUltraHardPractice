@@ -10,13 +10,13 @@ import UIKit
 
 class RecordViewController: UIViewController {
     
+    private let tableView = UITableView()
+    private var scoreList: [Score] = []
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    
-    private let tableView = UITableView()
-    private var scoreList: [Score] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,12 @@ class RecordViewController: UIViewController {
     private func configureNavigationBar() {
         navigationItem.title = "게임 기록"
         navigationController?.navigationBar.tintColor = .white
+        
+        let deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(deleteRecords(_:)))
+        deleteBtn.tintColor = .white
+        
+        navigationItem.rightBarButtonItem = deleteBtn
+        
         let navigationBar = navigationController?.navigationBar
             
         if #available(iOS 13.0, *) {
@@ -62,6 +68,12 @@ class RecordViewController: UIViewController {
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    @objc
+    private func deleteRecords(_ sender: UIButton) {
+        CoreDataManager.shared.deleteAllScores()
+        tableView.reloadData()
     }
 }
 
