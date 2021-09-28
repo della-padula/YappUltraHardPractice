@@ -62,7 +62,6 @@ class MainViewController: UIViewController {
         present(gameVC, animated: true, completion: nil)
     }
     
-    
     @objc
     private func recordButtonTapped(_ sender: UIButton) {
         let recordVC = RecordViewController()

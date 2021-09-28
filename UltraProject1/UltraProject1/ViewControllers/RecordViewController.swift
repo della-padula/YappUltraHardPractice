@@ -10,18 +10,27 @@ import UIKit
 
 class RecordViewController: UIViewController {
     private let tableView = UITableView()
+    private var scoreList: [Score] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         configureTableView()
+        getData()
+    }
+    
+    private func getData() {
+        scoreList = CoreDataManager.shared.getScores()
+        
+        let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
+        scoreList.append(contentsOf: [testScore, testScore, testScore ,testScore])
     }
     
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "RecordCell")
+        tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifier)
         
         view.addSubview(tableView)
         
@@ -33,11 +42,21 @@ class RecordViewController: UIViewController {
 
 extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return scoreList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifier, for: indexPath) as? ScoreTableViewCell else { return UITableViewCell() }
+        cell.score = scoreList[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let score = scoreList[indexPath.row]
+        print(score)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }
