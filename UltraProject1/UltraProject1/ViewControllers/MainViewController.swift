@@ -9,6 +9,12 @@ import SnapKit
 import UIKit
 
 class MainViewController: UIViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     private let startButton: UIButton = {
         let button = UIButton()
         button.setTitle("게임 시작", for: .normal)

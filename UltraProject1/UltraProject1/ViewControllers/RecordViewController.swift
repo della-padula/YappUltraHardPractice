@@ -9,6 +9,12 @@ import SnapKit
 import UIKit
 
 class RecordViewController: UIViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     private let tableView = UITableView()
     private var scoreList: [Score] = []
     
@@ -23,11 +29,6 @@ class RecordViewController: UIViewController {
     
     private func getData() {
         scoreList = CoreDataManager.shared.getScores()
-
-        //MARK: - 테스트 데이터
-        let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
-        scoreList.append(contentsOf: [testScore, testScore, testScore, testScore])
-        
         tableView.reloadData()
     }
     
@@ -59,6 +60,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         let score: Score = scoreList[indexPath.row]
         let resultVC = ResultViewController()
         resultVC.data = score
+        resultVC.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.pushViewController(resultVC, animated: true)
     }
     

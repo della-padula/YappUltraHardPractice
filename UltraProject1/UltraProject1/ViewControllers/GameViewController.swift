@@ -9,6 +9,12 @@ import UIKit
 import SnapKit
 class GameViewController: UIViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        settingLayout()
+    }
+    
     private var numbers = [
         1,2,3,4,
         5,6,7,8,
@@ -22,6 +28,8 @@ class GameViewController: UIViewController {
     private var oneTry: Int = 0
     private var twoTry: Int = 0
     private var wrongTry: Int = 0
+    var wrongNumber: Int = 0
+    var count: Int = 0
     
     private let timeLabel: UILabel = {
         let label = UILabel()
@@ -34,7 +42,7 @@ class GameViewController: UIViewController {
     static var timerLabel: UILabel = {
             let label = UILabel()
             label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
-                label.text = "00:00:00"
+            label.text = "02:00:00"
             return label
         }()
     
@@ -78,27 +86,18 @@ class GameViewController: UIViewController {
     
     private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var randomNumberShared: Int?
-    var wrongNumber: Int = 0
-    var count: Int = 0
     
+    // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.setHidesBackButton(true, animated: true)
-        
         settingCollection()
         settingUI()
-        waitPage()
-        startTimer()
         TimerManager.createTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(move), name: .timesUp, object: nil)
+        settingLayout()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            self.waitView.removeFromSuperview()
-            self.waitCountLabel.removeFromSuperview()
-            self.settingLabel()
-            self.mixCollectionView()
-        }
     }
     
     @objc func move() {
@@ -124,7 +123,28 @@ class GameViewController: UIViewController {
         timerNum -= 1
     }
     
-    func mixCollectionView() {
+    private func settingLayout() {
+        waitPage()
+        startTimer()
+        settingText()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            self.waitView.removeFromSuperview()
+            self.waitCountLabel.removeFromSuperview()
+            self.settingLabel()
+            self.mixCollectionView()
+        }
+        
+    }
+    // MARK: - SettingText
+    private func settingText() {
+        waitCountLabel.text = "3"
+        GameViewController.timerLabel.text = "02:00:00"
+        selectNumberLabel.text = "준비"
+        wrongCountLabel.text = "틀린 횟수 : 준비"
+        
+    }
+    
+    private func mixCollectionView() {
         numbers.shuffle()
         numberCollectionView.reloadData()
     }
@@ -157,6 +177,7 @@ class GameViewController: UIViewController {
         // 종료 조건 : 시간이 종료됐을 때
         let resultViewController = ResultViewController()
         print(count, oneTry, twoTry, wrongTry)
+        resultViewController.navigationController?.isNavigationBarHidden = true
         CoreDataManager.shared.insertGame(Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry)))
         resultViewController.data = Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry))
         resultViewController.modalPresentationStyle = .fullScreen
@@ -245,7 +266,6 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
         if !numbers.contains(numbers[indexPath.row]) || numbers[indexPath.row] != unwrappedRandomNumberShared {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
-            gameOverCheck(count, wrong: wrongNumber)
             if wrongNumber == 3 {
                 wrongTry += 1
                 wrongNumber = 0
@@ -261,7 +281,6 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
             wrongNumber = 0
             mixCollectionView()
             count += 1
-            gameOverCheck(count, wrong: wrongNumber)
             settingLabel()
         }
     }
