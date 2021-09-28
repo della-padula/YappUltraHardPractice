@@ -19,6 +19,7 @@ class ScoreTableViewCell: UITableViewCell {
     private let scoresLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .systemGray
         return label
     }()
        

@@ -27,7 +27,7 @@ class GameViewController: UIViewController {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
-        label.text = "남은 시간 "
+        label.text = "남은 시간"
         label.textAlignment = .center
         return label
     }()
@@ -52,6 +52,7 @@ class GameViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 20)
         label.text = "틀린 횟수 : 0"
         label.textAlignment = .center
+        label.textColor = .systemGray
         return label
     }()
     
