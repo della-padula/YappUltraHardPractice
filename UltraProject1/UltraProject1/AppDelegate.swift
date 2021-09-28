@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let infoDic: [String: Any] = Bundle.main.infoDictionary {
             if let info = infoDic["CFBundleURLTypes"] as? [Any],
             let dic = info[0] as? NSDictionary,
-            let key = dic.value(forKey: "CFBundleURLSchemes") as? [String]{
+            let key = dic.value(forKey: "CFBundleURLSchemes") as? [String] {
                 let str = key[0]
                 let startIdx: String.Index = str.index(str.startIndex, offsetBy: 5)
                 KakaoSDKCommon.initSDK(appKey: String(str[startIdx...]))
