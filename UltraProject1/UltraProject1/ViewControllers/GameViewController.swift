@@ -114,8 +114,8 @@ class GameViewController: UIViewController {
     
     
     private func gameOverCheck(_ count: Int, wrong: Int) {
-        // 종료 조건 : 16개를 다 맞혔거나, 시간이 종료됐을 때
-        if count == 16 {
+        // 종료 조건 : 시간이 종료됐을 때
+        if count == 20 {
             let resultViewController = ResultViewController()
             resultViewController.modalPresentationStyle = .fullScreen
             present(resultViewController, animated: true, completion: nil)
@@ -202,8 +202,8 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let unwrappedRandomNumberShared = randomNumberShared else { return }
-        
-        if tappedNumbers.contains(indexPath.row+1) || indexPath.row+1 != unwrappedRandomNumberShared {
+        print(numbers.contains(numbers[indexPath.row]))
+        if !numbers.contains(numbers[indexPath.row]) || numbers[indexPath.row] != unwrappedRandomNumberShared {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
             gameOverCheck(count, wrong: wrongNumber)
@@ -211,17 +211,10 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
                 wrongNumber = 0
                 settingLabel()
             }
-        } else if indexPath.row+1 == unwrappedRandomNumberShared{
+        } else if numbers[indexPath.row] == unwrappedRandomNumberShared {
             wrongNumber = 0
-            tappedNumbers.append(unwrappedRandomNumberShared)
-            
-            // 선택된 셀 백그라운드 색 변경
-            guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-            cell.contentView.backgroundColor = .gray
-            
-            if let firstIndex = numbers.firstIndex(of: indexPath.row+1) {
-                numbers.remove(at: firstIndex)
-            }
+            numbers.shuffle()
+            collectionView.reloadData()
             count += 1
             gameOverCheck(count, wrong: wrongNumber)
             settingLabel()
