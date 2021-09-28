@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 class GameViewController: UIViewController {
-
+    
     private var numbers = [
         1,2,3,4,
         5,6,7,8,
@@ -92,12 +92,18 @@ class GameViewController: UIViewController {
         settingUI()
         waitPage()
         startTimer()
+        NotificationCenter.default.addObserver(self, selector: #selector(move), name: .timesUp, object: nil)
+        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.waitView.removeFromSuperview()
             self.waitCountLabel.removeFromSuperview()
             self.settingLabel()
             self.mixCollectionView()
         }
+    }
+    
+    @objc func move() {
+        gameOverCheck(count, wrong: wrongTry)
     }
     
     private func startTimer() {
@@ -150,14 +156,12 @@ class GameViewController: UIViewController {
     
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
-        if count == 5 {
-            let resultViewController = ResultViewController()
-            print(count, oneTry, twoTry, wrongTry)
-            CoreDataManager.shared.insertGame(Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry)))
-            resultViewController.data = Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry))
-            resultViewController.modalPresentationStyle = .fullScreen
-            present(resultViewController, animated: true, completion: nil)
-        }
+        let resultViewController = ResultViewController()
+        print(count, oneTry, twoTry, wrongTry)
+        CoreDataManager.shared.insertGame(Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry)))
+        resultViewController.data = Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry))
+        resultViewController.modalPresentationStyle = .fullScreen
+        present(resultViewController, animated: true, completion: nil)
     }
     
     private func settingCollection() {
