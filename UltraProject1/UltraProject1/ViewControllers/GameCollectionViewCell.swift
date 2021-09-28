@@ -12,15 +12,23 @@ class GameCollectionViewCell: UICollectionViewCell {
     static let cellId = "GameCell"
     let numberLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 45)
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.sizeThatFits(CGSize(width: label.frame.width, height: CGFloat.greatestFiniteMagnitude))
         label.textAlignment = .center
         label.textColor = .black
         return label
     }()
     
+    var settingLabel: Int? {
+        didSet {
+            guard let setting = settingLabel else { return }
+            
+            numberLabel.text = "\(setting)"
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
         settingUI()
     }
     
@@ -34,6 +42,7 @@ class GameCollectionViewCell: UICollectionViewCell {
             $0.center.equalToSuperview()
             $0.leading.equalTo(self.snp.leading).offset(10)
             $0.trailing.equalTo(self.snp.trailing).offset(-10)
+            
         }
     }
 }
