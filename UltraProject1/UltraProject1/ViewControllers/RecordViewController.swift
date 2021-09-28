@@ -22,9 +22,9 @@ class RecordViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        configureNavigationBar()
-        configureNavigationBarButton()
-        configureTableView()
+        setNavigationBar()
+        setNavigationBarButton()
+        setTableView()
         getData()
     }
     
@@ -33,7 +33,7 @@ class RecordViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func configureNavigationBar() {
+    private func setNavigationBar() {
         navigationItem.title = "게임 기록"
         navigationController?.navigationBar.tintColor = .white
         
@@ -54,7 +54,7 @@ class RecordViewController: UIViewController {
         }
     }
     
-    private func configureNavigationBarButton() {
+    private func setNavigationBarButton() {
         deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(showDeleteAlert(_:)))
         deleteBtn?.tintColor = .white
         deleteBtn?.isEnabled = CoreDataManager.shared.getScores().count > 0
@@ -62,7 +62,7 @@ class RecordViewController: UIViewController {
         navigationItem.rightBarButtonItem = deleteBtn
     }
     
-    private func configureTableView() {
+    private func setTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ScoreTableViewCell.self, forCellReuseIdentifier: ScoreTableViewCell.identifier)

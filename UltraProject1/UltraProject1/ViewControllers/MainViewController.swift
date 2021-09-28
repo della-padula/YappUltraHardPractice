@@ -52,12 +52,12 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        configureLabels()
-        configureStartButton()
-        configureRecordButton()
+        setLabels()
+        setStartButton()
+        setRecordButton()
     }
     
-    private func configureLabels() {
+    private func setLabels() {
         view.addSubview(logoStartLabel)
         view.addSubview(logoFinishLabel)
         
@@ -71,7 +71,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func configureStartButton() {
+    private func setStartButton() {
         view.addSubview(startButton)
         
         startButton.snp.makeConstraints {
@@ -81,7 +81,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func configureRecordButton() {
+    private func setRecordButton() {
         view.addSubview(recordButton)
         
         recordButton.snp.makeConstraints {

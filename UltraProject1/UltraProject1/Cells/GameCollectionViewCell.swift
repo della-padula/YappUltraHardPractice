@@ -22,21 +22,20 @@ class GameCollectionViewCell: UICollectionViewCell {
     var settingLabel: Int? {
         didSet {
             guard let setting = settingLabel else { return }
-            
             numberLabel.text = "\(setting)"
         }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        settingUI()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func settingUI() {
+    private func setUI() {
         contentView.addSubview(numberLabel)
         numberLabel.snp.makeConstraints {
             $0.center.equalToSuperview()

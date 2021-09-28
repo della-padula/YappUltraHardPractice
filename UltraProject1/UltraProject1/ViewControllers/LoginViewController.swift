@@ -39,11 +39,11 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        configureLabels()
-        configureLoginButton()
+        setLabels()
+        setLoginButton()
     }
     
-    private func configureLabels() {
+    private func setLabels() {
         view.addSubview(logoNumberLabel)
         view.addSubview(logoGameLabel)
         
@@ -57,7 +57,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func configureLoginButton() {
+    private func setLoginButton() {
         view.addSubview(loginButton)
         
         loginButton.snp.makeConstraints {

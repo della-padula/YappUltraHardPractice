@@ -86,8 +86,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.setHidesBackButton(true, animated: true)
-        settingCollection()
-        settingUI()
+        setCollection()
+        setUI()
         TimerManager.createTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(move), name: .timesUp, object: nil)
         settingLayout()
@@ -121,22 +121,16 @@ class GameViewController: UIViewController {
     private func settingLayout() {
         waitPage()
         startTimer()
-        settingText()
+        setText()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.waitView.removeFromSuperview()
             self.waitCountLabel.removeFromSuperview()
-            self.settingLabel()
+            self.setLabel()
             self.mixCollectionView()
         }
         
     }
-    private func settingText() {
-        waitCountLabel.text = "3"
-        GameViewController.timerLabel.text = "02:00:00"
-        selectNumberLabel.text = "준비"
-        wrongCountLabel.text = "틀린 횟수 : 0"
-    }
-    
+
     private func mixCollectionView() {
         numbers.shuffle()
         numberCollectionView.reloadData()
@@ -157,15 +151,6 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func settingLabel() {
-        guard let randomNumber = numbers.randomElement() else { return }
-        randomNumberShared = randomNumber
-        guard let unwrappedRandomNumberShared = randomNumberShared else { return }
-        selectNumberLabel.text = "\(unwrappedRandomNumberShared)"
-        wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
-        
-    }
-    
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
         let resultViewController = ResultViewController()
@@ -177,13 +162,30 @@ class GameViewController: UIViewController {
         present(resultViewController, animated: true, completion: nil)
     }
     
-    private func settingCollection() {
+    private func setLabel() {
+        guard let randomNumber = numbers.randomElement() else { return }
+        randomNumberShared = randomNumber
+        guard let unwrappedRandomNumberShared = randomNumberShared else { return }
+        selectNumberLabel.text = "\(unwrappedRandomNumberShared)"
+        wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+        
+    }
+    
+    private func setText() {
+        waitCountLabel.text = "3"
+        GameViewController.timerLabel.text = "02:00:00"
+        selectNumberLabel.text = "준비"
+        wrongCountLabel.text = "틀린 횟수 : 0"
+    }
+    
+    
+    private func setCollection() {
         numberCollectionView.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.cellId)
         numberCollectionView.delegate = self
         numberCollectionView.dataSource = self
     }
     
-    private func settingUI() {
+    private func setUI() {
         view.addSubview(timeLabel)
         timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
@@ -261,7 +263,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
             if wrongNumber == 3 {
                 wrongTry += 1
                 wrongNumber = 0
-                settingLabel()
+                setLabel()
                 mixCollectionView()
             }
         } else if numbers[indexPath.row] == unwrappedRandomNumberShared {
@@ -273,7 +275,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
             wrongNumber = 0
             mixCollectionView()
             count += 1
-            settingLabel()
+            setLabel()
         }
     }
 }
