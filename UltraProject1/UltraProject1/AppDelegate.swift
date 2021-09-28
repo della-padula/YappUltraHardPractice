@@ -15,10 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        KakaoSDKCommon.initSDK(appKey: "f625fe254b3e502498ae32a72c7d35ca")
+        if let infoDic: [String: Any] = Bundle.main.infoDictionary {
+            if let info = infoDic["CFBundleURLTypes"] as? [Any],
+            let dic = info[0] as? NSDictionary,
+            let key = dic.value(forKey: "CFBundleURLSchemes") as? [String]{
+                let str = key[0]
+                let startIdx: String.Index = str.index(str.startIndex, offsetBy: 5)
+                KakaoSDKCommon.initSDK(appKey: String(str[startIdx...]))
+            }
+        }
                         
         window = UIWindow()
-        window?.rootViewController = GameViewController()
         window?.rootViewController = KakaoAuthManager.shared.getIsLoggedIn() ? MainViewController() : LoginViewController()
         window?.makeKeyAndVisible()
         return true
