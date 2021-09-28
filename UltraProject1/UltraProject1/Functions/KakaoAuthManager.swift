@@ -26,9 +26,9 @@ class KakaoAuthManager {
         UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
             if let error = error {
                 print(error.localizedDescription)
+                return
             }
             self.saveLogin()
-            print("로그인 결과: \(self.getIsLoggedIn())")
         }
     }
     
@@ -36,15 +36,15 @@ class KakaoAuthManager {
         UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
             if let error = error {
                 print(error.localizedDescription)
+                return
             }
             self.saveLogin()
-            print("로그인 결과: \(self.getIsLoggedIn())")
         }
     }
     
     private func saveLogin() {
         defaults.set(true, forKey: kakaoLoginKey)
-        print("로그인 결과: \(self.getIsLoggedIn())")
+        changeRootVC()
     }
     
     func saveLogOut() {
@@ -54,10 +54,15 @@ class KakaoAuthManager {
             }
         }
         defaults.set(false, forKey: kakaoLoginKey)
-        print("로그인 결과: \(self.getIsLoggedIn())")
     }
     
     func getIsLoggedIn() -> Bool {
         return defaults.bool(forKey: kakaoLoginKey)
+    }
+    
+    private func changeRootVC() {
+        let ad = UIApplication.shared.delegate as! AppDelegate
+        let mainVC = MainViewController()
+        ad.window?.rootViewController = mainVC
     }
 }
