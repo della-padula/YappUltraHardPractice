@@ -8,13 +8,6 @@
 import UIKit
 import SnapKit
 class GameViewController: UIViewController {
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-        settingLayout()
-    }
-    
     private var numbers = [
         1,2,3,4,
         5,6,7,8,
@@ -87,6 +80,12 @@ class GameViewController: UIViewController {
     private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var randomNumberShared: Int?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        settingLayout()
+    }
+    
     // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,7 +99,8 @@ class GameViewController: UIViewController {
         
     }
     
-    @objc func move() {
+    @objc
+    func move() {
         gameOverCheck(count, wrong: wrongTry)
     }
     

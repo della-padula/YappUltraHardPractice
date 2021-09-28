@@ -10,7 +10,6 @@ import SnapKit
 import UIKit
 
 class ResultViewController: UIViewController {
-    
     private let resultTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 30)

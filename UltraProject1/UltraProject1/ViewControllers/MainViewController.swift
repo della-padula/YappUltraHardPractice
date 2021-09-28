@@ -9,7 +9,6 @@ import SnapKit
 import UIKit
 
 class MainViewController: UIViewController {
-    
     private var logoStartLabel: UILabel = {
         let label = UILabel()
         label.text = "Wel"

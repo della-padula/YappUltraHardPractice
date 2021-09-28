@@ -9,7 +9,6 @@ import SnapKit
 import UIKit
 
 class RecordViewController: UIViewController {
-    
     private let tableView = UITableView()
     private var scoreList: [Score] = []
     
