@@ -74,7 +74,18 @@ class ResultViewController: UIViewController {
         view.backgroundColor = .white
         
         setLabelUI()
-        setButtonUI()
+        if !isRecordVC() {
+            setButtonUI()
+        }
+    }
+    
+    private func isRecordVC() -> Bool {
+        let viewControllers = navigationController?.viewControllers ?? []
+        if let index = viewControllers.firstIndex(of: self) {
+            let previousVC = viewControllers[index - 1]
+            return type(of: previousVC) == RecordViewController.self
+        }
+        return false
     }
     
     private func setLabelUI(){
