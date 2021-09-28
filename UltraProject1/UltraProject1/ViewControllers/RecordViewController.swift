@@ -9,6 +9,12 @@ import SnapKit
 import UIKit
 
 class RecordViewController: UIViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     private let tableView = UITableView()
     private var scoreList: [Score] = []
     
@@ -59,6 +65,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         let score: Score = scoreList[indexPath.row]
         let resultVC = ResultViewController()
         resultVC.data = score
+        resultVC.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.pushViewController(resultVC, animated: true)
     }
     
