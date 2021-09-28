@@ -15,6 +15,7 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        title = "게임 기록"
         
         configureTableView()
         getData()
@@ -58,8 +59,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         let score: Score = scoreList[indexPath.row]
         let resultVC = ResultViewController()
         resultVC.data = score
-        resultVC.modalPresentationStyle = .fullScreen
-        present(resultVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(resultVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
