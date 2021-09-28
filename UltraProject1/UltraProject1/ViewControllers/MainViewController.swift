@@ -57,11 +57,15 @@ class MainViewController: UIViewController {
     
     @objc
     private func startButtonTapped(_ sender: UIButton) {
-        print("게임 시작")
+        let gameVC = GameViewController()
+        gameVC.modalPresentationStyle = .fullScreen
+        present(gameVC, animated: true, completion: nil)
     }
     
     @objc
     private func recordButtonTapped(_ sender: UIButton) {
-        print("게임 기록")
+        let recordVC = RecordViewController()
+        recordVC.modalPresentationStyle = .fullScreen
+        present(recordVC, animated: true, completion: nil)
     }
 }

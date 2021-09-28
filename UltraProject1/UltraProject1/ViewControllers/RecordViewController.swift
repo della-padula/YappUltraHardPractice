@@ -22,6 +22,7 @@ class RecordViewController: UIViewController {
     
     private func getData() {
         scoreList = CoreDataManager.shared.getScores()
+
         //MARK: - 테스트 데이터
         let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
         scoreList.append(contentsOf: [testScore, testScore, testScore, testScore])
@@ -54,9 +55,11 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let score = scoreList[indexPath.row]
-        print(score)
-        // ResultViewController로 score를 가지고 이동
+        let score: Score = scoreList[indexPath.row]
+        let resultVC = ResultViewController()
+        resultVC.data = score
+        resultVC.modalPresentationStyle = .fullScreen
+        present(resultVC, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
