@@ -22,6 +22,7 @@ class RecordViewController: UIViewController {
         view.backgroundColor = .white
         
         configureNavigationBar()
+        configureNavigationBarButton()
         configureTableView()
         getData()
     }
@@ -34,11 +35,6 @@ class RecordViewController: UIViewController {
     private func configureNavigationBar() {
         navigationItem.title = "게임 기록"
         navigationController?.navigationBar.tintColor = .white
-        
-        let deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(showAlert(_:)))
-        deleteBtn.tintColor = .white
-        
-        navigationItem.rightBarButtonItem = deleteBtn
         
         let navigationBar = navigationController?.navigationBar
             
@@ -57,6 +53,14 @@ class RecordViewController: UIViewController {
         }
     }
     
+    private func configureNavigationBarButton() {
+        let deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(showDeleteAlert(_:)))
+        deleteBtn.tintColor = .white
+        deleteBtn.isEnabled = CoreDataManager.shared.getScores().count > 0
+        
+        navigationItem.rightBarButtonItem = deleteBtn
+    }
+    
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -70,10 +74,11 @@ class RecordViewController: UIViewController {
     }
     
     @objc
-    private func showAlert(_ sender: UIButton) {
+    private func showDeleteAlert(_ sender: UIButton) {
         let alert = UIAlertController(title: "기록 삭제", message: "전체 기록을 삭제하시겠습니까?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
             CoreDataManager.shared.deleteAllScores()
+            self.configureNavigationBarButton()
             self.getData()
             self.tableView.reloadData()
         }
