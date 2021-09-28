@@ -21,8 +21,8 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "게임 기록"
         
+        configureNavigationBar()
         configureTableView()
         getData()
     }
@@ -30,6 +30,25 @@ class RecordViewController: UIViewController {
     private func getData() {
         scoreList = CoreDataManager.shared.getScores()
         tableView.reloadData()
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "게임 기록"
+        let navigationBar = navigationController?.navigationBar
+            
+        if #available(iOS 13.0, *) {
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.backgroundColor = .mainGreen
+            navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+                
+            navigationBar?.standardAppearance = navigationBarAppearance
+            navigationBar?.compactAppearance = navigationBarAppearance
+            navigationBar?.scrollEdgeAppearance = navigationBarAppearance
+        } else {
+            navigationBar?.barTintColor = .mainGreen
+            navigationBar?.titleTextAttributes = [.foregroundColor: UIColor.white]
+            navigationBar?.tintColor = .white
+        }
     }
     
     private func configureTableView() {
