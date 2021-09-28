@@ -7,6 +7,9 @@ target 'UltraProject1' do
 
   # Pods for UltraProject1
   pod 'Alamofire'
+  pod 'KakaoSDKCommon'
+  pod 'KakaoSDKAuth'
+  pod 'KakaoSDKUser'
   pod 'SnapKit'
 
   target 'UltraProject1Tests' do
