@@ -8,7 +8,7 @@
 import Foundation
 class TimerManager {
     static var timer: Timer?
-    static var runCount = 120000
+    static var runCount = 1000
 
     static func createTimer() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
