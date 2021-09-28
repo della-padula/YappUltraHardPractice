@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 class GameViewController: UIViewController {
     private var numbers = Array<Int>(1...16)
+    private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var coreData: [Score] = []
+    var randomNumberShared: Int?
     private var tappedNumbers: [Int] = []
     private var timer: Timer?
     private var timerNum: Int = 0
@@ -72,9 +74,6 @@ class GameViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 80)
         return label
     }()
-    
-    private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    var randomNumberShared: Int?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -200,7 +199,6 @@ class GameViewController: UIViewController {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.2)
             $0.centerX.equalToSuperview()
         }
-        
         view.addSubview(numberCollectionView)
         numberCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.4)
@@ -208,7 +206,6 @@ class GameViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
-        
         view.addSubview(wrongCountLabel)
         wrongCountLabel.snp.makeConstraints {
             $0.top.equalTo(selectNumberLabel.snp.bottom).offset(15)
