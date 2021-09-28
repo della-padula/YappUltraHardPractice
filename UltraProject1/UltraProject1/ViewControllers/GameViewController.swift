@@ -31,6 +31,17 @@ class GameViewController: UIViewController {
         return label
     }()
     
+    static var timerLabel: UILabel = {
+            let label = UILabel()
+            label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
+            if "\(TimerManager.createTimer())" == "()" {
+                label.text = "00:00:00"
+            } else {
+                label.text = "\(TimerManager.createTimer())"
+            }
+            return label
+        }()
+    
     private let selectNumberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 60)
@@ -161,7 +172,12 @@ class GameViewController: UIViewController {
         view.addSubview(timeLabel)
         timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(UIScreen.main.bounds.width * -0.2)
+        }
+        view.addSubview(GameViewController.timerLabel)
+        GameViewController.timerLabel.snp.makeConstraints {
+            $0.leading.equalTo(timeLabel.snp.trailing).offset(20)
+            $0.top.equalTo(timeLabel.snp.top)
         }
         view.addSubview(selectNumberLabel)
         selectNumberLabel.snp.makeConstraints {
