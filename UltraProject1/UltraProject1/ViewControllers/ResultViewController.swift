@@ -50,7 +50,15 @@ class ResultViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
         button.setTitle("다시 하기", for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(againButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private let backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -101,15 +109,27 @@ class ResultViewController: UIViewController {
     
     func setButtonUI(){
         view.addSubview(againButton)
+        view.addSubview(backButton)
         
-        againButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.1)
-            make.centerX.equalToSuperview()
+        againButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.1)
+            $0.centerX.equalToSuperview()
+        }
+        backButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(60)
+            $0.left.equalToSuperview().inset(40)
         }
     }
     
     @objc
-    func buttonTapped() {
+    func againButtonTapped() {
         print(CoreDataManager.shared.getScores())
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    func backButtonTapped() {
+        print()
+        self.dismiss(animated: true, completion: nil)
     }
 }
