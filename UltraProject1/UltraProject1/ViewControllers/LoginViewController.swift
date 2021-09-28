@@ -8,6 +8,8 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    private let authManager = KakaoAuthManager.shared
+    
     private var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("카카오톡 로그인", for: .normal)
@@ -37,5 +39,6 @@ class LoginViewController: UIViewController {
     
     @objc
     private func loginButtonTapped(_ sender: UIButton) {
+        authManager.loginWithKakao()
     }
 }
