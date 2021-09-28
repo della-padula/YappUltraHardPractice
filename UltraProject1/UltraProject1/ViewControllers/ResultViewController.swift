@@ -54,6 +54,16 @@ class ResultViewController: UIViewController {
         return button
     }()
     
+    var data: Score? {
+        didSet {
+            guard let data = data else { return }
+            resultScoreLabel.text = "총 \(data.total)회 성공"
+            firstTryCountLabel.text = "1회 재시도: \(data.first)개"
+            secondTryCountLabel.text = "2회 재시도: \(data.second)개"
+            failCountLabel.text = "실패(오답): \(data.wrong)개"
+        }
+    }
+    
     override func viewDidLoad() {
         view.backgroundColor = .white
         setLabelUI()
@@ -100,6 +110,6 @@ class ResultViewController: UIViewController {
     
     @objc
     func buttonTapped() {
-        print(1)
+        print(CoreDataManager.shared.getScores())
     }
 }

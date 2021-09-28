@@ -9,7 +9,7 @@ import CoreData
 import Foundation
 
 class CoreDataManager {
-    let shared = CoreDataManager()
+    static let shared = CoreDataManager()
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
@@ -53,6 +53,8 @@ class CoreDataManager {
             let request: NSFetchRequest<GameScore> = GameScore.fetchRequest()
             let results = try context.fetch(request)
             return results
+//            guard let gameScores = try context.fetch(GameScore.fetchRequest()) as? [GameScore] else { return [] }
+//            return gameScores
         } catch {
             print(error.localizedDescription)
         }
