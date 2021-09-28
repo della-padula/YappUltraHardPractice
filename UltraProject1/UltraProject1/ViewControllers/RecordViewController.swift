@@ -34,6 +34,7 @@ class RecordViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationItem.title = "게임 기록"
+        navigationController?.navigationBar.tintColor = .white
         let navigationBar = navigationController?.navigationBar
             
         if #available(iOS 13.0, *) {
