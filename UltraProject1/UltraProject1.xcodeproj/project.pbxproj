@@ -18,6 +18,7 @@
 		5EB467C82702C52900096AC6 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C72702C52900096AC6 /* Score.swift */; };
 		5EB467CB2702F24A00096AC6 /* PrintFn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467CA2702F24A00096AC6 /* PrintFn.swift */; };
 		5EB467CD2702F9E800096AC6 /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */; };
+		959BD7262703530200D4CEB3 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959BD7252703530200D4CEB3 /* TimerManager.swift */; };
 		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
 		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
 		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
@@ -63,6 +64,7 @@
 		79CA3AD89B0763D055449BB2 /* Pods-UltraProject1-UltraProject1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1-UltraProject1UITests/Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
+		959BD7252703530200D4CEB3 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		959DC6772701B88B005C6C7A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		9A24A64A83D62F6DF40506B1 /* Pods_UltraProject1_UltraProject1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1_UltraProject1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7AE0C2FB73124A931484E2 /* Pods-UltraProject1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				5EB467C52702C33C00096AC6 /* CoreDataManager.swift */,
 				5EB467CA2702F24A00096AC6 /* PrintFn.swift */,
 				5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */,
+				959BD7252703530200D4CEB3 /* TimerManager.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				5EB467CD2702F9E800096AC6 /* KakaoAuthManager.swift in Sources */,
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
 				5EB467C62702C33C00096AC6 /* CoreDataManager.swift in Sources */,
+				959BD7262703530200D4CEB3 /* TimerManager.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
 				5EB467CB2702F24A00096AC6 /* PrintFn.swift in Sources */,
 				959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */,
