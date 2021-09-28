@@ -19,6 +19,14 @@ class GameCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    var settingLabel: Int? {
+        didSet {
+            guard let setting = settingLabel else { return }
+            
+            numberLabel.text = "\(setting)"
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         settingUI()
