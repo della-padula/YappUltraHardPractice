@@ -16,19 +16,22 @@ class GameViewController: UIViewController {
         13,14,15,16
     ]
     
-    static var timeLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
-        label.text = "남은 시간 \(TimerFunction.createTimer())"
+        label.text = "남은 시간: "
         label.textAlignment = .center
         return label
     }()
     
     static var timerLabel: UILabel = {
         let label = UILabel()
+        
         label.sizeToFit()
-        let newSize = label.sizeThatFits(CGSize(width: label.frame.width, height: label.frame.height))
+        let newSize = label.sizeThatFits(CGSize(width: label.frame.width, height: CGFloat(20)))
         label.frame.size.width = newSize.width
+        label.frame.size.height = newSize.height
+        label.text = "\(TimerFunction.createTimer())"
         return label
     }()
     
@@ -129,15 +132,16 @@ class GameViewController: UIViewController {
     }
     
     private func settingUI() {
-        view.addSubview(GameViewController.timeLabel)
-        GameViewController.timeLabel.snp.makeConstraints {
+        view.addSubview(timeLabel)
+        timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
-            $0.centerX.equalToSuperview()
+            $0.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.3)
         }
         
         view.addSubview(GameViewController.timerLabel)
         GameViewController.timerLabel.snp.makeConstraints {
-            $0.leading.equalTo(GameViewController.timeLabel.snp.trailing).offset(20)
+            $0.leading.equalTo(timeLabel.snp.trailing).offset(20)
+            $0.top.equalTo(timeLabel)
         }
         
         view.addSubview(selectNumberLabel)

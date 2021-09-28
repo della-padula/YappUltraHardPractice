@@ -19,7 +19,7 @@ class TimerFunction {
             TimerFunction.runCount -= 1
             DispatchQueue.main.async {
                 let timeString = TimerFunction.makeTimeLabel(count: TimerFunction.runCount)
-                GameViewController.timeLabel.text = timeString
+                GameViewController.timerLabel.text = timeString
             }
         })
     }
