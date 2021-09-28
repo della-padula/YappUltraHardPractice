@@ -65,9 +65,9 @@ class ResultViewController: UIViewController {
         didSet {
             guard let data = data else { return }
             resultScoreLabel.text = "총 \(data.total)회 성공"
-            firstTryCountLabel.text = "1회 재시도: \(data.first)개"
-            secondTryCountLabel.text = "2회 재시도: \(data.second)개"
-            failCountLabel.text = "실패(오답): \(data.wrong)개"
+            firstTryCountLabel.text = "1회 재시도 : \(data.first)개"
+            secondTryCountLabel.text = "2회 재시도 : \(data.second)개"
+            failCountLabel.text = "실패(오답) : \(data.wrong)개"
         }
     }
     
@@ -110,11 +110,11 @@ class ResultViewController: UIViewController {
         }
         secondTryCountLabel.snp.makeConstraints {
             $0.top.equalTo(firstTryCountLabel.snp.bottom)
-            $0.centerX.equalToSuperview()
+            $0.right.equalTo(firstTryCountLabel.snp.right)
         }
         failCountLabel.snp.makeConstraints {
             $0.top.equalTo(secondTryCountLabel.snp.bottom)
-            $0.centerX.equalToSuperview()
+            $0.right.equalTo(firstTryCountLabel.snp.right)
         }
     }
     
