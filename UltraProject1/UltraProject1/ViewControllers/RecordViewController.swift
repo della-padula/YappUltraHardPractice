@@ -11,6 +11,7 @@ import UIKit
 class RecordViewController: UIViewController {
     private let tableView = UITableView()
     private var scoreList: [Score] = []
+    private var deleteBtn: UIBarButtonItem?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,9 +55,9 @@ class RecordViewController: UIViewController {
     }
     
     private func configureNavigationBarButton() {
-        let deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(showDeleteAlert(_:)))
-        deleteBtn.tintColor = .white
-        deleteBtn.isEnabled = CoreDataManager.shared.getScores().count > 0
+        deleteBtn = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(showDeleteAlert(_:)))
+        deleteBtn?.tintColor = .white
+        deleteBtn?.isEnabled = CoreDataManager.shared.getScores().count > 0
         
         navigationItem.rightBarButtonItem = deleteBtn
     }
@@ -78,7 +79,7 @@ class RecordViewController: UIViewController {
         let alert = UIAlertController(title: "기록 삭제", message: "전체 기록을 삭제하시겠습니까?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
             CoreDataManager.shared.deleteAllScores()
-            self.configureNavigationBarButton()
+            self.deleteBtn?.isEnabled = false
             self.getData()
             self.tableView.reloadData()
         }
