@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
         window?.rootViewController = ResultViewController(testScore)
         //window?.rootViewController = KakaoAuthManager.shared.getIsLoggedIn() ? MainViewController() : LoginViewController()
+        window?.rootViewController = GameViewController()
+        window?.rootViewController = KakaoAuthManager.shared.getIsLoggedIn() ? MainViewController() : LoginViewController()
         window?.makeKeyAndVisible()
         return true
     }
