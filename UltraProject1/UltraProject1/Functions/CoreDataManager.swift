@@ -9,10 +9,10 @@ import CoreData
 import Foundation
 
 class CoreDataManager {
-    let shared = CoreDataManager()
+    static let shared = CoreDataManager()
     
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "UltraProject1")
+        let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -45,12 +45,16 @@ class CoreDataManager {
             managedObject.setValue(score.second, forKey: "second")
             managedObject.setValue(score.wrong, forKey: "wrong")
         }
+        saveContext()
     }
     
     private func fetchGameScores() -> [GameScore] {
         do {
-            guard let gameScores = try context.fetch(GameScore.fetchRequest()) as? [GameScore] else { return [] }
-            return gameScores
+            let request: NSFetchRequest<GameScore> = GameScore.fetchRequest()
+            let results = try context.fetch(request)
+            return results
+//            guard let gameScores = try context.fetch(GameScore.fetchRequest()) as? [GameScore] else { return [] }
+//            return gameScores
         } catch {
             print(error.localizedDescription)
         }
@@ -59,11 +63,12 @@ class CoreDataManager {
     
     func getScores() -> [Score] {
         var scores: [Score] = []
-        let fetchResults = fetchGameScores()
+        let fetchResults: [GameScore] = fetchGameScores()
         for result in fetchResults {
             let score = Score(total: result.total, first: result.first, second: result.second, wrong: result.wrong)
             scores.append(score)
         }
+        saveContext()
         return scores
     }
 }

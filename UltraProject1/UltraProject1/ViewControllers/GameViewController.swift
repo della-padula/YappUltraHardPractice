@@ -15,8 +15,13 @@ class GameViewController: UIViewController {
         9,10,11,12,
         13,14,15,16
     ]
-    
+    var coreData: [Score] = []
     private var tappedNumbers: [Int] = []
+    private var timer: Timer?
+    private var timerNum: Int = 0
+    private var oneTry: Int = 0
+    private var twoTry: Int = 0
+    private var wrongTry: Int = 0
     
     private let timeLabel: UILabel = {
         let label = UILabel()
@@ -75,11 +80,39 @@ class GameViewController: UIViewController {
         settingCollection()
         settingUI()
         waitPage()
+        startTimer()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.waitView.removeFromSuperview()
             self.waitCountLabel.removeFromSuperview()
             self.settingLabel()
+            self.mixCollectionView()
         }
+    }
+    
+    private func startTimer() {
+        if timer != nil && ((timer?.isValid) != nil) {
+            timer?.invalidate()
+        }
+        
+        timerNum = 2
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCallBack), userInfo: nil, repeats: true)
+    }
+    
+    @objc
+    func timerCallBack() {
+        waitCountLabel.text = "\(timerNum)"
+        
+        if timerNum == 0 {
+            timer?.invalidate()
+            timer = nil
+        }
+        
+        timerNum -= 1
+    }
+    
+    func mixCollectionView() {
+        numbers.shuffle()
+        numberCollectionView.reloadData()
     }
     
     private func waitPage() {
@@ -103,13 +136,17 @@ class GameViewController: UIViewController {
         guard let unwrappedRandomNumberShared = randomNumberShared else { return }
         selectNumberLabel.text = "\(unwrappedRandomNumberShared)"
         wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+        
     }
     
     
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
-        if count == 20 {
+        if count == 5 {
             let resultViewController = ResultViewController()
+            print(count, oneTry, twoTry, wrongTry)
+            CoreDataManager.shared.insertGame(Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry)))
+            resultViewController.data = Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry))
             resultViewController.modalPresentationStyle = .fullScreen
             present(resultViewController, animated: true, completion: nil)
         }
@@ -195,13 +232,19 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
             gameOverCheck(count, wrong: wrongNumber)
             if wrongNumber == 3 {
+                wrongTry += 1
                 wrongNumber = 0
                 settingLabel()
+                mixCollectionView()
             }
         } else if numbers[indexPath.row] == unwrappedRandomNumberShared {
+            if wrongNumber == 1 {
+                oneTry += 1
+            } else if wrongNumber == 2 {
+                twoTry += 1
+            }
             wrongNumber = 0
-            numbers.shuffle()
-            collectionView.reloadData()
+            mixCollectionView()
             count += 1
             gameOverCheck(count, wrong: wrongNumber)
             settingLabel()
