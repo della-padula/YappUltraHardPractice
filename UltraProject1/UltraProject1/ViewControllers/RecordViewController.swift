@@ -52,8 +52,11 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let score = scoreList[indexPath.row]
-        print(score)
+        let score: Score = scoreList[indexPath.row]
+        let resultVC = ResultViewController()
+        resultVC.data = score
+        resultVC.modalPresentationStyle = .fullScreen
+        present(resultVC, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
