@@ -148,9 +148,9 @@
 		5EB4679E2701B51300096AC6 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */,
 				5EB467C52702C33C00096AC6 /* CoreDataManager.swift */,
 				5EB467CA2702F24A00096AC6 /* PrintFn.swift */,
-				5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";

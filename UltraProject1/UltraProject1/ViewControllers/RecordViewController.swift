@@ -23,10 +23,8 @@ class RecordViewController: UIViewController {
     private func getData() {
         scoreList = CoreDataManager.shared.getScores()
         //MARK: - 테스트 데이터
-        scoreList.append(contentsOf: [Score(total: 10, first: 1, second: 2, wrong: 3),
-                                      Score(total: 10, first: 1, second: 2, wrong: 3),
-                                      Score(total: 10, first: 1, second: 2, wrong: 3),
-                                      Score(total: 10, first: 1, second: 2, wrong: 3)])
+        let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
+        scoreList.append(contentsOf: [testScore, testScore, testScore, testScore])
         
         tableView.reloadData()
     }

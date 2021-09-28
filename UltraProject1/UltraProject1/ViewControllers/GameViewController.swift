@@ -105,11 +105,11 @@ class GameViewController: UIViewController {
         wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
     }
     
-    
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
         if count == 20 {
-            let resultViewController = ResultViewController()
+            let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
+            let resultViewController = ResultViewController(testScore)
             resultViewController.modalPresentationStyle = .fullScreen
             present(resultViewController, animated: true, completion: nil)
         }
@@ -148,7 +148,6 @@ class GameViewController: UIViewController {
         }
     }
 }
-
 
 extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         
         window = UIWindow()
         //MARK: - 테스트 화면
-        window?.rootViewController = RecordViewController()
+        let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
+        window?.rootViewController = ResultViewController(testScore)
         //window?.rootViewController = KakaoAuthManager.shared.getIsLoggedIn() ? MainViewController() : LoginViewController()
         window?.makeKeyAndVisible()
         return true
