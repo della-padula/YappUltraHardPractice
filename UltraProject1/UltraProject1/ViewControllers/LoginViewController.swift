@@ -12,15 +12,15 @@ class LoginViewController: UIViewController {
     
     private var logoNumberLabel: UILabel = {
         let label = UILabel()
-        label.text = "Number"
-        label.font = UIFont.boldSystemFont(ofSize: 60)
+        label.text = "Wel"
+        label.font = UIFont.boldSystemFont(ofSize: UIScreen.main.bounds.width/5)
         return label
     }()
     
     private var logoGameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Game"
-        label.font = UIFont.boldSystemFont(ofSize: 60)
+        label.text = "Come!"
+        label.font = UIFont.boldSystemFont(ofSize: UIScreen.main.bounds.width/5)
         return label
     }()
     

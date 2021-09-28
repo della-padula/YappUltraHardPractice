@@ -11,15 +11,15 @@ import UIKit
 class MainViewController: UIViewController {
     private var logoStartLabel: UILabel = {
         let label = UILabel()
-        label.text = "Wel"
-        label.font = UIFont.boldSystemFont(ofSize: 60)
+        label.text = "Number"
+        label.font = UIFont.boldSystemFont(ofSize: UIScreen.main.bounds.width/5)
         return label
     }()
     
     private var logoFinishLabel: UILabel = {
         let label = UILabel()
-        label.text = "Come!"
-        label.font = UIFont.boldSystemFont(ofSize: 60)
+        label.text = "Game"
+        label.font = UIFont.boldSystemFont(ofSize: UIScreen.main.bounds.width/5)
         return label
     }()
     

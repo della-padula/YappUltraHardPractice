@@ -48,12 +48,12 @@ class KakaoAuthManager {
     }
     
     func saveLogOut() {
+        defaults.set(false, forKey: kakaoLoginKey)
         UserApi.shared.logout { error in
             if let error = error {
                 print(error.localizedDescription)
             }
         }
-        defaults.set(false, forKey: kakaoLoginKey)
     }
     
     func getIsLoggedIn() -> Bool {
