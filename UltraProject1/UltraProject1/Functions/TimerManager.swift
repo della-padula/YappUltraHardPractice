@@ -8,8 +8,7 @@
 import Foundation
 class TimerManager {
     static var timer: Timer?
-    static var runCount = 1000
-
+    static var runCount = 5000
     static func createTimer() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { param in
@@ -17,6 +16,7 @@ class TimerManager {
                 if runCount <= 0 && timer != nil {
                     param.invalidate()
                     timer = nil
+                    NotificationCenter.default.post(name: .timesUp, object: true)
                 }
                 else {
                     let timeString = makeTimeLabel(count: runCount)
@@ -37,4 +37,8 @@ class TimerManager {
         milliSecString = "\(milliSec/10)".count == 1 ? "0\(milliSec/10)" : "\(milliSec/10)"
         return ("\(minString):\(secString):\(milliSecString)")
     }
+}
+
+extension Notification.Name {
+    static let timesUp = Notification.Name("timesUp")
 }
