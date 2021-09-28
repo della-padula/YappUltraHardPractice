@@ -16,6 +16,7 @@
 		5EB467C42702C28D00096AC6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C22702C28D00096AC6 /* Model.xcdatamodeld */; };
 		5EB467C62702C33C00096AC6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C52702C33C00096AC6 /* CoreDataManager.swift */; };
 		5EB467C82702C52900096AC6 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C72702C52900096AC6 /* Score.swift */; };
+		5EB467CB2702F24A00096AC6 /* PrintFn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467CA2702F24A00096AC6 /* PrintFn.swift */; };
 		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
 		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
 		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
@@ -52,10 +53,11 @@
 		5EB467A02701B55200096AC6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5EB467A82701EF7800096AC6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5EB467AA2701EF9200096AC6 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		5EB467AE2701EFD400096AC6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = UltraProject1/ViewControllers/UIColor.swift; sourceTree = SOURCE_ROOT; };
+		5EB467AE2701EFD400096AC6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = UltraProject1/Extensions/UIColor.swift; sourceTree = SOURCE_ROOT; };
 		5EB467C32702C28D00096AC6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		5EB467C52702C33C00096AC6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = UltraProject1/CoreDataManager.swift; sourceTree = SOURCE_ROOT; };
-		5EB467C72702C52900096AC6 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Score.swift; path = UltraProject1/Score.swift; sourceTree = SOURCE_ROOT; };
+		5EB467C52702C33C00096AC6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = UltraProject1/Functions/CoreDataManager.swift; sourceTree = SOURCE_ROOT; };
+		5EB467C72702C52900096AC6 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Score.swift; path = UltraProject1/Models/Score.swift; sourceTree = SOURCE_ROOT; };
+		5EB467CA2702F24A00096AC6 /* PrintFn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintFn.swift; sourceTree = "<group>"; };
 		79CA3AD89B0763D055449BB2 /* Pods-UltraProject1-UltraProject1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1-UltraProject1UITests/Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
@@ -63,8 +65,8 @@
 		9A24A64A83D62F6DF40506B1 /* Pods_UltraProject1_UltraProject1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1_UltraProject1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7AE0C2FB73124A931484E2 /* Pods-UltraProject1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A87D70BB2701B97500C723F9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameCollectionViewCell.swift; path = UltraProject1/ViewControllers/GameCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		A87D70BF2701C5C200C723F9 /* Numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Numbers.swift; path = UltraProject1/ViewControllers/Numbers.swift; sourceTree = SOURCE_ROOT; };
+		A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameCollectionViewCell.swift; path = UltraProject1/Cells/GameCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		A87D70BF2701C5C200C723F9 /* Numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Numbers.swift; path = UltraProject1/Models/Numbers.swift; sourceTree = SOURCE_ROOT; };
 		B0D557D5270197BC00143B0E /* UltraProject1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltraProject1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0D557D8270197BC00143B0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0D557E2270197BC00143B0E /* UltraProject1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UltraProject1.xcdatamodel; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				5EB467C52702C33C00096AC6 /* CoreDataManager.swift */,
+				5EB467CA2702F24A00096AC6 /* PrintFn.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
 				5EB467C62702C33C00096AC6 /* CoreDataManager.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
+				5EB467CB2702F24A00096AC6 /* PrintFn.swift in Sources */,
 				959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */,
 				5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */,
 				5EB467C42702C28D00096AC6 /* Model.xcdatamodeld in Sources */,
