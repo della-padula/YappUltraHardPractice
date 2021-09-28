@@ -168,7 +168,6 @@ class GameViewController: UIViewController {
         guard let unwrappedRandomNumberShared = randomNumberShared else { return }
         selectNumberLabel.text = "\(unwrappedRandomNumberShared)"
         wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
-        
     }
     
     private func setText() {
@@ -177,7 +176,6 @@ class GameViewController: UIViewController {
         selectNumberLabel.text = "준비"
         wrongCountLabel.text = "틀린 횟수 : 0"
     }
-    
     
     private func setCollection() {
         numberCollectionView.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.cellId)
