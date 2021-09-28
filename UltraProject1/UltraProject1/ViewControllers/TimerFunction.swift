@@ -31,6 +31,6 @@ class TimerFunction {
         let secString = "\(sec)".count == 1 ? "0\(sec)" : "\(sec)"
         let minString = "\(min)".count == 1 ? "0\(min)" : "\(min)"
         let milliSecString = "\(milliSec)".count == 1 ? "0\(milliSec)" : "\(milliSec)"
-        return ("남은 시간: \(minString):\(secString):\(milliSecString)")
+        return ("\(minString):\(secString):\(milliSecString)")
     }
 }

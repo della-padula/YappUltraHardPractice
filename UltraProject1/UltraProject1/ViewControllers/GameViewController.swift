@@ -19,8 +19,16 @@ class GameViewController: UIViewController {
     static var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
-//        label.text = "남은 시간 \(TimerFunction.createTimer())"
+        label.text = "남은 시간 \(TimerFunction.createTimer())"
         label.textAlignment = .center
+        return label
+    }()
+    
+    static var timerLabel: UILabel = {
+        let label = UILabel()
+        label.sizeToFit()
+        let newSize = label.sizeThatFits(CGSize(width: label.frame.width, height: label.frame.height))
+        label.frame.size.width = newSize.width
         return label
     }()
     
@@ -61,6 +69,12 @@ class GameViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
             $0.centerX.equalToSuperview()
         }
+        
+        view.addSubview(GameViewController.timerLabel)
+        GameViewController.timerLabel.snp.makeConstraints {
+            $0.leading.equalTo(GameViewController.timeLabel.snp.trailing).offset(20)
+        }
+        
         view.addSubview(selectNumberLabel)
         selectNumberLabel.snp.makeConstraints {
             $0.top.equalTo(GameViewController.timeLabel.snp.bottom).offset(50)
@@ -75,9 +89,6 @@ class GameViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(30)
         }
     }
-//    func setTimer(){
-//        print(timer)
-//    }
 }
 
 
