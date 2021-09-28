@@ -11,7 +11,7 @@ import Foundation
 class CoreDataManager {
     let shared = CoreDataManager()
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "UltraProject1")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -21,15 +21,15 @@ class CoreDataManager {
         return container
     }()
     
-    var context: NSManagedObjectContext {
+    private var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     
-    var gameEntity: NSEntityDescription? {
+    private var gameEntity: NSEntityDescription? {
         return  NSEntityDescription.entity(forEntityName: "GameScore", in: context)
     }
     
-    func saveContext() {
+    private func saveContext() {
         do {
             try context.save()
         } catch {
@@ -47,7 +47,7 @@ class CoreDataManager {
         }
     }
     
-    func fetchGameScores() -> [GameScore] {
+    private func fetchGameScores() -> [GameScore] {
         do {
             let request = GameScore.fetchRequest()
             let results = try context.fetch(request)
