@@ -43,16 +43,20 @@ class ResultViewController: UIViewController {
 
     private let againButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
         button.setTitle("다시 하기", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.backgroundColor = .mainGreen
+        button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(againButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let homeButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
         button.setTitle("홈으로", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.backgroundColor = .mainGreen
+        button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(homeButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -119,12 +123,14 @@ class ResultViewController: UIViewController {
         view.addSubview(homeButton)
         
         againButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.25)
-            $0.centerX.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(160)
+            $0.height.equalTo(60)
         }
         homeButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.15)
-            $0.centerX.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(24)
+            $0.top.equalTo(againButton.snp.bottom).offset(12)
+            $0.height.equalTo(60)
         }
     }
     
