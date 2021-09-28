@@ -42,7 +42,7 @@ class GameViewController: UIViewController {
     static var timerLabel: UILabel = {
             let label = UILabel()
             label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
-            label.text = "00:05:00"
+            label.text = "02:00:00"
             return label
         }()
     
@@ -138,7 +138,7 @@ class GameViewController: UIViewController {
     // MARK: - SettingText
     private func settingText() {
         waitCountLabel.text = "3"
-        GameViewController.timerLabel.text = "00:05:00"
+        GameViewController.timerLabel.text = "02:00:00"
         selectNumberLabel.text = "준비"
         wrongCountLabel.text = "틀린 횟수 : 준비"
         
