@@ -55,6 +55,12 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let score = scoreList[indexPath.row]
+        print(score)
+        // ResultViewController로 score를 가지고 이동
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
