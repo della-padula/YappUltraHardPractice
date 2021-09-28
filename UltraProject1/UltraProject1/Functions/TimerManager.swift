@@ -7,12 +7,9 @@
 
 import Foundation
 class TimerManager {
-//    static var timer: Timer?
-//    static var runCount = 5000
     static func createTimer() {
         var timer: Timer?
         var runCount = 120000
-//        print("@@@@",runCount)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { param in
                 runCount -= 1

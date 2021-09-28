@@ -8,12 +8,7 @@
 import UIKit
 import SnapKit
 class GameViewController: UIViewController {
-    private var numbers = [
-        1,2,3,4,
-        5,6,7,8,
-        9,10,11,12,
-        13,14,15,16
-    ]
+    private var numbers = Array<Int>(1...16)
     var coreData: [Score] = []
     private var tappedNumbers: [Int] = []
     private var timer: Timer?
@@ -33,11 +28,11 @@ class GameViewController: UIViewController {
     }()
     
     static var timerLabel: UILabel = {
-            let label = UILabel()
-            label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
-            label.text = "02:00:00"
-            return label
-        }()
+        let label = UILabel()
+        label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
+        label.text = "02:00:00"
+        return label
+    }()
     
     private let selectNumberLabel: UILabel = {
         let label = UILabel()
@@ -84,10 +79,10 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        
         settingLayout()
     }
     
-    // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -136,13 +131,11 @@ class GameViewController: UIViewController {
         }
         
     }
-    // MARK: - SettingText
     private func settingText() {
         waitCountLabel.text = "3"
         GameViewController.timerLabel.text = "02:00:00"
         selectNumberLabel.text = "준비"
         wrongCountLabel.text = "틀린 횟수 : 0"
-        
     }
     
     private func mixCollectionView() {
@@ -235,6 +228,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
         cell.settingLabel = numbers[indexPath.row]
         return cell
     }
+    
     // 셀 크기 세팅
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
