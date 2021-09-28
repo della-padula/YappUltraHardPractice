@@ -62,7 +62,7 @@ class KakaoAuthManager {
     
     private func changeRootVC() {
         let ad = UIApplication.shared.delegate as! AppDelegate
-        let mainVC = MainViewController()
-        ad.window?.rootViewController = mainVC
+        let navC = UINavigationController(rootViewController: MainViewController())
+        ad.window?.rootViewController = navC
     }
 }
