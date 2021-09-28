@@ -9,7 +9,7 @@ import CoreData
 import Foundation
 
 class CoreDataManager {
-    let shared = CoreDataManager()
+    static let shared = CoreDataManager()
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")

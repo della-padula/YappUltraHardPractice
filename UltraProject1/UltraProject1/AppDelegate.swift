@@ -18,7 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDKCommon.initSDK(appKey: "f625fe254b3e502498ae32a72c7d35ca")
                         
         window = UIWindow()
-        window?.rootViewController = KakaoAuthManager.shared.getIsLoggedIn() ? MainViewController() : LoginViewController()
+        //MARK: - 테스트 화면
+        window?.rootViewController = RecordViewController()
+        //window?.rootViewController = KakaoAuthManager.shared.getIsLoggedIn() ? MainViewController() : LoginViewController()
         window?.makeKeyAndVisible()
         return true
     }
