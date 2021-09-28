@@ -57,7 +57,7 @@ class GameViewController: UIViewController {
     private let wrongCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "틀린 횟수 : 준비"
+        label.text = "틀린 횟수 : 0"
         label.textAlignment = .center
         return label
     }()
@@ -140,7 +140,7 @@ class GameViewController: UIViewController {
         waitCountLabel.text = "3"
         GameViewController.timerLabel.text = "02:00:00"
         selectNumberLabel.text = "준비"
-        wrongCountLabel.text = "틀린 횟수 : 준비"
+        wrongCountLabel.text = "틀린 횟수 : 0"
         
     }
     
