@@ -10,6 +10,9 @@ import SnapKit
 import UIKit
 
 class ResultViewController: UIViewController {
+    override func viewWillDisappear(_ animated: Bool) {
+        TimerManager.createTimer()
+    }
 
     private let resultTitleLabel: UILabel = {
         let label = UILabel()
@@ -125,6 +128,11 @@ class ResultViewController: UIViewController {
     
     @objc
     private func homeButtonTapped() {
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//        print(self.view.window?.rootViewController?.title)
+//        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                (appDelegate.window?.rootViewController as? UINavigationController)?.popToRootViewController(animated: true)
+            }
     }
 }
