@@ -34,11 +34,7 @@ class GameViewController: UIViewController {
     static var timerLabel: UILabel = {
             let label = UILabel()
             label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
-            if "\(TimerManager.createTimer())" == "()" {
                 label.text = "00:00:00"
-            } else {
-                label.text = "\(TimerManager.createTimer())"
-            }
             return label
         }()
     
@@ -94,6 +90,7 @@ class GameViewController: UIViewController {
         settingUI()
         waitPage()
         startTimer()
+        TimerManager.createTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(move), name: .timesUp, object: nil)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
