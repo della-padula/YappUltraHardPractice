@@ -17,8 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         KakaoSDKCommon.initSDK(appKey: "f625fe254b3e502498ae32a72c7d35ca")
         
+        let isLoggedIn = KakaoAuthManager.shared.getIsLoggedIn()
+        
         window = UIWindow()
-        window?.rootViewController = LoginViewController()
+        window?.rootViewController = isLoggedIn ? MainViewController() : LoginViewController()
         window?.makeKeyAndVisible()
         return true
     }
