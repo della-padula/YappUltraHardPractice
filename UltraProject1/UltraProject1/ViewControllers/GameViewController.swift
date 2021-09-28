@@ -149,9 +149,11 @@ class GameViewController: UIViewController {
         
     }
     
-    
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
+        if count == 20 {
+            let testScore = Score(total: 10, first: 9, second: 8, wrong: 7)
+            let resultViewController = ResultViewController(testScore)
         if count == 5 {
             let resultViewController = ResultViewController()
             print(count, oneTry, twoTry, wrongTry)
@@ -200,7 +202,6 @@ class GameViewController: UIViewController {
         }
     }
 }
-
 
 extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

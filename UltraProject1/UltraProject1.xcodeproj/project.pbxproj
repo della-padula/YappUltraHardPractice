@@ -150,6 +150,7 @@
 		5EB4679E2701B51300096AC6 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */,
 				5EB467C52702C33C00096AC6 /* CoreDataManager.swift */,
 				5EB467CA2702F24A00096AC6 /* PrintFn.swift */,
 				5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */,
@@ -486,6 +487,7 @@
 			files = (
 				A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */,
 				A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */,
+				5EB467D127032FB400096AC6 /* ScoreTableViewCell.swift in Sources */,
 				A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */,
 				5EB467C82702C52900096AC6 /* Score.swift in Sources */,
 				5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */,

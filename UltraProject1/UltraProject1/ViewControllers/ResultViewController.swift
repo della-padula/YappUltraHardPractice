@@ -10,42 +10,42 @@ import SnapKit
 import UIKit
 
 class ResultViewController: UIViewController {
-    //MARK: - 라벨 선언
+    var score: Score? {
+        didSet {
+            setLabelText()
+        }
+    }
+
     private let resultTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "게임 결과"
         label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
     private let resultScoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "총 10회 성공"
         label.font = UIFont.boldSystemFont(ofSize: 50)
         return label
     }()
     
     private let firstTryCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "1회 재시도: 7회"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
     private let secondTryCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "2회 재시도: 3회"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
     private let failCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "실패(오답): 5회"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
-    //MARK: - 버튼 선언
+
     private let againButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
@@ -74,11 +74,28 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
+        
         setLabelUI()
         setButtonUI()
     }
     
-    func setLabelUI(){
+    init(_ score: Score) {
+        super.init(nibName: nil, bundle: nil)
+        self.score = score
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setLabelText() {
+        resultScoreLabel.text = "총 10회 성공"
+        firstTryCountLabel.text = "1회 재시도: 7회"
+        secondTryCountLabel.text = "2회 재시도: 3회"
+        failCountLabel.text = "실패(오답): 5회"
+    }
+    
+    private func setLabelUI(){
         view.addSubview(resultTitleLabel)
         view.addSubview(resultScoreLabel)
         view.addSubview(firstTryCountLabel)
@@ -107,7 +124,7 @@ class ResultViewController: UIViewController {
         }
     }
     
-    func setButtonUI(){
+    private func setButtonUI(){
         view.addSubview(againButton)
         view.addSubview(backButton)
         
@@ -122,13 +139,13 @@ class ResultViewController: UIViewController {
     }
     
     @objc
-    func againButtonTapped() {
+    private func againButtonTapped() {
         print(CoreDataManager.shared.getScores())
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc
-    func backButtonTapped() {
+    private func backButtonTapped() {
         print()
         self.dismiss(animated: true, completion: nil)
     }
