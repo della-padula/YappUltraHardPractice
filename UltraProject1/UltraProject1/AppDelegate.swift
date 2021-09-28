@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        KakaoAuthManager.shared.saveLogOut()
-        
         let isLoggedIn = KakaoAuthManager.shared.getIsLoggedIn()
         let loginVC = LoginViewController()
         let mainVC = MainViewController()

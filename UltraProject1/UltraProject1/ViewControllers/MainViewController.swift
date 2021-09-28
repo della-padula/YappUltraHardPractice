@@ -18,7 +18,8 @@ class MainViewController: UIViewController {
     private let startButton: UIButton = {
         let button = UIButton()
         button.setTitle("게임 시작", for: .normal)
-        button.backgroundColor = .systemGray2
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.backgroundColor = .mainGreen
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(startButtonTapped(_:)), for: .touchUpInside)
         return button
@@ -27,7 +28,8 @@ class MainViewController: UIViewController {
     private let recordButton: UIButton = {
         let button = UIButton()
         button.setTitle("게임 기록", for: .normal)
-        button.backgroundColor = .systemGray2
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.backgroundColor = .mainGreen
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(recordButtonTapped(_:)), for: .touchUpInside)
         return button

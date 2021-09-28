@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     private var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("카카오톡 로그인", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .kakaoYellow
         button.layer.cornerRadius = 16
