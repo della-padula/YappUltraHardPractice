@@ -57,9 +57,11 @@ class MainViewController: UIViewController {
     
     @objc
     private func startButtonTapped(_ sender: UIButton) {
+        print("게임 시작")
     }
     
     @objc
     private func recordButtonTapped(_ sender: UIButton) {
+        print("게임 기록")
     }
 }
