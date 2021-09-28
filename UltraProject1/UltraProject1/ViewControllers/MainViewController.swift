@@ -9,11 +9,20 @@ import SnapKit
 import UIKit
 
 class MainViewController: UIViewController {
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-    }
+    
+    private var logoStartLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Wel"
+        label.font = UIFont.boldSystemFont(ofSize: 60)
+        return label
+    }()
+    
+    private var logoFinishLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Come!"
+        label.font = UIFont.boldSystemFont(ofSize: 60)
+        return label
+    }()
     
     private let startButton: UIButton = {
         let button = UIButton()
@@ -35,12 +44,32 @@ class MainViewController: UIViewController {
         return button
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        configureLabels()
         configureStartButton()
         configureRecordButton()
+    }
+    
+    private func configureLabels() {
+        view.addSubview(logoStartLabel)
+        view.addSubview(logoFinishLabel)
+        
+        logoStartLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(120)
+            $0.left.equalToSuperview().inset(24)
+        }
+        logoFinishLabel.snp.makeConstraints {
+            $0.top.equalTo(logoStartLabel.snp.bottom)
+            $0.left.equalToSuperview().inset(24)
+        }
     }
     
     private func configureStartButton() {
