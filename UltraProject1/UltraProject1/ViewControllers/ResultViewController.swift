@@ -97,23 +97,23 @@ class ResultViewController: UIViewController {
         view.addSubview(failCountLabel)
         
         resultTitleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.2)
+            $0.top.equalToSuperview().inset(120)
             $0.centerX.equalToSuperview()
         }
         resultScoreLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.3)
+            $0.top.equalTo(resultTitleLabel.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         firstTryCountLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.5)
+            $0.top.equalTo(resultScoreLabel.snp.bottom).offset(40)
             $0.centerX.equalToSuperview()
         }
         secondTryCountLabel.snp.makeConstraints {
-            $0.top.equalTo(firstTryCountLabel).offset(30)
+            $0.top.equalTo(firstTryCountLabel.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         failCountLabel.snp.makeConstraints {
-            $0.top.equalTo(secondTryCountLabel).offset(30)
+            $0.top.equalTo(secondTryCountLabel.snp.bottom)
             $0.centerX.equalToSuperview()
         }
     }
