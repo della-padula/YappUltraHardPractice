@@ -154,7 +154,6 @@ class GameViewController: UIViewController {
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
         let resultViewController = ResultViewController()
-        print(count, oneTry, twoTry, wrongTry)
         resultViewController.navigationController?.isNavigationBarHidden = true
         CoreDataManager.shared.insertGame(Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry)))
         resultViewController.data = Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry))
@@ -254,7 +253,6 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let unwrappedRandomNumberShared = randomNumberShared else { return }
-        print(numbers.contains(numbers[indexPath.row]))
         if !numbers.contains(numbers[indexPath.row]) || numbers[indexPath.row] != unwrappedRandomNumberShared {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"

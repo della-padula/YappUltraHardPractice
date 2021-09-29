@@ -135,7 +135,6 @@ class ResultViewController: UIViewController {
     
     @objc
     private func againButtonTapped() {
-        print(CoreDataManager.shared.getScores())
         self.dismiss(animated: true, completion: nil)
         TimerManager.createTimer()
     }
