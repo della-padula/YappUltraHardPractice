@@ -10,7 +10,6 @@ import SnapKit
 import UIKit
 
 class ResultViewController: UIViewController {
-    
     private let resultTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 30)
@@ -43,16 +42,20 @@ class ResultViewController: UIViewController {
 
     private let againButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
         button.setTitle("다시 하기", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.backgroundColor = .mainGreen
+        button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(againButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let homeButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 1.00, green: 0.70, blue: 0.27, alpha: 1.00)
         button.setTitle("홈으로", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.backgroundColor = .mainGreen
+        button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(homeButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -61,9 +64,9 @@ class ResultViewController: UIViewController {
         didSet {
             guard let data = data else { return }
             resultScoreLabel.text = "총 \(data.total)회 성공"
-            firstTryCountLabel.text = "1회 재시도: \(data.first)개"
-            secondTryCountLabel.text = "2회 재시도: \(data.second)개"
-            failCountLabel.text = "실패(오답): \(data.wrong)개"
+            firstTryCountLabel.text = "1회 재시도 : \(data.first)개"
+            secondTryCountLabel.text = "2회 재시도 : \(data.second)개"
+            failCountLabel.text = "실패(오답) : \(data.wrong)개"
         }
     }
     
@@ -93,24 +96,24 @@ class ResultViewController: UIViewController {
         view.addSubview(failCountLabel)
         
         resultTitleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.2)
+            $0.top.equalToSuperview().inset(120)
             $0.centerX.equalToSuperview()
         }
         resultScoreLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.3)
+            $0.top.equalTo(resultTitleLabel.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         firstTryCountLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.5)
+            $0.top.equalTo(resultScoreLabel.snp.bottom).offset(40)
             $0.centerX.equalToSuperview()
         }
         secondTryCountLabel.snp.makeConstraints {
-            $0.top.equalTo(firstTryCountLabel).offset(30)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(firstTryCountLabel.snp.bottom)
+            $0.right.equalTo(firstTryCountLabel.snp.right)
         }
         failCountLabel.snp.makeConstraints {
-            $0.top.equalTo(secondTryCountLabel).offset(30)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(secondTryCountLabel.snp.bottom)
+            $0.right.equalTo(firstTryCountLabel.snp.right)
         }
     }
     
@@ -119,18 +122,19 @@ class ResultViewController: UIViewController {
         view.addSubview(homeButton)
         
         againButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.25)
-            $0.centerX.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(160)
+            $0.height.equalTo(60)
         }
         homeButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.height * -0.15)
-            $0.centerX.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(24)
+            $0.top.equalTo(againButton.snp.bottom).offset(12)
+            $0.height.equalTo(60)
         }
     }
     
     @objc
     private func againButtonTapped() {
-        print(CoreDataManager.shared.getScores())
         self.dismiss(animated: true, completion: nil)
         TimerManager.createTimer()
     }

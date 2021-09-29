@@ -48,12 +48,12 @@ class KakaoAuthManager {
     }
     
     func saveLogOut() {
+        defaults.set(false, forKey: kakaoLoginKey)
         UserApi.shared.logout { error in
             if let error = error {
                 print(error.localizedDescription)
             }
         }
-        defaults.set(false, forKey: kakaoLoginKey)
     }
     
     func getIsLoggedIn() -> Bool {
@@ -62,7 +62,7 @@ class KakaoAuthManager {
     
     private func changeRootVC() {
         let ad = UIApplication.shared.delegate as! AppDelegate
-        let mainVC = MainViewController()
-        ad.window?.rootViewController = mainVC
+        let navC = UINavigationController(rootViewController: MainViewController())
+        ad.window?.rootViewController = navC
     }
 }

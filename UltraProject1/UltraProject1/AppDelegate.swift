@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 KakaoSDKCommon.initSDK(appKey: String(str[startIdx...]))
             }
         }
-        
+                
         let isLoggedIn = KakaoAuthManager.shared.getIsLoggedIn()
         let loginVC = LoginViewController()
         let mainVC = MainViewController()

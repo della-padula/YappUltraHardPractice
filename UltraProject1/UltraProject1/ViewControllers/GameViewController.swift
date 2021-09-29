@@ -8,20 +8,10 @@
 import UIKit
 import SnapKit
 class GameViewController: UIViewController {
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-        settingLayout()
-    }
-    
-    private var numbers = [
-        1,2,3,4,
-        5,6,7,8,
-        9,10,11,12,
-        13,14,15,16
-    ]
+    private var numbers = Array<Int>(1...16)
+    private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var coreData: [Score] = []
+    var randomNumberShared: Int?
     private var tappedNumbers: [Int] = []
     private var timer: Timer?
     private var timerNum: Int = 0
@@ -34,21 +24,21 @@ class GameViewController: UIViewController {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
-        label.text = "남은 시간 "
+        label.text = "남은 시간"
         label.textAlignment = .center
         return label
     }()
     
     static var timerLabel: UILabel = {
-            let label = UILabel()
-            label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
-            label.text = "02:00:00"
-            return label
-        }()
+        let label = UILabel()
+        label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
+        label.text = "02:00:00"
+        return label
+    }()
     
     private let selectNumberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 60)
+        label.font = UIFont.boldSystemFont(ofSize: UIScreen.main.bounds.width/5)
         label.text = "준비"
         label.textAlignment = .center
         return label
@@ -57,8 +47,9 @@ class GameViewController: UIViewController {
     private let wrongCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "틀린 횟수 : 준비"
+        label.text = "틀린 횟수 : 0"
         label.textAlignment = .center
+        label.textColor = .systemGray
         return label
     }()
     
@@ -84,23 +75,27 @@ class GameViewController: UIViewController {
         return label
     }()
     
-    private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    var randomNumberShared: Int?
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        
+        settingLayout()
+    }
     
-    // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.setHidesBackButton(true, animated: true)
-        settingCollection()
-        settingUI()
+        setCollection()
+        setUI()
         TimerManager.createTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(move), name: .timesUp, object: nil)
         settingLayout()
         
     }
     
-    @objc func move() {
+    @objc
+    func move() {
         gameOverCheck(count, wrong: wrongTry)
     }
     
@@ -126,24 +121,16 @@ class GameViewController: UIViewController {
     private func settingLayout() {
         waitPage()
         startTimer()
-        settingText()
+        setText()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.waitView.removeFromSuperview()
             self.waitCountLabel.removeFromSuperview()
-            self.settingLabel()
+            self.setLabel()
             self.mixCollectionView()
         }
         
     }
-    // MARK: - SettingText
-    private func settingText() {
-        waitCountLabel.text = "3"
-        GameViewController.timerLabel.text = "02:00:00"
-        selectNumberLabel.text = "준비"
-        wrongCountLabel.text = "틀린 횟수 : 준비"
-        
-    }
-    
+
     private func mixCollectionView() {
         numbers.shuffle()
         numberCollectionView.reloadData()
@@ -164,19 +151,9 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func settingLabel() {
-        guard let randomNumber = numbers.randomElement() else { return }
-        randomNumberShared = randomNumber
-        guard let unwrappedRandomNumberShared = randomNumberShared else { return }
-        selectNumberLabel.text = "\(unwrappedRandomNumberShared)"
-        wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
-        
-    }
-    
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
         let resultViewController = ResultViewController()
-        print(count, oneTry, twoTry, wrongTry)
         resultViewController.navigationController?.isNavigationBarHidden = true
         CoreDataManager.shared.insertGame(Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry)))
         resultViewController.data = Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry))
@@ -184,13 +161,28 @@ class GameViewController: UIViewController {
         present(resultViewController, animated: true, completion: nil)
     }
     
-    private func settingCollection() {
+    private func setLabel() {
+        guard let randomNumber = numbers.randomElement() else { return }
+        randomNumberShared = randomNumber
+        guard let unwrappedRandomNumberShared = randomNumberShared else { return }
+        selectNumberLabel.text = "\(unwrappedRandomNumberShared)"
+        wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
+    }
+    
+    private func setText() {
+        waitCountLabel.text = "3"
+        GameViewController.timerLabel.text = "02:00:00"
+        selectNumberLabel.text = "준비"
+        wrongCountLabel.text = "틀린 횟수 : 0"
+    }
+    
+    private func setCollection() {
         numberCollectionView.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.cellId)
         numberCollectionView.delegate = self
         numberCollectionView.dataSource = self
     }
     
-    private func settingUI() {
+    private func setUI() {
         view.addSubview(timeLabel)
         timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
@@ -206,7 +198,6 @@ class GameViewController: UIViewController {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.2)
             $0.centerX.equalToSuperview()
         }
-        
         view.addSubview(numberCollectionView)
         numberCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.4)
@@ -214,7 +205,6 @@ class GameViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
-        
         view.addSubview(wrongCountLabel)
         wrongCountLabel.snp.makeConstraints {
             $0.top.equalTo(selectNumberLabel.snp.bottom).offset(15)
@@ -234,6 +224,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
         cell.settingLabel = numbers[indexPath.row]
         return cell
     }
+    
     // 셀 크기 세팅
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -262,14 +253,13 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let unwrappedRandomNumberShared = randomNumberShared else { return }
-        print(numbers.contains(numbers[indexPath.row]))
         if !numbers.contains(numbers[indexPath.row]) || numbers[indexPath.row] != unwrappedRandomNumberShared {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
             if wrongNumber == 3 {
                 wrongTry += 1
                 wrongNumber = 0
-                settingLabel()
+                setLabel()
                 mixCollectionView()
             }
         } else if numbers[indexPath.row] == unwrappedRandomNumberShared {
@@ -281,7 +271,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
             wrongNumber = 0
             mixCollectionView()
             count += 1
-            settingLabel()
+            setLabel()
         }
     }
 }
