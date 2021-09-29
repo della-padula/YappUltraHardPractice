@@ -8,6 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
     private let authManager = KakaoAuthManager.shared
     
     private var logoNumberLabel: UILabel = {
@@ -34,6 +35,11 @@ class LoginViewController: UIViewController {
         button.addTarget(self, action: #selector(loginButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
