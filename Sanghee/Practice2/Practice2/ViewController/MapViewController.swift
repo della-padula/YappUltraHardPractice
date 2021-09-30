@@ -43,19 +43,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @objc
+    private func showAlert() {
+        let alert = UIAlertController(title: "위치 추가", message: "위치를 추가하시겠습니까?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
+            print("예")
+        }
+        let noAction = UIAlertAction(title: "아니요", style: .cancel)
+
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc
     private func addCoordinate(_ longGesture: UILongPressGestureRecognizer) {
         let touchPoint = longGesture.location(in: mapView)
         let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        
         if coordinates.count < 11 && !coordinates.contains(coordinate) {
             coordinates.append(coordinate)
         }
     }
     
     private func showAnnotations() {
-        coordinates.forEach {
+        for coordinate in coordinates {
             let annotation = MKPointAnnotation()
-            annotation.coordinate = $0
+            annotation.coordinate = coordinate
             mapView.addAnnotation(annotation)
         }
     }
