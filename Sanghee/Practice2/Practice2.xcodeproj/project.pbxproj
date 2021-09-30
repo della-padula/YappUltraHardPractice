@@ -290,6 +290,7 @@
 		5EA5623E2705E3BA006A0622 /* interface_m_t_map_point-members.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EA5612D2705E3BA006A0622 /* interface_m_t_map_point-members.html */; };
 		5EA5623F2705E3BA006A0622 /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = 5EA5612E2705E3BA006A0622 /* jquery.js */; };
 		5EA562402705E3BA006A0622 /* changelog.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5EA5612F2705E3BA006A0622 /* changelog.txt */; };
+		5EA5624527060038006A0622 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5624427060038006A0622 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -590,6 +591,7 @@
 		5EA5612E2705E3BA006A0622 /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
 		5EA5612F2705E3BA006A0622 /* changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog.txt; sourceTree = "<group>"; };
 		5EA562422705E48B006A0622 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
+		5EA5624427060038006A0622 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -631,6 +633,7 @@
 				5EA562412705E45D006A0622 /* Header */,
 				5EA560022705DEDD006A0622 /* Model */,
 				5EA55FD82705DA45006A0622 /* ViewController */,
+				5EA5624327060025006A0622 /* Utility */,
 				5EA55FD62705DA36006A0622 /* Extension */,
 				5EA55FD92705DA77006A0622 /* Function */,
 				5EA55FBE2705CF4A006A0622 /* AppDelegate.swift */,
@@ -1039,6 +1042,14 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		5EA5624327060025006A0622 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				5EA5624427060038006A0622 /* LocationManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1383,6 +1394,7 @@
 			files = (
 				5EA55FDD2705DA9B006A0622 /* UIView+anchor.swift in Sources */,
 				5EA55FBF2705CF4A006A0622 /* AppDelegate.swift in Sources */,
+				5EA5624527060038006A0622 /* LocationManager.swift in Sources */,
 				5EA55FDB2705DA93006A0622 /* PrintFn.swift in Sources */,
 				5EA55FD32705CFA6006A0622 /* MapViewController.swift in Sources */,
 			);
