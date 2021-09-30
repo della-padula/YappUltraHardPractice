@@ -121,8 +121,16 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation {
-            annotations = annotations.filter({ $0.coordinate != view.annotation?.coordinate })
-            deleteAnnotation(annotation)
+            let alert = UIAlertController(title: "위치 삭제", message: "위치를 삭제하시겠습니까?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
+                self.annotations = self.annotations.filter({ $0.coordinate != view.annotation?.coordinate })
+                self.deleteAnnotation(annotation)
+            }
+            let noAction = UIAlertAction(title: "아니요", style: .cancel)
+
+            alert.addAction(okAction)
+            alert.addAction(noAction)
+            present(alert, animated: true, completion: nil)
         }
     }
 }
