@@ -57,8 +57,6 @@ class SelectImageViewController: UIViewController {
         settingCollectionView()
         settingUI()
     }
-    
-    private var viewController = MainViewController()
     private let index: Int
     
     init(index: Int) {

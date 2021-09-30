@@ -8,7 +8,7 @@
 import UIKit
 import PhotosUI
 
-var imageArray: [UIImage] = [UIImage(named: "ddd")!]
+var imageArray: [UIImage] = []
 
 class MainViewController: UIViewController {
     
@@ -45,7 +45,6 @@ class MainViewController: UIViewController {
     
     @objc
     func selectAction() {
-        print(imageArray.count)
         var configuration = PHPickerConfiguration()
         configuration.selectionLimit = 0
         configuration.filter = .any(of: [.images, .livePhotos])
@@ -124,8 +123,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-        
         let selectViewController = SelectImageViewController(index: indexPath.item)
         selectViewController.modalPresentationStyle = .fullScreen
         present(selectViewController, animated: true, completion: nil)
