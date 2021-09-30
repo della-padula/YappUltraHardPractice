@@ -10,11 +10,12 @@ import UIKit
 class ImageCollectionViewCell: UICollectionViewCell {
     static let cellId = "ImageCell"
     private let imageViewer = UIImageView()
-    
+    private let scrollView = UIScrollView()
     var settingImageView: UIImage? {
         didSet {
             guard let setting = settingImageView else { return }
             imageViewer.image = setting
+            //imageViewer.sizeToFit()
         }
     }
     
@@ -31,7 +32,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
     func settingUI() {
         contentView.addSubview(imageViewer)
         imageViewer.translatesAutoresizingMaskIntoConstraints = false
-        //imageViewer.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        imageViewer.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        imageViewer.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         imageViewer.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         imageViewer.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }

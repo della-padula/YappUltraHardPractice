@@ -8,11 +8,12 @@
 import UIKit
 import PhotosUI
 
+var imageArray: [UIImage] = [UIImage(named: "ddd")!]
+
 class MainViewController: UIViewController {
     
     private var itemProviders: [NSItemProvider] = []
     private var iterator: IndexingIterator<[NSItemProvider]>?
-    private var imageArray: [UIImage] = [UIImage(named: "ddd")!]
     private var sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     private let mainTitle: UILabel = {
         let label = UILabel()
@@ -102,9 +103,9 @@ extension MainViewController: PHPickerViewControllerDelegate {
                 item.loadObject(ofClass: UIImage.self) { image, error in
                     DispatchQueue.main.async {
                         guard let image = image as? UIImage else { return }
-                        self.imageArray.append(image)
+                        imageArray.append(image)
                         self.imageCollectionView.reloadData()
-                        print(self.imageArray)
+                        print(imageArray)
                     }
                 }
             }
@@ -128,6 +129,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
+        
+        let selectViewController = SelectImageViewController()
+        selectViewController.settingIndexPath = indexPath.row
+        selectViewController.modalPresentationStyle = .fullScreen
+        present(selectViewController, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
