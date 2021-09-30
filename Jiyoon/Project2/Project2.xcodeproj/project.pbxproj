@@ -13,6 +13,7 @@
 		95108F9E270614380059CC2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95108F9D270614380059CC2D /* Assets.xcassets */; };
 		95108FA1270614380059CC2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95108F9F270614380059CC2D /* LaunchScreen.storyboard */; };
 		95108FCC270623700059CC2D /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95108FCB270623700059CC2D /* TimerManager.swift */; };
+		95108FCE270624F20059CC2D /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95108FCD270624F20059CC2D /* CircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		95108FA0270614380059CC2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95108FA2270614380059CC2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95108FCB270623700059CC2D /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
+		95108FCD270624F20059CC2D /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		9D86995EF19EF9BC586ED9E4 /* Pods-Project2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project2.debug.xcconfig"; path = "Target Support Files/Pods-Project2/Pods-Project2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 				95108F9D270614380059CC2D /* Assets.xcassets */,
 				95108F9F270614380059CC2D /* LaunchScreen.storyboard */,
 				95108FA2270614380059CC2D /* Info.plist */,
+				95108FCD270624F20059CC2D /* CircleView.swift */,
 			);
 			path = Project2;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95108FCE270624F20059CC2D /* CircleView.swift in Sources */,
 				95108FCC270623700059CC2D /* TimerManager.swift in Sources */,
 				95108F99270614350059CC2D /* TimerViewController.swift in Sources */,
 				95108F95270614350059CC2D /* AppDelegate.swift in Sources */,
