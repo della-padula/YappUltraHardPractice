@@ -64,20 +64,16 @@ class MapViewController: UIViewController {
         annotation.coordinate = coordinate
         
         if annotations.count < 11 && !annotations.contains(annotation) {
-            annotations.append(annotation)
-        }
-    }
-    
-    private func showAlert(_ func: () -> Void) {
-        let alert = UIAlertController(title: "위치 추가", message: "위치를 추가하시겠습니까?", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
-            print("예")
-        }
-        let noAction = UIAlertAction(title: "아니요", style: .cancel)
+            let alert = UIAlertController(title: "위치 추가", message: "위치를 추가하시겠습니까?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
+                self.annotations.append(annotation)
+            }
+            let noAction = UIAlertAction(title: "아니요", style: .cancel)
 
-        alert.addAction(okAction)
-        alert.addAction(noAction)
-        present(alert, animated: true, completion: nil)
+            alert.addAction(okAction)
+            alert.addAction(noAction)
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     private func showAnnotations() {
@@ -88,6 +84,8 @@ class MapViewController: UIViewController {
     
     private func addCenterAnnotation() {
         let count = Double(annotations.count)
+        if count < 2 { return }
+        
         let latitude = annotations.map({ $0.coordinate }).map({ $0.latitude }).reduce(0, +) / count
         let longitude = annotations.map({ $0.coordinate }).map({ $0.longitude }).reduce(0, +) / count
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -122,8 +120,8 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("마크 선택하면 삭제")
         if let annotation = view.annotation {
+            annotations = annotations.filter({ $0.coordinate != view.annotation?.coordinate })
             deleteAnnotation(annotation)
         }
     }
