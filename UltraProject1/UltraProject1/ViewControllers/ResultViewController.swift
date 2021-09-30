@@ -95,18 +95,22 @@ class ResultViewController: UIViewController {
             $0.top.equalToSuperview().inset(120)
             $0.centerX.equalToSuperview()
         }
+        
         resultScoreLabel.snp.makeConstraints {
             $0.top.equalTo(resultTitleLabel.snp.bottom)
             $0.centerX.equalToSuperview()
         }
+        
         firstTryCountLabel.snp.makeConstraints {
             $0.top.equalTo(resultScoreLabel.snp.bottom).offset(40)
             $0.centerX.equalToSuperview()
         }
+        
         secondTryCountLabel.snp.makeConstraints {
             $0.top.equalTo(firstTryCountLabel.snp.bottom)
             $0.right.equalTo(firstTryCountLabel.snp.right)
         }
+        
         failCountLabel.snp.makeConstraints {
             $0.top.equalTo(secondTryCountLabel.snp.bottom)
             $0.right.equalTo(firstTryCountLabel.snp.right)
@@ -122,6 +126,7 @@ class ResultViewController: UIViewController {
             $0.bottom.equalToSuperview().inset(160)
             $0.height.equalTo(60)
         }
+        
         homeButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(24)
             $0.top.equalTo(againButton.snp.bottom).offset(12)
