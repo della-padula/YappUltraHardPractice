@@ -105,7 +105,15 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let identifier = "LocationMark"
         let view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-        view.image = UIImage(systemName: "pin.circle.fill")
+        
+        if annotation.coordinate == locationManager.location?.coordinate {
+            view.image = UIImage(systemName: "figure.stand")
+        } else if annotation.coordinate == centerAnnotation?.coordinate {
+            view.image = UIImage(systemName: "pin.fill")
+        } else {
+            view.image = UIImage(systemName: "pin")
+        }
+        
         return view
     }
     
