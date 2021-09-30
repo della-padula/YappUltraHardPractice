@@ -12,7 +12,6 @@ class MapViewController: UIViewController {
     private let locationManager = LocationManager.shared
     private var annotations: [MKPointAnnotation] = [] {
         didSet {
-            print("표시 변경")
             showAnnotations()
             addCenterAnnotation()
         }
@@ -97,7 +96,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func deleteAnnotation(_ annotation: MKPointAnnotation) {
+    private func deleteAnnotation(_ annotation: MKAnnotation) {
         mapView.removeAnnotation(annotation)
     }
 }
@@ -111,7 +110,9 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("마크 선택")
-        print(view.annotation)
+        print("마크 선택하면 삭제")
+        if let annotation = view.annotation {
+            deleteAnnotation(annotation)
+        }
     }
 }
