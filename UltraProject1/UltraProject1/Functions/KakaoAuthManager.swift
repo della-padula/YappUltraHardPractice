@@ -11,8 +11,8 @@ import KakaoSDKUser
 
 class KakaoAuthManager {
     static var shared: KakaoAuthManager = KakaoAuthManager()
-    private let defaults = UserDefaults.standard
-    private let kakaoLoginKey = "KakaoLogin"
+    let defaults = UserDefaults.standard
+    let kakaoLoginKey = "KakaoLogin"
     
     func loginWithKakao() {
         if UserApi.isKakaoTalkLoginAvailable() {

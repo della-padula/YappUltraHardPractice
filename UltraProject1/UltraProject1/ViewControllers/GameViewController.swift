@@ -10,16 +10,16 @@ import SnapKit
 class GameViewController: UIViewController {
     private var numbers = Array<Int>(1...16)
     private var sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    var coreData: [Score] = []
-    var randomNumberShared: Int?
+    private var coreData: [Score] = []
     private var tappedNumbers: [Int] = []
     private var timer: Timer?
     private var timerNum: Int = 0
+    private var randomNumber: Int = 0
     private var oneTry: Int = 0
     private var twoTry: Int = 0
     private var wrongTry: Int = 0
-    var wrongNumber: Int = 0
-    var count: Int = 0
+    private var wrongNumber: Int = 0
+    private var count: Int = 0
     
     private let timeLabel: UILabel = {
         let label = UILabel()
@@ -29,13 +29,21 @@ class GameViewController: UIViewController {
         return label
     }()
     
-    
-    static var timerLabel: UILabel = {
+    // 수정중
+    private var timerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
         label.text = "02:00:00"
         return label
     }()
+    // 수정중
+    var changeTimerLabel: String? {
+        didSet {
+            guard let change = changeTimerLabel else { return }
+            print(change)
+            timerLabel.text = change
+        }
+    }
     
     private let selectNumberLabel: UILabel = {
         let label = UILabel()
@@ -82,7 +90,8 @@ class GameViewController: UIViewController {
         
         settingLayout()
     }
-    
+
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -164,15 +173,14 @@ class GameViewController: UIViewController {
     
     private func setLabel() {
         guard let randomNumber = numbers.randomElement() else { return }
-        randomNumberShared = randomNumber
-        guard let unwrappedRandomNumberShared = randomNumberShared else { return }
-        selectNumberLabel.text = "\(unwrappedRandomNumberShared)"
+        self.randomNumber = randomNumber
+        selectNumberLabel.text = "\(randomNumber)"
         wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
     }
     
     private func setText() {
         waitCountLabel.text = "3"
-        GameViewController.timerLabel.text = "02:00:00"
+        //timerLabel.text = "02:00:00"
         selectNumberLabel.text = "준비"
         wrongCountLabel.text = "틀린 횟수 : 0"
     }
@@ -189,8 +197,8 @@ class GameViewController: UIViewController {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
             $0.centerX.equalToSuperview().offset(UIScreen.main.bounds.width * -0.2)
         }
-        view.addSubview(GameViewController.timerLabel)
-        GameViewController.timerLabel.snp.makeConstraints {
+        view.addSubview(timerLabel)
+        timerLabel.snp.makeConstraints {
             $0.leading.equalTo(timeLabel.snp.trailing).offset(20)
             $0.top.equalTo(timeLabel.snp.top)
         }
@@ -202,8 +210,8 @@ class GameViewController: UIViewController {
         view.addSubview(numberCollectionView)
         numberCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.4)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(10)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
         view.addSubview(wrongCountLabel)
@@ -253,8 +261,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     
     // 셀 선택시 인덱스 받아오는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let unwrappedRandomNumberShared = randomNumberShared else { return }
-        if !numbers.contains(numbers[indexPath.row]) || numbers[indexPath.row] != unwrappedRandomNumberShared {
+        if !numbers.contains(numbers[indexPath.row]) || numbers[indexPath.row] != randomNumber {
             wrongNumber += 1
             wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
             if wrongNumber == 3 {
@@ -263,7 +270,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
                 setLabel()
                 mixCollectionView()
             }
-        } else if numbers[indexPath.row] == unwrappedRandomNumberShared {
+        } else if numbers[indexPath.row] == randomNumber {
             if wrongNumber == 1 {
                 oneTry += 1
             } else if wrongNumber == 2 {

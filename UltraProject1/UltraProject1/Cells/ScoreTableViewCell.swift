@@ -16,6 +16,7 @@ class ScoreTableViewCell: UITableViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
+    
     private let scoresLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
@@ -50,6 +51,7 @@ class ScoreTableViewCell: UITableViewCell {
             $0.top.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview().inset(12)
         }
+        
         scoresLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview().inset(12)

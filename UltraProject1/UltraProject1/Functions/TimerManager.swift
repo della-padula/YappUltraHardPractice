@@ -9,7 +9,7 @@ import Foundation
 class TimerManager {
     static func createTimer() {
         var timer: Timer?
-        var runCount = 1000
+        var runCount = 120000
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             timer = Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { param in
                 runCount -= 1
@@ -20,8 +20,8 @@ class TimerManager {
                 }
                 else {
                     let timeString = makeTimeLabel(count: runCount)
-                    GameViewController.timerLabel.text = timeString
-//                    GameViewController.timerLabel.text = timeString
+                    let gameViewController = GameViewController()
+                    gameViewController.changeTimerLabel = timeString
                 }
             })
         }

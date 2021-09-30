@@ -54,12 +54,13 @@ class LoginViewController: UIViewController {
         view.addSubview(logoGameLabel)
         
         logoNumberLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(120)
-            $0.left.equalToSuperview().inset(24)
+            $0.top.equalTo(120)
+            $0.left.equalTo(24)
         }
+        
         logoGameLabel.snp.makeConstraints {
             $0.top.equalTo(logoNumberLabel.snp.bottom)
-            $0.left.equalToSuperview().inset(24)
+            $0.left.equalTo(24)
         }
     }
     
