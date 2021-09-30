@@ -67,6 +67,7 @@ class MainViewController: UIViewController {
             $0.top.equalToSuperview().inset(120)
             $0.left.equalToSuperview().inset(24)
         }
+        
         logoFinishLabel.snp.makeConstraints {
             $0.top.equalTo(logoStartLabel.snp.bottom)
             $0.left.equalToSuperview().inset(24)
