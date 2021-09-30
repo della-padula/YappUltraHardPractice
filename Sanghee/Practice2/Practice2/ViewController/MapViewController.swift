@@ -44,6 +44,7 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.showsCompass = true
         mapView.showsScale = true
+        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: CustomAnnotationView.identifier)
         
         view.addSubview(mapView)
         mapView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
@@ -93,6 +94,7 @@ class MapViewController: UIViewController {
     
         let annotation = MKPointAnnotation()
         annotation.coordinate = annotationManager.getCenterCoordinate(annotations)
+        annotation.title = "중간 위치"
         centerAnnotation = annotation
         if let centerAnnotation = centerAnnotation {
             mapView.addAnnotation(centerAnnotation)
@@ -106,6 +108,7 @@ class MapViewController: UIViewController {
     private func zoomMapView() {
         if annotations.count < 2 { return }
         var zoomRect: MKMapRect = MKMapRect.null
+        let space: Double = 30
 
         for annotation in annotations {
             let point = MKMapPoint(annotation.coordinate)
@@ -117,18 +120,23 @@ class MapViewController: UIViewController {
             }
         }
         
-        mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20), animated: true)
+        mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: space, left: space, bottom: space, right: space), animated: true)
     }
 }
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "LocationMark"
-        let view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        let annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
+        if annotation.coordinate == centerAnnotation?.coordinate {
+            annotationView.markerTintColor = .systemRed
+        } else if annotation.coordinate == locationManager.location?.coordinate {
+            annotationView.markerTintColor = .systemGray
+        } else {
+            annotationView.markerTintColor = .systemBlue
+        }
+        //annotationView.markerTintColor = .blue
         
-        view.image = UIImage(systemName: annotationManager.getImageSystemName(annotation.coordinate, centerAnnotation ?? MKPointAnnotation()))
-
-        return view
+        return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
