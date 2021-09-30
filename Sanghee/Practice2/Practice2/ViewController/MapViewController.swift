@@ -13,6 +13,14 @@ class MapViewController: UIViewController {
     private var coordinates: [CLLocationCoordinate2D] = [] {
         didSet {
             showAnnotations()
+            addCenterAnnotation()
+        }
+    }
+    private var centerAnnotation: MKPointAnnotation? {
+        didSet {
+            if let oldValue = oldValue, let centerAnnotation = centerAnnotation {
+                deleteAnnotation(oldValue)
+            }
         }
     }
     
@@ -42,7 +50,6 @@ class MapViewController: UIViewController {
         view.addGestureRecognizer(longGesture)
     }
     
-    @objc
     private func showAlert() {
         let alert = UIAlertController(title: "위치 추가", message: "위치를 추가하시겠습니까?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
@@ -67,10 +74,29 @@ class MapViewController: UIViewController {
     private func showAnnotations() {
         for coordinate in coordinates {
             let annotation = MKPointAnnotation()
-            annotation.title = "제목"
             annotation.coordinate = coordinate
             mapView.addAnnotation(annotation)
         }
+    }
+    
+    private func addCenterAnnotation() {
+        let count = Double(coordinates.count)
+        let latitude = coordinates.map({ $0.latitude }).reduce(0, +) / count
+        let longitude = coordinates.map({ $0.longitude }).reduce(0, +) / count
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        
+        centerAnnotation = annotation
+        if let centerAnnotation = centerAnnotation {
+            mapView.addAnnotation(centerAnnotation)
+        }
+    }
+    
+    
+    private func deleteAnnotation(_ annotation: MKPointAnnotation) {
+        mapView.removeAnnotation(annotation)
     }
 }
 
