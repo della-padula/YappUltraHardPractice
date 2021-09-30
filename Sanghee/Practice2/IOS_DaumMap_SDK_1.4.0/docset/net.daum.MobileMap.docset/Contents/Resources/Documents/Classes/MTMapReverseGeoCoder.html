@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>MTMapReverseGeoCoder Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">MobileMap </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">Daum Communications</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:">+ executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:</option>
+		
+		<option value="//api/name/executeFindingAddressForMapPoint:openAPIKey:completionHandler:">+ executeFindingAddressForMapPoint:openAPIKey:completionHandler:</option>
+		
+		<option value="//api/name/findAddressForMapPoint:withOpenAPIKey:">+ findAddressForMapPoint:withOpenAPIKey:</option>
+		
+		<option value="//api/name/findAddressForMapPoint:withOpenAPIKey:withAddressType:">+ findAddressForMapPoint:withOpenAPIKey:withAddressType:</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/cancelFindingAddress">- cancelFindingAddress</option>
+		
+		<option value="//api/name/initWithMapPoint:withDelegate:withOpenAPIKey:">- initWithMapPoint:withDelegate:withOpenAPIKey:</option>
+		
+		<option value="//api/name/startFindingAddress">- startFindingAddress</option>
+		
+		<option value="//api/name/startFindingAddressWithAddressType:">- startFindingAddressWithAddressType:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">MTMapReverseGeoCoder Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>MTMapReverseGeoCoder.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/initWithMapPoint:withDelegate:withOpenAPIKey:" title="initWithMapPoint:withDelegate:withOpenAPIKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initWithMapPoint:withDelegate:withOpenAPIKey:">&ndash;&nbsp;initWithMapPoint:withDelegate:withOpenAPIKey:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>MTMapReverseGeoCoder 객체를 생성한다.
+주소정보를 알고자 하는 지도 좌표와 Reverse Geo-coding 결과를 통보받을 수 있는 delegate 객체를 설정한다.
+비동기(Asynchronous) 방식으로 Reverse Geo-coding을 수행하고자 하는 경우 MTMapReverseGeoCoder 객체를 생성한다.
+동기(Synchronous, Blocking) 방식으로 Reverse Geo-coding을 실행하는 경우에는 findAddressForMapPoint:withAddressType: static 메소드를 사용한다. (<b class="deprecated">Deprecated:</b><span class="deprecated"> 제거될 예정입니다. 비동기(Asynchronous) 방식으로 Reverse Geo-coding을 수행하고자 하는 경우 executeFindingAddressForMapPoint:openAPIKey:completionHandler: 를 사용하십시오.</span>)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (instancetype)initWithMapPoint:(MTMapPoint *)<em>mapPoint</em> withDelegate:(id&lt;MTMapReverseGeoCoderDelegate&gt;)<em>delegate</em> withOpenAPIKey:(NSString *)<em>openAPIKey</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mapPoint</code></th>
+						<td><p>주소정보로 변화하고자하는 지도 좌표</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>delegate</code></th>
+						<td><p>Reverse Geo-coding 결과를 통보받을 수 있는 delegate 객체</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>openAPIKey</code></th>
+						<td><p>Open API Key</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>MTMapReverseGeoCoder 객체를 생성한다.
+주소정보를 알고자 하는 지도 좌표와 Reverse Geo-coding 결과를 통보받을 수 있는 delegate 객체를 설정한다.
+비동기(Asynchronous) 방식으로 Reverse Geo-coding을 수행하고자 하는 경우 MTMapReverseGeoCoder 객체를 생성한다.
+동기(Synchronous, Blocking) 방식으로 Reverse Geo-coding을 실행하는 경우에는 findAddressForMapPoint:withAddressType: static 메소드를 사용한다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/startFindingAddress" title="startFindingAddress"></a>
+	<h3 class="method-title"><code><a href="#//api/name/startFindingAddress">&ndash;&nbsp;startFindingAddress</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Reverse Geo-coding(Asynchronous) 서비스를 요청한다.
+주소 정보는 비동기 방식으로 delegate 객체에 전달된다. (<b class="deprecated">Deprecated:</b><span class="deprecated"> executeFindingAddressForMapPoint:openAPIKey:completionHandler: 를 사용하십시오.</span>)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)startFindingAddress</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Reverse Geo-coding(Asynchronous) 서비스를 요청한다.
+주소 정보는 비동기 방식으로 delegate 객체에 전달된다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/startFindingAddressWithAddressType:" title="startFindingAddressWithAddressType:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/startFindingAddressWithAddressType:">&ndash;&nbsp;startFindingAddressWithAddressType:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p><a href="#//api/name/executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:">executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:</a> 를 사용하십시오. (<b class="deprecated">Deprecated:</b><span class="deprecated"> executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler: 를 사용하십시오.</span>)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)startFindingAddressWithAddressType:(enum AddressType)<em>addressType</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>addressType</code></th>
+						<td><p>변환 받을 주소 정보의 타입</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/cancelFindingAddress" title="cancelFindingAddress"></a>
+	<h3 class="method-title"><code><a href="#//api/name/cancelFindingAddress">&ndash;&nbsp;cancelFindingAddress</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Reverse Geo-coding(Asynchronous) 서비스 요청을 취소한다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)cancelFindingAddress</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Reverse Geo-coding(Asynchronous) 서비스 요청을 취소한다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/findAddressForMapPoint:withOpenAPIKey:" title="findAddressForMapPoint:withOpenAPIKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/findAddressForMapPoint:withOpenAPIKey:">+&nbsp;findAddressForMapPoint:withOpenAPIKey:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>동기(Synchronous, Blocking) 방식으로 Reverse Geo-coding 을 수행한다.
+메소드를 호출한 thread는 Reverse Geo-Coding 서비스가 수행되는 동한 block된 후
+변환된 주소정보를 리턴받는다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (NSString *)findAddressForMapPoint:(MTMapPoint *)<em>mapPoint</em> withOpenAPIKey:(NSString *)<em>openAPIKey</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mapPoint</code></th>
+						<td><p>주소정보로 변화하고자하는 지도 좌표</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>openAPIKey</code></th>
+						<td><p>Open API Key</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>주소정보 문자열</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>동기(Synchronous, Blocking) 방식으로 Reverse Geo-coding 을 수행한다.
+메소드를 호출한 thread는 Reverse Geo-Coding 서비스가 수행되는 동한 block된 후
+변환된 주소정보를 리턴받는다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/findAddressForMapPoint:withOpenAPIKey:withAddressType:" title="findAddressForMapPoint:withOpenAPIKey:withAddressType:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/findAddressForMapPoint:withOpenAPIKey:withAddressType:">+&nbsp;findAddressForMapPoint:withOpenAPIKey:withAddressType:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>주소정보로 변화하고자하는 지도 좌표</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (NSString *)findAddressForMapPoint:(MTMapPoint *)<em>mapPoint</em> withOpenAPIKey:(NSString *)<em>openAPIKey</em> withAddressType:(enum AddressType)<em>addressType</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mapPoint</code></th>
+						<td><p>주소정보로 변화하고자하는 지도 좌표</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>openAPIKey</code></th>
+						<td><p>Open API Key</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>addressType</code></th>
+						<td><p>변환 받을 주소 정보의 타입</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>주소정보 문자열</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/executeFindingAddressForMapPoint:openAPIKey:completionHandler:" title="executeFindingAddressForMapPoint:openAPIKey:completionHandler:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executeFindingAddressForMapPoint:openAPIKey:completionHandler:">+&nbsp;executeFindingAddressForMapPoint:openAPIKey:completionHandler:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>비동기(Asynchronous) 방식으로 Reverse Geo-coding을 수행한다.
+변환 받을 주소 정보는 addressType의 default 값인 ShortAddress인 형태로 요청한다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)executeFindingAddressForMapPoint:(MTMapPoint *)<em>mapPoint</em> openAPIKey:(NSString *)<em>openAPIKey</em> completionHandler:(MTMapReverseGeoCoderCompletionHandler)<em>handler</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mapPoint</code></th>
+						<td><p>주소 정보로 변화하고자하는 지도 좌표</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>openAPIKey</code></th>
+						<td><p>Open API Key</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>handler</code></th>
+						<td><p>Reverse Geo-Coding 서비스 호출 결과의 block</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>비동기(Asynchronous) 방식으로 Reverse Geo-coding을 수행한다.
+변환 받을 주소 정보는 addressType의 default 값인 ShortAddress인 형태로 요청한다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:" title="executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:">+&nbsp;executeFindingAddressForMapPoint:openAPIKey:addressType:completionHandler:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>비동기(Asynchronous) 방식으로 Reverse Geo-coding을 수행한다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)executeFindingAddressForMapPoint:(MTMapPoint *)<em>mapPoint</em> openAPIKey:(NSString *)<em>openAPIKey</em> addressType:(enum AddressType)<em>addressType</em> completionHandler:(MTMapReverseGeoCoderCompletionHandler)<em>handler</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mapPoint</code></th>
+						<td><p>주소 정보로 변화하고자하는 지도 좌표</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>openAPIKey</code></th>
+						<td><p>Open API Key</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>addressType</code></th>
+						<td><p>변환 받을 주소 정보의 타입</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>handler</code></th>
+						<td><p>Reverse Geo-Coding 서비스 호출 결과의 block</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>비동기(Asynchronous) 방식으로 Reverse Geo-coding을 수행한다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapReverseGeoCoder.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2017 Daum Communications. All rights reserved. Updated: 2017-08-11</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>MTMapPolyline Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">MobileMap </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">Daum Communications</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/mapPointList">mapPointList</option>
+		
+		<option value="//api/name/polylineColor">polylineColor</option>
+		
+		<option value="//api/name/tag">tag</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/polyLine">+ polyLine</option>
+		
+		<option value="//api/name/polyLineWithCapacity:">+ polyLineWithCapacity:</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/addPoint:">- addPoint:</option>
+		
+		<option value="//api/name/addPoints:">- addPoints:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">MTMapPolyline Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>MTMapPolyline.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/polyLine" title="polyLine"></a>
+	<h3 class="method-title"><code><a href="#//api/name/polyLine">+&nbsp;polyLine</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>MTMapPolyline 객체를 생성한다. autorelease 상태로 MTMapPolyline 객체를 생성하여 리턴한다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)polyLine</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>MTMapPolyline 객체를 생성한다. autorelease 상태로 MTMapPolyline 객체를 생성하여 리턴한다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapPolyline.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/polyLineWithCapacity:" title="polyLineWithCapacity:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/polyLineWithCapacity:">+&nbsp;polyLineWithCapacity:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>MTMapPolyline 객체를 생성하고 Polyline을 구성하는 점들을 저장하는 Array의 크기를 미리 지정한다.
+autorelease 상태로 MTMapPolyline 객체를 생성하여 리턴한다.
+Polyline을 구성하는 점들의 개수를 미리 알수 있는 경우 capacity값을 지정하면 메모리를 효율적으로 사용할 수 있다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)polyLineWithCapacity:(NSUInteger)<em>capacity</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>capacity</code></th>
+						<td><p>Polyline을 구성하는 점들의 좌표를 저장하는 Array의 메모리 할당 크기 (Polyline의 점 개수를 지정한다.)</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>MTMapPolyline 객체를 생성하고 Polyline을 구성하는 점들을 저장하는 Array의 크기를 미리 지정한다.
+autorelease 상태로 MTMapPolyline 객체를 생성하여 리턴한다.
+Polyline을 구성하는 점들의 개수를 미리 알수 있는 경우 capacity값을 지정하면 메모리를 효율적으로 사용할 수 있다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapPolyline.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/mapPointList" title="mapPointList"></a>
+	<h3 class="method-title"><code><a href="#//api/name/mapPointList">&nbsp;&nbsp;mapPointList</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Polyline을 구성하는 점들의 리스트를 조회할 수 있다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSArray *mapPointList</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Polyline을 구성하는 점들의 리스트를 조회할 수 있다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapPolyline.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/polylineColor" title="polylineColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/polylineColor">&nbsp;&nbsp;polylineColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Polyline의 선 색상을 지정한다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) UIColor *polylineColor</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Polyline의 선 색상을 지정한다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapPolyline.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/tag" title="tag"></a>
+	<h3 class="method-title"><code><a href="#//api/name/tag">&nbsp;&nbsp;tag</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Polyline 객체에 임의의 정수값(tag)을 지정할 수 있다.
+MTMapView에 등록된 Polyline들 중 특정 Polyline을 찾기 위한 식별자로 사용할 수 있다.
+tag값을 반드시 지정해야 하는 것은 아니다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger tag</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Polyline 객체에 임의의 정수값(tag)을 지정할 수 있다.
+MTMapView에 등록된 Polyline들 중 특정 Polyline을 찾기 위한 식별자로 사용할 수 있다.
+tag값을 반드시 지정해야 하는 것은 아니다.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="../Classes/MTMapView.html">MTMapView</a>.findPolylineByTag:</p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapPolyline.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addPoint:" title="addPoint:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addPoint:">&ndash;&nbsp;addPoint:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Polyline에 점 하나를 추가한다.
+Polyline 객체가 MTMapView에 등록된 후에는 점들을 추가해도 지도화면에 반영되지 않는다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addPoint:(MTMapPoint *)<em>mapPoint</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mapPoint</code></th>
+						<td><p>추가하고자 하는 점의 좌표 객체</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Polyline에 점 하나를 추가한다.
+Polyline 객체가 MTMapView에 등록된 후에는 점들을 추가해도 지도화면에 반영되지 않는다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapPolyline.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addPoints:" title="addPoints:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addPoints:">&ndash;&nbsp;addPoints:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Polyline에 점 리스트를 추가한다.
+Polyline 객체가 <a href="../Classes/MTMapView.html">MTMapView</a> 객체에 등록된 후에는 점들을 추가해도 지도화면에 반영되지 않는다.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addPoints:(NSArray *)<em>mapPointList</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mapPointList</code></th>
+						<td><p>추가하고자 하는 점들의 좌표 객체 리스트</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Polyline에 점 리스트를 추가한다.
+Polyline 객체가 <a href="../Classes/MTMapView.html">MTMapView</a> 객체에 등록된 후에는 점들을 추가해도 지도화면에 반영되지 않는다.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">MTMapPolyline.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2017 Daum Communications. All rights reserved. Updated: 2017-08-11</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>
