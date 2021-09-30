@@ -15,6 +15,7 @@ class MapViewController: UIViewController {
         didSet {
             showAnnotations()
             addCenterAnnotation()
+            zoomMapView()
         }
     }
     private var centerAnnotation: MKPointAnnotation? {
@@ -100,6 +101,23 @@ class MapViewController: UIViewController {
     
     private func deleteAnnotation(_ annotation: MKAnnotation) {
         mapView.removeAnnotation(annotation)
+    }
+    
+    private func zoomMapView() {
+        if annotations.count < 2 { return }
+        var zoomRect: MKMapRect = MKMapRect.null
+
+        for annotation in annotations {
+            let point = MKMapPoint(annotation.coordinate)
+            let rect = MKMapRect(x: point.x, y: point.y, width: 0.1, height: 0.1)
+            if zoomRect.isNull {
+                zoomRect = rect
+            } else {
+                zoomRect = zoomRect.union(rect)
+            }
+        }
+        
+        mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20), animated: true)
     }
 }
 

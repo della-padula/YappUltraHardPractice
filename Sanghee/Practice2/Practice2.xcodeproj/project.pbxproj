@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E35110A270653C200906128 /* AnnotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E351109270653C200906128 /* AnnotationManager.swift */; };
+		5E35111327066CA600906128 /* MKMapView+Zoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E35111227066CA600906128 /* MKMapView+Zoom.swift */; };
 		5EA55FBF2705CF4A006A0622 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA55FBE2705CF4A006A0622 /* AppDelegate.swift */; };
 		5EA55FC82705CF4C006A0622 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EA55FC72705CF4C006A0622 /* Assets.xcassets */; };
 		5EA55FCB2705CF4C006A0622 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EA55FC92705CF4C006A0622 /* LaunchScreen.storyboard */; };
@@ -297,6 +298,7 @@
 
 /* Begin PBXFileReference section */
 		5E351109270653C200906128 /* AnnotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationManager.swift; sourceTree = "<group>"; };
+		5E35111227066CA600906128 /* MKMapView+Zoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Zoom.swift"; sourceTree = "<group>"; };
 		5EA55FBB2705CF4A006A0622 /* Practice2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Practice2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA55FBE2705CF4A006A0622 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EA55FC72705CF4C006A0622 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 			children = (
 				5EA55FDC2705DA9B006A0622 /* UIView+anchor.swift */,
 				5EA5624827061F23006A0622 /* CLLocationCoordinate2D+Equatable.swift */,
+				5E35111227066CA600906128 /* MKMapView+Zoom.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1406,6 +1409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E35111327066CA600906128 /* MKMapView+Zoom.swift in Sources */,
 				5EA55FDD2705DA9B006A0622 /* UIView+anchor.swift in Sources */,
 				5EA55FBF2705CF4A006A0622 /* AppDelegate.swift in Sources */,
 				5EA5624927061F23006A0622 /* CLLocationCoordinate2D+Equatable.swift in Sources */,
