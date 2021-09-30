@@ -10,6 +10,7 @@ import UIKit
 
 class MapViewController: UIViewController {
     private let locationManager = LocationManager.shared
+    private let annotationManager = AnnotationManager.shared
     private var annotations: [MKPointAnnotation] = [] {
         didSet {
             showAnnotations()
@@ -85,13 +86,9 @@ class MapViewController: UIViewController {
     private func addCenterAnnotation() {
         let count = Double(annotations.count)
         if count < 2 { return }
-        
-        let latitude = annotations.map({ $0.coordinate }).map({ $0.latitude }).reduce(0, +) / count
-        let longitude = annotations.map({ $0.coordinate }).map({ $0.longitude }).reduce(0, +) / count
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-
+    
         let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
+        annotation.coordinate = annotationManager.getCenterCoordinate(annotations)
         centerAnnotation = annotation
         if let centerAnnotation = centerAnnotation {
             mapView.addAnnotation(centerAnnotation)
