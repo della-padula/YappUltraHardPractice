@@ -85,7 +85,10 @@ class MapViewController: UIViewController {
     
     private func addCenterAnnotation() {
         let count = Double(annotations.count)
-        if count < 2 { return }
+        if count < 2 {
+            centerAnnotation = nil
+            return
+        }
     
         let annotation = MKPointAnnotation()
         annotation.coordinate = annotationManager.getCenterCoordinate(annotations)
