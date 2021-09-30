@@ -10,6 +10,11 @@ import UIKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     private let locationManager = LocationManager.shared
+    private var annotations: [MKPointAnnotation] = [] {
+        didSet {
+            showAnnotations()
+        }
+    }
     
     private let mapView = MKMapView()
     
@@ -18,36 +23,39 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         view.backgroundColor = .white
         
         locationManager.askLocation()
-        addAnnotation()
-        addMapView()
-        setMapView()
+        
+        configureMapView()
+        addLongGesture()
     }
     
-    private func setMapView() {
+    private func configureMapView() {
         mapView.delegate = self
         mapView.mapType = .standard
         mapView.showsUserLocation = true
-    }
-    
-    private func addMapView() {
+        
         view.addSubview(mapView)
         mapView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
     }
     
-    private func registerMapAnnotationViews() {
-        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Annotation")
+    private func addLongGesture() {
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation))
+        view.addGestureRecognizer(longGesture)
     }
     
-    private func addAnnotation() {
-        let point = MKPointAnnotation()
-        point.coordinate = CLLocationCoordinate2D(latitude: 35, longitude: 130)
-        point.title = "TITLE"
+    @objc
+    private func addAnnotation(_ longGesture: UILongPressGestureRecognizer) {
+        let touchPoint = longGesture.location(in: mapView)
+        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
-        if let location = locationManager.location {
-            point.coordinate = location.coordinate
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        
+        annotations.append(annotation)
+    }
+    
+    private func showAnnotations() {
+        annotations.forEach {
+            mapView.addAnnotation($0)
         }
-        
-        mapView.addAnnotation(point)
     }
-    
 }
