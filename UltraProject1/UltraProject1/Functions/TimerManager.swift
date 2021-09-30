@@ -21,6 +21,7 @@ class TimerManager {
                 else {
                     let timeString = makeTimeLabel(count: runCount)
                     GameViewController.timerLabel.text = timeString
+//                    GameViewController.timerLabel.text = timeString
                 }
             })
         }

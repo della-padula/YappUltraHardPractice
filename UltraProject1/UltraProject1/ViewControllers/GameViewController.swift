@@ -29,12 +29,14 @@ class GameViewController: UIViewController {
         return label
     }()
     
+    
     static var timerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
         label.text = "02:00:00"
         return label
     }()
+    var timerLabelInGameVC = timerLabel
     
     private let selectNumberLabel: UILabel = {
         let label = UILabel()
@@ -91,7 +93,6 @@ class GameViewController: UIViewController {
         TimerManager.createTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(move), name: .timesUp, object: nil)
         settingLayout()
-        
     }
     
     @objc
@@ -171,7 +172,7 @@ class GameViewController: UIViewController {
     
     private func setText() {
         waitCountLabel.text = "3"
-        GameViewController.timerLabel.text = "02:00:00"
+        timerLabelInGameVC.text = "02:00:00"
         selectNumberLabel.text = "준비"
         wrongCountLabel.text = "틀린 횟수 : 0"
     }
@@ -188,8 +189,8 @@ class GameViewController: UIViewController {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
             $0.centerX.equalToSuperview().offset(UIScreen.main.bounds.width * -0.2)
         }
-        view.addSubview(GameViewController.timerLabel)
-        GameViewController.timerLabel.snp.makeConstraints {
+        view.addSubview(timerLabelInGameVC)
+        timerLabelInGameVC.snp.makeConstraints {
             $0.leading.equalTo(timeLabel.snp.trailing).offset(20)
             $0.top.equalTo(timeLabel.snp.top)
         }
@@ -274,4 +275,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
             setLabel()
         }
     }
+}
+protocol TimerDelegate {
+    var timer: TimerManager { get }
 }
