@@ -111,9 +111,6 @@ extension MainViewController: PHPickerViewControllerDelegate {
             }
         }
     }
-    
-    
-    
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -130,7 +127,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
         
-        let selectViewController = SelectImageViewController(viewController: MainViewController(), index: indexPath.item)
+        let selectViewController = SelectImageViewController(index: indexPath.item)
         selectViewController.modalPresentationStyle = .fullScreen
         present(selectViewController, animated: true, completion: nil)
     }

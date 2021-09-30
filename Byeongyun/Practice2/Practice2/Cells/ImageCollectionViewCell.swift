@@ -11,11 +11,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
     static let cellId = "ImageCell"
     private let imageViewer = UIImageView()
     private let scrollView = UIScrollView()
+    
     var settingImageView: UIImage? {
         didSet {
             guard let setting = settingImageView else { return }
             imageViewer.image = setting
-            //imageViewer.sizeToFit()
         }
     }
     
