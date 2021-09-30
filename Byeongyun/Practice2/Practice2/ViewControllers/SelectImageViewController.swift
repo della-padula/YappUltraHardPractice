@@ -50,6 +50,7 @@ class SelectImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+        detailCollectionView.isPagingEnabled = true
         settingCollectionView()
         settingUI()
     }
@@ -78,9 +79,6 @@ class SelectImageViewController: UIViewController {
 
 extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageArray.count
@@ -96,9 +94,5 @@ extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
-    
-}
-
-extension SelectImageViewController: UIScrollViewDelegate {
     
 }

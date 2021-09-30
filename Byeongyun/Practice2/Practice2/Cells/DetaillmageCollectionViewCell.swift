@@ -46,7 +46,7 @@ class DetaillmageCollectionViewCell: UICollectionViewCell {
         imageViewer.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
         imageViewer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         imageViewer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        imageViewer.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        imageViewer.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 0.5).isActive = true
         
     }
     
