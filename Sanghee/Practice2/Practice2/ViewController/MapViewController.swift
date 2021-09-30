@@ -10,7 +10,7 @@ import UIKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     private let locationManager = LocationManager.shared
-    private var annotations: [MKPointAnnotation] = [] {
+    private var coordinates: [CLLocationCoordinate2D] = [] {
         didSet {
             showAnnotations()
         }
@@ -38,24 +38,25 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func addLongGesture() {
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation))
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(addCoordinate))
         view.addGestureRecognizer(longGesture)
     }
     
     @objc
-    private func addAnnotation(_ longGesture: UILongPressGestureRecognizer) {
+    private func addCoordinate(_ longGesture: UILongPressGestureRecognizer) {
         let touchPoint = longGesture.location(in: mapView)
         let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        
-        annotations.append(annotation)
+        if coordinates.count < 11 && !coordinates.contains(coordinate) {
+            coordinates.append(coordinate)
+        }
     }
     
     private func showAnnotations() {
-        annotations.forEach {
-            mapView.addAnnotation($0)
+        coordinates.forEach {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = $0
+            mapView.addAnnotation(annotation)
         }
     }
 }
