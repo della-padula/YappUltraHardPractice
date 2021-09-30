@@ -10,15 +10,16 @@ import UIKit
 
 class MapViewController: UIViewController {
     private let locationManager = LocationManager.shared
-    private var coordinates: [CLLocationCoordinate2D] = [] {
+    private var annotations: [MKPointAnnotation] = [] {
         didSet {
+            print("표시 변경")
             showAnnotations()
             addCenterAnnotation()
         }
     }
     private var centerAnnotation: MKPointAnnotation? {
         didSet {
-            if let oldValue = oldValue, let centerAnnotation = centerAnnotation {
+            if let oldValue = oldValue {
                 deleteAnnotation(oldValue)
             }
         }
@@ -40,6 +41,8 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         mapView.mapType = .standard
         mapView.showsUserLocation = true
+        mapView.showsCompass = true
+        mapView.showsScale = true
         
         view.addSubview(mapView)
         mapView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
@@ -66,34 +69,33 @@ class MapViewController: UIViewController {
     private func addCoordinate(_ longGesture: UILongPressGestureRecognizer) {
         let touchPoint = longGesture.location(in: mapView)
         let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        if coordinates.count < 11 && !coordinates.contains(coordinate) {
-            coordinates.append(coordinate)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        
+        if annotations.count < 11 && !annotations.contains(annotation) {
+            annotations.append(annotation)
         }
     }
     
     private func showAnnotations() {
-        for coordinate in coordinates {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
+        for annotation in annotations {
             mapView.addAnnotation(annotation)
         }
     }
     
     private func addCenterAnnotation() {
-        let count = Double(coordinates.count)
-        let latitude = coordinates.map({ $0.latitude }).reduce(0, +) / count
-        let longitude = coordinates.map({ $0.longitude }).reduce(0, +) / count
+        let count = Double(annotations.count)
+        let latitude = annotations.map({ $0.coordinate }).map({ $0.latitude }).reduce(0, +) / count
+        let longitude = annotations.map({ $0.coordinate }).map({ $0.longitude }).reduce(0, +) / count
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        
+
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        
         centerAnnotation = annotation
         if let centerAnnotation = centerAnnotation {
             mapView.addAnnotation(centerAnnotation)
         }
     }
-    
     
     private func deleteAnnotation(_ annotation: MKPointAnnotation) {
         mapView.removeAnnotation(annotation)
@@ -106,5 +108,10 @@ extension MapViewController: MKMapViewDelegate {
         let view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         view.image = UIImage(systemName: "pin.circle.fill")
         return view
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("마크 선택")
+        print(view.annotation)
     }
 }
