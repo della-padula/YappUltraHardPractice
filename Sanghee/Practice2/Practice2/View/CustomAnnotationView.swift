@@ -15,7 +15,7 @@ class CustomAnnotationView: MKMarkerAnnotationView {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         canShowCallout = true
-        rightCalloutAccessoryView = UIButton(type: .infoLight)
+        leftCalloutAccessoryView = UIButton(type: .infoLight)
     }
     
     required init?(coder aDecoder: NSCoder) {

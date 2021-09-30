@@ -94,7 +94,6 @@ class MapViewController: UIViewController {
     
         let annotation = MKPointAnnotation()
         annotation.coordinate = annotationManager.getCenterCoordinate(annotations)
-        annotation.title = "중간 위치"
         centerAnnotation = annotation
         if let centerAnnotation = centerAnnotation {
             mapView.addAnnotation(centerAnnotation)
@@ -122,6 +121,19 @@ class MapViewController: UIViewController {
         
         mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: space, left: space, bottom: space, right: space), animated: true)
     }
+    
+    private func addTextLabel(_ annotationView: MKAnnotationView) {
+        let textLabel = UILabel()
+
+        textLabel.textAlignment = .center
+        textLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        textLabel.text = "중앙 위치"
+        textLabel.backgroundColor = .white
+
+        annotationView.addSubview(textLabel)
+        textLabel.anchor(bottom: annotationView.bottomAnchor, paddingBottom: 40)
+        textLabel.centerX(inView: annotationView)
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -129,13 +141,13 @@ extension MapViewController: MKMapViewDelegate {
         let annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
         if annotation.coordinate == centerAnnotation?.coordinate {
             annotationView.markerTintColor = .systemRed
+            addTextLabel(annotationView)
         } else if annotation.coordinate == locationManager.location?.coordinate {
             annotationView.markerTintColor = .systemGray
         } else {
             annotationView.markerTintColor = .systemBlue
         }
-        //annotationView.markerTintColor = .blue
-        
+
         return annotationView
     }
     
