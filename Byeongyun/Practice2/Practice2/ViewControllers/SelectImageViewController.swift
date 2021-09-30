@@ -25,14 +25,7 @@ class SelectImageViewController: UIViewController {
             select = setting
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        let index = IndexPath(row: select, section: 0)
-        DispatchQueue.main.async {
-            self.detailCollectionView.selectItem(at: index, animated: false, scrollPosition: .left)
-        }
-    }
-    
+        
     private let detailCollectionView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -57,6 +50,20 @@ class SelectImageViewController: UIViewController {
         settingUI()
     }
     
+    private var viewController = MainViewController()
+    private let index: Int
+    
+    init(viewController: MainViewController, index: Int) {
+        self.viewController = viewController
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     func settingCollectionView() {
         detailCollectionView.register(DetaillmageCollectionViewCell.self, forCellWithReuseIdentifier: DetaillmageCollectionViewCell.cellId)
         detailCollectionView.delegate = self
@@ -76,6 +83,9 @@ class SelectImageViewController: UIViewController {
         detailCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         self.view.bringSubviewToFront(cancelButton)
+        
+        self.detailCollectionView.layoutIfNeeded()
+        self.detailCollectionView.scrollToItem(at: IndexPath(item: self.index, section: 0), at: .centeredHorizontally, animated: false)
     }
 }
 
@@ -96,4 +106,6 @@ extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
+    
+    
 }
