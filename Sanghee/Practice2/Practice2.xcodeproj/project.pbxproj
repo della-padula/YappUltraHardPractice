@@ -13,6 +13,10 @@
 		5EA55FD32705CFA6006A0622 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA55FD22705CFA6006A0622 /* MapViewController.swift */; };
 		5EA55FDB2705DA93006A0622 /* PrintFn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA55FDA2705DA93006A0622 /* PrintFn.swift */; };
 		5EA55FDD2705DA9B006A0622 /* UIView+anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA55FDC2705DA9B006A0622 /* UIView+anchor.swift */; };
+		5EA560052705DEEC006A0622 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA560042705DEEC006A0622 /* OpenGLES.framework */; };
+		5EA560072705DEF3006A0622 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA560062705DEF3006A0622 /* SystemConfiguration.framework */; };
+		5EA560092705DEF9006A0622 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA560082705DEF9006A0622 /* CoreLocation.framework */; };
+		5EA5600B2705DEFE006A0622 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA5600A2705DEFE006A0622 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,13 @@
 		5EA55FD22705CFA6006A0622 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5EA55FDA2705DA93006A0622 /* PrintFn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintFn.swift; sourceTree = "<group>"; };
 		5EA55FDC2705DA9B006A0622 /* UIView+anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+anchor.swift"; sourceTree = "<group>"; };
+		5EA560042705DEEC006A0622 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		5EA560062705DEF3006A0622 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5EA560082705DEF9006A0622 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5EA5600A2705DEFE006A0622 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5EA5600C2705DF04006A0622 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		5EA5600D2705DF09006A0622 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		5EA5600E2705DF0F006A0622 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +42,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EA5600B2705DEFE006A0622 /* QuartzCore.framework in Frameworks */,
+				5EA560092705DEF9006A0622 /* CoreLocation.framework in Frameworks */,
+				5EA560072705DEF3006A0622 /* SystemConfiguration.framework in Frameworks */,
+				5EA560052705DEEC006A0622 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +57,7 @@
 			children = (
 				5EA55FBD2705CF4A006A0622 /* Practice2 */,
 				5EA55FBC2705CF4A006A0622 /* Products */,
+				5EA560032705DEEC006A0622 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,7 +72,7 @@
 		5EA55FBD2705CF4A006A0622 /* Practice2 */ = {
 			isa = PBXGroup;
 			children = (
-				5EA55FD72705DA40006A0622 /* Model */,
+				5EA560022705DEDD006A0622 /* Model */,
 				5EA55FD82705DA45006A0622 /* ViewController */,
 				5EA55FD62705DA36006A0622 /* Extension */,
 				5EA55FD92705DA77006A0622 /* Function */,
@@ -76,13 +92,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		5EA55FD72705DA40006A0622 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		5EA55FD82705DA45006A0622 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +106,27 @@
 				5EA55FDA2705DA93006A0622 /* PrintFn.swift */,
 			);
 			path = Function;
+			sourceTree = "<group>";
+		};
+		5EA560022705DEDD006A0622 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5EA560032705DEEC006A0622 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5EA5600E2705DF0F006A0622 /* libsqlite3.tbd */,
+				5EA5600D2705DF09006A0622 /* libxml2.tbd */,
+				5EA5600C2705DF04006A0622 /* libc++.tbd */,
+				5EA5600A2705DEFE006A0622 /* QuartzCore.framework */,
+				5EA560082705DEF9006A0622 /* CoreLocation.framework */,
+				5EA560062705DEF3006A0622 /* SystemConfiguration.framework */,
+				5EA560042705DEEC006A0622 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
