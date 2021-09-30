@@ -48,11 +48,27 @@ class MapViewController: UIViewController {
     }
     
     private func addLongGesture() {
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(addCoordinate))
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(getCoordinate))
         view.addGestureRecognizer(longGesture)
     }
     
-    private func showAlert() {
+    @objc
+    private func getCoordinate(_ longGesture: UILongPressGestureRecognizer) {
+        let touchPoint = longGesture.location(in: mapView)
+        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        addAnnotation(coordinate)
+    }
+    
+    private func addAnnotation(_ coordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        
+        if annotations.count < 11 && !annotations.contains(annotation) {
+            annotations.append(annotation)
+        }
+    }
+    
+    private func showAlert(_ func: () -> Void) {
         let alert = UIAlertController(title: "위치 추가", message: "위치를 추가하시겠습니까?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
             print("예")
@@ -62,18 +78,6 @@ class MapViewController: UIViewController {
         alert.addAction(okAction)
         alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
-    }
-    
-    @objc
-    private func addCoordinate(_ longGesture: UILongPressGestureRecognizer) {
-        let touchPoint = longGesture.location(in: mapView)
-        let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        
-        if annotations.count < 11 && !annotations.contains(annotation) {
-            annotations.append(annotation)
-        }
     }
     
     private func showAnnotations() {
