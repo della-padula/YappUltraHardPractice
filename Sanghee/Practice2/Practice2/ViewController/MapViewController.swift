@@ -8,7 +8,7 @@
 import MapKit
 import UIKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController {
     private let locationManager = LocationManager.shared
     private var coordinates: [CLLocationCoordinate2D] = [] {
         didSet {
@@ -67,8 +67,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private func showAnnotations() {
         for coordinate in coordinates {
             let annotation = MKPointAnnotation()
+            annotation.title = "제목"
             annotation.coordinate = coordinate
             mapView.addAnnotation(annotation)
         }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let identifier = "LocationMark"
+        let view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        view.image = UIImage(systemName: "pin.circle.fill")
+        return view
     }
 }
