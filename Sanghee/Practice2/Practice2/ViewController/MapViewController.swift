@@ -108,14 +108,8 @@ extension MapViewController: MKMapViewDelegate {
         let identifier = "LocationMark"
         let view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         
-        if annotation.coordinate == locationManager.location?.coordinate {
-            view.image = UIImage(systemName: "figure.stand")
-        } else if annotation.coordinate == centerAnnotation?.coordinate {
-            view.image = UIImage(systemName: "pin.fill")
-        } else {
-            view.image = UIImage(systemName: "pin")
-        }
-        
+        view.image = UIImage(systemName: annotationManager.getImageSystemName(annotation.coordinate, centerAnnotation ?? MKPointAnnotation()))
+
         return view
     }
     
