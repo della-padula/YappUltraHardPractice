@@ -32,7 +32,7 @@ class DetaillmageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func settingUI() {
+    private func settingUI() {
         contentView.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -57,7 +57,6 @@ extension DetaillmageCollectionViewCell: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        
         if scrollView.zoomScale > 0.1 {
             if let image = imageViewer.image {
                 let ratioW = imageViewer.frame.width / image.size.width

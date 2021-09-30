@@ -29,7 +29,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func settingUI() {
+    private func settingUI() {
         contentView.addSubview(imageViewer)
         imageViewer.translatesAutoresizingMaskIntoConstraints = false
         imageViewer.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true

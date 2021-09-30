@@ -70,13 +70,13 @@ class SelectImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func settingCollectionView() {
+    private func settingCollectionView() {
         detailCollectionView.register(DetaillmageCollectionViewCell.self, forCellWithReuseIdentifier: DetaillmageCollectionViewCell.cellId)
         detailCollectionView.delegate = self
         detailCollectionView.dataSource = self
     }
     
-    func settingUI() {
+    private func settingUI() {
         view.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true

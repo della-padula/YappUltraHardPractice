@@ -105,7 +105,6 @@ extension MainViewController: PHPickerViewControllerDelegate {
                         guard let image = image as? UIImage else { return }
                         imageArray.append(image)
                         self.imageCollectionView.reloadData()
-                        print(imageArray)
                     }
                 }
             }
