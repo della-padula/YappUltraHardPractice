@@ -36,7 +36,6 @@ class GameViewController: UIViewController {
         label.text = "02:00:00"
         return label
     }()
-    var timerLabelInGameVC = timerLabel
     
     private let selectNumberLabel: UILabel = {
         let label = UILabel()
@@ -93,6 +92,7 @@ class GameViewController: UIViewController {
         TimerManager.createTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(move), name: .timesUp, object: nil)
         settingLayout()
+        
     }
     
     @objc
@@ -172,7 +172,7 @@ class GameViewController: UIViewController {
     
     private func setText() {
         waitCountLabel.text = "3"
-        timerLabelInGameVC.text = "02:00:00"
+        GameViewController.timerLabel.text = "02:00:00"
         selectNumberLabel.text = "준비"
         wrongCountLabel.text = "틀린 횟수 : 0"
     }
@@ -189,8 +189,8 @@ class GameViewController: UIViewController {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.1)
             $0.centerX.equalToSuperview().offset(UIScreen.main.bounds.width * -0.2)
         }
-        view.addSubview(timerLabelInGameVC)
-        timerLabelInGameVC.snp.makeConstraints {
+        view.addSubview(GameViewController.timerLabel)
+        GameViewController.timerLabel.snp.makeConstraints {
             $0.leading.equalTo(timeLabel.snp.trailing).offset(20)
             $0.top.equalTo(timeLabel.snp.top)
         }

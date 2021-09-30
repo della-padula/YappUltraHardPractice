@@ -89,11 +89,7 @@ class ResultViewController: UIViewController {
     }
     
     private func setLabelUI(){
-        view.addSubview(resultTitleLabel)
-        view.addSubview(resultScoreLabel)
-        view.addSubview(firstTryCountLabel)
-        view.addSubview(secondTryCountLabel)
-        view.addSubview(failCountLabel)
+        [resultTitleLabel, resultScoreLabel, firstTryCountLabel, secondTryCountLabel, failCountLabel].forEach { view.addSubview($0) }
         
         resultTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(120)
