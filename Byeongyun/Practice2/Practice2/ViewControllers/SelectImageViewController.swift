@@ -28,7 +28,9 @@ class SelectImageViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         let index = IndexPath(row: select, section: 0)
-        detailCollectionView.selectItem(at: index, animated: false, scrollPosition: .centeredHorizontally)
+        DispatchQueue.main.async {
+            self.detailCollectionView.selectItem(at: index, animated: false, scrollPosition: .left)
+        }
     }
     
     private let detailCollectionView: UICollectionView = {
@@ -94,5 +96,4 @@ extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
-    
 }
