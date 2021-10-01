@@ -127,7 +127,7 @@ class MapViewController: UIViewController {
         let textLabel = UILabel()
 
         textLabel.textAlignment = .center
-        textLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        textLabel.font = UIFont.boldSystemFont(ofSize: 12)
         textLabel.text = "중앙 위치"
 
         annotationView.addSubview(textLabel)
@@ -141,7 +141,9 @@ extension MapViewController: MKMapViewDelegate {
         let annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
         switch annotation.coordinate {
         case mapView.userLocation.coordinate: annotationView.markerTintColor = .systemGray
-        case centerAnnotation?.coordinate: annotationView.markerTintColor = .systemRed
+        case centerAnnotation?.coordinate:
+            annotationView.markerTintColor = .systemRed
+            addTextLabel(annotationView)
         default: annotationView.markerTintColor = .systemBlue
         }
 
