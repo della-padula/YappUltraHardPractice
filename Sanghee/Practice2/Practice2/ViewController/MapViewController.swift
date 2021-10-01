@@ -140,7 +140,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
         switch annotation.coordinate {
-        case locationManager.location?.coordinate: annotationView.markerTintColor = .systemGray
+        case mapView.userLocation.coordinate: annotationView.markerTintColor = .systemGray
         case centerAnnotation?.coordinate: annotationView.markerTintColor = .systemRed
         default: annotationView.markerTintColor = .systemBlue
         }
@@ -155,7 +155,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation {
-            if annotation.coordinate == locationManager.location?.coordinate || annotation.coordinate == centerAnnotation?.coordinate { return }
+            if annotation.coordinate == mapView.userLocation.coordinate || annotation.coordinate == centerAnnotation?.coordinate { return }
             let alert = UIAlertController(title: "위치 삭제", message: "위치를 삭제하시겠습니까?", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
                 self.annotations = self.annotations.filter({ $0.coordinate != view.annotation?.coordinate })
