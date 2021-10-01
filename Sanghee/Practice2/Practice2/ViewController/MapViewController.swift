@@ -107,7 +107,7 @@ class MapViewController: UIViewController {
     private func zoomMapView() {
         if annotations.count < 2 { return }
         var zoomRect: MKMapRect = MKMapRect.null
-        let space: Double = 30
+        let space: CGFloat = 50
 
         for annotation in annotations {
             let point = MKMapPoint(annotation.coordinate)
@@ -128,7 +128,6 @@ class MapViewController: UIViewController {
         textLabel.textAlignment = .center
         textLabel.font = UIFont.boldSystemFont(ofSize: 16)
         textLabel.text = "중앙 위치"
-        textLabel.backgroundColor = .white
 
         annotationView.addSubview(textLabel)
         textLabel.anchor(bottom: annotationView.bottomAnchor, paddingBottom: 40)
