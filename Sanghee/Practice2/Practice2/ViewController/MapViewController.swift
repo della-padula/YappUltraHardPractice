@@ -47,7 +47,8 @@ class MapViewController: UIViewController {
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: CustomAnnotationView.identifier)
         
         view.addSubview(mapView)
-        mapView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        mapView.anchor(width: view.bounds.width, height: view.bounds.height)
+        mapView.center(inView: view)
     }
     
     private func addLongGesture() {
@@ -138,13 +139,10 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: CustomAnnotationView.identifier)
-        if annotation.coordinate == centerAnnotation?.coordinate {
-            annotationView.markerTintColor = .systemRed
-            addTextLabel(annotationView)
-        } else if annotation.coordinate == locationManager.location?.coordinate {
-            annotationView.markerTintColor = .systemGray
-        } else {
-            annotationView.markerTintColor = .systemBlue
+        switch annotation.coordinate {
+        case locationManager.location?.coordinate: annotationView.markerTintColor = .systemGray
+        case centerAnnotation?.coordinate: annotationView.markerTintColor = .systemRed
+        default: annotationView.markerTintColor = .systemBlue
         }
 
         return annotationView
@@ -157,6 +155,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation {
+            if annotation.coordinate == locationManager.location?.coordinate || annotation.coordinate == centerAnnotation?.coordinate { return }
             let alert = UIAlertController(title: "위치 삭제", message: "위치를 삭제하시겠습니까?", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
                 self.annotations = self.annotations.filter({ $0.coordinate != view.annotation?.coordinate })
