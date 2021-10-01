@@ -221,8 +221,9 @@ class TimerViewController: UIViewController {
             $0.centerX.equalToSuperview()
         }
         handView.snp.makeConstraints {
+            $0.centerY.equalToSuperview().offset(-200)
             $0.centerX.equalToSuperview()
-            $0.height.equalToSuperview()
+            $0.height.equalTo(UIScreen.main.bounds.height / 2)
             $0.width.equalToSuperview()
             $0.trailing.equalToSuperview()
         }
@@ -269,9 +270,9 @@ class TimerViewController: UIViewController {
         runCount += 1
         timerLabel.text = self.makeTimeLabel(count: runCount)
 //        let minuteAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(minuite) / 60))
-        let secondAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(second) / 60 / 10))
+        let secondAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(second) / 60))
 
-        ClockHand.animate(withDuration: 0) {
+        ClockHand.animate(withDuration: 2) {
             self.handView.transform = secondAngle
             
         }
