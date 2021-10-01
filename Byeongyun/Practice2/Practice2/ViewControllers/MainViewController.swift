@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     private var itemProviders: [NSItemProvider] = []
     private var iterator: IndexingIterator<[NSItemProvider]>?
     private var sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    
     private let mainTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 30)
@@ -75,7 +76,7 @@ class MainViewController: UIViewController {
         
         view.addSubview(selectButton)
         selectButton.translatesAutoresizingMaskIntoConstraints = false
-        selectButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive = true
+        selectButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
         selectButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         selectButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
         
@@ -83,11 +84,11 @@ class MainViewController: UIViewController {
         imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
         imageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         imageCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        imageCollectionView.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 150).isActive = true
-        imageCollectionView.bottomAnchor.constraint(equalTo: selectButton.topAnchor, constant: -150).isActive = true
+        imageCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        imageCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        imageCollectionView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
     }
-
 }
 
 
