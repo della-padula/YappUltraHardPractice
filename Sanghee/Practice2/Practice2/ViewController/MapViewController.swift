@@ -11,6 +11,8 @@ import UIKit
 class MapViewController: UIViewController {
     private let locationManager = LocationManager.shared
     private let annotationManager = AnnotationManager.shared
+    private let mapView = MKMapView()
+    
     private var annotations: [MKPointAnnotation] = [] {
         didSet {
             showAnnotations()
@@ -26,7 +28,6 @@ class MapViewController: UIViewController {
         }
     }
     
-    private let mapView = MKMapView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +109,7 @@ class MapViewController: UIViewController {
         guard annotations.count > 1 else { return }
         
         var zoomRect: MKMapRect = MKMapRect.null
-        let space: CGFloat = 50
+        let padding: CGFloat = 50
 
         for annotation in annotations {
             let point = MKMapPoint(annotation.coordinate)
@@ -117,7 +118,7 @@ class MapViewController: UIViewController {
             zoomRect = zoomRect.isNull ? rect : zoomRect.union(rect)
         }
         
-        mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: space, left: space, bottom: space, right: space), animated: true)
+        mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding), animated: true)
     }
     
     private func addTextLabel(_ annotationView: MKAnnotationView) {
