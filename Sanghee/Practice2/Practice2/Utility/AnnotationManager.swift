@@ -11,7 +11,7 @@ import UIKit
 class AnnotationManager {
     static let shared = AnnotationManager()
     
-    private init() { }
+    private init() {}
 
     func getCenterCoordinate(_ annotations: [MKAnnotation]) -> CLLocationCoordinate2D {
         let count = Double(annotations.count)
@@ -20,13 +20,5 @@ class AnnotationManager {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         
         return coordinate
-    }
-    
-    func getImageSystemName(_ coordinate: CLLocationCoordinate2D, _ centerAnnotation: MKPointAnnotation) -> String {
-        switch coordinate {
-        case LocationManager.shared.location?.coordinate: return "figure.stand"
-        case centerAnnotation.coordinate: return "pin.fill"
-        default: return "pin"
-        }
     }
 }

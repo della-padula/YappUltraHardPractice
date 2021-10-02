@@ -87,8 +87,7 @@ class MapViewController: UIViewController {
     }
     
     private func addCenterAnnotation() {
-        let count = Double(annotations.count)
-        if count < 2 {
+        guard annotations.count > 2 else {
             centerAnnotation = nil
             return
         }
