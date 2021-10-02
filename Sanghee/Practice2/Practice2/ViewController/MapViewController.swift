@@ -47,8 +47,7 @@ class MapViewController: UIViewController {
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: CustomAnnotationView.identifier)
         
         view.addSubview(mapView)
-        mapView.anchor(width: view.bounds.width, height: view.bounds.height)
-        mapView.center(inView: view)
+        mapView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
     }
     
     private func addLongGesture() {
