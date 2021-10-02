@@ -28,7 +28,6 @@ class MapViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -69,21 +68,7 @@ class MapViewController: UIViewController {
         annotation.coordinate = coordinate
         
         if annotations.count < 11 && !annotations.contains(annotation) {
-            let alert = UIAlertController(title: "위치 추가", message: "위치를 추가하시겠습니까?", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
-                self.annotations.append(annotation)
-            }
-            let noAction = UIAlertAction(title: "아니요", style: .cancel)
-
-            alert.addAction(okAction)
-            alert.addAction(noAction)
-            present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    private func showAnnotations() {
-        for annotation in annotations {
-            mapView.addAnnotation(annotation)
+            showAlert(annotation: annotation, isForAdding: true)
         }
     }
     
@@ -98,6 +83,12 @@ class MapViewController: UIViewController {
         centerAnnotation = annotation
         if let centerAnnotation = centerAnnotation {
             mapView.addAnnotation(centerAnnotation)
+        }
+    }
+    
+    private func showAnnotations() {
+        for annotation in annotations {
+            mapView.addAnnotation(annotation)
         }
     }
     
@@ -132,6 +123,26 @@ class MapViewController: UIViewController {
         textLabel.anchor(bottom: annotationView.bottomAnchor, paddingBottom: 40)
         textLabel.centerX(inView: annotationView)
     }
+    
+    private func showAlert(annotation: MKPointAnnotation, isForAdding: Bool) {
+        let alert = UIAlertController(title: isForAdding ? "위치 추가" : "위치 삭제",
+                                      message: isForAdding ? "위치를 추가하시겠습니까?" : "위치를 삭제하시겠습니까?",
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
+            if isForAdding {
+                self.annotations.append(annotation)
+            } else {
+                self.annotations = self.annotations.filter({ $0 != annotation })
+                self.deleteAnnotation(annotation)
+            }
+            
+        }
+        let noAction = UIAlertAction(title: "아니요", style: .cancel)
+
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -154,18 +165,11 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let annotation = view.annotation {
-            if annotation.coordinate == mapView.userLocation.coordinate || annotation.coordinate == centerAnnotation?.coordinate { return }
-            let alert = UIAlertController(title: "위치 삭제", message: "위치를 삭제하시겠습니까?", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "예", style: .destructive) { _ in
-                self.annotations = self.annotations.filter({ $0.coordinate != view.annotation?.coordinate })
-                self.deleteAnnotation(annotation)
-            }
-            let noAction = UIAlertAction(title: "아니요", style: .cancel)
+        if let annotationView = view.annotation {
+            guard annotations.map({ $0.coordinate }).contains(annotationView.coordinate) else { return }
+            guard let annotation = annotations.filter({ $0.coordinate == annotationView.coordinate }).first else { return }
 
-            alert.addAction(okAction)
-            alert.addAction(noAction)
-            present(alert, animated: true, completion: nil)
+            showAlert(annotation: annotation, isForAdding: false)
         }
     }
 }
