@@ -74,7 +74,6 @@
 		5EA55FBD2705CF4A006A0622 /* Practice2 */ = {
 			isa = PBXGroup;
 			children = (
-				5EA560022705DEDD006A0622 /* Model */,
 				5E35110F270663A200906128 /* View */,
 				5EA55FD82705DA45006A0622 /* ViewController */,
 				5EA5624327060025006A0622 /* Utility */,
@@ -112,13 +111,6 @@
 				5EA55FDA2705DA93006A0622 /* PrintFn.swift */,
 			);
 			path = Function;
-			sourceTree = "<group>";
-		};
-		5EA560022705DEDD006A0622 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		5EA5624327060025006A0622 /* Utility */ = {
