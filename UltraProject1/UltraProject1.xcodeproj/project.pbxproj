@@ -9,10 +9,21 @@
 /* Begin PBXBuildFile section */
 		4211F83F10C038BD7D283051 /* Pods_UltraProject1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */; };
 		56800BCB268B1085B891DB3C /* Pods_UltraProject1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E125606C2E51BE8946684D19 /* Pods_UltraProject1.framework */; };
-		5EB467982701AD2E00096AC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467972701AD2E00096AC6 /* LoginViewController.swift */; };
-		5EB467A32701B91200096AC6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A22701B91200096AC6 /* UIColor.swift */; };
-		5EB467A52701BCE500096AC6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A42701BCE500096AC6 /* MainViewController.swift */; };
-		5EB467A72701C2D000096AC6 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A62701C2D000096AC6 /* RecordViewController.swift */; };
+		5EB467A12701B55200096AC6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A02701B55200096AC6 /* LoginViewController.swift */; };
+		5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467A82701EF7800096AC6 /* MainViewController.swift */; };
+		5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AA2701EF9200096AC6 /* RecordViewController.swift */; };
+		5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467AE2701EFD400096AC6 /* UIColor.swift */; };
+		5EB467C42702C28D00096AC6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C22702C28D00096AC6 /* Model.xcdatamodeld */; };
+		5EB467C62702C33C00096AC6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C52702C33C00096AC6 /* CoreDataManager.swift */; };
+		5EB467C82702C52900096AC6 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467C72702C52900096AC6 /* Score.swift */; };
+		5EB467CB2702F24A00096AC6 /* PrintFn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467CA2702F24A00096AC6 /* PrintFn.swift */; };
+		5EB467CD2702F9E800096AC6 /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */; };
+		5EB467D52703655700096AC6 /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB467D42703655700096AC6 /* ScoreTableViewCell.swift */; };
+		959BD7262703530200D4CEB3 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959BD7252703530200D4CEB3 /* TimerManager.swift */; };
+		959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959DC6772701B88B005C6C7A /* ResultViewController.swift */; };
+		A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BB2701B97500C723F9 /* GameViewController.swift */; };
+		A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */; };
+		A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87D70BF2701C5C200C723F9 /* Numbers.swift */; };
 		B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D557D8270197BC00143B0E /* AppDelegate.swift */; };
 		B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0D557E1270197BC00143B0E /* UltraProject1.xcdatamodeld */; };
 		B0D557E5270197BD00143B0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D557E4270197BD00143B0E /* Assets.xcassets */; };
@@ -42,15 +53,26 @@
 /* Begin PBXFileReference section */
 		3DE69499A89F5AFE53D86E38 /* Pods_UltraProject1Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56139497094E3E3E42D81623 /* Pods-UltraProject1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.release.xcconfig"; sourceTree = "<group>"; };
-		5EB467972701AD2E00096AC6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		5EB467A22701B91200096AC6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		5EB467A42701BCE500096AC6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		5EB467A62701C2D000096AC6 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		5EB467A02701B55200096AC6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5EB467A82701EF7800096AC6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5EB467AA2701EF9200096AC6 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		5EB467AE2701EFD400096AC6 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = UltraProject1/Extensions/UIColor.swift; sourceTree = SOURCE_ROOT; };
+		5EB467C32702C28D00096AC6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		5EB467C52702C33C00096AC6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = UltraProject1/Functions/CoreDataManager.swift; sourceTree = SOURCE_ROOT; };
+		5EB467C72702C52900096AC6 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Score.swift; path = UltraProject1/Models/Score.swift; sourceTree = SOURCE_ROOT; };
+		5EB467CA2702F24A00096AC6 /* PrintFn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintFn.swift; sourceTree = "<group>"; };
+		5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
+		5EB467D42703655700096AC6 /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTableViewCell.swift; sourceTree = "<group>"; };
 		79CA3AD89B0763D055449BB2 /* Pods-UltraProject1-UltraProject1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1-UltraProject1UITests/Pods-UltraProject1-UltraProject1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		837C2F6EBFCF36ECA28B79D5 /* Pods-UltraProject1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.release.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.release.xcconfig"; sourceTree = "<group>"; };
 		90ED58B1FC1CD07258D61664 /* Pods-UltraProject1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1/Pods-UltraProject1.debug.xcconfig"; sourceTree = "<group>"; };
+		959BD7252703530200D4CEB3 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
+		959DC6772701B88B005C6C7A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		9A24A64A83D62F6DF40506B1 /* Pods_UltraProject1_UltraProject1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraProject1_UltraProject1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7AE0C2FB73124A931484E2 /* Pods-UltraProject1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UltraProject1Tests.debug.xcconfig"; path = "Target Support Files/Pods-UltraProject1Tests/Pods-UltraProject1Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		A87D70BB2701B97500C723F9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameCollectionViewCell.swift; path = UltraProject1/Cells/GameCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		A87D70BF2701C5C200C723F9 /* Numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Numbers.swift; path = UltraProject1/Models/Numbers.swift; sourceTree = SOURCE_ROOT; };
 		B0D557D5270197BC00143B0E /* UltraProject1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltraProject1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0D557D8270197BC00143B0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0D557E2270197BC00143B0E /* UltraProject1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UltraProject1.xcdatamodel; sourceTree = "<group>"; };
@@ -95,41 +117,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5EB467922701AC2000096AC6 /* Functions */ = {
+		5EB4679B2701B4F600096AC6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Functions;
-			sourceTree = "<group>";
-		};
-		5EB467932701AC3300096AC6 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				5EB467972701AD2E00096AC6 /* LoginViewController.swift */,
-				5EB467A42701BCE500096AC6 /* MainViewController.swift */,
-				5EB467A62701C2D000096AC6 /* RecordViewController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		5EB467942701AC3900096AC6 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		5EB467952701AC7300096AC6 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
+				A87D70BD2701C50900C723F9 /* GameCollectionViewCell.swift */,
+				5EB467D42703655700096AC6 /* ScoreTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		5EB467962701ACBB00096AC6 /* Extensions */ = {
+		5EB4679C2701B4FB00096AC6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5EB467A22701B91200096AC6 /* UIColor.swift */,
+				A87D70BF2701C5C200C723F9 /* Numbers.swift */,
+				5EB467C72702C52900096AC6 /* Score.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5EB4679D2701B50800096AC6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5EB467A02701B55200096AC6 /* LoginViewController.swift */,
+				5EB467A82701EF7800096AC6 /* MainViewController.swift */,
+				A87D70BB2701B97500C723F9 /* GameViewController.swift */,
+				959DC6772701B88B005C6C7A /* ResultViewController.swift */,
+				5EB467AA2701EF9200096AC6 /* RecordViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5EB4679E2701B51300096AC6 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				5EB467C52702C33C00096AC6 /* CoreDataManager.swift */,
+				5EB467CA2702F24A00096AC6 /* PrintFn.swift */,
+				5EB467CC2702F9E800096AC6 /* KakaoAuthManager.swift */,
+				959BD7252703530200D4CEB3 /* TimerManager.swift */,
+			);
+			path = Functions;
+			sourceTree = "<group>";
+		};
+		5EB4679F2701B52100096AC6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5EB467AE2701EFD400096AC6 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -169,11 +201,12 @@
 		B0D557D7270197BC00143B0E /* UltraProject1 */ = {
 			isa = PBXGroup;
 			children = (
-				5EB467942701AC3900096AC6 /* Models */,
-				5EB467952701AC7300096AC6 /* Cells */,
-				5EB467932701AC3300096AC6 /* ViewControllers */,
-				5EB467922701AC2000096AC6 /* Functions */,
-				5EB467962701ACBB00096AC6 /* Extensions */,
+				5EB4679C2701B4FB00096AC6 /* Models */,
+				5EB4679B2701B4F600096AC6 /* Cells */,
+				5EB4679D2701B50800096AC6 /* ViewControllers */,
+				5EB4679E2701B51300096AC6 /* Functions */,
+				5EB4679F2701B52100096AC6 /* Extensions */,
+				5EB467C22702C28D00096AC6 /* Model.xcdatamodeld */,
 				B0D557D8270197BC00143B0E /* AppDelegate.swift */,
 				B0D557E4270197BD00143B0E /* Assets.xcassets */,
 				B0D557E6270197BD00143B0E /* LaunchScreen.storyboard */,
@@ -451,12 +484,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EB467982701AD2E00096AC6 /* LoginViewController.swift in Sources */,
-				5EB467A32701B91200096AC6 /* UIColor.swift in Sources */,
+				A87D70BC2701B97500C723F9 /* GameViewController.swift in Sources */,
+				A87D70BE2701C50900C723F9 /* GameCollectionViewCell.swift in Sources */,
+				A87D70C02701C5C200C723F9 /* Numbers.swift in Sources */,
+				5EB467C82702C52900096AC6 /* Score.swift in Sources */,
+				5EB467AB2701EF9200096AC6 /* RecordViewController.swift in Sources */,
+				5EB467A12701B55200096AC6 /* LoginViewController.swift in Sources */,
+				5EB467D52703655700096AC6 /* ScoreTableViewCell.swift in Sources */,
+				5EB467CD2702F9E800096AC6 /* KakaoAuthManager.swift in Sources */,
 				B0D557D9270197BC00143B0E /* AppDelegate.swift in Sources */,
-				5EB467A72701C2D000096AC6 /* RecordViewController.swift in Sources */,
+				5EB467C62702C33C00096AC6 /* CoreDataManager.swift in Sources */,
+				959BD7262703530200D4CEB3 /* TimerManager.swift in Sources */,
 				B0D557E3270197BC00143B0E /* UltraProject1.xcdatamodeld in Sources */,
-				5EB467A52701BCE500096AC6 /* MainViewController.swift in Sources */,
+				5EB467CB2702F24A00096AC6 /* PrintFn.swift in Sources */,
+				959DC6782701B88B005C6C7A /* ResultViewController.swift in Sources */,
+				5EB467A92701EF7800096AC6 /* MainViewController.swift in Sources */,
+				5EB467C42702C28D00096AC6 /* Model.xcdatamodeld in Sources */,
+				5EB467AF2701EFD400096AC6 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,6 +833,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		5EB467C22702C28D00096AC6 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5EB467C32702C28D00096AC6 /* Model.xcdatamodel */,
+			);
+			currentVersion = 5EB467C32702C28D00096AC6 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B0D557E1270197BC00143B0E /* UltraProject1.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

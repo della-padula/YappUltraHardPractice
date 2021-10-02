@@ -5,43 +5,46 @@
 //  Created by denny on 2021/09/27.
 //
 
-import UIKit
 import CoreData
+import KakaoSDKAuth
+import KakaoSDKCommon
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        initKakaoSDK()
+        
+        let isLoggedIn = KakaoAuthManager.shared.getIsLoggedIn()
+        let loginVC = LoginViewController()
+        let mainVC = MainViewController()
+        let navC = UINavigationController(rootViewController: isLoggedIn ? mainVC : loginVC)
+
         window = UIWindow()
-        window?.rootViewController = LoginViewController()
+        window?.rootViewController = navC
         window?.makeKeyAndVisible()
         return true
     }
-
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "UltraProject1")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+    
+    private func initKakaoSDK() {
+        if let infoDic: [String: Any] = Bundle.main.infoDictionary {
+            if let info = infoDic["CFBundleURLTypes"] as? [Any],
+               let dic = info[0] as? NSDictionary,
+               let key = dic.value(forKey: "CFBundleURLSchemes") as? [String] {
+                let str = key[0]
+                let startIdx: String.Index = str.index(str.startIndex, offsetBy: 5)
+                KakaoSDKCommon.initSDK(appKey: String(str[startIdx...]))
             }
         }
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+            return AuthController.handleOpenUrl(url: url)
+        }
+        return false
+    }
 }
+
