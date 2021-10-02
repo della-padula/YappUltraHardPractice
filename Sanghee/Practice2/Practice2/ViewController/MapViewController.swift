@@ -87,7 +87,7 @@ class MapViewController: UIViewController {
     }
     
     private func addCenterAnnotation() {
-        guard annotations.count > 2 else {
+        guard annotations.count > 1 else {
             centerAnnotation = nil
             return
         }
@@ -105,18 +105,16 @@ class MapViewController: UIViewController {
     }
     
     private func zoomMapView() {
-        if annotations.count < 2 { return }
+        guard annotations.count > 1 else { return }
+        
         var zoomRect: MKMapRect = MKMapRect.null
         let space: CGFloat = 50
 
         for annotation in annotations {
             let point = MKMapPoint(annotation.coordinate)
             let rect = MKMapRect(x: point.x, y: point.y, width: 0.1, height: 0.1)
-            if zoomRect.isNull {
-                zoomRect = rect
-            } else {
-                zoomRect = zoomRect.union(rect)
-            }
+            
+            zoomRect = zoomRect.isNull ? rect : zoomRect.union(rect)
         }
         
         mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: space, left: space, bottom: space, right: space), animated: true)
