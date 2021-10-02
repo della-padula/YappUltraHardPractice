@@ -13,7 +13,6 @@ var imageArray: [UIImage] = []
 class MainViewController: UIViewController {
     
     private var itemProviders: [NSItemProvider] = []
-    private var iterator: IndexingIterator<[NSItemProvider]>?
     private var sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     
     private let mainTitle: UILabel = {
@@ -97,7 +96,7 @@ extension MainViewController: PHPickerViewControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
         
         itemProviders = results.map(\.itemProvider)
-        iterator = itemProviders.makeIterator()
+        
         for item in itemProviders {
             if item.canLoadObject(ofClass: UIImage.self) {
                 item.loadObject(ofClass: UIImage.self) { image, error in
@@ -119,7 +118,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.cellId, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
-        cell.settingImageView = imageArray[indexPath.row]
+        cell.mainCellImage = imageArray[indexPath.row]
         return cell
     }
     
@@ -130,7 +129,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 80, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width - 50, height: collectionView.frame.height)
     }
     
 }

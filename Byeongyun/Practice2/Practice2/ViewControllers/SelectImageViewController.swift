@@ -9,6 +9,7 @@ import UIKit
 
 class SelectImageViewController: UIViewController {
 
+    private let mainSelectIndex: Int
     private let cancelButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -17,7 +18,6 @@ class SelectImageViewController: UIViewController {
         return button
     }()
     
-    private var select: Int = 0
     private var imageIndexLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -26,13 +26,6 @@ class SelectImageViewController: UIViewController {
         
         return label
     }()
-    
-    var settingIndexPath: Int? {
-        didSet {
-            guard let setting = settingIndexPath else { return }
-            select = setting
-        }
-    }
     
     private let detailCollectionView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
@@ -57,10 +50,9 @@ class SelectImageViewController: UIViewController {
         settingCollectionView()
         settingUI()
     }
-    private let index: Int
     
     init(index: Int) {
-        self.index = index
+        mainSelectIndex = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -94,13 +86,11 @@ class SelectImageViewController: UIViewController {
         
         self.view.bringSubviewToFront(cancelButton)
         self.detailCollectionView.layoutIfNeeded()
-        self.detailCollectionView.scrollToItem(at: IndexPath(item: self.index, section: 0), at: .centeredHorizontally, animated: false)
-        
+        self.detailCollectionView.scrollToItem(at: IndexPath(item: self.mainSelectIndex, section: 0), at: .centeredHorizontally, animated: false)
     }
 }
 
 extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageArray.count
@@ -108,7 +98,7 @@ extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetaillmageCollectionViewCell.cellId, for: indexPath) as? DetaillmageCollectionViewCell else { return UICollectionViewCell() }
-        cell.settingImageView = imageArray[indexPath.row]
+        cell.detailCellImage = imageArray[indexPath.row]
         
         return cell
     }
@@ -119,11 +109,11 @@ extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let itemCell = cell as? DetaillmageCollectionViewCell {
-            itemCell.scrollView.setZoomScale(1.0, animated: true)
+            itemCell.scrollZoomSize = CGFloat(1.0)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        imageIndexLabel.text = "\(indexPath.row+1) / \(imageArray.count)"
+        imageIndexLabel.text = "\(indexPath.row + 1) / \(imageArray.count)"
     }
 }

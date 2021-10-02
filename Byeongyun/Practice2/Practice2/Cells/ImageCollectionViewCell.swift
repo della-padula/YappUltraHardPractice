@@ -9,13 +9,13 @@ import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     static let cellId = "ImageCell"
-    private let imageViewer = UIImageView()
+    private let imageView = UIImageView()
     private let scrollView = UIScrollView()
     
-    var settingImageView: UIImage? {
+    var mainCellImage: UIImage? {
         didSet {
-            guard let setting = settingImageView else { return }
-            imageViewer.image = setting
+            guard let setting = mainCellImage else { return }
+            imageView.image = setting
         }
     }
     
@@ -30,11 +30,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     private func settingUI() {
-        contentView.addSubview(imageViewer)
-        imageViewer.translatesAutoresizingMaskIntoConstraints = false
-        imageViewer.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        imageViewer.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        imageViewer.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        imageViewer.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        contentView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
 }

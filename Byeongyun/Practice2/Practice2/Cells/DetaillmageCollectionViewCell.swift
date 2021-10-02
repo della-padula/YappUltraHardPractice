@@ -9,14 +9,21 @@ import UIKit
 
 class DetaillmageCollectionViewCell: UICollectionViewCell {
     static let cellId = "DetailCell"
-    private let imageViewer = UIImageView()
-    let scrollView = UIScrollView()
+    private let imageView = UIImageView()
+    private let scrollView = UIScrollView()
     
-    var settingImageView: UIImage? {
+    var detailCellImage: UIImage? {
         didSet {
-            guard let setting = settingImageView else { return }
-            imageViewer.image = setting
-            imageViewer.contentMode = .scaleAspectFit
+            guard let setting = detailCellImage else { return }
+            imageView.image = setting
+            imageView.contentMode = .scaleAspectFit
+        }
+    }
+    
+    var scrollZoomSize: CGFloat? {
+        didSet {
+            guard let setting = scrollZoomSize else { return }
+            scrollView.setZoomScale(setting, animated: true)
         }
     }
     
@@ -40,32 +47,32 @@ class DetaillmageCollectionViewCell: UICollectionViewCell {
         scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
-        scrollView.addSubview(imageViewer)
-        imageViewer.translatesAutoresizingMaskIntoConstraints = false
-        imageViewer.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        imageViewer.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        imageViewer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        imageViewer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        imageViewer.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        scrollView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
     }
     
 }
 
 extension DetaillmageCollectionViewCell: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.imageViewer
+        return self.imageView
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         if scrollView.zoomScale > 0.1 {
-            if let image = imageViewer.image {
-                let ratioW = imageViewer.frame.width / image.size.width
-                let ratioH = imageViewer.frame.height / image.size.height
+            if let image = imageView.image {
+                let ratioW = imageView.frame.width / image.size.width
+                let ratioH = imageView.frame.height / image.size.height
                 let ratio = ratioW < ratioH ? ratioW:ratioH
                 let newWidth = image.size.width*ratio
                 let newHeight = image.size.height*ratio
-                let left = 0.5 * (newWidth * scrollView.zoomScale > imageViewer.frame.width ? (newWidth - imageViewer.frame.width) : (scrollView.frame.width - scrollView.contentSize.width))
-                let top = 0.5 * (newHeight * scrollView.zoomScale > imageViewer.frame.height ? (newHeight - imageViewer.frame.height) : (scrollView.frame.height - scrollView.contentSize.height))
+                let left = 0.5 * (newWidth * scrollView.zoomScale > imageView.frame.width ? (newWidth - imageView.frame.width) : (scrollView.frame.width - scrollView.contentSize.width))
+                let top = 0.5 * (newHeight * scrollView.zoomScale > imageView.frame.height ? (newHeight - imageView.frame.height) : (scrollView.frame.height - scrollView.contentSize.height))
                 
                 scrollView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
             }
