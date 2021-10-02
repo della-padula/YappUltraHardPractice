@@ -19,10 +19,10 @@ class GameCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    var settingLabel: Int? {
+    var number: Int? {
         didSet {
-            guard let setting = settingLabel else { return }
-            numberLabel.text = "\(setting)"
+            guard let number = number else { return }
+            numberLabel.text = "\(number)"
         }
     }
     

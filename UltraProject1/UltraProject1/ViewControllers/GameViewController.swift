@@ -86,7 +86,7 @@ class GameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(animated, animated: true)
         
         settingLayout()
     }
@@ -163,7 +163,7 @@ class GameViewController: UIViewController {
     
     private func gameOverCheck(_ count: Int, wrong: Int) {
         // 종료 조건 : 시간이 종료됐을 때
-        let resultViewController = ResultViewController()
+        let resultViewController = ResultViewController(afterGame: true)
         resultViewController.navigationController?.isNavigationBarHidden = true
         CoreDataManager.shared.insertGame(Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry)))
         resultViewController.data = Score(total: Int16(count), first: Int16(oneTry), second: Int16(twoTry), wrong: Int16(wrongTry))
@@ -172,8 +172,8 @@ class GameViewController: UIViewController {
     }
     
     private func setLabel() {
-        guard let randomNumber = numbers.randomElement() else { return }
-        self.randomNumber = randomNumber
+        guard let number = numbers.randomElement() else { return }
+        self.randomNumber = number
         selectNumberLabel.text = "\(randomNumber)"
         wrongCountLabel.text = "틀린 횟수 : \(wrongNumber)"
     }
@@ -210,8 +210,7 @@ class GameViewController: UIViewController {
         view.addSubview(numberCollectionView)
         numberCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.4)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
         view.addSubview(wrongCountLabel)
@@ -230,7 +229,7 @@ extension GameViewController: UICollectionViewDelegate,UICollectionViewDelegateF
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.cellId, for: indexPath) as? GameCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.settingLabel = numbers[indexPath.row]
+        cell.number = numbers[indexPath.row]
         return cell
     }
     

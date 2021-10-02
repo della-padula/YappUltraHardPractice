@@ -79,6 +79,17 @@ class ResultViewController: UIViewController {
         }
     }
     
+    init(afterGame: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        if (afterGame) {
+            setButtonUI()
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func isRecordVC() -> Bool {
         let viewControllers = navigationController?.viewControllers ?? []
         if let index = viewControllers.firstIndex(of: self) {
