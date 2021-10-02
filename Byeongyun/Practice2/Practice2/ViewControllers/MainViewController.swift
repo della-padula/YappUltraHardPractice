@@ -118,7 +118,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.cellId, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
-        cell.mainCellImage = imageArray[indexPath.row]
+        cell.imageView.image = imageArray[indexPath.row]
         return cell
     }
     

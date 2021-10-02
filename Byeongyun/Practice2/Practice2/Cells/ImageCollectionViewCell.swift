@@ -9,15 +9,8 @@ import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     static let cellId = "ImageCell"
-    private let imageView = UIImageView()
+    private(set) var imageView = UIImageView()
     private let scrollView = UIScrollView()
-    
-    var mainCellImage: UIImage? {
-        didSet {
-            guard let setting = mainCellImage else { return }
-            imageView.image = setting
-        }
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

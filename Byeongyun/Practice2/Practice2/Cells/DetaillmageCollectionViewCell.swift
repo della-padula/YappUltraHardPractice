@@ -9,16 +9,12 @@ import UIKit
 
 class DetaillmageCollectionViewCell: UICollectionViewCell {
     static let cellId = "DetailCell"
-    private let imageView = UIImageView()
     private let scrollView = UIScrollView()
-    
-    var detailCellImage: UIImage? {
-        didSet {
-            guard let setting = detailCellImage else { return }
-            imageView.image = setting
-            imageView.contentMode = .scaleAspectFit
-        }
-    }
+    private(set) var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
     var scrollZoomSize: CGFloat? {
         didSet {

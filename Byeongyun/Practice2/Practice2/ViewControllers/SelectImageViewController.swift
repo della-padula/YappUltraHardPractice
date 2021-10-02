@@ -98,7 +98,7 @@ extension SelectImageViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetaillmageCollectionViewCell.cellId, for: indexPath) as? DetaillmageCollectionViewCell else { return UICollectionViewCell() }
-        cell.detailCellImage = imageArray[indexPath.row]
+        cell.imageView.image = imageArray[indexPath.row]
         
         return cell
     }
