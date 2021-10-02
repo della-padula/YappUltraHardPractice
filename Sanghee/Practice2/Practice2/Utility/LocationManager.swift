@@ -9,12 +9,10 @@ import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
-    
     private var manager: CLLocationManager = CLLocationManager()
     
-    override init() {
+    private override init() {
         super.init()
-        
         manager.delegate = self
     }
 
