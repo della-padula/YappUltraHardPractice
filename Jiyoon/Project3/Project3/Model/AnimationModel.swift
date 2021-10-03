@@ -6,9 +6,3 @@
 //
 
 import Foundation
-//struct AnimationModel {
-//    let animation: UIStatusBarAnimation
-//}
-//extension AnimationModel{
-//    init(prefersHidden: Bool, animation: UIStatusBarAnimation)
-//}

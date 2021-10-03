@@ -10,31 +10,48 @@ import UIKit
 class HomeViewController: UIViewController {
     
     let transitionManager = CardTransitionManager()
-    let label = UILabel()
     
-    var cardTableView: UITableView = {
+    let cardTableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.register(CardCellController.self, forCellReuseIdentifier: CardCellController.cardIdentifier)
         return tableView
     }()
-    
-    var todayLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Today"
-        label.textColor = .black
-        return label
-    }()
+    private var todayLabel = UILabel()
+    private var dateLabel = UILabel()
+    private var profileImageButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setUpUI()
-        
     }
     
     func setUpUI() {
+        todayLabel = {
+            let label = UILabel()
+            label.text = "Today"
+            label.font = .boldSystemFont(ofSize: 30)
+            label.textColor = .black
+            return label
+        }()
+        dateLabel = {
+            let label = UILabel()
+            label.text = "SATURDAY 2 OCTOBER"
+            label.font = .systemFont(ofSize: 13)
+            label.textColor = .gray
+            return label
+        }()
+        profileImageButton = {
+            let button = UIButton()
+            let image = UIImage(systemName: "person.crop.circle")?.withTintColor(.blue)
+            button.setImage(image, for: .normal)
+            return button
+        }()
+        
         view.addSubview(cardTableView)
-        view.addSubview(label)
+        view.addSubview(todayLabel)
+        view.addSubview(dateLabel)
+        view.addSubview(profileImageButton)
         
         cardTableView.dataSource = self
         cardTableView.delegate = self
@@ -42,20 +59,30 @@ class HomeViewController: UIViewController {
         cardTableView.backgroundColor = .clear
         
         cardTableView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(100)
+            $0.top.equalToSuperview().offset(170)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(800)
             $0.width.equalTo(UIScreen.main.bounds.width * 0.9)
         }
-        label.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().offset(20)
+        todayLabel.snp.makeConstraints {
+            $0.bottom.equalTo(cardTableView.snp.top).offset(-15)
+            $0.leading.equalTo(cardTableView)
+        }
+        dateLabel.snp.makeConstraints {
+            $0.bottom.equalTo(todayLabel.snp.top).offset(-10)
+            $0.leading.equalTo(todayLabel)
+        }
+        profileImageButton.snp.makeConstraints {
+            $0.bottom.equalTo(cardTableView.snp.top).offset(-15)
+            $0.trailing.equalTo(cardTableView)
+            $0.width.equalTo(30)
+            $0.height.equalTo(30)
         }
     }
 
 
 }
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -71,8 +98,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailView = DetailViewController()
-        present(detailView, animated: true, completion: nil)
+        detailView.modalPresentationStyle = .overFullScreen
+        detailView.transitioningDelegate = self
+        
+        self.present(detailView, animated: true, completion: nil)
     }
     
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let selectedIndexPath = cardTableView.indexPathsForSelectedRows,
+              let selectedCell = cardTableView.cellForRow(at: selectedIndexPath.first!) as? CardCellController,
+              let selectedCellSuperView = selectedCell.superview else { return nil }
+        transitionManager.originFrame = selectedCellSuperView.convert(selectedCell.frame, to: nil)
+        return transitionManager
+    }
     
 }
