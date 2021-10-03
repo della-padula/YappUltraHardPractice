@@ -60,7 +60,7 @@ class MainViewController: UIViewController {
     }
     
     private func setMainUnitView() {
-        mainUnitView.mainUnit = MainUnit(title: "이번 주 추천 앱", subTitle: "고르고 골랐어요")
+        mainUnitView.mainUnit = MainUnit(title: "이번 주 추천 앱", subTitle: "고르고 골랐어요", backgroundColor: .systemGreen)
         
         view.addSubview(mainUnitView)
         

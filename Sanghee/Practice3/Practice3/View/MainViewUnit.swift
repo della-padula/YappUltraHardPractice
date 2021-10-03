@@ -11,6 +11,7 @@ import UIKit
 class MainUnitView: UIView {
     var mainUnit: MainUnit? {
         didSet {
+            setViewBackgroundColor()
             setLabelText()
         }
     }
@@ -40,13 +41,16 @@ class MainUnitView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setViewBackgroundColor() {
+        backgroundColor = mainUnit?.backgroundColor
+    }
+    
     private func setLabelText() {
         titleLabel.text = mainUnit?.title
         subTitleLabel.text = mainUnit?.subTitle
     }
     
     private func setView() {
-        backgroundColor = .systemGray4
         layer.cornerRadius = 12
         layer.masksToBounds = true
     }
