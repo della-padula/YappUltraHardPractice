@@ -9,27 +9,10 @@ import SnapKit
 import UIKit
 
 class MainViewController: UIViewController {
-    private let mainUnitView = MainUnitView()
-    
-    private let timeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "10월 3일 일요일"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .systemGray
-        return label
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "투데이"
-        label.font = UIFont.boldSystemFont(ofSize: 36)
-        return label
-    }()
-    
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle"))
-        return imageView
-    }()
+    private let mainPresenter = MainPresenter()
+    private var timeLabel = UILabel()
+    private var titleLabel = UILabel()
+    private var profileImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +21,28 @@ class MainViewController: UIViewController {
         setHeader()
         setMainUnitView()
     }
-    
-    private func setHeader() {
+}
+
+extension MainViewController: MainView {
+    func setHeader() {
+        timeLabel = {
+            let label = UILabel()
+            label.text = "10월 3일 일요일"
+            label.font = UIFont.boldSystemFont(ofSize: 14)
+            label.textColor = .systemGray
+            return label
+        }()
+        titleLabel = {
+            let label = UILabel()
+            label.text = "투데이"
+            label.font = UIFont.boldSystemFont(ofSize: 36)
+            return label
+        }()
+        profileImageView = {
+            let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle"))
+            return imageView
+        }()
+        
         view.addSubview(timeLabel)
         view.addSubview(titleLabel)
         view.addSubview(profileImageView)
@@ -59,8 +62,8 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func setMainUnitView() {
-        mainUnitView.mainUnit = MainUnit(title: "이번 주 추천 앱", subTitle: "고르고 골랐어요", backgroundColor: .systemGreen)
+    func setMainUnitView() {
+        guard let mainUnitView = mainPresenter.mainUnitViews.first else { return }
         
         view.addSubview(mainUnitView)
         
