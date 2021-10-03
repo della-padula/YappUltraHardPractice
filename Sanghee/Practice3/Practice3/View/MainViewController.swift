@@ -9,6 +9,8 @@ import SnapKit
 import UIKit
 
 class MainViewController: UIViewController {
+    private let mainUnitView = MainUnitView()
+    
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "10월 3일 일요일"
@@ -33,10 +35,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        configureHeader()
+        setHeader()
+        setMainUnitView()
     }
     
-    private func configureHeader() {
+    private func setHeader() {
         view.addSubview(timeLabel)
         view.addSubview(titleLabel)
         view.addSubview(profileImageView)
@@ -53,6 +56,18 @@ class MainViewController: UIViewController {
             $0.top.equalTo(titleLabel.snp.top)
             $0.right.equalToSuperview().inset(16)
             $0.width.height.equalTo(36)
+        }
+    }
+    
+    private func setMainUnitView() {
+        mainUnitView.mainUnit = MainUnit(title: "이번 주 추천 앱", subTitle: "고르고 골랐어요")
+        
+        view.addSubview(mainUnitView)
+        
+        mainUnitView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(400)
         }
     }
 }
