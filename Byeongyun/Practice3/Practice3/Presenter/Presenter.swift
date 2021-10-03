@@ -8,12 +8,21 @@
 import UIKit
 
 protocol ViewProtocol {
-    func registerCells(for collectionView: UICollectionView)
+    func registerCells(for collectionView: UICollectionView, num: Int)
+    func loadImage(index: Int) -> UIImage
+    func loadMainString(index: Int) -> String
+    func loadSubString(index: Int) -> String
+}
+
+protocol CellProtocol {
+    func collapse()
+    func expand(in collectionView: UICollectionView)
 }
 
 class Presenter: NSObject, ViewProtocol {
     let model = Model()
     let backgroundColor: UIColor = .white
+    let transition = Transition()
     private var images: [UIImage?] {
         return model.images
     }
@@ -23,14 +32,40 @@ class Presenter: NSObject, ViewProtocol {
     private var mainStrings: [String] {
         return model.mainTitles
     }
-    let cellId = "MainCell"
     
-    func registerCells(for collectionView: UICollectionView) {
-        collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+    private var explainString: String {
+        return model.explainText
+    }
+    
+    let cellId = "MainCell"
+    let detailCellId = "DetailCell"
+    func registerCells(for collectionView: UICollectionView, num: Int) {
+        if num == 1 {
+            collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        } else {
+            collectionView.register(DetailCollectionViewCell.self, forCellWithReuseIdentifier: detailCellId)
+        }
+        
+    }
+    
+    func loadImage(index: Int) -> UIImage {
+        guard let image = images[index] else { return UIImage() }
+        return image
+    }
+    
+    func loadMainString(index: Int) -> String {
+        let mainString = mainStrings[index]
+        return mainString
+    }
+    
+    func loadSubString(index: Int) -> String {
+        let subString = subStrings[index]
+        return subString
     }
 }
-
+/*
 extension Presenter: UICollectionViewDataSource {
+    /*
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
@@ -40,9 +75,11 @@ extension Presenter: UICollectionViewDataSource {
         cell.cellMainImage = images[indexPath.row]
         cell.cellMainString = mainStrings[indexPath.row]
         cell.cellSubString = subStrings[indexPath.row]
+        //cell.cellExplainAppString = explainString
         
         return cell
     }
     
-    
+    */
 }
+ */

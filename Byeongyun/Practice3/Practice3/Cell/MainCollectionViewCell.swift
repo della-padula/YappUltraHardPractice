@@ -8,12 +8,20 @@
 import UIKit
 import SnapKit
 
-class MainCollectionViewCell: UICollectionViewCell {
+class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
+    
     let cellId = "MainCell"
-    private let cellImageView: UIImageView = {
+    
+    private var initalFrame: CGRect?
+    private var initalCornerRadius: CGFloat?
+    
+    private let presenter = Presenter()
+    
+    let cellImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        
+        //imageView.contentMode = .scaleAspectFill
+        imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.65)
+        //imageView.image?.resize(toWidth: UIScreen.main.bounds.width - 80)
         return imageView
     }()
     private let cellSubLabel: UILabel = {
@@ -29,27 +37,6 @@ class MainCollectionViewCell: UICollectionViewCell {
         label.textColor = .white
         return label
     }()
-    
-    var cellMainImage: UIImage? {
-        didSet {
-            guard let mainImage = cellMainImage else { return }
-            cellImageView.image = mainImage
-        }
-    }
-    
-    var cellSubString: String? {
-        didSet {
-            guard let subString = cellSubString else { return }
-            cellSubLabel.text = subString
-        }
-    }
-    
-    var cellMainString: String? {
-        didSet {
-            guard let mainString = cellMainString else { return }
-            cellMainLabel.text = mainString
-        }
-    }
     
     private lazy var cellMainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [cellSubLabel, cellMainLabel])
@@ -115,6 +102,29 @@ class MainCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private let scrollView = UIScrollView()
+    
+    var cellMainImage: UIImage? {
+        didSet {
+            guard let mainImage = cellMainImage else { return }
+            cellImageView.image = mainImage
+        }
+    }
+    
+    var cellSubString: String? {
+        didSet {
+            guard let subString = cellSubString else { return }
+            cellSubLabel.text = subString
+        }
+    }
+    
+    var cellMainString: String? {
+        didSet {
+            guard let mainString = cellMainString else { return }
+            cellMainLabel.text = mainString
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .white
@@ -125,13 +135,17 @@ class MainCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     private func configureCellUI() {
+        
+        
         contentView.addSubview(cellImageView)
         cellImageView.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top)
+            $0.top.equalTo(self.snp.top).offset(-60)
             $0.leading.equalTo(self.snp.leading)
             $0.trailing.equalTo(self.snp.trailing)
-            $0.bottom.equalTo(self.snp.bottom).offset(-150)
+            $0.height.equalTo(600)
         }
         contentView.addSubview(cellMainStackView)
         cellMainStackView.snp.makeConstraints {
@@ -145,7 +159,8 @@ class MainCollectionViewCell: UICollectionViewCell {
             $0.leading.equalTo(self.snp.leading)
             $0.trailing.equalTo(self.snp.trailing)
             $0.width.equalTo(self.snp.width)
-            $0.height.equalTo(70)
+            $0.height.equalTo(500)
+            //$0.bottom.equalTo(self.snp.bottom).offset(300)
         }
         
         cellSubView.addSubview(appImageView)
@@ -172,7 +187,6 @@ class MainCollectionViewCell: UICollectionViewCell {
             $0.trailing.equalTo(openButton.snp.leading).offset(-30)
         }
         
-        
         contentView.bringSubviewToFront(cellSubView)
         
         contentView.backgroundColor = .white
@@ -184,6 +198,25 @@ class MainCollectionViewCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = contentView.layer.cornerRadius
         
+    }
+    
+    func expand(in collectionView: UICollectionView) {
+        initalFrame = self.frame
+        initalCornerRadius = self.contentView.layer.cornerRadius
+        
+        self.contentView.layer.cornerRadius = 0
+        self.frame = CGRect(x: 0, y: collectionView.contentOffset.y, width: collectionView.frame.width * 0.4, height: collectionView.frame.height * 0.4)
+        
+        layoutIfNeeded()
+    }
+    
+    func collapse() {
+        self.contentView.layer.cornerRadius = initalCornerRadius ?? self.contentView.layer.cornerRadius
+        self.frame = initalFrame ?? self.frame
+        initalFrame = nil
+        initalCornerRadius = nil
+        
+        layoutIfNeeded()
     }
     
 }
