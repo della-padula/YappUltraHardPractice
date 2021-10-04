@@ -11,7 +11,6 @@ import UIKit
 class DetailViewController: UIViewController {
     var mainUnit: MainUnit? {
         didSet {
-            print(mainUnit ?? "")
             setMainUnitView()
         }
     }
@@ -24,10 +23,11 @@ class DetailViewController: UIViewController {
     private func setMainUnitView() {
         let mainUnitView = MainUnitView()
         mainUnitView.mainUnit = mainUnit
+        
         view.addSubview(mainUnitView)
         
         mainUnitView.snp.makeConstraints {
-            $0.top.left.right.bottom.equalToSuperview().inset(16)
+            $0.top.left.right.bottom.equalToSuperview()
         }
     }
 }
