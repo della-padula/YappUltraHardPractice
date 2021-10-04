@@ -10,6 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     private let mainPresenter = MainPresenter()
+    private var scrollView = UIScrollView()
     private var timeLabel = UILabel()
     private var titleLabel = UILabel()
     private var profileImageView = UIImageView()
@@ -18,12 +19,24 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setScrollView()
         setHeader()
-        setMainUnitView()
+        setMainUnitViews()
     }
 }
 
 extension MainViewController: MainView {
+    func setScrollView() {
+        scrollView.backgroundColor = .systemGroupedBackground
+        
+        view.addSubview(scrollView)
+        
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(16)
+        }
+    }
+    
     func setHeader() {
         timeLabel = {
             let label = UILabel()
@@ -43,34 +56,48 @@ extension MainViewController: MainView {
             return imageView
         }()
         
-        view.addSubview(timeLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(profileImageView)
+        scrollView.addSubview(timeLabel)
+        scrollView.addSubview(titleLabel)
+        scrollView.addSubview(profileImageView)
         
         timeLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(60)
-            $0.left.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(16)
+            $0.left.equalToSuperview()
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(timeLabel.snp.bottom).offset(4)
-            $0.left.equalToSuperview().inset(16)
+            $0.left.equalToSuperview()
         }
         profileImageView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.top)
-            $0.right.equalToSuperview().inset(16)
+            $0.right.equalToSuperview()
             $0.width.height.equalTo(36)
         }
     }
     
-    func setMainUnitView() {
-        guard let mainUnitView = mainPresenter.mainUnitViews.first else { return }
+    func setMainUnitViews() {
+        let mainUnits = mainPresenter.mainUnits
         
-        view.addSubview(mainUnitView)
-        
-        mainUnitView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.left.right.equalToSuperview().inset(16)
-            $0.height.equalTo(400)
+        for (index, mainUnit) in mainUnits.enumerated() {
+            let unitViewHeight = 400
+            let space = 36
+            let mainUnitView = MainUnitView()
+            mainUnitView.mainUnit = mainUnit
+
+            scrollView.addSubview(mainUnitView)
+            
+            mainUnitView.snp.makeConstraints {
+                $0.left.equalToSuperview()
+                $0.width.equalToSuperview()
+                $0.height.equalTo(unitViewHeight)
+                $0.top.equalTo(titleLabel.snp.bottom).offset((unitViewHeight + space) * index + 16)
+            }
+            
+            if index == (mainUnits.count - 1) {
+                mainUnitView.snp.makeConstraints {
+                    $0.bottom.equalToSuperview()
+                }
+            }
         }
     }
 }

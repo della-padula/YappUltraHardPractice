@@ -8,24 +8,26 @@
 import UIKit
 
 protocol MainView: AnyObject {
+    func setScrollView()
     func setHeader()
-    func setMainUnitView()
+    func setMainUnitViews()
 }
 
 protocol MainViewPresenter {
-    func getMainUnitViews()
+    func getMainUnits()
 }
 
 class MainPresenter: MainViewPresenter {
-    var mainUnitViews: [MainUnitView] = []
+    var mainUnits: [MainUnit] = []
     
     init() {
-        getMainUnitViews()
+        getMainUnits()
     }
     
-    func getMainUnitViews() {
-        let mainUnitView = MainUnitView()
-        mainUnitView.mainUnit = MainUnit(title: "이번 주 추천 앱", subTitle: "고르고 골랐어요", backgroundColor: .systemGreen)
-        mainUnitViews = [mainUnitView, mainUnitView]
+    func getMainUnits() {
+        mainUnits = [
+            MainUnit(title: "이번 주 추천 앱", subTitle: "고르고 골랐어요", backgroundColor: .systemGreen),
+            MainUnit(title: "최고의 Apple Arcade 게임", subTitle: "컬렉션", backgroundColor: .systemBlue),
+            MainUnit(title: "요즘 화제", subTitle: "iPhone용 Safari 확장 프로그램", backgroundColor: .systemYellow)]
     }
 }

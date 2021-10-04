@@ -5,6 +5,7 @@
 //  Created by leeesangheee on 2021/10/02.
 //
 
+import SnapKit
 import UIKit
 
 class DetailViewController: UIViewController {
