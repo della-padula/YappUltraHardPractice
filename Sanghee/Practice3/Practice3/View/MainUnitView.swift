@@ -60,7 +60,8 @@ class MainUnitView: UIView {
         self.addSubview(titleLabel)
         
         subTitleLabel.snp.makeConstraints {
-            $0.top.left.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(32)
+            $0.left.equalToSuperview().inset(16)
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(4)
