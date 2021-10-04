@@ -74,11 +74,6 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
 
 extension MainViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let selectedIndexPath = collectionView.indexPathsForSelectedItems,
-              let selectedCell = collectionView.cellForItem(at: selectedIndexPath.first!),
-              let selectedCellSuperView = selectedCell.superview else { return nil }
-        
-        animator.originFrame = selectedCellSuperView.convert(selectedCell.frame, to: nil)
         return animator
     }
 }

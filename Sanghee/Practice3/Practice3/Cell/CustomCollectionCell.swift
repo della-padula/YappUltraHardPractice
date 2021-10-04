@@ -31,7 +31,7 @@ class CustomCollectionCell: UICollectionViewCell{
         addSubview(mainUnitView)
         
         mainUnitView.snp.makeConstraints {
-            $0.top.bottom.left.right.equalToSuperview()
+            $0.top.bottom.left.right.equalToSuperview().inset(16)
         }
     }
 }

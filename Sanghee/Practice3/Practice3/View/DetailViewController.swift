@@ -19,7 +19,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
-    
+
     private func setMainUnitView() {
         let mainUnitView = MainUnitView()
         mainUnitView.mainUnit = mainUnit
@@ -27,7 +27,8 @@ class DetailViewController: UIViewController {
         view.addSubview(mainUnitView)
         
         mainUnitView.snp.makeConstraints {
-            $0.top.left.right.bottom.equalToSuperview()
+            $0.top.left.right.equalToSuperview()
+            $0.height.equalTo(view.bounds.width)
         }
     }
 }
