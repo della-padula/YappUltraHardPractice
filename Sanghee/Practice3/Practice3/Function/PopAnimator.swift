@@ -58,10 +58,7 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                            initialSpringVelocity: 0.1,
                            animations: {
                             fromView.transform = .identity
-                            fromView.frame = CGRect(x: self.padding,
-                                                    y: self.cPointY - (width / 2),
-                                                    width: width,
-                                                    height: width)
+                            fromView.frame = CGRect(x: self.padding, y: self.cPointY - (width / 2), width: width, height: width)
                            },
                            completion: { _ in
                             transitionContext.completeTransition(true)

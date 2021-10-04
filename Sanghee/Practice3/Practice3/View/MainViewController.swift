@@ -47,8 +47,8 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
-        return CGSize(width: width - 32, height: width)
+        let width = collectionView.frame.width - 32
+        return CGSize(width: width, height: width)
     }
 
     // 상하 간격
