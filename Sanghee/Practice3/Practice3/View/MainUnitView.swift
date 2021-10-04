@@ -16,6 +16,13 @@ class MainUnitView: UIView {
         }
     }
     
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 28)
+        label.textColor = .white
+        return label
+    }()
+    
     private var subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -23,10 +30,9 @@ class MainUnitView: UIView {
         return label
     }()
     
-    private var titleLabel: UILabel = {
+    let emojiLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 28)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 100)
         return label
     }()
     
@@ -35,6 +41,7 @@ class MainUnitView: UIView {
 
         setView()
         setLabels()
+        setEmojiLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +55,7 @@ class MainUnitView: UIView {
     private func setLabelText() {
         titleLabel.text = mainUnit?.title
         subTitleLabel.text = mainUnit?.subTitle
+        emojiLabel.text = mainUnit?.emoji
     }
     
     private func setView() {
@@ -55,9 +63,18 @@ class MainUnitView: UIView {
         layer.masksToBounds = true
     }
     
+    private func setEmojiLabel() {
+        addSubview(emojiLabel)
+        
+        emojiLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(140)
+        }
+    }
+    
     private func setLabels() {
-        self.addSubview(subTitleLabel)
-        self.addSubview(titleLabel)
+        addSubview(subTitleLabel)
+        addSubview(titleLabel)
         
         subTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(32)
