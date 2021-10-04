@@ -47,7 +47,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        return CGSize(width: width, height: width)
+        return CGSize(width: width - 32, height: width)
     }
 
     // 상하 간격
@@ -62,7 +62,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     // 위 여백
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 100, left: 0, bottom:0, right: 0)
+        return UIEdgeInsets(top: 100, left: 16, bottom: 0, right: 16)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
