@@ -8,8 +8,10 @@
 import SnapKit
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private let mainPresenter = MainPresenter()
+    var mainUnits: [MainUnit] = []
+    
     private var scrollView = UIScrollView()
     private var timeLabel = UILabel()
     private var titleLabel = UILabel()
@@ -17,11 +19,40 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
-        setScrollView()
+        mainUnits = mainPresenter.mainUnits
+        
         setHeader()
-        setMainUnitViews()
+        setCollectionView()
+    }
+    
+    private func setCollectionView() {
+        collectionView.backgroundColor = .white
+        
+        collectionView.register(CustomCollectionCell.self, forCellWithReuseIdentifier: CustomCollectionCell.identifier)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return mainUnits.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionCell.identifier, for: indexPath) as! CustomCollectionCell
+        cell.mainUnit = mainUnits[indexPath.row]
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width
+        return CGSize(width: width, height: width)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
 
@@ -29,15 +60,6 @@ extension MainViewController: UIViewControllerTransitioningDelegate {
 }
 
 extension MainViewController: MainView {
-    func setScrollView() {
-        view.addSubview(scrollView)
-        
-        scrollView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(16)
-        }
-    }
-    
     func setHeader() {
         timeLabel = {
             let label = UILabel()
@@ -57,48 +79,22 @@ extension MainViewController: MainView {
             return imageView
         }()
         
-        scrollView.addSubview(timeLabel)
-        scrollView.addSubview(titleLabel)
-        scrollView.addSubview(profileImageView)
+        collectionView.addSubview(timeLabel)
+        collectionView.addSubview(titleLabel)
+        collectionView.addSubview(profileImageView)
         
         timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.left.equalToSuperview()
+            $0.left.equalToSuperview().inset(16)
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(timeLabel.snp.bottom).offset(4)
-            $0.left.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(16)
         }
         profileImageView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.top)
             $0.right.equalToSuperview()
             $0.width.height.equalTo(36)
-        }
-    }
-    
-    func setMainUnitViews() {
-        let mainUnits = mainPresenter.mainUnits
-        
-        for (index, mainUnit) in mainUnits.enumerated() {
-            let unitViewHeight = 400
-            let space = 36
-            let mainUnitView = MainUnitView()
-            mainUnitView.mainUnit = mainUnit
-
-            scrollView.addSubview(mainUnitView)
-            
-            mainUnitView.snp.makeConstraints {
-                $0.left.equalToSuperview()
-                $0.width.equalToSuperview()
-                $0.height.equalTo(unitViewHeight)
-                $0.top.equalTo(titleLabel.snp.bottom).offset((unitViewHeight + space) * index + 16)
-            }
-            
-            if index == (mainUnits.count - 1) {
-                mainUnitView.snp.makeConstraints {
-                    $0.bottom.equalToSuperview()
-                }
-            }
         }
     }
 }

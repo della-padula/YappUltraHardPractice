@@ -8,9 +8,7 @@
 import UIKit
 
 protocol MainView: AnyObject {
-    func setScrollView()
     func setHeader()
-    func setMainUnitViews()
 }
 
 protocol MainViewPresenter {
