@@ -9,6 +9,7 @@ import SnapKit
 import UIKit
 
 class MainViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    private let animator = PopAnimator()
     private let mainPresenter = MainPresenter()
     var mainUnits: [MainUnit] = []
     
@@ -77,7 +78,6 @@ extension MainViewController: UIViewControllerTransitioningDelegate {
               let selectedCell = collectionView.cellForItem(at: selectedIndexPath.first!),
               let selectedCellSuperView = selectedCell.superview else { return nil }
         
-        let animator = PopAnimator(view: selectedCell)
         animator.originFrame = selectedCellSuperView.convert(selectedCell.frame, to: nil)
         return animator
     }
