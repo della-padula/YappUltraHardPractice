@@ -12,7 +12,6 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     private let mainPresenter = MainPresenter()
     var mainUnits: [MainUnit] = []
     
-    private var scrollView = UIScrollView()
     private var timeLabel = UILabel()
     private var titleLabel = UILabel()
     private var profileImageView = UIImageView()
@@ -54,6 +53,10 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 100, left: 0, bottom:0, right: 0)
+    }
 }
 
 extension MainViewController: UIViewControllerTransitioningDelegate {
@@ -89,11 +92,11 @@ extension MainViewController: MainView {
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(timeLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(16)
+            $0.left.equalToSuperview().inset(16)
         }
         profileImageView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.top)
-            $0.right.equalToSuperview()
+            $0.left.equalToSuperview().inset(collectionView.frame.width - 52)
             $0.width.height.equalTo(36)
         }
     }
