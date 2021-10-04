@@ -54,7 +54,7 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
             UIView.animate(withDuration: duration,
                            delay: 0,
-                           usingSpringWithDamping: 0.5,
+                           usingSpringWithDamping: 0.6,
                            initialSpringVelocity: 0.1,
                            animations: {
                             fromView.transform = .identity
