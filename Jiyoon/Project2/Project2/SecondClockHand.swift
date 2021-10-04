@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ClockHand: UIView {
+class SecondClockHand: UIView {
     let secondLine = UIBezierPath()
     override func draw(_ rect: CGRect) {
         secondLine.lineWidth = 2
@@ -18,3 +18,4 @@ class ClockHand: UIView {
         secondLine.stroke()
     }
 }
+

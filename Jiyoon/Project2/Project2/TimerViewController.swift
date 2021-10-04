@@ -8,19 +8,19 @@ import SnapKit
 import UIKit
 
 class TimerViewController: UIViewController {
-    var flag = false
-    var mainTimer:Timer?
-    var runCount = 0
-    var minuite: Int = 0
-    var second: Int = 0
-    var milliSecond: Int = 0
-    var minuteView = UIView()
+    private var flag = false
+    private var mainTimer:Timer?
+    private var runCount = 0
+    private var minuite: Int = 0
+    private var second: Int = 0
+    private var milliSecond: Int = 0
+    private var minuteView = UIView()
     
-    var milliSecondView = UIView()
-    var centerView = UIView()
-    let secondLine = UIBezierPath()
+    private let milliSecondView = UIView()
+    private let centerView = UIView()
+    private let secondLine = UIBezierPath()
     
-    let handView = ClockHand()
+    private var secondHandView = SecondClockHand()
     
     //MARK: - SetLabel
     private let label5: UILabel = {
@@ -165,8 +165,8 @@ class TimerViewController: UIViewController {
         view.addSubview(startButton)
         view.addSubview(lapButton)
         
-        handView.backgroundColor = .clear
-        view.addSubview(handView)
+        secondHandView.backgroundColor = .clear
+        view.addSubview(secondHandView)
         
         label60.snp.makeConstraints {
             $0.top.equalToSuperview().offset(65)
@@ -220,7 +220,7 @@ class TimerViewController: UIViewController {
             $0.top.equalToSuperview().offset(300)
             $0.centerX.equalToSuperview()
         }
-        handView.snp.makeConstraints {
+        secondHandView.snp.makeConstraints {
             $0.centerY.equalToSuperview().offset(-200)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(UIScreen.main.bounds.height / 2)
@@ -230,7 +230,7 @@ class TimerViewController: UIViewController {
     }
     
     func setButton() {
-        [startButton, lapButton].forEach {view.addSubview($0)}
+        [startButton, lapButton].forEach { view.addSubview($0) }
         startButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(430)
             $0.trailing.equalToSuperview().offset(-10)
@@ -260,45 +260,43 @@ class TimerViewController: UIViewController {
             startButton.layer.borderColor = UIColor.green.cgColor
         }
     }
-    private func initView() {
-            // TODO: 시계침 중심 디자인
-        self.centerView.layer.cornerRadius = self.centerView.frame.width / 2
-    }
         
     @objc
     private func secondTimerProcess(_ sender: Timer) {
         runCount += 1
         timerLabel.text = self.makeTimeLabel(count: runCount)
-//        let minuteAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(minuite) / 60))
+        
+        //분침과 초침 회전 애니메이션
+        let minuteAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(minuite) / 60))
         let secondAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(second) / 60))
 
-        ClockHand.animate(withDuration: 2) {
-            self.handView.transform = secondAngle
+        SecondClockHand.animate(withDuration: 2) {
+            self.secondHandView.transform = secondAngle
+            self.secondHandView.alpha = 1
+//            self.secondHandView.transform = minuteAngle
             
         }
     }
 }
 
 extension TimerViewController {
-    func startTimer() {
+    private func startTimer() {
         mainTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(secondTimerProcess), userInfo: nil, repeats: true)
     }
     
-    func stopTimer() {
+    private func stopTimer() {
         mainTimer?.invalidate()
         mainTimer = nil
     }
     
-    func makeTimeLabel(count: Int) -> (String) {
-        let min = (count / (1000 * 60))
-        let sec = (count / 1000)
+    private func makeTimeLabel(count: Int) -> (String) {
+        let min = (count / (1000 * 60)) % 60
+        let sec = (count / 1000) % 60
         let milliSec = count - (min * 60000) - (sec * 1000)
         
         minuite = min
         second = sec
         milliSecond = milliSec
-        
-        CircleView.getTimerNum(minute: minuite, second: second, milliSecond: milliSecond)
         
         let secString = "\(sec)".count == 1 ? "0\(sec)" : "\(sec)"
         let minString = "\(min)".count == 1 ? "0\(min)" : "\(min)"
