@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		224DF52FCA86D85619BB6692 /* Pods_Practice3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E02829AA53CFB6CFD0319B /* Pods_Practice3.framework */; };
+		5E202EBE270AE92300808DA9 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E202EBD270AE92300808DA9 /* PopAnimator.swift */; };
 		5EC81D6927089994004A1543 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC81D6827089994004A1543 /* AppDelegate.swift */; };
 		5EC81D7227089995004A1543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC81D7127089995004A1543 /* Assets.xcassets */; };
 		5EC81D7527089995004A1543 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC81D7327089995004A1543 /* LaunchScreen.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		51002C0CFBD8EF0D74E2A00F /* Pods-Practice3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice3.release.xcconfig"; path = "Target Support Files/Pods-Practice3/Pods-Practice3.release.xcconfig"; sourceTree = "<group>"; };
+		5E202EBD270AE92300808DA9 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		5EC81D6527089994004A1543 /* Practice3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Practice3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC81D6827089994004A1543 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC81D7127089995004A1543 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +56,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5E202EC0270AECB100808DA9 /* Function */ = {
+			isa = PBXGroup;
+			children = (
+				5E202EBD270AE92300808DA9 /* PopAnimator.swift */,
+			);
+			path = Function;
+			sourceTree = "<group>";
+		};
 		5EC81D5C27089994004A1543 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +88,7 @@
 				5EC81D842709F202004A1543 /* Model */,
 				5EC81D8027089B7F004A1543 /* View */,
 				5EC81D87270A0968004A1543 /* Presenter */,
+				5E202EC0270AECB100808DA9 /* Function */,
 				5EC81D6827089994004A1543 /* AppDelegate.swift */,
 				5EC81D7127089995004A1543 /* Assets.xcassets */,
 				5EC81D7327089995004A1543 /* LaunchScreen.storyboard */,
@@ -234,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E202EBE270AE92300808DA9 /* PopAnimator.swift in Sources */,
 				5EC81D7F27089B6D004A1543 /* DetailViewController.swift in Sources */,
 				5EC81D8B270A0A66004A1543 /* MainPresenter.swift in Sources */,
 				5EC81D832709ECB7004A1543 /* MainViewUnit.swift in Sources */,

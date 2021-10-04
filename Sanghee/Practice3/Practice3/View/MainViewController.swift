@@ -25,10 +25,11 @@ class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController: UIViewControllerTransitioningDelegate {
+}
+
 extension MainViewController: MainView {
     func setScrollView() {
-        scrollView.backgroundColor = .systemGroupedBackground
-        
         view.addSubview(scrollView)
         
         scrollView.snp.makeConstraints {
