@@ -11,7 +11,8 @@ import UIKit
 class MainViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private let animator = PopAnimator()
     private let mainPresenter = MainPresenter()
-    var mainUnits: [MainUnit] = []
+    private var mainUnits: [MainUnit] = []
+    private var cPointY: CGFloat = 0
     
     private var timeLabel = UILabel()
     private var titleLabel = UILabel()
@@ -71,7 +72,18 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         detailVC.modalPresentationStyle = .overFullScreen
         detailVC.transitioningDelegate = self
         
+        // 선택한 item y값 저장
+        cPointY = getCollectionViewItemCPoint(indexPath: indexPath).y
+        
         self.present(detailVC, animated: true, completion: nil)
+    }
+    
+    // 선택한 item y값 얻기
+    private func getCollectionViewItemCPoint(indexPath: IndexPath) -> CGPoint {
+        let attributes = collectionView.layoutAttributesForItem(at: indexPath)
+        let cPoint = collectionView.convert(attributes?.center ?? CGPoint(), to: collectionView.superview)
+        
+        return cPoint
     }
 }
 
@@ -81,6 +93,7 @@ extension MainViewController: UIViewControllerTransitioningDelegate {
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator.cPointY = cPointY
         return animator
     }
 }

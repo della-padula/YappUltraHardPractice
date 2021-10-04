@@ -10,6 +10,7 @@ import UIKit
 class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let duration: TimeInterval = 1.0
     let padding: CGFloat = 16
+    var cPointY: CGFloat = 0
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
@@ -49,13 +50,18 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             fromView.layer.cornerRadius = 12
             fromView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             
+            let width = containerView.frame.width - self.padding * 2
+
             UIView.animate(withDuration: duration,
                            delay: 0,
                            usingSpringWithDamping: 0.5,
                            initialSpringVelocity: 0.1,
                            animations: {
                             fromView.transform = .identity
-                            fromView.frame = CGRect(x: self.padding, y: 120, width: containerView.frame.width - self.padding * 2, height: containerView.frame.width)
+                            fromView.frame = CGRect(x: self.padding,
+                                                    y: self.cPointY - (width / 2),
+                                                    width: width,
+                                                    height: width)
                            },
                            completion: { _ in
                             transitionContext.completeTransition(true)
