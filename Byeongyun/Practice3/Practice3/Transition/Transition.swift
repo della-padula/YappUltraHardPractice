@@ -24,7 +24,6 @@ class Transition: NSObject {
     var transitionMode: TransitionMode = .present
 }
 
-
 extension Transition: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return durataion
@@ -90,19 +89,15 @@ extension Transition: UIViewControllerAnimatedTransitioning {
                 
                 UIView.animate(withDuration: durataion, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
                     self.shadow.alpha = 0.0
-                    
                     returningView.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-                    
-                    returningView.layer.cornerRadius = 10
+                    returningView.layer.cornerRadius = 15
                     returningView.frame = finalFrame
                     if self.transitionMode == .pop {
                         containerView.insertSubview(returningView, belowSubview: returningView)
-                        
                     }
                 }) { success in
                     returningView.removeFromSuperview()
                     transitionContext.completeTransition(success)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MainShow"), object: nil)
                 }
             }
         }

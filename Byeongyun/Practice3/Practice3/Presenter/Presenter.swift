@@ -12,6 +12,8 @@ protocol ViewProtocol {
     func loadImage(index: Int) -> UIImage
     func loadMainString(index: Int) -> String
     func loadSubString(index: Int) -> String
+    func loadImageCount() -> Int
+    func loadExplain() -> String
 }
 
 protocol CellProtocol {
@@ -19,10 +21,12 @@ protocol CellProtocol {
     func expand(in collectionView: UICollectionView)
 }
 
-class Presenter: NSObject, ViewProtocol {
+
+class Presenter: NSObject, ViewProtocol, UIViewControllerTransitioningDelegate {
     let model = Model()
     let backgroundColor: UIColor = .white
     let transition = Transition()
+    
     private var images: [UIImage?] {
         return model.images
     }
@@ -37,8 +41,8 @@ class Presenter: NSObject, ViewProtocol {
         return model.explainText
     }
     
-    let cellId = "MainCell"
-    let detailCellId = "DetailCell"
+    private let cellId = "MainCell"
+    private let detailCellId = "DetailCell"
     func registerCells(for collectionView: UICollectionView, num: Int) {
         if num == 1 {
             collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
@@ -62,24 +66,12 @@ class Presenter: NSObject, ViewProtocol {
         let subString = subStrings[index]
         return subString
     }
-}
-/*
-extension Presenter: UICollectionViewDataSource {
-    /*
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    func loadImageCount() -> Int {
         return images.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MainCollectionViewCell else { return UICollectionViewCell() }
-        cell.cellMainImage = images[indexPath.row]
-        cell.cellMainString = mainStrings[indexPath.row]
-        cell.cellSubString = subStrings[indexPath.row]
-        //cell.cellExplainAppString = explainString
-        
-        return cell
+    func loadExplain() -> String {
+        return explainString
     }
-    
-    */
 }
- */

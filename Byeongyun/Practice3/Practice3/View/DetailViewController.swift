@@ -16,7 +16,6 @@ class DetailViewController: UIViewController {
     private let detailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        //imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         return imageView
     }()
     
@@ -34,15 +33,6 @@ class DetailViewController: UIViewController {
         label.text = "SPECIAL EVENT"
         label.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         return label
-    }()
-    
-    private lazy var cellDetailStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [detailSubLabel, detailMainLabel])
-        cellDetailStackView.axis = .vertical
-        cellDetailStackView.alignment = .leading
-        cellDetailStackView.spacing = 1
-        
-        return stackView
     }()
     
     private let appImageView: UIImageView = {
@@ -128,7 +118,6 @@ class DetailViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {
             self.cancelButton.alpha = 0.0
         })
-        
         dismiss(animated: true, completion: nil)
     }
     
@@ -157,7 +146,6 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .white
         
         let recognizer = InstantPanGestureRecognizer(target: self, action: #selector(panRecognizer))
-        //detailCollectionView.addGestureRecognizer(recognizer)
         dismissButton.addGestureRecognizer(recognizer)
         configureUI()
         configureCollectionView()
@@ -175,22 +163,17 @@ class DetailViewController: UIViewController {
             animator.pauseAnimation()
         case .changed:
             let fraction = translation.y / 100
-            print(fraction)
-            //print(fraction)
             animator.fractionComplete = fraction + animationProgress
             if animator.fractionComplete > 0.99 {
                 animator.stopAnimation(true)
                 UIView.animate(withDuration: 0.5, animations: {
                     self.cancelButton.alpha = 0.0
-                    //self.view.alpha = 0.0
                 })
                 dismiss(animated: true, completion: nil)
             }
         case .ended:
             if animator.fractionComplete == 0 {
-                print("올리면 이리로 오나?")
                 animator.stopAnimation(true)
-                //dismiss(animated: true, completion: nil)
             } else {
                 animator.isReversed = true
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
@@ -199,6 +182,7 @@ class DetailViewController: UIViewController {
             break
         }
     }
+    
     var animator = UIViewPropertyAnimator()
     func shrinkAnimation() {
         animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeOut, animations: {
@@ -244,7 +228,7 @@ class DetailViewController: UIViewController {
             $0.leading.equalTo(detailCollectionView.snp.leading)
             $0.trailing.equalTo(detailCollectionView.snp.trailing)
             $0.width.equalTo(detailCollectionView.snp.width)
-            $0.height.equalTo(200)
+            $0.height.equalTo(300)
         }
         
         detailCollectionView.addSubview(cancelButton)
@@ -267,7 +251,6 @@ class DetailViewController: UIViewController {
         appImageView.snp.makeConstraints {
             $0.top.equalTo(cellSubView.snp.top).offset(13)
             $0.leading.equalTo(cellSubView.snp.leading).offset(10)
-            //$0.centerY.equalToSuperview()
             $0.height.equalTo(45)
             $0.width.equalTo(45)
         }
@@ -286,8 +269,6 @@ class DetailViewController: UIViewController {
             $0.leading.equalTo(appImageView.snp.trailing).offset(10)
             $0.trailing.equalTo(openButton.snp.leading).offset(-30)
         }
-        
-        
         view.bringSubviewToFront(dismissButton)
     }
     
@@ -310,12 +291,15 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width - 50, height: 400)
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId , for: indexPath) as? DetailCollectionViewCell else { return UICollectionViewCell() }
-        let model = Model()
         
-        cell.explainString = model.explainText
+        cell.explainString = presenter.loadExplain()
         
         return cell
     }

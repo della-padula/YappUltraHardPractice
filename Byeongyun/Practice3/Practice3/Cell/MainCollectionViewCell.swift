@@ -139,7 +139,6 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
     
     private func configureCellUI() {
         
-        
         contentView.addSubview(cellImageView)
         cellImageView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(-60)
@@ -160,14 +159,12 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
             $0.trailing.equalTo(self.snp.trailing)
             $0.width.equalTo(self.snp.width)
             $0.height.equalTo(500)
-            //$0.bottom.equalTo(self.snp.bottom).offset(300)
         }
         
         cellSubView.addSubview(appImageView)
         appImageView.snp.makeConstraints {
             $0.top.equalTo(cellSubView.snp.top).offset(13)
             $0.leading.equalTo(cellSubView.snp.leading).offset(10)
-            //$0.centerY.equalToSuperview()
             $0.height.equalTo(45)
             $0.width.equalTo(45)
         }
@@ -203,10 +200,8 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
     func expand(in collectionView: UICollectionView) {
         initalFrame = self.frame
         initalCornerRadius = self.contentView.layer.cornerRadius
-        
         self.contentView.layer.cornerRadius = 0
         self.frame = CGRect(x: 0, y: collectionView.contentOffset.y, width: collectionView.frame.width * 0.4, height: collectionView.frame.height * 0.4)
-        
         layoutIfNeeded()
     }
     
@@ -215,7 +210,6 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
         self.frame = initalFrame ?? self.frame
         initalFrame = nil
         initalCornerRadius = nil
-        
         layoutIfNeeded()
     }
     

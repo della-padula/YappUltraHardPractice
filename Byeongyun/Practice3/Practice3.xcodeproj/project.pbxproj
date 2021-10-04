@@ -71,6 +71,7 @@
 		A827BF042708AB0700F8B879 /* Practice3 */ = {
 			isa = PBXGroup;
 			children = (
+				A84A85D5270AC320003C34B6 /* Transition */,
 				A827BF1E2709828300F8B879 /* Cell */,
 				A827BF1B2708AFED00F8B879 /* Presenter */,
 				A827BF1A2708AFE700F8B879 /* View */,
@@ -79,7 +80,6 @@
 				A827BF0E2708AB0800F8B879 /* Assets.xcassets */,
 				A827BF102708AB0800F8B879 /* LaunchScreen.storyboard */,
 				A827BF132708AB0800F8B879 /* Info.plist */,
-				A827BF272709EB2700F8B879 /* Transition.swift */,
 			);
 			path = Practice3;
 			sourceTree = "<group>";
@@ -116,6 +116,14 @@
 				A827BF2B270A249F00F8B879 /* DetailCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		A84A85D5270AC320003C34B6 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				A827BF272709EB2700F8B879 /* Transition.swift */,
+			);
+			path = Transition;
 			sourceTree = "<group>";
 		};
 		B305EFCC153BC4C5BBF6FDE6 /* Pods */ = {
