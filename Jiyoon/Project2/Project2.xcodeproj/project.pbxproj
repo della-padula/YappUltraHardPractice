@@ -16,6 +16,7 @@
 		95108FD02706AEBC0059CC2D /* SecondClockHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95108FCF2706AEBC0059CC2D /* SecondClockHand.swift */; };
 		959B63DB270B5291000C97FD /* MinuteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63DA270B5291000C97FD /* MinuteView.swift */; };
 		959B63DD270B56DF000C97FD /* FiveSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63DC270B56DF000C97FD /* FiveSecondView.swift */; };
+		959B63DF270B6928000C97FD /* MinuteClockHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63DE270B6928000C97FD /* MinuteClockHand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		95108FCF2706AEBC0059CC2D /* SecondClockHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondClockHand.swift; sourceTree = "<group>"; };
 		959B63DA270B5291000C97FD /* MinuteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinuteView.swift; sourceTree = "<group>"; };
 		959B63DC270B56DF000C97FD /* FiveSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveSecondView.swift; sourceTree = "<group>"; };
+		959B63DE270B6928000C97FD /* MinuteClockHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinuteClockHand.swift; sourceTree = "<group>"; };
 		9D86995EF19EF9BC586ED9E4 /* Pods-Project2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project2.debug.xcconfig"; path = "Target Support Files/Pods-Project2/Pods-Project2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 				95108F9F270614380059CC2D /* LaunchScreen.storyboard */,
 				95108FA2270614380059CC2D /* Info.plist */,
 				95108FCF2706AEBC0059CC2D /* SecondClockHand.swift */,
+				959B63DE270B6928000C97FD /* MinuteClockHand.swift */,
 			);
 			path = Project2;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				959B63DD270B56DF000C97FD /* FiveSecondView.swift in Sources */,
 				959B63DB270B5291000C97FD /* MinuteView.swift in Sources */,
 				95108FCE270624F20059CC2D /* SecondView.swift in Sources */,
+				959B63DF270B6928000C97FD /* MinuteClockHand.swift in Sources */,
 				95108FD02706AEBC0059CC2D /* SecondClockHand.swift in Sources */,
 				95108F99270614350059CC2D /* TimerViewController.swift in Sources */,
 				95108F95270614350059CC2D /* AppDelegate.swift in Sources */,

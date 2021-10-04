@@ -21,8 +21,9 @@ class TimerViewController: UIViewController {
     private let secondLine = UIBezierPath()
     
     private var secondHandView = SecondClockHand()
+    private var minuteHandView = MinuteClockHand()
     
-    //MARK: - SetLabel
+    //MARK: - SetBigLabel
     private let label5: UILabel = {
         let label = UILabel()
         label.text = "5"
@@ -126,6 +127,54 @@ class TimerViewController: UIViewController {
         label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.light)
         return label
     }()
+    //MARK: - SetSmallLabel
+    private let smallLabel5 : UILabel = {
+        let label = UILabel()
+        label.text = "5"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let smallLabel10 : UILabel = {
+        let label = UILabel()
+        label.text = "10"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let smallLabel15 : UILabel = {
+        let label = UILabel()
+        label.text = "15"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let smallLabel20 : UILabel = {
+        let label = UILabel()
+        label.text = "20"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let smallLabel25 : UILabel = {
+        let label = UILabel()
+        label.text = "25"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let smallLabel30 : UILabel = {
+        let label = UILabel()
+        label.text = "30"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
     
     private let startButton: UIButton = {
         let button = UIButton()
@@ -162,10 +211,14 @@ class TimerViewController: UIViewController {
         let secondCircleView = SecondView(frame: view.frame)
         let fiveSecondCircleView = FiveSecondView(frame: view.frame)
         let minuteCircleView = MinuteView(frame: view.frame)
-        [secondCircleView,fiveSecondCircleView, minuteCircleView, label5, label10, label15, label20, label25, label30, label35, label40, label45, label50, label55, label60, timerLabel, lapButton, secondHandView].forEach{view.addSubview($0)}
+        [secondCircleView,fiveSecondCircleView, minuteCircleView, timerLabel, lapButton, secondHandView, minuteHandView].forEach{view.addSubview($0)}
+        [label5, label10, label15, label20, label25, label30, label35, label40, label45, label50, label55, label60].forEach{view.addSubview($0)}
+        
+        [smallLabel5, smallLabel10, smallLabel15, smallLabel20, smallLabel25, smallLabel30].forEach{view.addSubview($0)}
         
         minuteCircleView.backgroundColor = .clear
         secondHandView.backgroundColor = .clear
+        minuteHandView.backgroundColor = .clear
         fiveSecondCircleView.backgroundColor = .clear
         
         label60.snp.makeConstraints {
@@ -216,12 +269,46 @@ class TimerViewController: UIViewController {
             $0.top.equalToSuperview().offset(365)
             $0.centerX.equalToSuperview()
         }
+        
+        smallLabel30.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(118)
+            $0.centerX.equalToSuperview().offset(5)
+        }
+        smallLabel5.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(125)
+            $0.centerX.equalToSuperview().offset(28)
+        }
+        smallLabel25.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(125)
+            $0.centerX.equalToSuperview().offset(-20)
+        }
+        smallLabel10.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(155)
+            $0.centerX.equalToSuperview().offset(28)
+        }
+        smallLabel20.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(155)
+            $0.centerX.equalToSuperview().offset(-20)
+        }
+        smallLabel15.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(170)
+            $0.centerX.equalToSuperview().offset(5)
+        }
+        
+        
         timerLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(300)
             $0.centerX.equalToSuperview()
         }
         secondHandView.snp.makeConstraints {
             $0.centerY.equalToSuperview().offset(-200)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(UIScreen.main.bounds.height / 2)
+            $0.width.equalToSuperview()
+            $0.trailing.equalToSuperview()
+        }
+        minuteHandView.snp.makeConstraints {
+            $0.centerY.equalToSuperview().offset(-273)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(UIScreen.main.bounds.height / 2)
             $0.width.equalToSuperview()
@@ -266,14 +353,14 @@ class TimerViewController: UIViewController {
         runCount += 1
         timerLabel.text = self.makeTimeLabel(count: runCount)
         
-        //분침과 초침 회전 애니메이션
-        let minuteAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(minuite) / 60))
+        let minuteAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(minuite) / 30))
         let secondAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(second) / 60))
 
-        SecondClockHand.animate(withDuration: 1) {
+        SecondClockHand.animate(withDuration: 2) {
             self.secondHandView.transform = secondAngle
-//            self.secondHandView.transform = minuteAngle
-            
+        }
+        MinuteClockHand.animate(withDuration: 2) {
+            self.minuteHandView.transform = minuteAngle
         }
     }
 }
@@ -293,7 +380,7 @@ extension TimerViewController {
         let sec = (count / 1000) % 60
         let milliSec = count - (min * 60000) - (sec * 1000)
         
-        minuite = min
+        minuite = 10
         second = sec
         milliSecond = milliSec
         

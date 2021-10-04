@@ -14,6 +14,10 @@ class SecondView: UIView, CAAnimationDelegate {
     let outerRadius: CGFloat = 190
     let numTicks: Double = 240
     
+    let smallInnerRadius: CGFloat = 45
+    let smallOuterRadius: CGFloat = 50
+    let smallNumTicks: Double = 60
+    
     override func draw(_ rect: CGRect) {
         for i in 0...600 {
             if i % 50 != 0 {
@@ -25,6 +29,17 @@ class SecondView: UIView, CAAnimationDelegate {
                 UIColor.gray.set()
                 path.stroke()
             }
+        }
+        for i in 0...300 {
+//            if i % 50 != 0 {
+                let angle = CGFloat(2.0 * .pi * Double(i) / smallNumTicks)
+                let inner = CGPoint(x: smallInnerRadius * cos(angle)+200, y: smallInnerRadius * sin(angle)+150)
+                let outer = CGPoint(x: smallOuterRadius * cos(angle)+200, y: smallOuterRadius * sin(angle)+150)
+                path.move(to: inner)
+                path.addLine(to: outer)
+                UIColor.gray.set()
+                path.stroke()
+//            }
         }
     }
    
