@@ -16,7 +16,7 @@
 		5EC81D7527089995004A1543 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC81D7327089995004A1543 /* LaunchScreen.storyboard */; };
 		5EC81D7D27089B48004A1543 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC81D7C27089B48004A1543 /* MainViewController.swift */; };
 		5EC81D7F27089B6D004A1543 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC81D7E27089B6D004A1543 /* DetailViewController.swift */; };
-		5EC81D832709ECB7004A1543 /* MainViewUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC81D822709ECB7004A1543 /* MainViewUnit.swift */; };
+		5EC81D832709ECB7004A1543 /* MainUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC81D822709ECB7004A1543 /* MainUnitView.swift */; };
 		5EC81D862709F21C004A1543 /* MainUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC81D852709F21C004A1543 /* MainUnit.swift */; };
 		5EC81D8B270A0A66004A1543 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC81D8A270A0A66004A1543 /* MainPresenter.swift */; };
 /* End PBXBuildFile section */
@@ -33,7 +33,7 @@
 		5EC81D7627089995004A1543 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EC81D7C27089B48004A1543 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5EC81D7E27089B6D004A1543 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		5EC81D822709ECB7004A1543 /* MainViewUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewUnit.swift; sourceTree = "<group>"; };
+		5EC81D822709ECB7004A1543 /* MainUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUnitView.swift; sourceTree = "<group>"; };
 		5EC81D852709F21C004A1543 /* MainUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUnit.swift; sourceTree = "<group>"; };
 		5EC81D8A270A0A66004A1543 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		A2E4B5512C35A7197FBA003D /* Pods-Practice3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice3.debug.xcconfig"; path = "Target Support Files/Pods-Practice3/Pods-Practice3.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 			children = (
 				5EC81D7C27089B48004A1543 /* MainViewController.swift */,
 				5EC81D7E27089B6D004A1543 /* DetailViewController.swift */,
-				5EC81D822709ECB7004A1543 /* MainViewUnit.swift */,
+				5EC81D822709ECB7004A1543 /* MainUnitView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -263,7 +263,7 @@
 				5EC81D7F27089B6D004A1543 /* DetailViewController.swift in Sources */,
 				5E202ECA270B2FC200808DA9 /* DetailPresenter.swift in Sources */,
 				5EC81D8B270A0A66004A1543 /* MainPresenter.swift in Sources */,
-				5EC81D832709ECB7004A1543 /* MainViewUnit.swift in Sources */,
+				5EC81D832709ECB7004A1543 /* MainUnitView.swift in Sources */,
 				5EC81D7D27089B48004A1543 /* MainViewController.swift in Sources */,
 				5EC81D6927089994004A1543 /* AppDelegate.swift in Sources */,
 				5EC81D862709F21C004A1543 /* MainUnit.swift in Sources */,

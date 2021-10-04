@@ -11,4 +11,5 @@ struct MainUnit {
     let title: String
     let subTitle: String
     let backgroundColor: UIColor
+    let paragraph: String
 }

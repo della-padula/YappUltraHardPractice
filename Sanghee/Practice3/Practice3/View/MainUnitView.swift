@@ -1,5 +1,5 @@
 //
-//  MainViewUnit.swift
+//  MainUnitView.swift
 //  Practice3
 //
 //  Created by leeesangheee on 2021/10/03.
@@ -19,7 +19,7 @@ class MainUnitView: UIView {
     private var subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .systemGray
+        label.textColor = .systemGray4
         return label
     }()
     
