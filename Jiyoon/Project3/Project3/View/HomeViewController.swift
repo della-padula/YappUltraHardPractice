@@ -9,16 +9,18 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let transitionManager = CardTransitionManager()
+    private let transitionManager = CardTransitionManager()
+    private let imageModel = Model()
+    private var todayLabel = UILabel()
+    private var dateLabel = UILabel()
+    private var profileImageButton = UIButton()
     
-    let cardTableView: UITableView = {
+    private let cardTableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.register(CardCellController.self, forCellReuseIdentifier: CardCellController.cardIdentifier)
         return tableView
     }()
-    private var todayLabel = UILabel()
-    private var dateLabel = UILabel()
-    private var profileImageButton = UIButton()
+    private var header = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +49,11 @@ class HomeViewController: UIViewController {
             button.setImage(image, for: .normal)
             return button
         }()
-        
+        header = {
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
+            return view
+        }()
+    
         view.addSubview(cardTableView)
         view.addSubview(todayLabel)
         view.addSubview(dateLabel)
@@ -79,16 +85,16 @@ class HomeViewController: UIViewController {
             $0.height.equalTo(30)
         }
     }
-
-
 }
+
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CardCellController.cardIdentifier)! as UITableViewCell
+        cell.backgroundView = UIImageView(image: imageModel.images[indexPath.row])
         return cell
     }
     

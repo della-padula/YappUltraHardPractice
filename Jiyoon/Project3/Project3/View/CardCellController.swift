@@ -16,18 +16,10 @@ class CardCellController: UITableViewCell {
         return view
     }()
     
-    var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "ABCD"
-        return label
-    }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundView = UIImageView(image: UIImage(named: "cellBackground"))
         layer.cornerRadius = 8
-        contentView.addSubview(descriptionLabel)
-        
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 30, right: 10))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0))
     }
     
     required init?(coder: NSCoder) {

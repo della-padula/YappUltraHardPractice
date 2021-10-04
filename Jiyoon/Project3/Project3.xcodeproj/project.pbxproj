@@ -13,7 +13,7 @@
 		959B63C32708BF37000C97FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 959B63C22708BF37000C97FD /* Assets.xcassets */; };
 		959B63C62708BF37000C97FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 959B63C42708BF37000C97FD /* LaunchScreen.storyboard */; };
 		959B63D1270936A0000C97FD /* CardCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63D0270936A0000C97FD /* CardCellController.swift */; };
-		959B63D3270939D2000C97FD /* AnimationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63D2270939D2000C97FD /* AnimationModel.swift */; };
+		959B63D3270939D2000C97FD /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63D2270939D2000C97FD /* Model.swift */; };
 		959B63D527093C25000C97FD /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63D427093C25000C97FD /* CardTransitionManager.swift */; };
 		959B63D727094731000C97FD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B63D627094731000C97FD /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -28,7 +28,7 @@
 		959B63C52708BF37000C97FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		959B63C72708BF37000C97FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		959B63D0270936A0000C97FD /* CardCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellController.swift; sourceTree = "<group>"; };
-		959B63D2270939D2000C97FD /* AnimationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationModel.swift; sourceTree = "<group>"; };
+		959B63D2270939D2000C97FD /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		959B63D427093C25000C97FD /* CardTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
 		959B63D627094731000C97FD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BC5E6372B34FCE6562F0B964 /* Pods-Project3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project3.release.xcconfig"; path = "Target Support Files/Pods-Project3/Pods-Project3.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		959B63CD270931C0000C97FD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				959B63D2270939D2000C97FD /* AnimationModel.swift */,
+				959B63D2270939D2000C97FD /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,7 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				959B63D3270939D2000C97FD /* AnimationModel.swift in Sources */,
+				959B63D3270939D2000C97FD /* Model.swift in Sources */,
 				959B63BE2708BF35000C97FD /* HomeViewController.swift in Sources */,
 				959B63BA2708BF35000C97FD /* AppDelegate.swift in Sources */,
 				959B63D727094731000C97FD /* DetailViewController.swift in Sources */,

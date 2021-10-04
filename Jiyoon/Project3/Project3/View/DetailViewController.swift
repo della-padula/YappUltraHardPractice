@@ -9,7 +9,21 @@ import Foundation
 import UIKit
 
 class DetailViewController: UIViewController {
+    let imageModel = Model()
+    var cellView = UIImageView()
+    
     override func viewDidLoad() {
         view.backgroundColor = .cyan
+    }
+    
+    func setImage() {
+        cellView = {
+            let view = UIImageView(image: imageModel.images[0])
+            return view
+        }()
+        cellView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
     }
 }
