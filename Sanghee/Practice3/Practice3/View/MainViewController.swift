@@ -19,10 +19,13 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainUnits = mainPresenter.mainUnits
-        
+        getData()
         setHeader()
         setCollectionView()
+    }
+    
+    private func getData() {
+        mainUnits = mainPresenter.mainUnits
     }
     
     private func setCollectionView() {
@@ -57,9 +60,27 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 100, left: 0, bottom:0, right: 0)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVC = DetailViewController()
+        detailVC.mainUnit = mainUnits[indexPath.row]
+        detailVC.modalPresentationStyle = .overFullScreen
+        detailVC.transitioningDelegate = self
+        
+        self.present(detailVC, animated: true, completion: nil)
+    }
 }
 
 extension MainViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let selectedIndexPath = collectionView.indexPathsForSelectedItems,
+              let selectedCell = collectionView.cellForItem(at: selectedIndexPath.first!),
+              let selectedCellSuperView = selectedCell.superview else { return nil }
+        
+        let animator = PopAnimator(view: selectedCell)
+        animator.originFrame = selectedCellSuperView.convert(selectedCell.frame, to: nil)
+        return animator
+    }
 }
 
 extension MainViewController: MainView {

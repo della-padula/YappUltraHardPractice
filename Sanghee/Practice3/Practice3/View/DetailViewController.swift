@@ -9,6 +9,12 @@ import SnapKit
 import UIKit
 
 class DetailViewController: UIViewController {
+    var mainUnit: MainUnit? {
+        didSet {
+            print(mainUnit)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

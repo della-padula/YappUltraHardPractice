@@ -9,6 +9,8 @@ import UIKit
 
 class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let duration: TimeInterval = 1.0
+    var presenting = true
+    var originFrame = CGRect.zero
     var fromView: UIView
     
     init(view: UIView) {
