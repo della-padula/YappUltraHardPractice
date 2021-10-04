@@ -102,7 +102,7 @@ extension MainViewController: MainView {
     func setHeader() {
         timeLabel = {
             let label = UILabel()
-            label.text = "10월 3일 일요일"
+            label.text = mainPresenter.currentDateString
             label.font = UIFont.boldSystemFont(ofSize: 14)
             label.textColor = .systemGray
             return label

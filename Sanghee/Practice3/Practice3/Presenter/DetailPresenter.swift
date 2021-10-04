@@ -8,5 +8,5 @@
 import UIKit
 
 protocol DetailView: AnyObject {
-    func setMainUnitView()
+    func setView()
 }

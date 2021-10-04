@@ -11,7 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     var mainUnit: MainUnit? {
         didSet {
-            setMainUnitView()
+            setView()
         }
     }
     
@@ -27,9 +27,18 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: DetailView {
-    func setMainUnitView() {
+    func setView() {
         let mainUnitView = MainUnitView()
         mainUnitView.mainUnit = mainUnit
+        
+        let paragraphLabel: UILabel = {
+            let label = UILabel()
+            label.text = mainUnit?.paragraph
+            label.font = UIFont.systemFont(ofSize: 16)
+            label.textColor = .systemGray
+            label.numberOfLines = 0
+            return label
+        }()
         
         let deleteBtn: UIButton = {
             let button = UIButton(type: .close)
@@ -38,11 +47,16 @@ extension DetailViewController: DetailView {
         }()
         
         view.addSubview(mainUnitView)
-        mainUnitView.addSubview(deleteBtn)
+        view.addSubview(paragraphLabel)
+        view.addSubview(deleteBtn)
         
         mainUnitView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
             $0.height.equalTo(view.bounds.width)
+        }
+        paragraphLabel.snp.makeConstraints {
+            $0.top.equalTo(mainUnitView.snp.bottom).offset(16)
+            $0.left.right.equalToSuperview().inset(16)
         }
         deleteBtn.snp.makeConstraints {
             $0.top.equalToSuperview().inset(32)

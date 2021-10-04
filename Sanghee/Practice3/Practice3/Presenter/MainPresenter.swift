@@ -17,9 +17,35 @@ protocol MainViewPresenter {
 
 class MainPresenter: MainViewPresenter {
     var mainUnits: [MainUnit] = []
+    var currentDateString: String = ""
     
     init() {
         getMainUnits()
+        getDateString()
+    }
+    
+    func getDateString() {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "MM월 dd일 "
+        let dateString = formatter.string(from: Date())
+
+        formatter.dateFormat = "e"
+        let day = formatter.string(from: Date())
+        var dayString = ""
+        
+        switch day {
+        case "1": dayString = "일요일"
+        case "2": dayString =  "월요일"
+        case "3": dayString =  "화요일"
+        case "4": dayString =  "수요일"
+        case "5": dayString =  "목요일"
+        case "6": dayString =  "금요일"
+        case "7": dayString =  "토요일"
+        default: dayString =  "일요일"
+        }
+        
+        currentDateString = dateString + dayString
     }
     
     func getMainUnits() {
