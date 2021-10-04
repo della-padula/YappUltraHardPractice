@@ -27,7 +27,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "5"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -35,7 +35,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "10"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -43,7 +43,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "15"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -51,7 +51,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "20"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -59,7 +59,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "25"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -67,7 +67,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "30"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -75,7 +75,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "35"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -83,7 +83,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "40"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -91,7 +91,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "45"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -99,7 +99,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "50"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -107,7 +107,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "55"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -115,7 +115,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.text = "60"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -159,26 +159,26 @@ class TimerViewController: UIViewController {
     }
     
     func setLabel() {
-        let circle = CircleView(frame: view.frame)
-        [circle, label5, label10, label15, label20, label25, label30, label35, label40, label45, label50, label55, label60, timerLabel].forEach{view.addSubview($0)}
-        view.addSubview(timerLabel)
-        view.addSubview(startButton)
-        view.addSubview(lapButton)
+        let secondCircleView = SecondView(frame: view.frame)
+        let fiveSecondCircleView = FiveSecondView(frame: view.frame)
+        let minuteCircleView = MinuteView(frame: view.frame)
+        [secondCircleView,fiveSecondCircleView, minuteCircleView, label5, label10, label15, label20, label25, label30, label35, label40, label45, label50, label55, label60, timerLabel, lapButton, secondHandView].forEach{view.addSubview($0)}
         
+        minuteCircleView.backgroundColor = .clear
         secondHandView.backgroundColor = .clear
-        view.addSubview(secondHandView)
+        fiveSecondCircleView.backgroundColor = .clear
         
         label60.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(65)
+            $0.top.equalToSuperview().offset(55)
             $0.centerX.equalToSuperview()
         }
         label55.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(85)
-            $0.centerX.equalToSuperview().offset(-90)
+            $0.top.equalToSuperview().offset(75)
+            $0.centerX.equalToSuperview().offset(-80)
         }
         label5.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(85)
-            $0.centerX.equalToSuperview().offset(90)
+            $0.top.equalToSuperview().offset(75)
+            $0.centerX.equalToSuperview().offset(80)
         }
         label10.snp.makeConstraints {
             $0.top.equalToSuperview().offset(135)
@@ -190,30 +190,30 @@ class TimerViewController: UIViewController {
         }
         label45.snp.makeConstraints {
             $0.top.equalToSuperview().offset(210)
-            $0.centerX.equalToSuperview().offset(-160)
+            $0.centerX.equalToSuperview().offset(-150)
         }
         label15.snp.makeConstraints {
             $0.top.equalToSuperview().offset(210)
-            $0.centerX.equalToSuperview().offset(160)
+            $0.centerX.equalToSuperview().offset(150)
         }
         label40.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(280)
+            $0.top.equalToSuperview().offset(290)
             $0.centerX.equalToSuperview().offset(-130)
         }
         label20.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(280)
+            $0.top.equalToSuperview().offset(290)
             $0.centerX.equalToSuperview().offset(130)
         }
         label35.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(350)
-            $0.centerX.equalToSuperview().offset(-90)
+            $0.top.equalToSuperview().offset(340)
+            $0.centerX.equalToSuperview().offset(-85)
         }
         label25.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(350)
-            $0.centerX.equalToSuperview().offset(90)
+            $0.top.equalToSuperview().offset(340)
+            $0.centerX.equalToSuperview().offset(85)
         }
         label30.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(380)
+            $0.top.equalToSuperview().offset(365)
             $0.centerX.equalToSuperview()
         }
         timerLabel.snp.makeConstraints {
@@ -270,9 +270,8 @@ class TimerViewController: UIViewController {
         let minuteAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(minuite) / 60))
         let secondAngle = CGAffineTransform(rotationAngle: CGFloat(2.0 * .pi * Double(second) / 60))
 
-        SecondClockHand.animate(withDuration: 2) {
+        SecondClockHand.animate(withDuration: 1) {
             self.secondHandView.transform = secondAngle
-            self.secondHandView.alpha = 1
 //            self.secondHandView.transform = minuteAngle
             
         }
