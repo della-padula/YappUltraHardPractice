@@ -38,7 +38,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mainUnits.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionCell.identifier, for: indexPath) as! CustomCollectionCell
         cell.mainUnit = mainUnits[indexPath.row]
@@ -50,14 +50,17 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         return CGSize(width: width, height: width)
     }
 
+    // 상하 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
 
+    // 좌우 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
+    // 위 여백
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 100, left: 0, bottom:0, right: 0)
     }
@@ -74,6 +77,10 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
 
 extension MainViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return animator
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animator
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let duration: TimeInterval = 1.0
+    let padding: CGFloat = 16
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
@@ -16,25 +17,49 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
-        let toView = transitionContext.view(forKey: .to)!
+
+        let toView = transitionContext.view(forKey: .to)
+        let fromView = transitionContext.view(forKey: .from)
         
-        containerView.addSubview(toView)
-        containerView.bringSubviewToFront(toView)
-        
-        toView.clipsToBounds = true
-        toView.layer.cornerRadius = 12
-        toView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 0.1,
-                       animations: {
-                        toView.transform = .identity
-                        toView.frame = containerView.frame
-                       },
-                       completion: { _ in
-                        transitionContext.completeTransition(true)
-                       })
+        if let toView = toView {
+            containerView.addSubview(toView)
+            containerView.bringSubviewToFront(toView)
+            
+            toView.clipsToBounds = true
+            toView.layer.cornerRadius = 12
+            toView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           usingSpringWithDamping: 0.5,
+                           initialSpringVelocity: 0.1,
+                           animations: {
+                            toView.transform = .identity
+                            toView.frame = containerView.frame
+                           },
+                           completion: { _ in
+                            transitionContext.completeTransition(true)
+                           })
+        }
+        if let fromView = fromView {
+            containerView.addSubview(fromView)
+            containerView.bringSubviewToFront(fromView)
+            
+            fromView.clipsToBounds = true
+            fromView.layer.cornerRadius = 12
+            fromView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           usingSpringWithDamping: 0.5,
+                           initialSpringVelocity: 0.1,
+                           animations: {
+                            fromView.transform = .identity
+                            fromView.frame = CGRect(x: self.padding, y: 120, width: containerView.frame.width - self.padding * 2, height: containerView.frame.width)
+                           },
+                           completion: { _ in
+                            transitionContext.completeTransition(true)
+                           })
+        }
     }
 }
