@@ -19,8 +19,15 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
+    
+    @objc
+    private func buttonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
 
-    private func setMainUnitView() {
+extension DetailViewController: DetailView {
+    func setMainUnitView() {
         let mainUnitView = MainUnitView()
         mainUnitView.mainUnit = mainUnit
         
@@ -34,17 +41,12 @@ class DetailViewController: UIViewController {
         mainUnitView.addSubview(deleteBtn)
         
         mainUnitView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(32)
-            $0.left.right.equalToSuperview()
+            $0.top.left.right.equalToSuperview()
             $0.height.equalTo(view.bounds.width)
         }
         deleteBtn.snp.makeConstraints {
-            $0.top.right.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(32)
+            $0.right.equalToSuperview().inset(16)
         }
-    }
-    
-    @objc
-    private func buttonTapped() {
-        self.dismiss(animated: true, completion: nil)
     }
 }
