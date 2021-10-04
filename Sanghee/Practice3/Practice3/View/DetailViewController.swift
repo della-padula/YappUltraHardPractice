@@ -26,6 +26,7 @@ class DetailViewController: UIViewController {
         
         let deleteBtn: UIButton = {
             let button = UIButton(type: .close)
+            button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
             return button
         }()
         
@@ -40,5 +41,10 @@ class DetailViewController: UIViewController {
         deleteBtn.snp.makeConstraints {
             $0.top.right.equalToSuperview().inset(16)
         }
+    }
+    
+    @objc
+    private func buttonTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
