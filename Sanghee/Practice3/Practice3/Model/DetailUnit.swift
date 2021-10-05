@@ -9,7 +9,6 @@ import Foundation
 
 struct DetailUnit {
     let title: String
-    let subTitle: String
     let emoji: String
     let paragraph: String
 }

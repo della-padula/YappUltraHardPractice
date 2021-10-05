@@ -11,14 +11,9 @@ import UIKit
 class DetailUnitView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .black
-        return label
-    }()
-    private var subTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .systemGray
+        label.numberOfLines = 0
         return label
     }()
     private let emojiLabel: UILabel = {
@@ -55,14 +50,12 @@ class DetailUnitView: UIView {
     
     private func setLabelTexts() {
         titleLabel.text = detailUnit?.title
-        subTitleLabel.text = detailUnit?.subTitle
         emojiLabel.text = detailUnit?.emoji
         paragraphLabel.text = detailUnit?.paragraph
     }
     
     private func setLabels() {
         addSubview(titleLabel)
-        addSubview(subTitleLabel)
         addSubview(emojiLabel)
         addSubview(paragraphLabel)
         
@@ -70,16 +63,12 @@ class DetailUnitView: UIView {
             $0.top.equalToSuperview().inset(32)
             $0.left.right.equalToSuperview().inset(16)
         }
-        subTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(16)
-        }
         emojiLabel.snp.makeConstraints {
-            $0.top.equalTo(subTitleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
         }
         paragraphLabel.snp.makeConstraints {
-            $0.top.equalTo(emojiLabel.snp.bottom).offset(4)
+            $0.top.equalTo(emojiLabel.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(16)
         }
     }
