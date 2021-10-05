@@ -71,16 +71,24 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     // 스크롤
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
+        let safeAreaTop = scrollView.safeAreaInsets.top
         
-        mainUnitView.snp.updateConstraints {
-            $0.top.equalToSuperview().offset(-contentOffsetY - scrollView.safeAreaInsets.top)
+        let scrollLength = contentOffsetY + safeAreaTop
+        let minimumPullLength : CGFloat = -120
+        
+        // 아래로 스크롤
+        if scrollLength > 0 {
+            mainUnitView.snp.updateConstraints {
+                $0.top.equalToSuperview().offset(-scrollLength)
+            }
+        } else {
+            mainUnitView.snp.updateConstraints {
+                $0.top.equalToSuperview()
+            }
         }
         
         // 위로 당김
-        let pullLength = -1 * (contentOffsetY + scrollView.safeAreaInsets.top)
-        let minimumLength: CGFloat = 120
-        let difLength: CGFloat = pullLength - minimumLength
-        if difLength > 0 {
+        if scrollLength < minimumPullLength {
             self.dismiss(animated: true, completion: nil)
         }
     }
