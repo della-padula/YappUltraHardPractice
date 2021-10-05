@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class DetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class DetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -66,6 +66,15 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     // 여백
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: view.frame.width, left: 16, bottom: 0, right: 16)
+    }
+    
+    // 스크롤
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y
+        
+        mainUnitView.snp.updateConstraints {
+            $0.top.equalToSuperview().offset(-contentOffsetY - scrollView.safeAreaInsets.top)
+        }
     }
 }
 
