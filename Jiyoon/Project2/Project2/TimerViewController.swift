@@ -22,6 +22,8 @@ class TimerViewController: UIViewController {
     
     private var secondHandView = SecondClockHand()
     private var minuteHandView = MinuteClockHand()
+    static var centerY: Double = 0
+    static var centerX: Double = 0
     
     //MARK: - SetBigLabel
     private let label5: UILabel = {
@@ -202,7 +204,6 @@ class TimerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setLabel()
         setButton()
     }
@@ -220,6 +221,7 @@ class TimerViewController: UIViewController {
         secondHandView.backgroundColor = .clear
         minuteHandView.backgroundColor = .clear
         fiveSecondCircleView.backgroundColor = .clear
+        secondCircleView.backgroundColor = .clear
         
         label60.snp.makeConstraints {
             $0.top.equalToSuperview().offset(55)
