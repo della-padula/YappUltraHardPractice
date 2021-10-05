@@ -8,7 +8,6 @@
 import UIKit
 
 protocol DetailView: AnyObject {
-    func setScrollView()
-    func setmainUnitView()
-    func setDetailUnits()
+    func setCollectionView()
+    func setMainUnitView()
 }

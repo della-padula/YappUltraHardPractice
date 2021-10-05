@@ -9,75 +9,78 @@ import SnapKit
 import UIKit
 
 class DetailUnitView: UIView {
-    var detailUnit: DetailUnit? {
-        didSet {
-            setLabelText()
-        }
-    }
-    
-    private var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 28)
-        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = .black
         return label
     }()
-    
     private var subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .systemGray4
+        label.textColor = .systemGray
+        return label
+    }()
+    private let emojiLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 50)
+        label.textAlignment = .center
+        return label
+    }()
+    private let paragraphLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .systemGray
+        label.numberOfLines = 0
         return label
     }()
     
-    let emojiLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 100)
-        return label
-    }()
+    var detailUnit: DetailUnit? {
+        didSet {
+            setLabelTexts()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        backgroundColor = .systemGroupedBackground
 
-        setView()
         setLabels()
-        setEmojiLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setLabelText() {
+    private func setLabelTexts() {
         titleLabel.text = detailUnit?.title
         subTitleLabel.text = detailUnit?.subTitle
         emojiLabel.text = detailUnit?.emoji
-    }
-    
-    private func setView() {
-        layer.cornerRadius = 12
-        layer.masksToBounds = true
-    }
-    
-    private func setEmojiLabel() {
-        addSubview(emojiLabel)
-        
-        emojiLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(140)
-        }
+        paragraphLabel.text = detailUnit?.paragraph
     }
     
     private func setLabels() {
-        addSubview(subTitleLabel)
         addSubview(titleLabel)
+        addSubview(subTitleLabel)
+        addSubview(emojiLabel)
+        addSubview(paragraphLabel)
         
-        subTitleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(32)
-            $0.left.equalToSuperview().inset(16)
-        }
         titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(32)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+        subTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+        emojiLabel.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(4)
-            $0.left.equalToSuperview().inset(16)
+            $0.centerX.equalToSuperview()
+        }
+        paragraphLabel.snp.makeConstraints {
+            $0.top.equalTo(emojiLabel.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview().inset(16)
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class MainCollectionCell: UICollectionViewCell{
     static let identifier = "MainCollectionCell"
+    
     var mainUnit: MainUnit? {
         didSet {
             setMainUnitView()

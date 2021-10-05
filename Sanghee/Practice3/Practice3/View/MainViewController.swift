@@ -61,7 +61,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
         return 0
     }
     
-    // 위 여백
+    // 여백
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 100, left: 16, bottom: 0, right: 16)
     }

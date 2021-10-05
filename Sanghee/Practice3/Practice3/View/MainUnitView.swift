@@ -9,39 +9,37 @@ import SnapKit
 import UIKit
 
 class MainUnitView: UIView {
-    var mainUnit: MainUnit? {
-        didSet {
-            setViewBackgroundColor()
-            setLabelText()
-        }
-    }
-    
-    private var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 28)
         label.textColor = .white
         return label
     }()
-    
-    private var subTitleLabel: UILabel = {
+    private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .systemGray4
         return label
     }()
-    
-    let emojiLabel: UILabel = {
+    private let emojiLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 100)
+        label.textAlignment = .center
         return label
     }()
+    
+    var mainUnit: MainUnit? {
+        didSet {
+            setViewBackgroundColor()
+            setLabelTexts()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         setView()
         setLabels()
-        setEmojiLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -52,7 +50,7 @@ class MainUnitView: UIView {
         backgroundColor = mainUnit?.backgroundColor
     }
     
-    private func setLabelText() {
+    private func setLabelTexts() {
         titleLabel.text = mainUnit?.title
         subTitleLabel.text = mainUnit?.subTitle
         emojiLabel.text = mainUnit?.emoji
@@ -63,26 +61,22 @@ class MainUnitView: UIView {
         layer.masksToBounds = true
     }
     
-    private func setEmojiLabel() {
-        addSubview(emojiLabel)
-        
-        emojiLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(140)
-        }
-    }
-    
     private func setLabels() {
         addSubview(subTitleLabel)
         addSubview(titleLabel)
+        addSubview(emojiLabel)
         
         subTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(32)
-            $0.left.equalToSuperview().inset(16)
+            $0.left.right.equalToSuperview().inset(16)
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(4)
-            $0.left.equalToSuperview().inset(16)
+            $0.left.right.equalToSuperview().inset(16)
+        }
+        emojiLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(48)
+            $0.centerX.equalToSuperview()
         }
     }
 }
