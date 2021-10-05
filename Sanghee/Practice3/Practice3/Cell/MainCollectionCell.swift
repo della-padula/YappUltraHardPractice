@@ -1,5 +1,5 @@
 //
-//  CustomCollectionCell.swift
+//  MainCollectionCell.swift
 //  Practice3
 //
 //  Created by leeesangheee on 2021/10/04.
@@ -8,8 +8,8 @@
 import SnapKit
 import UIKit
 
-class CustomCollectionCell: UICollectionViewCell{
-    static let identifier = "CustomCollectionCell"
+class MainCollectionCell: UICollectionViewCell{
+    static let identifier = "MainCollectionCell"
     var mainUnit: MainUnit? {
         didSet {
             setMainUnitView()

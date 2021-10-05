@@ -12,5 +12,5 @@ struct MainUnit {
     let subTitle: String
     let emoji: String
     let backgroundColor: UIColor
-    let paragraph: String
+    let detailUnits: [DetailUnit]
 }

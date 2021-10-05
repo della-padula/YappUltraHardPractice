@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
     var mainUnit: MainUnit? {
         didSet {
             setmainUnitView()
-            setParagraphLabel()
+            setDetailUnits()
         }
     }
     
@@ -71,8 +71,8 @@ extension DetailViewController: DetailView {
         }
     }
     
-    func setParagraphLabel() {
-        paragraphLabel.text = mainUnit?.paragraph
+    func setDetailUnits() {
+        paragraphLabel.text = mainUnit?.detailUnits.first?.paragraph
         
         scrollView.addSubview(paragraphLabel)
         
