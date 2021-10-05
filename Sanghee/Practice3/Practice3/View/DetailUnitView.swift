@@ -39,6 +39,7 @@ class DetailUnitView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        layer.cornerRadius = 12
         backgroundColor = .systemGroupedBackground
 
         setLabels()

@@ -65,7 +65,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // 여백
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 440, left: 16, bottom: 0, right: 16)
+        return UIEdgeInsets(top: view.frame.width, left: 16, bottom: 0, right: 16)
     }
 }
 
