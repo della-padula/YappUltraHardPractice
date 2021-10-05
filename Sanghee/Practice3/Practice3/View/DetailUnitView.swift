@@ -74,11 +74,11 @@ class DetailUnitView: UIView {
             $0.left.right.equalToSuperview()
         }
         emojiLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
         }
         paragraphLabel.snp.makeConstraints {
-            $0.top.equalTo(emojiLabel.snp.bottom).offset(16)
+            $0.top.equalTo(emojiLabel.snp.bottom).offset(32)
             $0.left.right.equalToSuperview()
         }
     }
