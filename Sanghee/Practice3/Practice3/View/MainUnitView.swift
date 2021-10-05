@@ -9,6 +9,11 @@ import SnapKit
 import UIKit
 
 class MainUnitView: UIView {
+    private let containerView: UIView = {
+        let view = UIView()
+        view.layer.masksToBounds = true
+        return view
+    }()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 28)
@@ -38,7 +43,8 @@ class MainUnitView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setView()
+        layer.cornerRadius = 12
+        
         setLabels()
     }
     
@@ -56,26 +62,25 @@ class MainUnitView: UIView {
         emojiLabel.text = mainUnit?.emoji
     }
     
-    private func setView() {
-        layer.cornerRadius = 12
-        layer.masksToBounds = true
-    }
-    
     private func setLabels() {
-        addSubview(subTitleLabel)
-        addSubview(titleLabel)
-        addSubview(emojiLabel)
+        addSubview(containerView)
+        containerView.addSubview(subTitleLabel)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(emojiLabel)
         
+        containerView.snp.makeConstraints {
+            $0.top.bottom.left.right.equalToSuperview().inset(16)
+        }
         subTitleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(32)
-            $0.left.right.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(16)
+            $0.left.right.equalToSuperview()
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(16)
+            $0.left.right.equalToSuperview()
         }
         emojiLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(48)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(56)
             $0.centerX.equalToSuperview()
         }
     }
