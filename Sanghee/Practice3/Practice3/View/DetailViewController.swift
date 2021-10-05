@@ -31,8 +31,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setCollectionView()
     }
     
     @objc
@@ -57,7 +55,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
 
     // 상하 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 16
     }
 
     // 좌우 간격
@@ -86,11 +84,11 @@ extension DetailViewController: DetailView {
     func setMainUnitView() {
         mainUnitView.mainUnit = mainUnit
         
-        collectionView.addSubview(mainUnitView)
+        view.addSubview(mainUnitView)
         mainUnitView.addSubview(deleteBtn)
         
         mainUnitView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(-48)
+            $0.top.equalToSuperview()
             $0.left.right.equalToSuperview()
             $0.width.height.equalTo(view.bounds.width)
         }

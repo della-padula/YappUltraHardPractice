@@ -53,7 +53,7 @@ class MainViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     // 상하 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 16
     }
 
     // 좌우 간격
