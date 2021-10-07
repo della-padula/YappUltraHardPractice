@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SnapKit
 import UIKit
 
 class FiveSecondView: UIView, CAAnimationDelegate {

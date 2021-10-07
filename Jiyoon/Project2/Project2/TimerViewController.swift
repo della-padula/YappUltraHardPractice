@@ -22,113 +22,10 @@ class TimerViewController: UIViewController {
     
     private var secondHandView = SecondClockHand()
     private var minuteHandView = MinuteClockHand()
-    static var centerY: Double = 0
-    static var centerX: Double = 0
+    var minuteCircleView = MinuteView()
     
-    //MARK: - SetBigLabel
-    private let label5: UILabel = {
-        let label = UILabel()
-        label.text = "5"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
+    var timerLabel = UILabel()
     
-    private let label10: UILabel = {
-        let label = UILabel()
-        label.text = "10"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label15: UILabel = {
-        let label = UILabel()
-        label.text = "15"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label20: UILabel = {
-        let label = UILabel()
-        label.text = "20"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label25: UILabel = {
-        let label = UILabel()
-        label.text = "25"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label30: UILabel = {
-        let label = UILabel()
-        label.text = "30"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label35: UILabel = {
-        let label = UILabel()
-        label.text = "35"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label40: UILabel = {
-        let label = UILabel()
-        label.text = "40"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label45: UILabel = {
-        let label = UILabel()
-        label.text = "45"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label50: UILabel = {
-        let label = UILabel()
-        label.text = "50"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label55: UILabel = {
-        let label = UILabel()
-        label.text = "55"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let label60 : UILabel = {
-        let label = UILabel()
-        label.text = "60"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30)
-        return label
-    }()
-    
-    private let timerLabel: UILabel = {
-        let label = UILabel()
-        label.text = "00:00:00"
-        label.textColor = .white
-        label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.light)
-        return label
-    }()
     //MARK: - SetSmallLabel
     private let smallLabel5 : UILabel = {
         let label = UILabel()
@@ -203,74 +100,43 @@ class TimerViewController: UIViewController {
     }()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        setLabel()
+            minuteCircleView = MinuteView(frame: self.view.frame)
+            setLabel()
+            super.viewDidLoad()
+            
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        view.addSubview(minuteCircleView)
+        minuteCircleView.backgroundColor = .clear
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        setTimer()
         setButton()
+    }
+    func setTimer() {
+        timerLabel = {
+            let label = UILabel(frame: CGRect(x: 0, y: -TimerLocationInfo.shared.timerCenterY/2 + 30, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+            label.textAlignment = .center
+            label.text = "00:00:00"
+            label.textColor = .white
+            label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.light)
+            return label
+        }()
+        view.addSubview(timerLabel)
     }
     
     func setLabel() {
         let secondCircleView = SecondView(frame: view.frame)
         let fiveSecondCircleView = FiveSecondView(frame: view.frame)
-        let minuteCircleView = MinuteView(frame: view.frame)
-        [secondCircleView,fiveSecondCircleView, minuteCircleView, timerLabel, lapButton, secondHandView, minuteHandView].forEach{view.addSubview($0)}
-        [label5, label10, label15, label20, label25, label30, label35, label40, label45, label50, label55, label60].forEach{view.addSubview($0)}
+        
+        [secondCircleView,fiveSecondCircleView, lapButton, secondHandView, minuteHandView].forEach{view.addSubview($0)}
         
         [smallLabel5, smallLabel10, smallLabel15, smallLabel20, smallLabel25, smallLabel30].forEach{view.addSubview($0)}
-        
-        minuteCircleView.backgroundColor = .clear
+    
         secondHandView.backgroundColor = .clear
         minuteHandView.backgroundColor = .clear
         fiveSecondCircleView.backgroundColor = .clear
         secondCircleView.backgroundColor = .clear
-        
-        label60.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(55)
-            $0.centerX.equalToSuperview()
-        }
-        label55.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(75)
-            $0.centerX.equalToSuperview().offset(-80)
-        }
-        label5.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(75)
-            $0.centerX.equalToSuperview().offset(80)
-        }
-        label10.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(135)
-            $0.centerX.equalToSuperview().offset(130)
-        }
-        label50.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(135)
-            $0.centerX.equalToSuperview().offset(-130)
-        }
-        label45.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(210)
-            $0.centerX.equalToSuperview().offset(-150)
-        }
-        label15.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(210)
-            $0.centerX.equalToSuperview().offset(150)
-        }
-        label40.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(290)
-            $0.centerX.equalToSuperview().offset(-130)
-        }
-        label20.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(290)
-            $0.centerX.equalToSuperview().offset(130)
-        }
-        label35.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(340)
-            $0.centerX.equalToSuperview().offset(-85)
-        }
-        label25.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(340)
-            $0.centerX.equalToSuperview().offset(85)
-        }
-        label30.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(365)
-            $0.centerX.equalToSuperview()
-        }
         
         smallLabel30.snp.makeConstraints {
             $0.top.equalToSuperview().offset(118)
@@ -295,12 +161,6 @@ class TimerViewController: UIViewController {
         smallLabel15.snp.makeConstraints {
             $0.top.equalToSuperview().offset(170)
             $0.centerX.equalToSuperview().offset(5)
-        }
-        
-        
-        timerLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(300)
-            $0.centerX.equalToSuperview()
         }
         secondHandView.snp.makeConstraints {
             $0.centerY.equalToSuperview().offset(-200)
@@ -382,7 +242,7 @@ extension TimerViewController {
         let sec = (count / 1000) % 60
         let milliSec = count - (min * 60000) - (sec * 1000)
         
-        minuite = 10
+        minuite = min
         second = sec
         milliSecond = milliSec
         
