@@ -130,38 +130,12 @@ class TimerViewController: UIViewController {
         let fiveSecondCircleView = FiveSecondView(frame: view.frame)
         
         [secondCircleView,fiveSecondCircleView, lapButton, secondHandView, minuteHandView].forEach{view.addSubview($0)}
-        
-        [smallLabel5, smallLabel10, smallLabel15, smallLabel20, smallLabel25, smallLabel30].forEach{view.addSubview($0)}
     
         secondHandView.backgroundColor = .clear
         minuteHandView.backgroundColor = .clear
         fiveSecondCircleView.backgroundColor = .clear
         secondCircleView.backgroundColor = .clear
-        
-        smallLabel30.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(118)
-            $0.centerX.equalToSuperview().offset(5)
-        }
-        smallLabel5.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(125)
-            $0.centerX.equalToSuperview().offset(28)
-        }
-        smallLabel25.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(125)
-            $0.centerX.equalToSuperview().offset(-20)
-        }
-        smallLabel10.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(155)
-            $0.centerX.equalToSuperview().offset(28)
-        }
-        smallLabel20.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(155)
-            $0.centerX.equalToSuperview().offset(-20)
-        }
-        smallLabel15.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(170)
-            $0.centerX.equalToSuperview().offset(5)
-        }
+
         secondHandView.snp.makeConstraints {
             $0.centerY.equalToSuperview().offset(-200)
             $0.centerX.equalToSuperview()

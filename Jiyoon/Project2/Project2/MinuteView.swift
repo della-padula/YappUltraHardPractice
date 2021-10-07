@@ -11,26 +11,31 @@ import UIKit
 class MinuteView: UIView, CAAnimationDelegate {
     let path = UIBezierPath()
     var view = UIView()
-//    let innerRadius: CGFloat = 175
-//    let outerRadius: CGFloat = 190
     var innerRadius = CGFloat()
     var outerRadius = CGFloat()
     let numTicks: Double = 12
     
-    let smallInnerRadius: CGFloat = 40
-    let smallOuterRadius: CGFloat = 50
+    var smallInnerRadius = CGFloat()
+    var smallOuterRadius = CGFloat()
     let smallNumTicks: Double = 6
     
     var x = CGFloat()
     var y = CGFloat()
+    var smallX = CGFloat()
+    var smallY = CGFloat()
     var minuteNumLabel = UILabel()
+    var fiveMinuteNumLabel = UILabel()
     
     override func draw(_ rect: CGRect) {
         self.addSubview(view)
         x = (superview?.frame.width)!/2
         y = (superview?.frame.height)!/3.5
+        
+        
         innerRadius = (superview?.frame.width)! * 0.41
-        outerRadius = innerRadius + 15
+        outerRadius = innerRadius + 16
+        
+        
         for i in 0..<60 {
             if i % 5 == 0{
             let angle = CGFloat(2.0 * .pi * Double(i) / numTicks)
@@ -40,6 +45,7 @@ class MinuteView: UIView, CAAnimationDelegate {
             path.addLine(to: outer)
             UIColor.white.set()
             path.close()
+                path.stroke()
             let minuteNumLabel = UILabel(frame: CGRect(x: innerRadius * 0.9 * cos(angle)+x-20,
                                            y:innerRadius * 0.9 * sin(angle)+y-22,
                                            width: 40,
@@ -62,7 +68,6 @@ class MinuteView: UIView, CAAnimationDelegate {
                 minuteNumLabel.text = "20"
                 TimerLocationInfo.shared.timerCenterX = innerRadius * 0.9 * cos(angle)+x-20
                 TimerLocationInfo.shared.timerCenterY = innerRadius * 0.9 * sin(angle)+y-22
-                print(TimerLocationInfo.shared.timerCenterY)
             case 30:
                 minuteNumLabel.text = "45"
             case 35:
@@ -79,18 +84,30 @@ class MinuteView: UIView, CAAnimationDelegate {
                 minuteNumLabel.text = ""
             }
             view.addSubview(minuteNumLabel)
-                
-        for j in 0...60 {
-                let angle = CGFloat(2.0 * .pi * Double(j) / smallNumTicks)
-                let inner = CGPoint(x: smallInnerRadius * cos(angle)+200, y: smallInnerRadius * sin(angle)+150)
-                let outer = CGPoint(x: smallOuterRadius * cos(angle)+200, y: smallOuterRadius * sin(angle)+150)
-                path.move(to: inner)
-                path.addLine(to: outer)
-                UIColor.white.set()
-                path.stroke()
-
-                }
-            }
         }
+    }
+//    smallX = (superview?.frame.width)!/2
+//    smallY = (superview?.frame.height)!/5.6
+//    smallInnerRadius = (superview?.frame.width)! * 0.08
+//    smallOuterRadius = smallInnerRadius + 5
+//    for j in 0...60 {
+//            let angle = CGFloat(2.0 * .pi * Double(j) / smallNumTicks)
+//            let inner = CGPoint(x: smallInnerRadius * cos(angle)+smallX, y: smallInnerRadius * sin(angle)+smallY)
+//            let outer = CGPoint(x: smallOuterRadius * cos(angle)+smallX, y: smallOuterRadius * sin(angle)+smallY)
+//            path.move(to: inner)
+//            path.addLine(to: outer)
+//            UIColor.systemPink.set()
+//            path.stroke()
+//        let fiveMinuteNumLabel = UILabel(frame: CGRect(x: smallInnerRadius * 0.9 * cos(angle)+x-20,
+//                                       y:innerRadius * 0.9 * sin(angle)+y-22,
+//                                       width: 10,
+//                                       height: 10))
+//        if j % 5 == 0 {
+//            fiveMinuteNumLabel.text = "\(j)"
+//            fiveMinuteNumLabel.textColor = .white
+//            
+//        }
+//        view.addSubview(fiveMinuteNumLabel)
+//        }
     }
 }
