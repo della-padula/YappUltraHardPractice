@@ -11,6 +11,19 @@ import UIKit
 class DataCell: UICollectionViewCell{
     static let identifier = "DataCell"
     
+    private let cellView = DataCellView()
+    
+    var folder: Folder? {
+        didSet {
+            cellView.folder = folder
+        }
+    }
+    var picture: Picture? {
+        didSet {
+            cellView.picture = picture
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -21,9 +34,7 @@ class DataCell: UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView(){
-        let cellView = DataCellView()
-        
+    private func setupView(){
         addSubview(cellView)
         
         cellView.snp.makeConstraints {

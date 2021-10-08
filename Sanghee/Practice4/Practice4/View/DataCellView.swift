@@ -16,18 +16,27 @@ class DataCellView: UIView {
     }()
     private let iconLabel: UILabel = {
         let label = UILabel()
-        label.text = "📁"
         label.font = UIFont.systemFont(ofSize: 80)
         label.textAlignment = .center
         return label
     }()
     private let fileLabel: UILabel = {
         let label = UILabel()
-        label.text = "폴더 이름"
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .center
         return label
     }()
+    
+    var folder: Folder? {
+        didSet {
+            setupFolder()
+        }
+    }
+    var picture: Picture? {
+        didSet {
+            setupPicture()
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +46,15 @@ class DataCellView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupFolder() {
+        iconLabel.text = "📁"
+        fileLabel.text = folder?.name
+    }
+    private func setupPicture() {
+        iconLabel.text = "🌃"
+        fileLabel.text = picture?.name
     }
     
     private func setupView() {

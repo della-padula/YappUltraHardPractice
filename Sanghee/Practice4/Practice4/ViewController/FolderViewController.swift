@@ -24,8 +24,10 @@ class FolderViewController: UIViewController {
         setupCollectionView()
     }
     
+    var folder: Folder?
+    
     private func setupNavigationBar() {
-        navigationItem.title = "폴더 이름"
+        navigationItem.title = folder?.name
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem = addButton
