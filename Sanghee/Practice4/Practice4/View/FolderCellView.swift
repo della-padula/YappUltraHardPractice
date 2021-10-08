@@ -11,7 +11,6 @@ import UIKit
 class FolderCellView: UIView {
     private let containerView: UIView = {
         let view = UIView()
-        view.layer.masksToBounds = true
         return view
     }()
     private let iconLabel: UILabel = {
@@ -55,10 +54,10 @@ class FolderCellView: UIView {
         }
         iconLabel.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(22)
         }
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(iconLabel.snp.bottom)
+            $0.top.equalTo(iconLabel.snp.bottom).offset(6)
             $0.bottom.left.right.equalToSuperview()
         }
     }

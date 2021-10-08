@@ -9,6 +9,11 @@ import SnapKit
 import UIKit
 
 class FolderViewController: UIViewController {
+    private let imagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        return imagePicker
+    }()
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -16,26 +21,47 @@ class FolderViewController: UIViewController {
         return collectionView
     }()
     
+    private var column: CGFloat = 2
+    private var folder: Folder
+    
+    init(_ folder: Folder) {
+        self.folder = folder
+        super.init(nibName: nil, bundle: nil)
+        print(folder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         setupNavigationBar()
+        setupImagePicker()
         setupCollectionView()
     }
     
-    var folder: Folder?
-    
     private func setupNavigationBar() {
-        navigationItem.title = folder?.name
+        navigationItem.title = folder.name
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        navigationItem.rightBarButtonItem = addButton
+        let columnButton = UIBarButtonItem(image: UIImage(systemName: column == 1 ? "square" : column == 2 ? "square.grid.2x2" : "square.grid.3x3"), style: .plain, target: self, action: #selector(columnButtonTapped))
+        
+        navigationItem.rightBarButtonItems = [addButton, columnButton]
     }
     
     @objc
     private func addButtonTapped() {
-        print("추가 버튼 클릭됨")
+        self.present(imagePicker, animated: true)
+    }
+    
+    @objc
+    private func columnButtonTapped() {
+        column = column == 1 ? 2 : column == 2 ? 3 : 1
+        setupNavigationBar()
+        collectionView.reloadData()
     }
     
     private func setupCollectionView() {
@@ -46,19 +72,33 @@ class FolderViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(92)
-            $0.bottom.left.right.equalToSuperview().inset(16)
+            $0.bottom.left.right.equalToSuperview().inset(8)
         }
+    }
+}
+
+extension FolderViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    private func setupImagePicker() {
+        imagePicker.delegate = self
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
+
+        let newPicture = Picture(url: imageUrl, name: "사진")
+        folder.pictures.append(newPicture)
+        collectionView.reloadData()
+        
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 
 extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (folder?.folders.count ?? 0) + (folder?.pictures.count ?? 0)
+        return folder.folders.count + folder.pictures.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let folder = folder else { return UICollectionViewCell() }
-
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DataCell.identifier, for: indexPath) as! DataCell
             
         if indexPath.row < folder.folders.count {
@@ -71,12 +111,12 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width - 8 * 2) / 3
-        return CGSize(width: width, height: width)
+        let width = (collectionView.frame.width - 8 * (column - 1)) / column
+        return CGSize(width: width, height: width + 22)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
+        return 12
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -84,14 +124,13 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let folder = folder else { return }
-        
         if indexPath.row < folder.folders.count {
-            let folderVC = FolderViewController()
-            folderVC.folder = folder.folders[indexPath.row]
+            let folderVC = FolderViewController(folder.folders[indexPath.row])
             self.navigationController?.pushViewController(folderVC, animated: true)
         } else {
-            print("\(folder.name)에서 \(folder.pictures[indexPath.row - folder.folders.count].name)이 클릭됨")
+            let pictureVC = PictureViewController(folder.pictures[indexPath.row - folder.folders.count])
+            pictureVC.modalPresentationStyle = .overCurrentContext
+            self.present(pictureVC, animated: true, completion: nil)
         }
     }
 }
