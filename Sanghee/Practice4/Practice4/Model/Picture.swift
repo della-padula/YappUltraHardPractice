@@ -8,6 +8,6 @@
 import Foundation
 
 struct Picture {
-    let path: String
+    let path: String = ""
     let name: String
 }

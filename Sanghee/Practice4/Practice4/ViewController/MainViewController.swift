@@ -16,25 +16,25 @@ class MainViewController: UIViewController  {
         return collectionView
     }()
     
-    private let folders: [Folder] = [Folder(path: "", name: "폴더 1", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
-                                     Folder(path: "", name: "폴더 2", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
-                                     Folder(path: "", name: "폴더 3", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
-                                     Folder(path: "", name: "폴더 4", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
-                                     Folder(path: "", name: "폴더 5", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
-                                     Folder(path: "", name: "폴더 6", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
-                                     Folder(path: "", name: "폴더 7", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
-                                     Folder(path: "", name: "폴더 8", pictures: [Picture(path: "", name: "사진 1"), Picture(path: "", name: "사진 2")]),
+    private let folders: [Folder] = [Folder(name: "폴더 1", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                     Folder(name: "폴더 2", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                     Folder(name: "폴더 3", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                     Folder(name: "폴더 4", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                     Folder(name: "폴더 5", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                     Folder(name: "폴더 6", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                     Folder(name: "폴더 7", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                     Folder(name: "폴더 8", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
     ]
-    private let pictures: [Picture] = [Picture(path: "", name: "사진 1"),
-                                       Picture(path: "", name: "사진 2"),
-                                       Picture(path: "", name: "사진 3"),
-                                       Picture(path: "", name: "사진 4"),
-                                       Picture(path: "", name: "사진 5"),
-                                       Picture(path: "", name: "사진 6"),
-                                       Picture(path: "", name: "사진 7"),
-                                       Picture(path: "", name: "사진 8"),
-                                       Picture(path: "", name: "사진 9"),
-                                       Picture(path: "", name: "사진 10"),
+    private let pictures: [Picture] = [Picture(name: "사진 1"),
+                                       Picture(name: "사진 2"),
+                                       Picture(name: "사진 3"),
+                                       Picture(name: "사진 4"),
+                                       Picture(name: "사진 5"),
+                                       Picture(name: "사진 6"),
+                                       Picture(name: "사진 7"),
+                                       Picture(name: "사진 8"),
+                                       Picture(name: "사진 9"),
+                                       Picture(name: "사진 10"),
     ]
     
     override func viewDidLoad() {
