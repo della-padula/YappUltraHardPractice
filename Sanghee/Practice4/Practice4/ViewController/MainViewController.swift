@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class MainViewController: UINavigationController  {
+class MainViewController: UIViewController  {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -20,7 +20,22 @@ class MainViewController: UINavigationController  {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupNavigationBar()
         setupCollectionView()
+    }
+    
+    private func setupNavigationBar() {
+        print("setupNavigationBar 실행")
+        
+        navigationItem.title = "사진 탐색기"
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc
+    private func addButtonTapped() {
+        print("추가 버튼 클릭됨")
     }
     
     private func setupCollectionView() {
