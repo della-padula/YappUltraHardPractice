@@ -8,7 +8,12 @@
 import SnapKit
 import UIKit
 
-class MainViewController: UIViewController  {
+class MainViewController: UIViewController {
+    private let imagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        return imagePicker
+    }()
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -16,35 +21,17 @@ class MainViewController: UIViewController  {
         return collectionView
     }()
     
-    private let folder: Folder = Folder(name: "폴더 0",
-                                        folders: [Folder(name: "폴더 1", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                                  Folder(name: "폴더 2", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                                  Folder(name: "폴더 3", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                                  Folder(name: "폴더 4", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                                  Folder(name: "폴더 5", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                                  Folder(name: "폴더 6", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                                  Folder(name: "폴더 7", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                                  Folder(name: "폴더 8", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+    private var folder: Folder = Folder(url: nil, name: "폴더 0",
+                                        folders: [Folder(url: nil, name: "폴더 1", folders: [], pictures: [Picture(url: nil, name: "사진 1"), Picture(url: nil, name: "사진 2")]),
                                         ],
-                                        pictures: [Picture(name: "사진 1"),
-                                                   Picture(name: "사진 2"),
-                                                   Picture(name: "사진 3"),
-                                                   Picture(name: "사진 4"),
-                                                   Picture(name: "사진 5"),
-                                                   Picture(name: "사진 6"),
-                                                   Picture(name: "사진 7"),
-                                                   Picture(name: "사진 8"),
-                                                   Picture(name: "사진 9"),
-                                                   Picture(name: "사진 10"),
-                                                   Picture(name: "사진 11"),
-                                                   Picture(name: "사진 12"),
-                                        ])
+                                        pictures: [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         setupNavigationBar()
+        setupImagePicker()
         setupCollectionView()
     }
     
@@ -57,7 +44,7 @@ class MainViewController: UIViewController  {
     
     @objc
     private func addButtonTapped() {
-        print("추가 버튼 클릭됨")
+        self.present(imagePicker, animated: true)
     }
     
     private func setupCollectionView() {
@@ -70,6 +57,23 @@ class MainViewController: UIViewController  {
             $0.top.equalToSuperview().inset(92)
             $0.bottom.left.right.equalToSuperview().inset(16)
         }
+    }
+}
+
+extension MainViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    private func setupImagePicker() {
+        imagePicker.delegate = self
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
+
+        let newPicture = Picture(url: imageUrl, name: "사진")
+        folder.pictures.append(newPicture)
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+        collectionView.reloadData()
     }
 }
 
