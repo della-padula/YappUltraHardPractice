@@ -30,7 +30,7 @@ class PictureCellView: UIView {
     
     var picture: Picture? {
         didSet {
-            nameLabel.text = picture?.name
+            setupPictureView()
         }
     }
 
@@ -44,6 +44,15 @@ class PictureCellView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupPictureView() {
+        nameLabel.text = picture?.name
+        
+        if let url = picture?.url {
+            let image = UIImage(contentsOfFile: url.path)
+            imageView.image = image
+        }
+    }
+    
     private func setupView() {
         addSubview(containerView)
         containerView.addSubview(imageView)
@@ -54,10 +63,10 @@ class PictureCellView: UIView {
         }
         imageView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(20)
         }
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom)
+            $0.top.equalTo(imageView.snp.bottom).offset(4)
             $0.bottom.left.right.equalToSuperview()
         }
     }
