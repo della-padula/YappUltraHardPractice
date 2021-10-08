@@ -17,6 +17,7 @@
 		5E84A8C527108F8C00D29BD4 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8C427108F8C00D29BD4 /* Picture.swift */; };
 		5E84A8CF2710AE0400D29BD4 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8CE2710AE0400D29BD4 /* PictureCellView.swift */; };
 		5E84A8D12710AE0A00D29BD4 /* FolderCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8D02710AE0A00D29BD4 /* FolderCellView.swift */; };
+		5E84A8D32710B83F00D29BD4 /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8D22710B83F00D29BD4 /* PictureViewController.swift */; };
 		D5C77DDFB0288FB311023BC7 /* Pods_Practice4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B7D829C22D693BD14A51F8 /* Pods_Practice4.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		5E84A8C427108F8C00D29BD4 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		5E84A8CE2710AE0400D29BD4 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
 		5E84A8D02710AE0A00D29BD4 /* FolderCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCellView.swift; sourceTree = "<group>"; };
+		5E84A8D22710B83F00D29BD4 /* PictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureViewController.swift; sourceTree = "<group>"; };
 		97B7D829C22D693BD14A51F8 /* Pods_Practice4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2C12B4EE0D5C49994D0DC0 /* Pods-Practice4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice4.release.xcconfig"; path = "Target Support Files/Pods-Practice4/Pods-Practice4.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 			children = (
 				5E84A8B727107DFA00D29BD4 /* MainViewController.swift */,
 				5E84A8B927107E2500D29BD4 /* FolderViewController.swift */,
+				5E84A8D22710B83F00D29BD4 /* PictureViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				5E84A8BA27107E2500D29BD4 /* FolderViewController.swift in Sources */,
 				5E84A8C527108F8C00D29BD4 /* Picture.swift in Sources */,
 				5E84A8C327108F7A00D29BD4 /* Folder.swift in Sources */,
+				5E84A8D32710B83F00D29BD4 /* PictureViewController.swift in Sources */,
 				5E84A8CF2710AE0400D29BD4 /* PictureCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

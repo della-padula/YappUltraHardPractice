@@ -114,6 +114,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
             self.navigationController?.pushViewController(folderVC, animated: true)
         } else {
             print("\(folder.name)에서 \(folder.pictures[indexPath.row - folder.folders.count].name)이 클릭됨")
+            
+            let pictureVC = PictureViewController(folder.pictures[indexPath.row - folder.folders.count])
+            pictureVC.modalPresentationStyle = .overCurrentContext
+            self.present(pictureVC, animated: true, completion: nil)
         }
     }
 }
