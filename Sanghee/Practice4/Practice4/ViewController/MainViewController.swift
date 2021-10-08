@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
     }()
     
     private var folder: Folder = Folder(url: nil, name: "폴더 0",
-                                        folders: [Folder(url: nil, name: "폴더 1", folders: [], pictures: [Picture(url: nil, name: "사진 1"), Picture(url: nil, name: "사진 2")]),
+                                        folders: [Folder(url: nil, name: "폴더 1", folders: [], pictures: []),
                                         ],
                                         pictures: [])
     
