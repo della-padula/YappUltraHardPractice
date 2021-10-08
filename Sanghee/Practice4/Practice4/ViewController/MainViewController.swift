@@ -39,15 +39,31 @@ class MainViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.title = "사진 탐색기"
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
         let columnButton = UIBarButtonItem(image: UIImage(systemName: column == 1 ? "square" : column == 2 ? "square.grid.2x2" : "square.grid.3x3"), style: .plain, target: self, action: #selector(columnButtonTapped))
         
         navigationItem.rightBarButtonItems = [addButton, columnButton]
     }
     
     @objc
-    private func addButtonTapped() {
-        self.present(imagePicker, animated: true)
+    private func showAlert() {
+        let alert = UIAlertController(title: "폴더 및 사진 추가", message: "무엇을 추가하시겠습니까?", preferredStyle: .actionSheet)
+        let folderAction = UIAlertAction(title: "폴더 생성", style: .default) { _ in
+            let newFolder = Folder(url: nil, name: "새 폴더", folders: [], pictures: [])
+            self.folder.folders.append(newFolder)
+            
+            self.collectionView.reloadData()
+        }
+        let pictureAction = UIAlertAction(title: "사진 추가", style: .default) { _ in
+            self.present(self.imagePicker, animated: true)
+        }
+        let noAction = UIAlertAction(title: "취소", style: .destructive)
+        
+        alert.addAction(folderAction)
+        alert.addAction(pictureAction)
+        alert.addAction(noAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @objc
