@@ -25,8 +25,6 @@ class MainViewController: UIViewController  {
     }
     
     private func setupNavigationBar() {
-        print("setupNavigationBar 실행")
-        
         navigationItem.title = "사진 탐색기"
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
@@ -72,5 +70,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+        
+        let folderVC = FolderViewController()
+        self.navigationController?.pushViewController(folderVC, animated: true)
     }
 }

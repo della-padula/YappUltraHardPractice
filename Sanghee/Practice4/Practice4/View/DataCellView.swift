@@ -23,7 +23,7 @@ class DataCellView: UIView {
     }()
     private let fileLabel: UILabel = {
         let label = UILabel()
-        label.text = "파일 이름"
+        label.text = "폴더 이름"
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .center
         return label
