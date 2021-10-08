@@ -1,13 +1,14 @@
 //
-//  ViewController.swift
+//  FolderViewController.swift
 //  Practice4
 //
 //  Created by leeesangheee on 2021/10/08.
 //
 
+import SnapKit
 import UIKit
 
-class ViewController: UIViewController {
+class FolderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
