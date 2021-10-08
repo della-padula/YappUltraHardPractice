@@ -14,6 +14,8 @@
 		5E84A8BA27107E2500D29BD4 /* FolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8B927107E2500D29BD4 /* FolderViewController.swift */; };
 		5E84A8BC271081D000D29BD4 /* DataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8BB271081D000D29BD4 /* DataCell.swift */; };
 		5E84A8BF2710825200D29BD4 /* DataCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8BE2710825200D29BD4 /* DataCellView.swift */; };
+		5E84A8C327108F7A00D29BD4 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8C227108F7A00D29BD4 /* Folder.swift */; };
+		5E84A8C527108F8C00D29BD4 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8C427108F8C00D29BD4 /* Picture.swift */; };
 		D5C77DDFB0288FB311023BC7 /* Pods_Practice4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B7D829C22D693BD14A51F8 /* Pods_Practice4.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +30,8 @@
 		5E84A8B927107E2500D29BD4 /* FolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewController.swift; sourceTree = "<group>"; };
 		5E84A8BB271081D000D29BD4 /* DataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCell.swift; sourceTree = "<group>"; };
 		5E84A8BE2710825200D29BD4 /* DataCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCellView.swift; sourceTree = "<group>"; };
+		5E84A8C227108F7A00D29BD4 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		5E84A8C427108F8C00D29BD4 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		97B7D829C22D693BD14A51F8 /* Pods_Practice4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2C12B4EE0D5C49994D0DC0 /* Pods-Practice4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice4.release.xcconfig"; path = "Target Support Files/Pods-Practice4/Pods-Practice4.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +83,8 @@
 		5E84A8B427107DC900D29BD4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5E84A8C227108F7A00D29BD4 /* Folder.swift */,
+				5E84A8C427108F8C00D29BD4 /* Picture.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -236,6 +242,8 @@
 				5E84A8BC271081D000D29BD4 /* DataCell.swift in Sources */,
 				5E84A8B827107DFA00D29BD4 /* MainViewController.swift in Sources */,
 				5E84A8BA27107E2500D29BD4 /* FolderViewController.swift in Sources */,
+				5E84A8C527108F8C00D29BD4 /* Picture.swift in Sources */,
+				5E84A8C327108F7A00D29BD4 /* Folder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
