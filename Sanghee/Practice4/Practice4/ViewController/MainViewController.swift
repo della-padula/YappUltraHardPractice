@@ -16,26 +16,29 @@ class MainViewController: UIViewController  {
         return collectionView
     }()
     
-    private let folders: [Folder] = [Folder(name: "폴더 1", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                     Folder(name: "폴더 2", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                     Folder(name: "폴더 3", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                     Folder(name: "폴더 4", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                     Folder(name: "폴더 5", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                     Folder(name: "폴더 6", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                     Folder(name: "폴더 7", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-                                     Folder(name: "폴더 8", pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
-    ]
-    private let pictures: [Picture] = [Picture(name: "사진 1"),
-                                       Picture(name: "사진 2"),
-                                       Picture(name: "사진 3"),
-                                       Picture(name: "사진 4"),
-                                       Picture(name: "사진 5"),
-                                       Picture(name: "사진 6"),
-                                       Picture(name: "사진 7"),
-                                       Picture(name: "사진 8"),
-                                       Picture(name: "사진 9"),
-                                       Picture(name: "사진 10"),
-    ]
+    private let folder: Folder = Folder(name: "폴더 0",
+                                        folders: [Folder(name: "폴더 1", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                                  Folder(name: "폴더 2", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                                  Folder(name: "폴더 3", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                                  Folder(name: "폴더 4", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                                  Folder(name: "폴더 5", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                                  Folder(name: "폴더 6", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                                  Folder(name: "폴더 7", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                                  Folder(name: "폴더 8", folders: [], pictures: [Picture(name: "사진 1"), Picture(name: "사진 2")]),
+                                        ],
+                                        pictures: [Picture(name: "사진 1"),
+                                                   Picture(name: "사진 2"),
+                                                   Picture(name: "사진 3"),
+                                                   Picture(name: "사진 4"),
+                                                   Picture(name: "사진 5"),
+                                                   Picture(name: "사진 6"),
+                                                   Picture(name: "사진 7"),
+                                                   Picture(name: "사진 8"),
+                                                   Picture(name: "사진 9"),
+                                                   Picture(name: "사진 10"),
+                                                   Picture(name: "사진 11"),
+                                                   Picture(name: "사진 12"),
+                                        ])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,16 +75,16 @@ class MainViewController: UIViewController  {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return folders.count + pictures.count
+        return folder.folders.count + folder.pictures.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DataCell.identifier, for: indexPath) as! DataCell
         
-        if indexPath.row < folders.count {
-            cell.folder = folders[indexPath.row]
+        if indexPath.row < folder.folders.count {
+            cell.folder = folder.folders[indexPath.row]
         } else {
-            cell.picture = pictures[indexPath.row - folders.count]
+            cell.picture = folder.pictures[indexPath.row - folder.folders.count]
         }
         
         return cell
@@ -101,12 +104,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row < folders.count {
+        if indexPath.row < folder.folders.count {
             let folderVC = FolderViewController()
-            folderVC.folder = folders[indexPath.row]
+            folderVC.folder = folder.folders[indexPath.row]
             self.navigationController?.pushViewController(folderVC, animated: true)
         } else {
-            print("\(pictures[indexPath.row - folders.count].name) 사진이 클릭됨")
+            print("\(folder.name)에서 \(folder.pictures[indexPath.row - folder.folders.count].name)이 클릭됨")
         }
     }
 }

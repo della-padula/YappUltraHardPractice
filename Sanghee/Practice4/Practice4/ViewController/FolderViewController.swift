@@ -53,12 +53,20 @@ class FolderViewController: UIViewController {
 
 extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return folder?.pictures.count ?? 0
+        return (folder?.folders.count ?? 0) + (folder?.pictures.count ?? 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let folder = folder else { return UICollectionViewCell() }
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DataCell.identifier, for: indexPath) as! DataCell
-        cell.picture = folder?.pictures[indexPath.row]
+            
+        if indexPath.row < folder.folders.count {
+            cell.folder = folder.folders[indexPath.row]
+        } else {
+            cell.picture = folder.pictures[indexPath.row - folder.folders.count]
+        }
+        
         return cell
     }
     
@@ -76,9 +84,14 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        guard let folder = folder else { return }
         
-        let folderVC = FolderViewController()
-        self.navigationController?.pushViewController(folderVC, animated: true)
+        if indexPath.row < folder.folders.count {
+            let folderVC = FolderViewController()
+            folderVC.folder = folder.folders[indexPath.row]
+            self.navigationController?.pushViewController(folderVC, animated: true)
+        } else {
+            print("\(folder.name)에서 \(folder.pictures[indexPath.row - folder.folders.count].name)이 클릭됨")
+        }
     }
 }

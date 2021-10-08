@@ -11,5 +11,6 @@ struct Folder {
     let uuid: String = UUID().uuidString
     let path: String = ""
     let name: String
+    let folders: [Folder]
     let pictures: [Picture]
 }
