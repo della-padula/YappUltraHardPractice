@@ -134,4 +134,23 @@ class CoreDataManager {
         context.delete(picture)
         saveToContext()
     }
+    
+    func resetAll() {
+        resetAllFolders()
+        resetAllPictures()
+    }
+    func resetAllFolders() {
+        let fetchResult = fetchFolders()
+        fetchResult.forEach({
+            context.delete($0)
+        })
+        saveToContext()
+    }
+    func resetAllPictures() {
+        let fetchResult = fetchPictures()
+        fetchResult.forEach({
+            context.delete($0)
+        })
+        saveToContext()
+    }
 }
