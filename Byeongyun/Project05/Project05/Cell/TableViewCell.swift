@@ -7,16 +7,17 @@
 
 import UIKit
 import SnapKit
-
-class MainTableViewCell: UITableViewCell {
+class TableViewCell: UITableViewCell {
+    
     static let cellId = "FolderCell"
     
     private let leftImageView: UIImageView = {
         let imageView = UIImageView()
-        //imageView.image = UIImage(named: "app01")
         imageView.contentMode = .scaleAspectFit
+        
         return imageView
     }()
+    
     private let centerLabel: UILabel = {
         let label = UILabel()
         label.text = UIImage(named: "app01")?.accessibilityIdentifier
@@ -72,8 +73,6 @@ class MainTableViewCell: UITableViewCell {
         centerLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(leftImageView.snp.leading).offset(60)
-            
         }
     }
-    
 }

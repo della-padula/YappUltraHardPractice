@@ -22,7 +22,6 @@ class CoreDataManager {
         return container
     }()
     
-    
     var dataContext: NSManagedObjectContext {
         return dataContextContainer.viewContext
     }
@@ -34,7 +33,6 @@ class CoreDataManager {
             fatalError(error.localizedDescription)
         }
     }
-
     
     func fetchFolder() -> [CData] {
         do {
@@ -44,12 +42,11 @@ class CoreDataManager {
         } catch {
             print(error.localizedDescription)
         }
-        
         return []
     }
     
     func crateFolder(_ folder: Folder) {
-        let dataEntity = NSEntityDescription.entity(forEntityName: "CData", in: dataContext)!
+        guard let dataEntity = NSEntityDescription.entity(forEntityName: "CData", in: dataContext) else { return }
         let user = NSManagedObject(entity: dataEntity, insertInto: dataContext)
         user.setValue(folder.id, forKey: "id")
         user.setValue(folder.index, forKey: "index")
@@ -65,13 +62,11 @@ class CoreDataManager {
         return fetchResult.count
     }
     
-    
     func getFolder(_ parentId: Int) -> [Folder] {
         var folders: [Folder] = []
         let fetchResult = fetchFolder()
         for result in fetchResult {
             let id: Int = Int(result.id)
-            print("부모 ID : \(parentId), \(id)")
             if parentId == id {
                 let folder = Folder(index: result.index ?? UUID() , id: id, parentId: parentId, name: result.name ?? "", photo: result.photo ?? nil)
                 folders.append(folder)

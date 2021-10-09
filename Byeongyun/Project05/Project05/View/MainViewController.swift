@@ -12,11 +12,9 @@ import PhotosUI
 class MainViewController: UIViewController {
     private let picker = UIImagePickerController()
     private let tableView = UITableView()
-    var dataContact: CData?
-    var select: Int = 0
-    var array: Test?
-    var id: Int = 0
-    var datas: [Folder] = []
+    private var select: Int = 0
+    private var id: Int = 0
+    private var datas: [Folder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,18 +29,15 @@ class MainViewController: UIViewController {
     }
     
     @objc func plusAction() {
-        print("추가")
         
         let alert = UIAlertController(title: "선택", message: "어떤 것을 추가하시고 싶으세요?", preferredStyle: .actionSheet)
         let cell = UIAlertAction(title: "폴더", style: .default, handler: { _ in
             let cellAlert = UIAlertController(title: "폴더 이름 입력", message: "폴더 이름을 입력해주세요.", preferredStyle: .alert)
             cellAlert.addTextField()
-            print("일단 ㅇㅋ")
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
-                //let count = CoreDataManager.shared.getCount()
-                
-                let folder = Folder(index: UUID(), id: 0, parentId: 0, name: (cellAlert.textFields?[0].text!)!, photo: nil)
+                guard let text = cellAlert.textFields?[0].text else { return }
+                let folder = Folder(index: UUID(), id: 0, parentId: 0, name: text, photo: nil)
                 self.datas.append(folder)
                 self.tableView.reloadData()
                 CoreDataManager.shared.crateFolder(folder)
@@ -52,6 +47,7 @@ class MainViewController: UIViewController {
             self.present(cellAlert, animated: true, completion: nil)
             
         })
+        
         let photo = UIAlertAction(title: "사진", style: .default, handler: { _ in
             let select = UIAlertController(title: "방식 선택", message: "선택해주세요.", preferredStyle: .actionSheet)
             let camera = UIAlertAction(title: "카메라", style: .default, handler: { _ in
@@ -83,7 +79,6 @@ class MainViewController: UIViewController {
         } else {
             print("Nope")
         }
-        
     }
     
     private func readData() {
@@ -92,11 +87,10 @@ class MainViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.cellId)
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.cellId)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorInset.left = 0
-        
     }
     
     private func configureNavigationBar() {
@@ -112,7 +106,6 @@ class MainViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
-
 }
 
 extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -131,7 +124,6 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datas.count
     }
@@ -141,7 +133,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.cellId, for: indexPath) as? TableViewCell else { return UITableViewCell() }
         
         if datas[indexPath.row].photo != nil {
             cell.leftImage = datas[indexPath.row].photo
@@ -150,27 +142,26 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cell.update = datas[indexPath.row]
         }
         
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        select = indexPath.row
-        
+
         if datas[indexPath.row].photo == nil {
             let fold = FoldViewController(id: 1,parentId: 0)
             fold.navigationItem.title = datas[indexPath.row].name
             navigationController?.pushViewController(fold, animated: true)
         } else {
+            
             var tmp: [URL] = []
-            for i in datas {
-                if i.photo != nil {
-                    tmp.append(i.photo!)
+            for data in datas {
+                if data.photo != nil {
+                    guard let photo = data.photo else { return }
+                    tmp.append(photo)
                 }
             }
-            let select = SelectImageViewController(index: indexPath.row, array: tmp)
+            let selectIndex = indexPath.row - (datas.count - tmp.count)
+            let select = SelectImageViewController(index: selectIndex, array: tmp)
             select.modalPresentationStyle = .fullScreen
             
             present(select, animated: true, completion: nil)
@@ -178,7 +169,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let edit = UIContextualAction(style: .normal, title: "수정") { (_,_, success: @escaping (Bool) -> Void) in
+            
             let alert = UIAlertController(title: "수정하기", message: "원하는 폴더 이름을 작성해주세요!", preferredStyle: .alert)
             alert.addTextField()
             let cancel = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
@@ -188,6 +181,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 self.readData()
                 self.tableView.reloadData()
             }
+            
             alert.addAction(cancel)
             alert.addAction(ok)
             self.present(alert, animated: true, completion: nil)
@@ -200,6 +194,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .automatic)
             success(true)
         }
+        
         delete.backgroundColor = .systemRed
         
         return UISwipeActionsConfiguration(actions: [delete, edit])

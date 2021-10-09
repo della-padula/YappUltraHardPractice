@@ -34,14 +34,18 @@ class DetailImageCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.scrollView.minimumZoomScale = 1.0
-        self.scrollView.maximumZoomScale = 6.0
-        self.scrollView.delegate = self
+        configureZoomSize()
         settingUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureZoomSize() {
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 6.0
+        self.scrollView.delegate = self
     }
     
     private func settingUI() {
@@ -85,5 +89,4 @@ extension DetailImageCollectionViewCell: UIScrollViewDelegate {
             }
         }
     }
-    
 }

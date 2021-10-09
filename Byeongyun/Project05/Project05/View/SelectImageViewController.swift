@@ -21,8 +21,6 @@ class SelectImageViewController: UIViewController {
         return button
     }()
     
-    
-    
     private var imageIndexLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -59,7 +57,6 @@ class SelectImageViewController: UIViewController {
     init(index: Int, array: [URL]) {
         mainSelectIndex = index
         self.array += array
-        print("array:\(self.array)")
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -78,7 +75,6 @@ class SelectImageViewController: UIViewController {
         cancelButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             $0.leading.equalTo(view.snp.leading).offset(20)
-            
         }
         
         view.addSubview(detailCollectionView)

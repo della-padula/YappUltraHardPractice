@@ -13,5 +13,4 @@ struct Folder {
     let parentId: Int
     let name: String
     let photo: URL?
-    //let folder: [Folder]
 }

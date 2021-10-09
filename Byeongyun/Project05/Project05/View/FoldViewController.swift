@@ -21,9 +21,9 @@ class FoldViewController: UIViewController {
     private let picker = UIImagePickerController()
     private let tableView = UITableView()
     private var select: Int = 0
-    var datas: [Folder] = []
-    var parentId: Int
-    var id: Int
+    private var datas: [Folder] = []
+    private var parentId: Int
+    private var id: Int
     
     init(id: Int, parentId: Int) {
         self.id = id
@@ -39,8 +39,6 @@ class FoldViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         picker.delegate = self
-        print("id, parentId : \(id), \(parentId)")
-        print()
         configureUI()
         readData()
         if self.navigationItem.rightBarButtonItem == nil {
@@ -51,17 +49,16 @@ class FoldViewController: UIViewController {
     
     @objc
     func anotherAction() {
-        print("추가")
         
         let alert = UIAlertController(title: "선택", message: "어떤 것을 추가하시고 싶으세요?", preferredStyle: .actionSheet)
         let cell = UIAlertAction(title: "폴더", style: .default, handler: { _ in
             let cellAlert = UIAlertController(title: "폴더 이름 입력", message: "폴더 이름을 입력해주세요.", preferredStyle: .alert)
             cellAlert.addTextField()
-            print("일단 ㅇㅋ")
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
-                let folder = Folder(index: UUID(), id: self.id, parentId: self.parentId, name: (cellAlert.textFields?[0].text!)!, photo: nil)
-                print("여기서 추가하면",self.id)
+                guard let text = cellAlert.textFields?[0].text else { return }
+                let folder = Folder(index: UUID(), id: self.id, parentId: self.parentId, name: text, photo: nil)
+
                 self.datas.append(folder)
                 self.tableView.reloadData()
                 CoreDataManager.shared.crateFolder(folder)
@@ -71,6 +68,7 @@ class FoldViewController: UIViewController {
             self.present(cellAlert, animated: true, completion: nil)
             
         })
+        
         let photo = UIAlertAction(title: "사진", style: .default, handler: { _ in
             let select = UIAlertController(title: "방식 선택", message: "선택해주세요.", preferredStyle: .actionSheet)
             let camera = UIAlertAction(title: "카메라", style: .default, handler: { _ in
@@ -102,7 +100,6 @@ class FoldViewController: UIViewController {
         } else {
             print("Nope")
         }
-        
     }
     
     private func readData() {
@@ -110,11 +107,11 @@ class FoldViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.cellId)
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.cellId)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorInset.left = 0
-        
+
     }
     
     private func configureNavigationBar() {
@@ -157,7 +154,7 @@ extension FoldViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.cellId, for: indexPath) as? TableViewCell else { return UITableViewCell() }
         if datas[indexPath.row].photo != nil {
             cell.leftImage = datas[indexPath.row].photo
             cell.midLabel = datas[indexPath.row].name
@@ -180,12 +177,16 @@ extension FoldViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(fold, animated: true)
         } else {
             var tmp: [URL] = []
-            for i in datas {
-                if i.photo != nil {
-                    tmp.append(i.photo!)
+            var index = 0
+            for data in datas {
+                index += 1
+                if data.photo != nil {
+                    guard let photo = data.photo else { return }
+                    tmp.append(photo)
                 }
             }
-            let select = SelectImageViewController(index: indexPath.row, array: tmp)
+            let selectIndex = indexPath.row - (datas.count - tmp.count)
+            let select = SelectImageViewController(index: selectIndex, array: tmp)
             select.modalPresentationStyle = .fullScreen
             
             present(select, animated: true, completion: nil)
@@ -217,7 +218,7 @@ extension FoldViewController: UITableViewDelegate, UITableViewDataSource {
         }
         delete.backgroundColor = .systemRed
         
-        return UISwipeActionsConfiguration(actions: [edit, delete])
+        return UISwipeActionsConfiguration(actions: [delete, edit])
     }
 }
 
