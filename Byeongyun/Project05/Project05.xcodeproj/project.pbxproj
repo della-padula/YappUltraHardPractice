@@ -21,6 +21,7 @@
 		A83EBF672711347900F0FA5E /* FoldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF662711347900F0FA5E /* FoldViewController.swift */; };
 		A83EBF6B27116D2C00F0FA5E /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF6A27116D2C00F0FA5E /* SelectImageViewController.swift */; };
 		A83EBF6D27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF6C27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift */; };
+		A83EBF712711DF7A00F0FA5E /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF702711DF7A00F0FA5E /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		A83EBF662711347900F0FA5E /* FoldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldViewController.swift; sourceTree = "<group>"; };
 		A83EBF6A27116D2C00F0FA5E /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 		A83EBF6C27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		A83EBF702711DF7A00F0FA5E /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		DD7335E0427C114691CA3508 /* Pods-Project05.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project05.release.xcconfig"; path = "Target Support Files/Pods-Project05/Pods-Project05.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 			children = (
 				A83EBF5C2710A52D00F0FA5E /* Model.swift */,
 				A83EBF622710B4F600F0FA5E /* Test.swift */,
+				A83EBF702711DF7A00F0FA5E /* Photo.swift */,
 				A83EBF6427110D4900F0FA5E /* Folder.swift */,
 			);
 			path = Model;
@@ -249,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83EBF712711DF7A00F0FA5E /* Photo.swift in Sources */,
 				A83EBF612710ABBA00F0FA5E /* CoreDataManager.swift in Sources */,
 				A83EBF5D2710A52E00F0FA5E /* Model.swift in Sources */,
 				A82F1B3627106F500046E1C6 /* MainViewController.swift in Sources */,

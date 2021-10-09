@@ -25,10 +25,10 @@ class MainTableViewCell: UITableViewCell {
         return label
     }()
     
-    var update: Test? {
+    var update: Folder? {
         didSet {
             guard let update = update else { return }
-            leftImageView.image = update.image
+            leftImageView.image = UIImage(systemName: "folder.fill")
             centerLabel.text = update.name
         }
     }
@@ -36,7 +36,7 @@ class MainTableViewCell: UITableViewCell {
     var leftImage: URL? {
         didSet {
             guard let image = leftImage else { return }
-            let data = NSData(contentsOf: image)!
+            guard let data = NSData(contentsOf: image) else { return }
             let im = UIImage(data: data as Data)
             leftImageView.image = im
         }

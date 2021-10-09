@@ -5,37 +5,92 @@
 //  Created by ITlearning on 2021/10/09.
 //
 
-import Foundation
+import UIKit
 import CoreData
 
 class CoreDataManager {
     static let shared = CoreDataManager()
     
-    private lazy var persistentContainer: NSPersistentContainer = {
+    lazy var dataContextContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
-        container.loadPersistentStores(completionHandler: { storeDescription, error in
+        container.loadPersistentStores(completionHandler:  {
+            data, error in
             if let error = error as NSError? {
-                fatalError("\(error)")
+                fatalError("Error")
             }
         })
         return container
     }()
     
-    private var context: NSManagedObjectContext {
-        return persistentContainer.viewContext
+    
+    var dataContext: NSManagedObjectContext {
+        return dataContextContainer.viewContext
     }
     
-    private var folderEntity: NSEntityDescription? {
-        return NSEntityDescription.entity(forEntityName: "Data", in: context)
-    }
-    
-    private func saveContext() {
+    func saveData() {
         do {
-            try context.save()
+            try self.dataContext.save()
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+    
+    func fetchFolder() -> [CData] {
+        do {
+            let request: NSFetchRequest<CData> = CData.fetchRequest()
+            let result = try dataContext.fetch(request)
+            return result
         } catch {
             print(error.localizedDescription)
         }
+        
+        return []
     }
     
-    //func insertfolder(_ )
+    func crateFolder(_ folder: Folder) {
+        let dataEntity = NSEntityDescription.entity(forEntityName: "CData", in: dataContext)!
+        let user = NSManagedObject(entity: dataEntity, insertInto: dataContext)
+        user.setValue(folder.id, forKey: "id")
+        user.setValue(folder.level, forKey: "level")
+        user.setValue(folder.parentId, forKey: "parentId")
+        user.setValue(folder.name, forKey: "name")
+        user.setValue(folder.photo, forKey: "photo")
+        
+        saveData()
+    }
+    
+    
+    func getFolder(_ parentId: Int) -> [Folder] {
+        var folders: [Folder] = []
+        let fetchResult = fetchFolder()
+        for result in fetchResult {
+            let id: Int = Int(result.id)
+            print("부모 ID : \(parentId), \(id)")
+            if parentId == id {
+                
+                let folder = Folder(level: Int(result.level), id: id, parentId: parentId, name: result.name ?? "", photo: result.photo ?? nil)
+                folders.append(folder)
+            }
+        }
+        
+        return folders
+    }
+    
+    func updateFolder(_ folder: Folder, name: String) {
+        let fetchResult = fetchFolder()
+        for result in fetchResult {
+            if result.id == folder.id {
+                result.name = name
+            }
+        }
+        saveData()
+    }
+    
+    func deleteFolder(_ folder: Folder) {
+        let fetchResult = fetchFolder()
+        let folder = fetchResult.filter{ $0.id == folder.id }[0]
+        dataContext.delete(folder)
+        saveData()
+    }
 }

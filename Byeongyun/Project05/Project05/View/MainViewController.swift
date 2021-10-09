@@ -14,24 +14,18 @@ import PhotosUI
 class MainViewController: UIViewController {
     private let picker = UIImagePickerController()
     private let tableView = UITableView()
+    var dataContact: CData?
     var select: Int = 0
-    var array: Test
-    
-    init(_ folder: Test) {
-        self.array = folder
-        print(array)
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var array: Test?
+    var id: Int = 0
+    var datas: [Folder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         picker.delegate = self
         configureUI()
+        readData()
         if navigationItem.rightBarButtonItem == nil {
             configureNavigationBar()
         }
@@ -48,11 +42,10 @@ class MainViewController: UIViewController {
             print("일단 ㅇㅋ")
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
-                let newF = Test(image: UIImage(systemName: "folder.fill")!, name: cellAlert.textFields![0].text!, photo: [], folder: [])
-                self.array.folder.append(newF)
-                //print(self.array.folder)
+                let folder = Folder(level: 0, id: 0, parentId: 0, name: (cellAlert.textFields?[0].text!)!, photo: nil)
+                self.datas.append(folder)
                 self.tableView.reloadData()
-                //print(self.array)
+                CoreDataManager.shared.crateFolder(folder)
             }
             
             cellAlert.addAction(ok)
@@ -93,6 +86,11 @@ class MainViewController: UIViewController {
         
     }
     
+    private func readData() {
+        datas += CoreDataManager.shared.getFolder(id)
+        print(datas)
+    }
+    
     private func configureTableView() {
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.cellId)
         tableView.delegate = self
@@ -102,7 +100,6 @@ class MainViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        //navigationController?.navigationBar.topItem?.title = "Album"
         navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(plusAction)), animated: true)
     }
     
@@ -122,8 +119,10 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.imageURL] as? URL {
             print(image)
-            array.folder.append(image)
+            let folder = Folder(level: 0, id: 0, parentId: 0, name: "IMG_\(Int.random(in: 100...10000))", photo: image)
+            datas.append(folder)
             tableView.reloadData()
+            CoreDataManager.shared.crateFolder(folder)
             dismiss(animated: true, completion: nil)
         }
     }
@@ -134,7 +133,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.folder.count
+        return datas.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -144,10 +143,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
         
-        if array.folder[indexPath.row] is URL {
-            cell.leftImage = array.folder[indexPath.row] as? URL
+        if datas[indexPath.row].photo != nil {
+            cell.leftImage = datas[indexPath.row].photo
+            cell.midLabel = datas[indexPath.row].name
         } else {
-            cell.update = array.folder[indexPath.row] as? Test
+            cell.update = datas[indexPath.row]
         }
         
         
@@ -159,20 +159,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         select = indexPath.row
         
-        if array.folder[indexPath.row] is Test {
-            let main = FoldViewController((array.folder[indexPath.row] as? Test)!)
-            main.navigationItem.title = (array.folder[indexPath.row] as? Test)?.name
-            navigationController?.pushViewController(main, animated: true)
-            main.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(main.anotherAction))
+        if datas[indexPath.row].photo == nil {
+            let fold = FoldViewController(level: 1, parentId: 0)
+            fold.navigationItem.title = datas[indexPath.row].name
+            navigationController?.pushViewController(fold, animated: true)
         } else {
             var tmp: [URL] = []
-            for i in array.folder {
-                if i is URL {
-                    tmp.append((i as? URL)!)
+            for i in datas {
+                if i.photo != nil {
+                    tmp.append(i.photo!)
                 }
             }
             let select = SelectImageViewController(index: indexPath.row, array: tmp)
-            //select.array = tmp
             select.modalPresentationStyle = .fullScreen
             
             present(select, animated: true, completion: nil)

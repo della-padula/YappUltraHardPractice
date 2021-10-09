@@ -8,8 +8,10 @@
 import Foundation
 
 struct Folder {
-    let url: UUID
+    let level: Int
+    let id: Int
+    let parentId: Int
     let name: String
-    let photo: [URL]
-    
+    let photo: URL?
+    //let folder: [Folder]
 }
