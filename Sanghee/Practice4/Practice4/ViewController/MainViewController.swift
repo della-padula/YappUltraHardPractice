@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
         getData()
         
         setupNavigationBar()
@@ -55,6 +55,9 @@ class MainViewController: UIViewController {
     private func getData() {
         folders = manager.getFolders(path)
         pictures = manager.getPictures(path)
+        
+        print(folders)
+        print(pictures)
     }
     
     private func reloadCollection() {
@@ -221,12 +224,12 @@ class MainViewController: UIViewController {
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             if isFolder {
                 self.folders.remove(at: index)
+                self.manager.deleteFolder(itemPath)
             } else {
                 self.pictures.remove(at: index)
             }
             
             self.reloadCollection()
-            self.manager.deleteFolder(itemPath)
         }
         
         alert.addAction(deleteAction)

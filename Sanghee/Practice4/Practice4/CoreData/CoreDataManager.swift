@@ -143,8 +143,22 @@ class CoreDataManager {
     }
     
     func deleteFolder(_ path: String) {
-        let folder = fetchFolders().filter({ $0.path == path })[0]
-        context.delete(folder)
+        let folderResult = fetchFolders()
+        let pictureResult = fetchPictures()
+        
+        for result in folderResult {
+            guard let resultPath = result.path else { continue }
+            if resultPath.hasPrefix(path) {
+                context.delete(result)
+            }
+        }
+        for result in pictureResult {
+            guard let resultPath = result.path else { continue }
+            if resultPath.hasPrefix(path) {
+                context.delete(result)
+            }
+        }
+
         saveToContext()
     }
     func deletePicture(_ path: String) {
