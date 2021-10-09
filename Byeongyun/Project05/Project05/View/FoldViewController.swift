@@ -1,4 +1,12 @@
 //
+//  FoldViewController.swift
+//  Project05
+//
+//  Created by ITlearning on 2021/10/09.
+//
+
+import Foundation
+//
 //  ViewController.swift
 //  Project05
 //
@@ -10,12 +18,18 @@ import SnapKit
 import PhotosUI
 
 
-//var folder = []
-class MainViewController: UIViewController {
+var total: Dictionary<String, [Test]> = [:]
+class FoldViewController: UIViewController {
     private let picker = UIImagePickerController()
     private let tableView = UITableView()
     var select: Int = 0
     var array: Test
+    override func viewWillAppear(_ animated: Bool) {
+        if select != 0{
+            select -= 1
+        }
+        
+    }
     
     init(_ folder: Test) {
         self.array = folder
@@ -32,13 +46,14 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         picker.delegate = self
         configureUI()
-        if navigationItem.rightBarButtonItem == nil {
+        if self.navigationItem.rightBarButtonItem == nil {
             configureNavigationBar()
         }
         configureTableView()
     }
     
-    @objc func plusAction() {
+    @objc
+    func anotherAction() {
         print("추가")
         
         let alert = UIAlertController(title: "선택", message: "어떤 것을 추가하시고 싶으세요?", preferredStyle: .actionSheet)
@@ -50,9 +65,10 @@ class MainViewController: UIViewController {
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
                 let newF = Test(image: UIImage(systemName: "folder.fill")!, name: cellAlert.textFields![0].text!, photo: [], folder: [])
                 self.array.folder.append(newF)
-                //print(self.array.folder)
+                total[cellAlert.textFields![0].text!]?.append(newF)
+                print(total[cellAlert.textFields![0].text!])
                 self.tableView.reloadData()
-                //print(self.array)
+                print(self.array)
             }
             
             cellAlert.addAction(ok)
@@ -80,13 +96,13 @@ class MainViewController: UIViewController {
     
     private func openLibrary() {
         picker.sourceType = .photoLibrary
-        present(picker, animated: true, completion: nil)
+        present(picker, animated: false, completion: nil)
     }
     
     private func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             picker.sourceType = .camera
-            present(picker, animated: true, completion: nil)
+            present(picker, animated: false, completion: nil)
         } else {
             print("Nope")
         }
@@ -103,7 +119,7 @@ class MainViewController: UIViewController {
     
     private func configureNavigationBar() {
         //navigationController?.navigationBar.topItem?.title = "Album"
-        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(plusAction)), animated: true)
+        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(anotherAction)), animated: true)
     }
     
     private func configureUI() {
@@ -118,23 +134,21 @@ class MainViewController: UIViewController {
 
 }
 
-extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension FoldViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.imageURL] as? URL {
             print(image)
-            array.folder.append(image)
+            array.photo.append(image)
             tableView.reloadData()
             dismiss(animated: true, completion: nil)
         }
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    
+extension FoldViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.folder.count
+        return array.folder.count + array.photo.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -143,7 +157,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
-        
         if array.folder[indexPath.row] is URL {
             cell.leftImage = array.folder[indexPath.row] as? URL
         } else {
@@ -159,23 +172,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         select = indexPath.row
         
-        if array.folder[indexPath.row] is Test {
-            let main = FoldViewController((array.folder[indexPath.row] as? Test)!)
+        if select != 2 {
+            print("Nope\(array.folder[indexPath.row])")
+            let main = FoldViewController(array.folder[indexPath.row] as! Test)
             main.navigationItem.title = (array.folder[indexPath.row] as? Test)?.name
             navigationController?.pushViewController(main, animated: true)
-            main.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(main.anotherAction))
+            main.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(anotherAction))
         } else {
-            var tmp: [URL] = []
-            for i in array.folder {
-                if i is URL {
-                    tmp.append((i as? URL)!)
-                }
-            }
-            let select = SelectImageViewController(index: indexPath.row, array: tmp)
-            //select.array = tmp
-            select.modalPresentationStyle = .fullScreen
             
-            present(select, animated: true, completion: nil)
         }
     }
 }

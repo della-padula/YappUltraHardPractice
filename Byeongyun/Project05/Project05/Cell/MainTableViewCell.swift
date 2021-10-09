@@ -33,10 +33,12 @@ class MainTableViewCell: UITableViewCell {
         }
     }
     
-    var leftImage: UIImage? {
+    var leftImage: URL? {
         didSet {
             guard let image = leftImage else { return }
-            leftImageView.image = image
+            let data = NSData(contentsOf: image)!
+            let im = UIImage(data: data as Data)
+            leftImageView.image = im
         }
     }
     

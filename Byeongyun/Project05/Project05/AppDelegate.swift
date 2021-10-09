@@ -15,7 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let main = MainViewController()
+        let rootFolder = Test(image: UIImage(systemName: "folder.fill")!, name: "app01", photo: [], folder: [])
+        let main = MainViewController(rootFolder)
         main.navigationItem.title = "Album"
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: main)

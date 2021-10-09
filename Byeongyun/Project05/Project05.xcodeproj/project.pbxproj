@@ -17,6 +17,10 @@
 		A83EBF5D2710A52E00F0FA5E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF5C2710A52D00F0FA5E /* Model.swift */; };
 		A83EBF612710ABBA00F0FA5E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF602710ABBA00F0FA5E /* CoreDataManager.swift */; };
 		A83EBF632710B4F600F0FA5E /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF622710B4F600F0FA5E /* Test.swift */; };
+		A83EBF6527110D4900F0FA5E /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF6427110D4900F0FA5E /* Folder.swift */; };
+		A83EBF672711347900F0FA5E /* FoldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF662711347900F0FA5E /* FoldViewController.swift */; };
+		A83EBF6B27116D2C00F0FA5E /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF6A27116D2C00F0FA5E /* SelectImageViewController.swift */; };
+		A83EBF6D27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83EBF6C27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,10 @@
 		A83EBF5C2710A52D00F0FA5E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		A83EBF602710ABBA00F0FA5E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A83EBF622710B4F600F0FA5E /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		A83EBF6427110D4900F0FA5E /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		A83EBF662711347900F0FA5E /* FoldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldViewController.swift; sourceTree = "<group>"; };
+		A83EBF6A27116D2C00F0FA5E /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
+		A83EBF6C27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		DD7335E0427C114691CA3508 /* Pods-Project05.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project05.release.xcconfig"; path = "Target Support Files/Pods-Project05/Pods-Project05.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				A82F1B3527106F500046E1C6 /* MainViewController.swift */,
+				A83EBF662711347900F0FA5E /* FoldViewController.swift */,
+				A83EBF6A27116D2C00F0FA5E /* SelectImageViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -103,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				A83EBF5A27108FA800F0FA5E /* MainTableViewCell.swift */,
+				A83EBF6C27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -112,6 +123,7 @@
 			children = (
 				A83EBF5C2710A52D00F0FA5E /* Model.swift */,
 				A83EBF622710B4F600F0FA5E /* Test.swift */,
+				A83EBF6427110D4900F0FA5E /* Folder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -240,8 +252,12 @@
 				A83EBF612710ABBA00F0FA5E /* CoreDataManager.swift in Sources */,
 				A83EBF5D2710A52E00F0FA5E /* Model.swift in Sources */,
 				A82F1B3627106F500046E1C6 /* MainViewController.swift in Sources */,
+				A83EBF6527110D4900F0FA5E /* Folder.swift in Sources */,
 				A83EBF632710B4F600F0FA5E /* Test.swift in Sources */,
+				A83EBF672711347900F0FA5E /* FoldViewController.swift in Sources */,
 				A82F1B3227106F500046E1C6 /* AppDelegate.swift in Sources */,
+				A83EBF6B27116D2C00F0FA5E /* SelectImageViewController.swift in Sources */,
+				A83EBF6D27116E2B00F0FA5E /* DetailImageCollectionViewCell.swift in Sources */,
 				A83EBF5B27108FA800F0FA5E /* MainTableViewCell.swift in Sources */,
 				A82F1B3C27106F500046E1C6 /* Model.xcdatamodeld in Sources */,
 			);

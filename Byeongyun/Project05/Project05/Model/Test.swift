@@ -10,4 +10,6 @@ import UIKit
 struct Test {
     let image: UIImage
     let name: String
+    var photo: [URL] = []
+    var folder: [Any] = []
 }
