@@ -21,8 +21,8 @@ class PictureCellView: UIView {
     }()
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "사진"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.text = "새로운 사진"
+        label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         return label
     }()

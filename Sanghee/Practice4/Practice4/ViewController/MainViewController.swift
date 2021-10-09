@@ -82,9 +82,9 @@ class MainViewController: UIViewController {
     }
     
     private func showFolderNameAlert() {
-        let alert = UIAlertController(title: "폴더 이름", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
+        let alert = UIAlertController(title: "새로운 폴더", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
-            let name = alert.textFields?[0].text ?? "새 폴더"
+            guard let name = alert.textFields?[0].text else { return }
             let newFolder = Folder(id: UUID(), path: "", name: name, folders: [], pictures: [])
             self.folder.folders.append(newFolder)
             self.reloadCollectionViewData()
@@ -100,7 +100,7 @@ class MainViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     private func showPictureNameAlert() {
-        let alert = UIAlertController(title: "사진 이름", message: "사진 이름을 입력하세요", preferredStyle: .alert)
+        let alert = UIAlertController(title: "새로운 사진", message: "사진 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
             guard let name = alert.textFields?[0].text, let url = self.imagePickerUrl else { return }
             let newPicture = Picture(id: UUID(), path: "", url: url, name: name)

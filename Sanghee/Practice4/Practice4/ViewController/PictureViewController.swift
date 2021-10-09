@@ -13,11 +13,11 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         scrollView.backgroundColor = .black
         return scrollView
     }()
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "photo.fill")
-        imageView.tintColor = .systemGray
-        return imageView
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
     }()
     private let cancelBtn: UIButton = {
         let button = UIButton()
@@ -25,6 +25,12 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         button.tintColor = .white
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
+    }()
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "photo.fill")
+        imageView.tintColor = .systemGray
+        return imageView
     }()
     
     var picture: Picture?
@@ -43,6 +49,7 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         
         setupScrollView()
         setupDoubleTap()
+        setupTitleLabel()
         setupButton()
         setupPictureView()
     }
@@ -78,6 +85,17 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
     @objc
     private func viewDoubleTapped() {
         scrollView.zoomScale = 1.0
+    }
+    
+    private func setupTitleLabel() {
+        titleLabel.text = picture?.name
+        
+        view.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(64)
+            $0.centerX.equalToSuperview()
+        }
     }
     
     private func setupButton() {
