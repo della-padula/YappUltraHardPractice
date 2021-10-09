@@ -7,7 +7,12 @@
 
 import UIKit
 
-class PictureViewController: UIViewController {
+class PictureViewController: UIViewController, UIScrollViewDelegate {
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .black
+        return scrollView
+    }()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo.fill")
@@ -36,7 +41,8 @@ class PictureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
+        setupScrollView()
+        setupDoubleTap()
         setupButton()
         setupPictureView()
     }
@@ -46,8 +52,32 @@ class PictureViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private func setupView() {
-        view.backgroundColor = .black
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    private func setupScrollView() {
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 10.0
+        scrollView.isScrollEnabled = true
+        
+        view.addSubview(scrollView)
+        
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.left.right.equalToSuperview()
+        }
+    }
+    
+    private func setupDoubleTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDoubleTapped))
+        tapGesture.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    private func viewDoubleTapped() {
+        scrollView.zoomScale = 1.0
     }
     
     private func setupButton() {
@@ -65,7 +95,7 @@ class PictureViewController: UIViewController {
         let image = UIImage(contentsOfFile: url.path)
         imageView.image = image
         
-        view.addSubview(imageView)
+        scrollView.addSubview(imageView)
 
         imageView.snp.makeConstraints {
             $0.width.height.equalTo(view.frame.width - 32)
