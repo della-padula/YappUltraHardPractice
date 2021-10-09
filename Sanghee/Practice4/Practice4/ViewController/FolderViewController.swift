@@ -85,7 +85,7 @@ extension FolderViewController:  UINavigationControllerDelegate, UIImagePickerCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
 
-        let newPicture = Picture(url: imageUrl, path: "", name: "사진")
+        let newPicture = Picture(id: UUID(), path: "", url: imageUrl, name: "사진")
         folder.pictures.append(newPicture)
         collectionView.reloadData()
         

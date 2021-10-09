@@ -8,7 +8,8 @@
 import Foundation
 
 struct Picture {
-    let url: URL
+    let id: UUID
     let path: String
+    let url: URL
     var name: String
 }
