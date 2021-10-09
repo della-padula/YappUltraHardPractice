@@ -22,8 +22,8 @@ class MainViewController: UIViewController {
     }()
     
     private var column: CGFloat = 2
-    private var folder: Folder = Folder(url: nil, name: "폴더 0",
-                                        folders: [Folder(url: nil, name: "폴더 1", folders: [], pictures: []),
+    private var folder: Folder = Folder(path: "", name: "폴더 0",
+                                        folders: [Folder(path: "", name: "폴더 1", folders: [], pictures: []),
                                         ],
                                         pictures: [])
     
@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
     private func showAlert() {
         let alert = UIAlertController(title: "폴더 및 사진 추가", message: "무엇을 추가하시겠습니까?", preferredStyle: .actionSheet)
         let folderAction = UIAlertAction(title: "폴더 생성", style: .default) { _ in
-            let newFolder = Folder(url: nil, name: "새 폴더", folders: [], pictures: [])
+            let newFolder = Folder(path: "", name: "새 폴더", folders: [], pictures: [])
             self.folder.folders.append(newFolder)
             
             self.collectionView.reloadData()
@@ -94,7 +94,7 @@ extension MainViewController:  UINavigationControllerDelegate, UIImagePickerCont
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
 
-        let newPicture = Picture(url: imageUrl, name: "사진")
+        let newPicture = Picture(url: imageUrl, path: "", name: "사진")
         folder.pictures.append(newPicture)
         collectionView.reloadData()
         

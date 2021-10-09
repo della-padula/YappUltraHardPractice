@@ -9,7 +9,7 @@ import Foundation
 
 struct Folder {
     let uuid: String = UUID().uuidString
-    let url: URL?
+    let path: String
     var name: String
     var folders: [Folder]
     var pictures: [Picture]

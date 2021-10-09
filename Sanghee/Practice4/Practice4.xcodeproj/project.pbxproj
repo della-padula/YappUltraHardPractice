@@ -18,6 +18,7 @@
 		5E84A8CF2710AE0400D29BD4 /* PictureCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8CE2710AE0400D29BD4 /* PictureCellView.swift */; };
 		5E84A8D12710AE0A00D29BD4 /* FolderCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8D02710AE0A00D29BD4 /* FolderCellView.swift */; };
 		5E84A8D32710B83F00D29BD4 /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8D22710B83F00D29BD4 /* PictureViewController.swift */; };
+		5E84A8D627115F9D00D29BD4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E84A8D427115F9D00D29BD4 /* Model.xcdatamodeld */; };
 		D5C77DDFB0288FB311023BC7 /* Pods_Practice4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B7D829C22D693BD14A51F8 /* Pods_Practice4.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		5E84A8CE2710AE0400D29BD4 /* PictureCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCellView.swift; sourceTree = "<group>"; };
 		5E84A8D02710AE0A00D29BD4 /* FolderCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCellView.swift; sourceTree = "<group>"; };
 		5E84A8D22710B83F00D29BD4 /* PictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureViewController.swift; sourceTree = "<group>"; };
+		5E84A8D527115F9D00D29BD4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		97B7D829C22D693BD14A51F8 /* Pods_Practice4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE2C12B4EE0D5C49994D0DC0 /* Pods-Practice4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice4.release.xcconfig"; path = "Target Support Files/Pods-Practice4/Pods-Practice4.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,9 +79,10 @@
 				5E84A8B527107DCE00D29BD4 /* View */,
 				5E84A8B627107DDA00D29BD4 /* ViewController */,
 				5E84A8A02710758000D29BD4 /* AppDelegate.swift */,
+				5E84A8D427115F9D00D29BD4 /* Model.xcdatamodeld */,
+				5E84A8AE2710758100D29BD4 /* Info.plist */,
 				5E84A8A92710758100D29BD4 /* Assets.xcassets */,
 				5E84A8AB2710758100D29BD4 /* LaunchScreen.storyboard */,
-				5E84A8AE2710758100D29BD4 /* Info.plist */,
 			);
 			path = Practice4;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				5E84A8BA27107E2500D29BD4 /* FolderViewController.swift in Sources */,
 				5E84A8C527108F8C00D29BD4 /* Picture.swift in Sources */,
 				5E84A8C327108F7A00D29BD4 /* Folder.swift in Sources */,
+				5E84A8D627115F9D00D29BD4 /* Model.xcdatamodeld in Sources */,
 				5E84A8D32710B83F00D29BD4 /* PictureViewController.swift in Sources */,
 				5E84A8CF2710AE0400D29BD4 /* PictureCellView.swift in Sources */,
 			);
@@ -447,6 +451,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5E84A8D427115F9D00D29BD4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5E84A8D527115F9D00D29BD4 /* Model.xcdatamodel */,
+			);
+			currentVersion = 5E84A8D527115F9D00D29BD4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5E84A8952710758000D29BD4 /* Project object */;
 }
