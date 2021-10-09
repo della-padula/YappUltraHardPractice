@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
     }()
     
     private var column: CGFloat = 2
+    private var imagePickerUrl: URL?
     private var folder: Folder = Folder(id: UUID(), path: "", name: "폴더 0",
                                         folders: [Folder(id: UUID(), path: "", name: "폴더 1", folders: [], pictures: []),
                                         ],
@@ -47,21 +48,55 @@ class MainViewController: UIViewController {
     
     @objc
     private func showAlert() {
-        let alert = UIAlertController(title: "폴더 및 사진 추가", message: "무엇을 추가하시겠습니까?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "폴더 및 사진 추가", message: "무엇을 추가하시겠습니까?", preferredStyle: .alert)
         let folderAction = UIAlertAction(title: "폴더 생성", style: .default) { _ in
-            let newFolder = Folder(id: UUID(), path: "", name: "새 폴더", folders: [], pictures: [])
-            self.folder.folders.append(newFolder)
-            
-            self.collectionView.reloadData()
+            self.showFolderNameAlert()
         }
         let pictureAction = UIAlertAction(title: "사진 추가", style: .default) { _ in
             self.present(self.imagePicker, animated: true)
         }
-        let noAction = UIAlertAction(title: "취소", style: .destructive)
+        let noAction = UIAlertAction(title: "취소", style: .cancel)
         
         alert.addAction(folderAction)
         alert.addAction(pictureAction)
         alert.addAction(noAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showFolderNameAlert() {
+        let alert = UIAlertController(title: "폴더 이름", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+            let name = alert.textFields?[0].text ?? "새 폴더"
+            let newFolder = Folder(id: UUID(), path: "", name: name, folders: [], pictures: [])
+            self.folder.folders.append(newFolder)
+            self.collectionView.reloadData()
+        }
+        let noAction = UIAlertAction(title: "취소", style: .cancel)
+
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        alert.addTextField { textField in
+            textField.placeholder = "폴더 이름"
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
+    private func showPictureNameAlert() {
+        let alert = UIAlertController(title: "사진 이름", message: "사진 이름을 입력하세요", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+            guard let name = alert.textFields?[0].text, let url = self.imagePickerUrl else { return }
+            let newPicture = Picture(id: UUID(), path: "", url: url, name: name)
+            self.folder.pictures.append(newPicture)
+            self.collectionView.reloadData()
+        }
+        let noAction = UIAlertAction(title: "취소", style: .cancel)
+
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        alert.addTextField { textField in
+            textField.placeholder = "사진 이름"
+        }
         
         present(alert, animated: true, completion: nil)
     }
@@ -93,12 +128,12 @@ extension MainViewController:  UINavigationControllerDelegate, UIImagePickerCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
-
-        let newPicture = Picture(id: UUID(), path: "", url: imageUrl, name: "사진")
-        folder.pictures.append(newPicture)
-        collectionView.reloadData()
         
-        picker.dismiss(animated: true, completion: nil)
+        imagePickerUrl = imageUrl
+        
+        picker.dismiss(animated: true) {
+            self.showPictureNameAlert()
+        }
     }
 }
 
