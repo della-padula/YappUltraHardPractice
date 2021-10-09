@@ -27,7 +27,7 @@ class FoldViewController: UIViewController {
     
     init(id: Int, parentId: Int) {
         self.id = id
-        self.parentId = parentId
+        self.parentId = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -57,7 +57,7 @@ class FoldViewController: UIViewController {
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
                 guard let text = cellAlert.textFields?[0].text else { return }
-                let folder = Folder(index: UUID(), id: self.id, parentId: self.parentId, name: text, photo: nil)
+                let folder = Folder(index: UUID(), id: Int.random(in: 101...500), parentId: self.parentId, name: text, photo: nil)
 
                 self.datas.append(folder)
                 self.tableView.reloadData()
@@ -173,7 +173,7 @@ extension FoldViewController: UITableViewDelegate, UITableViewDataSource {
         select = indexPath.row
         
         if datas[indexPath.row].photo == nil {
-            let fold = FoldViewController(id: id+1, parentId: id)
+            let fold = FoldViewController(id: datas[indexPath.row].id, parentId: parentId)
             fold.navigationItem.title = datas[indexPath.row].name
             navigationController?.pushViewController(fold, animated: true)
         } else {

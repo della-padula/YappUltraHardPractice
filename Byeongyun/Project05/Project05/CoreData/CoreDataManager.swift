@@ -67,7 +67,7 @@ class CoreDataManager {
         let fetchResult = fetchFolder()
         for result in fetchResult {
             let id: Int = Int(result.id)
-            if parentId == id {
+            if parentId == result.parentId {
                 let folder = Folder(index: result.index ?? UUID() , id: id, parentId: parentId, name: result.name ?? "", photo: result.photo ?? nil)
                 folders.append(folder)
             }

@@ -13,8 +13,9 @@ class MainViewController: UIViewController {
     private let picker = UIImagePickerController()
     private let tableView = UITableView()
     private var select: Int = 0
-    private var id: Int = 0
-    private var datas: [Folder] = []
+    private var parentId = 0
+    private let id = Int.random(in: 0...100)
+    private var datas = [Folder]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,7 @@ class MainViewController: UIViewController {
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
                 guard let text = cellAlert.textFields?[0].text else { return }
-                let folder = Folder(index: UUID(), id: 0, parentId: 0, name: text, photo: nil)
+                let folder = Folder(index: UUID(), id: Int.random(in: 0...100), parentId: 0, name: text, photo: nil)
                 self.datas.append(folder)
                 self.tableView.reloadData()
                 CoreDataManager.shared.crateFolder(folder)
@@ -83,7 +84,7 @@ class MainViewController: UIViewController {
     }
     
     private func readData() {
-        datas += CoreDataManager.shared.getFolder(id)
+        datas = CoreDataManager.shared.getFolder(parentId)
         print(datas)
     }
     
@@ -149,7 +150,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if datas[indexPath.row].photo == nil {
-            let fold = FoldViewController(id: 1,parentId: 0)
+            let fold = FoldViewController(id: datas[indexPath.row].id,parentId: 0)
             fold.navigationItem.title = datas[indexPath.row].name
             navigationController?.pushViewController(fold, animated: true)
         } else {
