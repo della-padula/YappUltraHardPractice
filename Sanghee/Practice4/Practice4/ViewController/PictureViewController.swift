@@ -15,7 +15,9 @@ class PictureViewController: UIViewController {
         return imageView
     }()
     private let cancelBtn: UIButton = {
-        let button = UIButton(type: .close)
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.tintColor = .white
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
@@ -34,8 +36,8 @@ class PictureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupBlurView()
         setupView()
+        setupButton()
         setupPictureView()
     }
     
@@ -44,36 +46,30 @@ class PictureViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    private func setupView() {
+        view.backgroundColor = .black
+    }
+    
+    private func setupButton() {
+        view.addSubview(cancelBtn)
+        
+        cancelBtn.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(64)
+            $0.left.equalToSuperview().inset(16)
+        }
+    }
+    
     private func setupPictureView() {
         guard let url = picture?.url else { return }
         
         let image = UIImage(contentsOfFile: url.path)
         imageView.image = image
-    }
-    
-    private func setupBlurView() {
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        view.addSubview(blurEffectView)
-        blurEffectView.snp.makeConstraints {
-            $0.top.bottom.left.right.equalToSuperview()
-        }
-    }
-    
-    private func setupView() {
         view.addSubview(imageView)
-        view.addSubview(cancelBtn)
-        
+
         imageView.snp.makeConstraints {
             $0.width.height.equalTo(view.frame.width - 32)
             $0.center.equalToSuperview()
-        }
-        cancelBtn.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(64)
-            $0.right.equalToSuperview().inset(16)
         }
     }
 }
