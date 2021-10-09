@@ -20,10 +20,8 @@ class DetailImageCollectionViewCell: UICollectionViewCell {
     var detailImage: URL? {
         didSet {
             guard let image = detailImage else { return }
-            let data = NSData(contentsOf: image)!
-            let dataImage = UIImage(data: data as Data)
-            imageView.image = dataImage
-            imageView.contentMode = .scaleAspectFit
+            guard let data = try? Data(contentsOf: image) else { return }
+            imageView.image = UIImage(data: data)
         }
     }
     

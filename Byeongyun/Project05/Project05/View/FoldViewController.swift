@@ -24,11 +24,9 @@ class FoldViewController: UIViewController {
     var datas: [Folder] = []
     var parentId: Int
     var id: Int
-    var level: Int
     
-    init(level: Int, parentId: Int) {
-        self.level = level
-        self.id = level
+    init(id: Int, parentId: Int) {
+        self.id = id
         self.parentId = parentId
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,7 +60,7 @@ class FoldViewController: UIViewController {
             print("일단 ㅇㅋ")
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
-                let folder = Folder(level: self.level, id: self.id, parentId: self.parentId, name: (cellAlert.textFields?[0].text!)!, photo: nil)
+                let folder = Folder(index: UUID(), id: self.id, parentId: self.parentId, name: (cellAlert.textFields?[0].text!)!, photo: nil)
                 print("여기서 추가하면",self.id)
                 self.datas.append(folder)
                 self.tableView.reloadData()
@@ -139,7 +137,7 @@ class FoldViewController: UIViewController {
 extension FoldViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-            let folder = Folder(level: level, id: id, parentId: parentId, name: "IMG_\(Int.random(in: 100...10000))", photo: image)
+            let folder = Folder(index: UUID(), id: id, parentId: parentId, name: "IMG_\(Int.random(in: 100...10000))", photo: image)
             datas.append(folder)
             tableView.reloadData()
             CoreDataManager.shared.crateFolder(folder)
@@ -177,7 +175,7 @@ extension FoldViewController: UITableViewDelegate, UITableViewDataSource {
         select = indexPath.row
         
         if datas[indexPath.row].photo == nil {
-            let fold = FoldViewController(level: level+1, parentId: id)
+            let fold = FoldViewController(id: id+1, parentId: id)
             fold.navigationItem.title = datas[indexPath.row].name
             navigationController?.pushViewController(fold, animated: true)
         } else {
@@ -192,6 +190,34 @@ extension FoldViewController: UITableViewDelegate, UITableViewDataSource {
             
             present(select, animated: true, completion: nil)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let edit = UIContextualAction(style: .normal, title: "수정") { (_,_, success: @escaping (Bool) -> Void) in
+            let alert = UIAlertController(title: "수정하기", message: "원하는 폴더 이름을 작성해주세요!", preferredStyle: .alert)
+            alert.addTextField()
+            let cancel = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
+            let ok = UIAlertAction(title: "적용", style: .default) { _ in
+                guard let text = alert.textFields?[0].text else { return }
+                CoreDataManager.shared.updateFolder(self.datas[indexPath.row], name: text)
+                self.readData()
+                self.tableView.reloadData()
+            }
+            alert.addAction(cancel)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+            success(true)
+        }
+        
+        let delete = UIContextualAction(style: .normal, title: "삭제") { (_,_, success: @escaping (Bool) -> Void) in
+            CoreDataManager.shared.deleteFolder(self.datas[indexPath.row].index)
+            self.datas.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        delete.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [edit, delete])
     }
 }
 

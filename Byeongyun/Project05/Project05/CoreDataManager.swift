@@ -52,12 +52,17 @@ class CoreDataManager {
         let dataEntity = NSEntityDescription.entity(forEntityName: "CData", in: dataContext)!
         let user = NSManagedObject(entity: dataEntity, insertInto: dataContext)
         user.setValue(folder.id, forKey: "id")
-        user.setValue(folder.level, forKey: "level")
+        user.setValue(folder.index, forKey: "index")
         user.setValue(folder.parentId, forKey: "parentId")
         user.setValue(folder.name, forKey: "name")
         user.setValue(folder.photo, forKey: "photo")
         
         saveData()
+    }
+    
+    func getCount() -> Int {
+        let fetchResult = fetchFolder()
+        return fetchResult.count
     }
     
     
@@ -68,8 +73,7 @@ class CoreDataManager {
             let id: Int = Int(result.id)
             print("부모 ID : \(parentId), \(id)")
             if parentId == id {
-                
-                let folder = Folder(level: Int(result.level), id: id, parentId: parentId, name: result.name ?? "", photo: result.photo ?? nil)
+                let folder = Folder(index: result.index ?? UUID() , id: id, parentId: parentId, name: result.name ?? "", photo: result.photo ?? nil)
                 folders.append(folder)
             }
         }
@@ -80,17 +84,16 @@ class CoreDataManager {
     func updateFolder(_ folder: Folder, name: String) {
         let fetchResult = fetchFolder()
         for result in fetchResult {
-            if result.id == folder.id {
+            if result.index == folder.index {
                 result.name = name
             }
         }
         saveData()
     }
     
-    func deleteFolder(_ folder: Folder) {
-        let fetchResult = fetchFolder()
-        let folder = fetchResult.filter{ $0.id == folder.id }[0]
-        dataContext.delete(folder)
+    func deleteFolder(_ index: UUID) {
+        let deleteFolder = fetchFolder().filter({ $0.index == index })[0]
+        dataContext.delete(deleteFolder)
         saveData()
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Folder {
-    let level: Int
+    let index: UUID
     let id: Int
     let parentId: Int
     let name: String
