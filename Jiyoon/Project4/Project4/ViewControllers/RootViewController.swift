@@ -15,6 +15,7 @@ class RootViewController: UIViewController {
     let sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
     var id: Int64 = 0
     
+
     let folderModel = CoreDataManager.shared.fetch()
     let photoModel = CoreDataManager.shared.fetchPhoto()
 
@@ -27,7 +28,7 @@ class RootViewController: UIViewController {
         setNavigationItems()
         setCollectionView()
     }
-    
+
     func setCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -38,7 +39,7 @@ class RootViewController: UIViewController {
         collectionView.collectionViewLayout = flowLayout
         collectionView.register(CollectionFolderCell.self, forCellWithReuseIdentifier: CollectionFolderCell.identifier)
         collectionView.register(CollectionPhotoCell.self, forCellWithReuseIdentifier: CollectionPhotoCell.identifier)
-        
+
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { maker in
             maker.top.equalToSuperview()
@@ -47,7 +48,7 @@ class RootViewController: UIViewController {
             maker.width.equalToSuperview()
         }
     }
-    
+
     func setNavigationItems() {
         rightButton = {
             let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(plusButtonPressed(_ :)))
@@ -57,42 +58,42 @@ class RootViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.title = "My Drive"
     }
-    
+
     func manageFilePath() -> String {
         let fileManager = FileManager.default
         let currentPath = fileManager.currentDirectoryPath
         fileManager.changeCurrentDirectoryPath(currentPath)
         return currentPath
     }
-    
+
     func openImagePicker() {
         let photoVC = PhotoViewController()
         present(photoVC, animated: true, completion: nil)
     }
-    
+
     @objc
     func plusButtonPressed(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "어떤 것을 추가하시겠습니까?", message: "추가할 파일/폴더의 종류를 선택해주세요.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "사진", style: .default, handler: { _ in
             self.openImagePicker()
         }))
-        
+
         alert.addAction(UIAlertAction(title: "폴더", style: .default, handler: { _ in
             var newFolderName = ""
             let titleAlert = UIAlertController(title: "폴더 생성", message: "생성할 폴더 이름을 작성해 주세요", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default) { ok in
                 newFolderName = (titleAlert.textFields?[0].text)!
-                
+
                 let newFolder = Folder(context: CoreDataManager.context)
                 newFolder.id = self.id
                 newFolder.folderName = newFolderName
                 newFolder.folderLocation = self.manageFilePath()
                 CoreDataManager.shared.saveFolders()
                 CoreDataManager.folderArray.append(newFolder)
-                
+
                 self.collectionView.reloadData()
             }
-            
+
             let cancel = UIAlertAction(title: "Cancel", style: .cancel) { cancel in
             }
             titleAlert.addTextField()
@@ -100,20 +101,20 @@ class RootViewController: UIViewController {
             titleAlert.addAction(cancel)
             self.present(titleAlert, animated: true)
         }))
-        
+
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
         }))
-        
+
         self.present(alert, animated: true) {
         }
     }
 }
 extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CoreDataManager.shared.getFolderCount() + CoreDataManager.shared.getPhotoCount()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row < CoreDataManager.shared.getFolderCount() {
             let folderName = folderModel![indexPath.row].folderName
@@ -123,22 +124,26 @@ extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
             return cell
         } else {
-            let photo = UIImage(data: photoModel[indexPath.row - CoreDataManager.shared.getFolderCount()].image!)
+            let photo = UIImage(data: photoModel![indexPath.row - CoreDataManager.shared.getFolderCount()].image!)
             let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionPhotoCell.identifier, for: indexPath) as! CollectionPhotoCell
-            photoCell.image = photo!
-            collectionView.addSubview(photoCell)
             
+            photoCell.image = photo!
+//            collectionView.addSubview(UIImageView(image: photo))
+//            print("!!!!",photo!)
+            collectionView.addSubview(photoCell)
+
             return photoCell
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let folderVC = FolderViewController(folderModel![indexPath.row], indexPath)
-        navigationController?.pushViewController(folderVC, animated: true)
+//        let folderVC = FolderViewController(folderModel![indexPath.row], indexPath)
+        let folderViewController = FolderViewController(folderModel![indexPath.row - CoreDataManager.shared.getFolderCount()], indexPath)
+        navigationController?.pushViewController(folderViewController, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInset
     }
-    
+
 }

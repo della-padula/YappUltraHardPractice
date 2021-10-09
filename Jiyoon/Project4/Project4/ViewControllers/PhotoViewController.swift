@@ -15,6 +15,7 @@ class PhotoViewController: UIViewController, UINavigationControllerDelegate {
     var saveButton = UIButton()
     var imagePicker = UIImagePickerController()
     var arrPhotos: [Photo]?
+    var photoImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,9 @@ extension PhotoViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
         if let img = info[.originalImage] as? UIImage {
+            print(img)
             imageView.image = img
+            photoImage = img
         }
     }
     
@@ -68,9 +71,12 @@ extension PhotoViewController: UIImagePickerControllerDelegate {
     func saveImageButtonPressed(_ sender : UIBarButtonItem) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let photo = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: context) as! Photo
-        let jpeg = self.imageView.image?.jpegData(compressionQuality: 1.0)
+//        let jpeg = self.imageView.image?.jpegData(compressionQuality: 1.0)
+        let png = self.imageView.image?.pngData()
         
-        photo.image = jpeg
+        photo.image = png
+        print("jpeg=",png)
+//        photo.photoName = photoImage
         
         dismiss(animated: true, completion: nil)
         do {

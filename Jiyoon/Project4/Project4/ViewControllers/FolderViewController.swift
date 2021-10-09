@@ -16,14 +16,16 @@ class FolderViewController:  UIViewController{
     
     override func viewDidLoad() {
         view.backgroundColor = .white
+        
     }
     init(_ folder: Folder, _ indexPath: IndexPath) {
         self.folder = folder
         self.indexPath = indexPath
         super.init(nibName: nil, bundle: nil)
         setButton()
-        navigationItem.rightBarButtonItem = deleteButton
+        navigationItem.rightBarButtonItems = [addButton, deleteButton]
         navigationItem.title = folder.folderName
+        manageFilePath()
     }
     
     func setButton() {
@@ -48,7 +50,7 @@ class FolderViewController:  UIViewController{
     func manageFilePath() -> String {
         let fileManager = FileManager.default
         let currentPath = fileManager.currentDirectoryPath
-        print(currentPath)
+        print("#####",currentPath)
         fileManager.changeCurrentDirectoryPath(currentPath)
         return currentPath
     }

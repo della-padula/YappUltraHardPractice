@@ -66,7 +66,7 @@ class CoreDataManager {
         }
     }
     
-    func fetchPhoto() -> [Photo] {
+    func fetchPhoto() -> [Photo]? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
         else { return [] }
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -78,7 +78,8 @@ class CoreDataManager {
         } catch {
             print(error.localizedDescription)
         }
-        return []
+        print("error")
+        return nil
     }
     
     func getPhotoCount() -> Int {
