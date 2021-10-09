@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
     }()
     
     private let manager = CoreDataManager.shared
-    private let path = "/"
+    private let path = "root"
     private var imagePickerUrl: URL?
     private var folders: [Folder] = []
     private var pictures: [Picture] = []
@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
+        
         getData()
         
         setupNavigationBar()
@@ -92,7 +92,7 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "새로운 폴더", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text else { return }
-            let newFolder = Folder(id: UUID(), path: self.path + name, name: name, folders: [], pictures: [])
+            let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name, folders: [], pictures: [])
             
             self.folders.append(newFolder)
             self.reloadCollectionViewData()
@@ -112,7 +112,7 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "새로운 사진", message: "사진 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text, let url = self.imagePickerUrl else { return }
-            let newPicture = Picture(id: UUID(), path: self.path + name, url: url, name: name)
+            let newPicture = Picture(id: UUID(), path: "\(self.path)/\(name)", url: url, name: name)
             
             self.pictures.append(newPicture)
             self.reloadCollectionViewData()
@@ -230,7 +230,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == folderCollectionView {
             let name = folders[indexPath.row].name
-            let folderVC = FolderViewController(path: path + name, name: name)
+            let folderVC = FolderViewController(path: "\(path)/\(name)", name: name)
             self.navigationController?.pushViewController(folderVC, animated: true)
         } else if collectionView == pictureCollectionView {
             let pictureVC = PictureViewController(pictures[indexPath.row])
