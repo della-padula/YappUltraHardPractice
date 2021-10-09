@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
     private var folders: [Folder] = []
     private var pictures: [Picture] = []
 
-    private var column: CGFloat = 3
+    private var column: CGFloat = 2
     private var topBottomPadding: CGFloat = 12
     private var leftRightPadding: CGFloat = 8
     private var extraHeightPadding: CGFloat = 22
@@ -67,7 +67,7 @@ class MainViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.title = "사진 탐색기"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
-        let columnButton = UIBarButtonItem(image: UIImage(systemName: column == 1 ? "square" : column == 2 ? "square.grid.2x2" : "square.grid.3x3"), style: .plain, target: self, action: #selector(columnButtonTapped))
+        let columnButton = UIBarButtonItem(image: UIImage(systemName: column == 4 ? "square.grid.4x3.fill" : column == 2 ? "square.grid.2x2" : "square.grid.3x3"), style: .plain, target: self, action: #selector(columnButtonTapped))
         
         navigationItem.rightBarButtonItems = [addButton, columnButton]
     }
@@ -133,7 +133,7 @@ class MainViewController: UIViewController {
     
     @objc
     private func columnButtonTapped() {
-        column = column == 1 ? 2 : column == 2 ? 3 : 1
+        column = column == 2 ? 3 : column == 3 ? 4 : 2
         setupNavigationBar()
         reloadCollection()
     }
@@ -168,6 +168,9 @@ class MainViewController: UIViewController {
         
         folderCollectionView.snp.updateConstraints {
             $0.height.equalTo(height)
+        }
+        pictureCollectionView.snp.updateConstraints {
+            $0.top.equalTo(folderCollectionView.snp.bottom)
         }
     }
     
