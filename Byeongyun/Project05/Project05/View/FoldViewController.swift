@@ -20,7 +20,7 @@ import PhotosUI
 class FoldViewController: UIViewController {
     private let picker = UIImagePickerController()
     private let tableView = UITableView()
-    var select: Int = 0
+    private var select: Int = 0
     var datas: [Folder] = []
     var parentId: Int
     var id: Int

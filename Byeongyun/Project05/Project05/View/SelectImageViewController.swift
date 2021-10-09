@@ -11,7 +11,7 @@ class SelectImageViewController: UIViewController {
     
     private var mainSelectIndex: Int
     
-    var array: [URL] = []
+    private var array: [URL] = []
     
     private let cancelButton: UIButton = {
         let button = UIButton()
