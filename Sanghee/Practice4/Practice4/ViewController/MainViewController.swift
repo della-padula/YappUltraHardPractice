@@ -31,9 +31,10 @@ class MainViewController: UIViewController {
     private let manager = CoreDataManager.shared
     private let path = "/"
     private var imagePickerUrl: URL?
-    private var folder: Folder = Folder(id: UUID(), path: "", name: "폴더 0", folders: [], pictures: [])
+    private var folders: [Folder] = []
+    private var pictures: [Picture] = []
 
-    private var column: CGFloat = 2
+    private var column: CGFloat = 3
     private var topBottomPadding: CGFloat = 12
     private var leftRightPadding: CGFloat = 8
     private var extraHeightPadding: CGFloat = 22
@@ -42,21 +43,16 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        getFolder()
+        getData()
         
         setupNavigationBar()
         setupImagePicker()
         setupCollectionView()
     }
     
-    private func getFolder() {
-        let folders = manager.readFolders().filter({ $0.path == path })
-        let pictures = manager.readPictures().filter({ $0.path == path })
-        
-        folder.folders = folders
-        folder.pictures = pictures
-        
-        print("folder == \(folder)")
+    private func getData() {
+        folders = manager.getFolders(path)
+        pictures = manager.getPictures(path)
     }
     
     private func reloadCollectionViewData() {
@@ -83,7 +79,7 @@ class MainViewController: UIViewController {
         let pictureAction = UIAlertAction(title: "사진 추가", style: .default) { _ in
             self.present(self.imagePicker, animated: true)
         }
-        let noAction = UIAlertAction(title: "취소", style: .cancel)
+        let noAction = UIAlertAction(title: "취소", style: .destructive)
         
         alert.addAction(folderAction)
         alert.addAction(pictureAction)
@@ -94,18 +90,18 @@ class MainViewController: UIViewController {
     
     private func showFolderNameAlert() {
         let alert = UIAlertController(title: "새로운 폴더", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text else { return }
-            let newFolder = Folder(id: UUID(), path: self.path, name: name, folders: [], pictures: [])
+            let newFolder = Folder(id: UUID(), path: self.path + name, name: name, folders: [], pictures: [])
             
-            self.folder.folders.append(newFolder)
+            self.folders.append(newFolder)
             self.reloadCollectionViewData()
             self.manager.createFolder(newFolder)
         }
-        let noAction = UIAlertAction(title: "취소", style: .cancel)
+        let noAction = UIAlertAction(title: "취소", style: .destructive)
 
-        alert.addAction(okAction)
         alert.addAction(noAction)
+        alert.addAction(okAction)
         alert.addTextField { textField in
             textField.placeholder = "폴더 이름"
         }
@@ -114,18 +110,18 @@ class MainViewController: UIViewController {
     }
     private func showPictureNameAlert() {
         let alert = UIAlertController(title: "새로운 사진", message: "사진 이름을 입력하세요", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text, let url = self.imagePickerUrl else { return }
-            let newPicture = Picture(id: UUID(), path: self.path, url: url, name: name)
+            let newPicture = Picture(id: UUID(), path: self.path + name, url: url, name: name)
             
-            self.folder.pictures.append(newPicture)
+            self.pictures.append(newPicture)
             self.reloadCollectionViewData()
             self.manager.createPicture(newPicture)
         }
-        let noAction = UIAlertAction(title: "취소", style: .cancel)
+        let noAction = UIAlertAction(title: "취소", style: .destructive)
 
-        alert.addAction(okAction)
         alert.addAction(noAction)
+        alert.addAction(okAction)
         alert.addTextField { textField in
             textField.placeholder = "사진 이름"
         }
@@ -175,7 +171,7 @@ class MainViewController: UIViewController {
     
     private func getFolderCollectionViewHeight() -> CGFloat {
         let cellHeight = (view.frame.width - leftRightPadding * (column + 1)) / column + extraHeightPadding
-        let rowCount = CGFloat(ceil(Double(folder.folders.count) / Double(column)))
+        let rowCount = CGFloat(ceil(Double(folders.count) / Double(column)))
         let folderViewHeight = (cellHeight + topBottomPadding) * rowCount
     
         return folderViewHeight
@@ -200,8 +196,8 @@ extension MainViewController:  UINavigationControllerDelegate, UIImagePickerCont
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
-        case folderCollectionView: return folder.folders.count
-        case pictureCollectionView: return folder.pictures.count
+        case folderCollectionView: return folders.count
+        case pictureCollectionView: return pictures.count
         default: return 0
         }
     }
@@ -210,8 +206,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DataCell.identifier, for: indexPath) as! DataCell
         
         switch collectionView {
-        case folderCollectionView: cell.folder = folder.folders[indexPath.row]
-        case pictureCollectionView: cell.picture = folder.pictures[indexPath.row]
+        case folderCollectionView: cell.folder = folders[indexPath.row]
+        case pictureCollectionView: cell.picture = pictures[indexPath.row]
         default: return UICollectionViewCell()
         }
 
@@ -233,10 +229,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == folderCollectionView {
-            let folderVC = FolderViewController(folder.folders[indexPath.row])
+            let name = folders[indexPath.row].name
+            let folderVC = FolderViewController(path: path + name, name: name)
             self.navigationController?.pushViewController(folderVC, animated: true)
         } else if collectionView == pictureCollectionView {
-            let pictureVC = PictureViewController(folder.pictures[indexPath.row])
+            let pictureVC = PictureViewController(pictures[indexPath.row])
             pictureVC.modalPresentationStyle = .overCurrentContext
             self.present(pictureVC, animated: true, completion: nil)
         }

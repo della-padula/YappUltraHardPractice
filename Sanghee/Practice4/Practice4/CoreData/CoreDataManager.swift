@@ -79,24 +79,41 @@ class CoreDataManager {
         saveToContext()
     }
     
-    func readFolders() -> [Folder] {
+//    func getFolder(_ path: String) -> Folder {
+//        let folders = getFolders(path)
+//        let pictures = getPictures(path)
+//    }
+    
+    func isSamePath(path: String, itemPath: String) -> Bool {
+        let hasPath = itemPath.hasPrefix(path)
+        let isSubPath = path.filter({ $0 == "/" }).count == itemPath.filter({ $0 == "/" }).count
+        
+        return hasPath && isSubPath
+    }
+    
+    func getFolders(_ path: String) -> [Folder] {
         var folders: [Folder] = []
         let fetchResult = fetchFolders()
         for result in fetchResult {
-            guard let id = result.id, let path = result.path, let name = result.name else { continue }
-            let folder = Folder(id: id, path: path, name: name, folders: [], pictures: [])
-            folders.append(folder)
+            guard let id = result.id, let itemPath = result.path, let name = result.name else { continue }
+            let isSamePath = isSamePath(path: path, itemPath: itemPath)
+            if isSamePath && path != itemPath {
+                let folder = Folder(id: id, path: path, name: name, folders: [], pictures: [])
+                folders.append(folder)
+            }
         }
-        
         return folders
     }
-    func readPictures() -> [Picture] {
+    func getPictures(_ path: String) -> [Picture] {
         var pictures: [Picture] = []
         let fetchResult = fetchPictures()
         for result in fetchResult {
-            guard let id = result.id, let url = result.url, let path = result.path, let name = result.name else { continue }
-            let picture = Picture(id: id, path: path, url: url, name: name)
-            pictures.append(picture)
+            guard let id = result.id, let url = result.url, let itemPath = result.path, let name = result.name else { continue }
+            let isSamePath = isSamePath(path: path, itemPath: itemPath)
+            if isSamePath {
+                let picture = Picture(id: id, path: path, url: url, name: name)
+                pictures.append(picture)
+            }
         }
         return pictures
     }
