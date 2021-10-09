@@ -15,7 +15,7 @@ class CoreDataManager {
     static let context = AppDelegate().persistentContainer.viewContext
     static var shared: CoreDataManager = CoreDataManager()
 
-    func fetch() -> [Folder] {
+    func fetch() -> [Folder]? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
         else { return [] }
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -23,11 +23,11 @@ class CoreDataManager {
         do {
             let result = try managedContext.fetch(fetchRequest) as! [Folder]
             return result
-            
         } catch {
             print(error.localizedDescription)
         }
-        return []
+        print("error")
+        return nil
     }
     
     func insertFolder(_ data: Folder) {
@@ -48,6 +48,8 @@ class CoreDataManager {
     }
     
     func deleteFolder(indexPath: IndexPath) {
+        print(indexPath.row)
+        print(CoreDataManager.folderArray)
         CoreDataManager.context.delete(CoreDataManager.folderArray[indexPath.row])
         CoreDataManager.folderArray.remove(at: indexPath.row)
         saveFolders()

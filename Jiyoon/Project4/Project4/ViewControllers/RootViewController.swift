@@ -88,6 +88,7 @@ class RootViewController: UIViewController {
                 newFolder.folderName = newFolderName
                 newFolder.folderLocation = self.manageFilePath()
                 CoreDataManager.shared.saveFolders()
+                CoreDataManager.folderArray.append(newFolder)
                 
                 self.collectionView.reloadData()
             }
@@ -110,17 +111,16 @@ class RootViewController: UIViewController {
 extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(CoreDataManager.shared.getFolderCount() + CoreDataManager.shared.getPhotoCount())
         return CoreDataManager.shared.getFolderCount() + CoreDataManager.shared.getPhotoCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row < CoreDataManager.shared.getFolderCount() {
-            let folderName = folderModel[indexPath.row].folderName
+            let folderName = folderModel![indexPath.row].folderName
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionFolderCell.identifier, for: indexPath) as! CollectionFolderCell
             cell.titleLabel.text = folderName ?? "nil"
             collectionView.addSubview(cell)
-            
+
             return cell
         } else {
             let photo = UIImage(data: photoModel[indexPath.row - CoreDataManager.shared.getFolderCount()].image!)
@@ -133,9 +133,7 @@ extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(folderModel)
-        print(photoModel)
-        let folderVC = FolderViewController(folderModel[indexPath.row])
+        let folderVC = FolderViewController(folderModel![indexPath.row], indexPath)
         navigationController?.pushViewController(folderVC, animated: true)
     }
 

@@ -19,6 +19,7 @@
 		95BEE9B8271169F2002F78A2 /* FolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BEE9B7271169F2002F78A2 /* FolderViewController.swift */; };
 		95BEE9BA271192A2002F78A2 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BEE9B9271192A2002F78A2 /* PhotoViewController.swift */; };
 		95BEE9C02711A355002F78A2 /* CollectionPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BEE9BF2711A355002F78A2 /* CollectionPhotoCell.swift */; };
+		95BEE9C22711D597002F78A2 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BEE9C12711D596002F78A2 /* FolderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		95BEE9B7271169F2002F78A2 /* FolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewController.swift; sourceTree = "<group>"; };
 		95BEE9B9271192A2002F78A2 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		95BEE9BF2711A355002F78A2 /* CollectionPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPhotoCell.swift; sourceTree = "<group>"; };
+		95BEE9C12711D596002F78A2 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		DAEDF0D807D4BD0DFD90DB48 /* Pods-Project4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project4.debug.xcconfig"; path = "Target Support Files/Pods-Project4/Pods-Project4.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +136,7 @@
 			children = (
 				95BEE9B127109ECF002F78A2 /* CollectionFolderCell.swift */,
 				95BEE9BF2711A355002F78A2 /* CollectionPhotoCell.swift */,
+				95BEE9C12711D596002F78A2 /* FolderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95BEE9C22711D597002F78A2 /* FolderView.swift in Sources */,
 				95BEE9B8271169F2002F78A2 /* FolderViewController.swift in Sources */,
 				95BEE9A52710871C002F78A2 /* Project4.xcdatamodeld in Sources */,
 				95BEE9B42710B388002F78A2 /* CoreDataManager.swift in Sources */,
