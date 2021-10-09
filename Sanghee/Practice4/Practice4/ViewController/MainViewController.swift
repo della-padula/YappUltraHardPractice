@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "새로운 폴더", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text else { return }
-            let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name, folders: [], pictures: [])
+            let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name)
             
             self.folders.append(newFolder)
             self.reloadCollection()
@@ -189,15 +189,20 @@ class MainViewController: UIViewController {
     }
     
     private func showEditFolderAlert(_ index: Int) {
-        print(index)
+        let folderPath = "\(self.path)/\(self.folders[index].name)"
         
         let alert = UIAlertController(title: "폴더 편집", message: "폴더를 편집하시겠습니까?", preferredStyle: .alert)
         let editAction = UIAlertAction(title: "수정", style: .default) { _ in
             guard let name = alert.textFields?[0].text else { return }
-            print("\(name)으로 수정")
+            self.getData()
+            
+            self.folders[index].name = name
+            self.folders[index].path = "\(self.path)/\(name)"
+            
+            self.reloadCollection()
+            self.manager.updateFolder(folderPath, newName: name)
         }
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            let folderPath = "\(self.path)/\(self.folders[index].name)"
             self.folders.remove(at: index)
             self.reloadCollection()
             self.manager.deleteFolder(folderPath)

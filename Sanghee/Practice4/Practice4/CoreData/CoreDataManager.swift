@@ -94,7 +94,7 @@ class CoreDataManager {
             let isSamePath = isSamePath(path: path, itemPath: itemPath)
             
             if isSamePath && path != itemPath {
-                let folder = Folder(id: id, path: path, name: name, folders: [], pictures: [])
+                let folder = Folder(id: id, path: path, name: name)
                 folders.append(folder)
             }
         }
@@ -115,12 +115,16 @@ class CoreDataManager {
         return pictures
     }
     
-    func updateFolder(_ folder: Folder, newName: String) {
+    func updateFolder(_ path: String, newName: String) {
         let fetchResult = fetchFolders()
+
         for result in fetchResult {
-            if result.id == folder.id {
+            if result.path == path {
+                var newPath = path.split(separator: "/")
+                newPath.removeLast()
+                let folderPath = newPath.map({ $0 + "/" }).reduce("", +) + "\(newName)"
                 result.name = newName
-                break
+                result.path = folderPath
             }
         }
         saveToContext()
@@ -137,13 +141,13 @@ class CoreDataManager {
     }
     
     func deleteFolder(_ path: String) {
-        let fetchResult = fetchFolders().filter({ $0.path == path })[0]
-        context.delete(fetchResult)
+        let folder = fetchFolders().filter({ $0.path == path })[0]
+        context.delete(folder)
         saveToContext()
     }
     func deletePicture(_ path: String) {
-        let fetchResult = fetchPictures().filter({ $0.path == path })[0]
-        context.delete(fetchResult)
+        let picture = fetchPictures().filter({ $0.path == path })[0]
+        context.delete(picture)
         saveToContext()
     }
     

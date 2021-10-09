@@ -105,7 +105,7 @@ class FolderViewController: UIViewController {
         let alert = UIAlertController(title: "새로운 폴더", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text else { return }
-            let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name, folders: [], pictures: [])
+            let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name)
             
             self.folders.append(newFolder)
             self.reloadCollection()

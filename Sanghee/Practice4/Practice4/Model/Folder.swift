@@ -9,8 +9,6 @@ import Foundation
 
 struct Folder {
     let id: UUID
-    let path: String
+    var path: String
     var name: String
-    var folders: [Folder]
-    var pictures: [Picture]
 }
