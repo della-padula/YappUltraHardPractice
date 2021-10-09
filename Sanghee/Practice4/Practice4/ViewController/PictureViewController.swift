@@ -93,7 +93,7 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(64)
+            $0.top.equalToSuperview().inset(32)
             $0.centerX.equalToSuperview()
         }
     }
@@ -102,7 +102,7 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(cancelBtn)
         
         cancelBtn.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(64)
+            $0.top.equalToSuperview().inset(32)
             $0.left.equalToSuperview().inset(16)
         }
     }
