@@ -48,7 +48,8 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupImagePicker()
         setupCollectionView()
-        setupLongPressGesture()
+        setupFolderLongPressGesture()
+        setupPictureLongPressGesture()
     }
     
     private func getData() {
@@ -179,47 +180,71 @@ class MainViewController: UIViewController {
     }
     
     @objc
-    private func longPressTapped(sender: UILongPressGestureRecognizer) {
+    private func longFolderPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            let touchPoint = sender.location(in: folderCollectionView)
-            if let indexPath = folderCollectionView.indexPathForItem(at: touchPoint) {
-                showEditFolderAlert(indexPath.row)
+            let point = sender.location(in: folderCollectionView)
+            if let indexPath = folderCollectionView.indexPathForItem(at: point) {
+                showEditAlert(index: indexPath.row, isFolder: true)
+            }
+        }
+    }
+    @objc
+    private func longPicturePress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let point = sender.location(in: pictureCollectionView)
+            if let indexPath = pictureCollectionView.indexPathForItem(at: point) {
+                showEditAlert(index: indexPath.row, isFolder: false)
             }
         }
     }
     
-    private func showEditFolderAlert(_ index: Int) {
-        let folderPath = "\(self.path)/\(self.folders[index].name)"
+    private func showEditAlert(index: Int, isFolder: Bool) {
+        let itemName = isFolder ? "폴더" : "사진"
+        let itemPath = "\(self.path)/\(isFolder ? self.folders[index].name : self.pictures[index].name)"
         
-        let alert = UIAlertController(title: "폴더 편집", message: "폴더를 편집하시겠습니까?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "\(itemName) 편집", message: "\(itemName)를 편집하시겠습니까?", preferredStyle: .alert)
         let editAction = UIAlertAction(title: "수정", style: .default) { _ in
             guard let name = alert.textFields?[0].text else { return }
-            self.getData()
             
-            self.folders[index].name = name
-            self.folders[index].path = "\(self.path)/\(name)"
-            
+            if isFolder {
+                self.folders[index].name = name
+                self.folders[index].path = "\(self.path)/\(name)"
+                self.manager.updateFolder(itemPath, newName: name)
+            } else {
+                self.pictures[index].name = name
+                self.pictures[index].path = "\(self.path)/\(name)"
+                self.manager.updatePicture(itemPath, newName: name)
+            }
             self.reloadCollection()
-            self.manager.updateFolder(folderPath, newName: name)
+
         }
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            self.folders.remove(at: index)
+            if isFolder {
+                self.folders.remove(at: index)
+            } else {
+                self.pictures.remove(at: index)
+            }
+            
             self.reloadCollection()
-            self.manager.deleteFolder(folderPath)
+            self.manager.deleteFolder(itemPath)
         }
         
         alert.addAction(deleteAction)
         alert.addAction(editAction)
         alert.addTextField { textField in
-            textField.placeholder = "폴더 이름"
+            textField.placeholder = "\(itemName) 이름"
         }
         
         present(alert, animated: true, completion: nil)
     }
     
-    private func setupLongPressGesture() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressTapped))
+    private func setupFolderLongPressGesture() {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longFolderPress))
         folderCollectionView.addGestureRecognizer(longPress)
+    }
+    private func setupPictureLongPressGesture() {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPicturePress))
+        pictureCollectionView.addGestureRecognizer(longPress)
     }
 }
 
