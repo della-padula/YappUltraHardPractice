@@ -6,12 +6,14 @@
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Photo" representedClassName=".Photo" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="photoId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="photoLocation" optional="YES" attributeType="String"/>
         <attribute name="photoName" optional="YES" attributeType="String"/>
         <relationship name="folderId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Folder"/>
     </entity>
     <elements>
         <element name="Folder" positionX="-84.4923095703125" positionY="-13.89395141601562" width="128" height="88"/>
-        <element name="Photo" positionX="122.7203369140625" positionY="-33.80133056640625" width="128" height="88"/>
+        <element name="Photo" positionX="116.520263671875" positionY="-17.51045227050781" width="128" height="118"/>
     </elements>
 </model>
