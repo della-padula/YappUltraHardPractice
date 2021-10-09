@@ -63,7 +63,8 @@ class FoldViewController: UIViewController {
                 self.tableView.reloadData()
                 CoreDataManager.shared.crateFolder(folder)
             }
-            
+            let cancel = UIAlertAction(title: "닫기", style: .cancel, handler: nil)
+            cellAlert.addAction(cancel)
             cellAlert.addAction(ok)
             self.present(cellAlert, animated: true, completion: nil)
             
