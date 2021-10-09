@@ -117,7 +117,6 @@ class CoreDataManager {
     
     func updateFolder(_ path: String, newName: String) {
         let fetchResult = fetchFolders()
-
         for result in fetchResult {
             if result.path == path {
                 var newPath = path.split(separator: "/")
@@ -129,12 +128,15 @@ class CoreDataManager {
         }
         saveToContext()
     }
-    func updatePicture(_ picture: Picture, newName: String) {
+    func updatePicture(_ path: String, newName: String) {
         let fetchResult = fetchPictures()
         for result in fetchResult {
-            if result.id == picture.id {
-                result.name = picture.name
-                break
+            if result.path == path {
+                var newPath = path.split(separator: "/")
+                newPath.removeLast()
+                let picturePath = newPath.map({ $0 + "/" }).reduce("", +) + "\(newName)"
+                result.name = newName
+                result.path = picturePath
             }
         }
         saveToContext()
