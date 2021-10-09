@@ -232,8 +232,10 @@ class FolderViewController: UIViewController {
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             if isFolder {
                 self.folders.remove(at: index)
+                self.manager.deleteFolder(itemPath)
             } else {
                 self.pictures.remove(at: index)
+                self.manager.deletePicture(itemPath)
             }
             
             self.reloadCollection()

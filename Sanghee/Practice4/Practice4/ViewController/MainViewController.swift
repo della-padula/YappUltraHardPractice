@@ -55,9 +55,6 @@ class MainViewController: UIViewController {
     private func getData() {
         folders = manager.getFolders(path)
         pictures = manager.getPictures(path)
-        
-        print(folders)
-        print(pictures)
     }
     
     private func reloadCollection() {
@@ -227,6 +224,7 @@ class MainViewController: UIViewController {
                 self.manager.deleteFolder(itemPath)
             } else {
                 self.pictures.remove(at: index)
+                self.manager.deletePicture(itemPath)
             }
             
             self.reloadCollection()
