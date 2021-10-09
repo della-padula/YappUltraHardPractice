@@ -68,7 +68,7 @@ class FolderViewController: UIViewController {
         pictures = manager.getPictures(path)
     }
     
-    private func reloadCollectionViewData() {
+    private func reloadCollection() {
         updateFolderCollectionViewHeight()
         
         folderCollectionView.reloadData()
@@ -108,7 +108,7 @@ class FolderViewController: UIViewController {
             let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name, folders: [], pictures: [])
             
             self.folders.append(newFolder)
-            self.reloadCollectionViewData()
+            self.reloadCollection()
             self.manager.createFolder(newFolder)
         }
         let noAction = UIAlertAction(title: "취소", style: .destructive)
@@ -128,7 +128,7 @@ class FolderViewController: UIViewController {
             let newPicture = Picture(id: UUID(), path: "\(self.path)/\(name)", url: url, name: name)
             
             self.pictures.append(newPicture)
-            self.reloadCollectionViewData()
+            self.reloadCollection()
             self.manager.createPicture(newPicture)
         }
         let noAction = UIAlertAction(title: "취소", style: .destructive)
@@ -151,7 +151,7 @@ class FolderViewController: UIViewController {
     private func columnButtonTapped() {
         column = column == 1 ? 2 : column == 2 ? 3 : 1
         setupNavigationBar()
-        reloadCollectionViewData()
+        reloadCollection()
     }
     
     private func setupCollectionView() {

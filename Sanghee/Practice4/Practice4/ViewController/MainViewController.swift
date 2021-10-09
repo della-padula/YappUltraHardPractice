@@ -48,6 +48,7 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupImagePicker()
         setupCollectionView()
+        setupLongPressGesture()
     }
     
     private func getData() {
@@ -55,7 +56,7 @@ class MainViewController: UIViewController {
         pictures = manager.getPictures(path)
     }
     
-    private func reloadCollectionViewData() {
+    private func reloadCollection() {
         updateFolderCollectionViewHeight()
         
         folderCollectionView.reloadData()
@@ -95,7 +96,7 @@ class MainViewController: UIViewController {
             let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name, folders: [], pictures: [])
             
             self.folders.append(newFolder)
-            self.reloadCollectionViewData()
+            self.reloadCollection()
             self.manager.createFolder(newFolder)
         }
         let noAction = UIAlertAction(title: "취소", style: .destructive)
@@ -115,7 +116,7 @@ class MainViewController: UIViewController {
             let newPicture = Picture(id: UUID(), path: "\(self.path)/\(name)", url: url, name: name)
             
             self.pictures.append(newPicture)
-            self.reloadCollectionViewData()
+            self.reloadCollection()
             self.manager.createPicture(newPicture)
         }
         let noAction = UIAlertAction(title: "취소", style: .destructive)
@@ -133,7 +134,7 @@ class MainViewController: UIViewController {
     private func columnButtonTapped() {
         column = column == 1 ? 2 : column == 2 ? 3 : 1
         setupNavigationBar()
-        reloadCollectionViewData()
+        reloadCollection()
     }
     
     private func setupCollectionView() {
@@ -175,6 +176,45 @@ class MainViewController: UIViewController {
         let folderViewHeight = (cellHeight + topBottomPadding) * rowCount
     
         return folderViewHeight
+    }
+    
+    @objc
+    private func longPressTapped(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: folderCollectionView)
+            if let indexPath = folderCollectionView.indexPathForItem(at: touchPoint) {
+                showEditFolderAlert(indexPath.row)
+            }
+        }
+    }
+    
+    private func showEditFolderAlert(_ index: Int) {
+        print(index)
+        
+        let alert = UIAlertController(title: "폴더 편집", message: "폴더를 편집하시겠습니까?", preferredStyle: .alert)
+        let editAction = UIAlertAction(title: "수정", style: .default) { _ in
+            guard let name = alert.textFields?[0].text else { return }
+            print("\(name)으로 수정")
+        }
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            let folderPath = "\(self.path)/\(self.folders[index].name)"
+            self.folders.remove(at: index)
+            self.reloadCollection()
+            self.manager.deleteFolder(folderPath)
+        }
+        
+        alert.addAction(deleteAction)
+        alert.addAction(editAction)
+        alert.addTextField { textField in
+            textField.placeholder = "폴더 이름"
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func setupLongPressGesture() {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressTapped))
+        folderCollectionView.addGestureRecognizer(longPress)
     }
 }
 

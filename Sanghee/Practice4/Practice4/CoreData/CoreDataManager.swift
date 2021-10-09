@@ -136,16 +136,14 @@ class CoreDataManager {
         saveToContext()
     }
     
-    func deleteFolder(_ folder: Folder) {
-        let fetchResult = fetchFolders()
-        let folder = fetchResult.filter({ $0.id == folder.id })[0]
-        context.delete(folder)
+    func deleteFolder(_ path: String) {
+        let fetchResult = fetchFolders().filter({ $0.path == path })[0]
+        context.delete(fetchResult)
         saveToContext()
     }
-    func deletePicture(_ picture: Picture) {
-        let fetchResult = fetchPictures()
-        let picture = fetchResult.filter({ $0.id == picture.id })[0]
-        context.delete(picture)
+    func deletePicture(_ path: String) {
+        let fetchResult = fetchPictures().filter({ $0.path == path })[0]
+        context.delete(fetchResult)
         saveToContext()
     }
     
