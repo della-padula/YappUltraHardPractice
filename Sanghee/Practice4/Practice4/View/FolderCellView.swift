@@ -54,7 +54,7 @@ class FolderCellView: UIView {
         }
         iconLabel.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(22)
+            $0.bottom.equalToSuperview().inset(26)
         }
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(iconLabel.snp.bottom).offset(6)
