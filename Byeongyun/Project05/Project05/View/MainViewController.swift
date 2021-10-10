@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
                 guard let text = cellAlert.textFields?[0].text else { return }
-                let folder = Folder(index: UUID(), id: Int.random(in: 0...100), parentId: 0, name: text, photo: nil)
+                let folder = Folder(index: UUID(), id: Int.random(in: 0...Int.max/2), parentId: 0, name: text, photo: nil)
                 self.datas.append(folder)
                 self.tableView.reloadData()
                 CoreDataManager.shared.crateFolder(folder)

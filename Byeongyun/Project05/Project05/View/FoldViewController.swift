@@ -57,7 +57,7 @@ class FoldViewController: UIViewController {
             
             let ok = UIAlertAction(title: "확인", style: .default) { ok in
                 guard let text = cellAlert.textFields?[0].text else { return }
-                let folder = Folder(index: UUID(), id: Int.random(in: 101...500), parentId: self.parentId, name: text, photo: nil)
+                let folder = Folder(index: UUID(), id: Int.random(in: Int.max/2...Int.max), parentId: self.parentId, name: text, photo: nil)
 
                 self.datas.append(folder)
                 self.tableView.reloadData()
