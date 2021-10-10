@@ -9,6 +9,7 @@ import Foundation
 
 struct Picture {
     let id: UUID
+    let folderId: UUID
     var path: String
     let url: URL
     var name: String

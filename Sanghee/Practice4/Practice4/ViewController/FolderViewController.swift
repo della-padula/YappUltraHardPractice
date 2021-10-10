@@ -29,6 +29,7 @@ class FolderViewController: UIViewController {
     }()
     
     private let manager = CoreDataManager.shared
+    private let folderId: UUID
     private var path: String
     private var name: String
     private var imagePickerUrl: URL?
@@ -40,7 +41,8 @@ class FolderViewController: UIViewController {
     private var leftRightPadding: CGFloat = 8
     private var extraHeightPadding: CGFloat = 22
     
-    init(path: String, name: String) {
+    init(folderId: UUID, path: String, name: String) {
+        self.folderId = folderId
         self.path = path
         self.name = name
         super.init(nibName: nil, bundle: nil)
@@ -65,7 +67,7 @@ class FolderViewController: UIViewController {
     
     private func getData() {
         folders = manager.getFolders(path)
-        pictures = manager.getPictures(path)
+        pictures = manager.getPictures(folderId: folderId, path: path)
     }
     
     private func reloadCollection() {
@@ -77,14 +79,14 @@ class FolderViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.title = name
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateAlert))
         let columnButton = UIBarButtonItem(image: UIImage(systemName: column == 4 ? "square.grid.4x3.fill" : column == 2 ? "square.grid.2x2" : "square.grid.3x3"), style: .plain, target: self, action: #selector(columnButtonTapped))
         
         navigationItem.rightBarButtonItems = [addButton, columnButton]
     }
     
     @objc
-    private func showAlert() {
+    private func showCreateAlert() {
         let alert = UIAlertController(title: "폴더 및 사진 추가", message: "무엇을 추가하시겠습니까?", preferredStyle: .alert)
         let folderAction = UIAlertAction(title: "폴더 생성", style: .default) { _ in
             self.showFolderNameAlert()
@@ -125,7 +127,7 @@ class FolderViewController: UIViewController {
         let alert = UIAlertController(title: "새로운 사진", message: "사진 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text, let url = self.imagePickerUrl else { return }
-            let newPicture = Picture(id: UUID(), path: "\(self.path)/\(name)", url: url, name: name)
+            let newPicture = Picture(id: UUID(), folderId: self.folderId, path: "\(self.path)/\(name)", url: url, name: name)
             
             self.pictures.append(newPicture)
             self.reloadCollection()
@@ -313,7 +315,7 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == folderCollectionView {
             let name = folders[indexPath.row].name
-            let folderVC = FolderViewController(path: "\(path)/\(name)", name: name)
+            let folderVC = FolderViewController(folderId: folderId, path: "\(path)/\(name)", name: name)
             self.navigationController?.pushViewController(folderVC, animated: true)
         } else if collectionView == pictureCollectionView {
             let pictureVC = PictureViewController(pictures[indexPath.row])

@@ -73,6 +73,7 @@ class CoreDataManager {
         guard let entity = pictureEntity else { return }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         managedObject.setValue(picture.id, forKey: "id")
+        managedObject.setValue(picture.folderId, forKey: "folderId")
         managedObject.setValue(picture.path, forKey: "path")
         managedObject.setValue(picture.url, forKey: "url")
         managedObject.setValue(picture.name, forKey: "name")
@@ -100,15 +101,15 @@ class CoreDataManager {
         }
         return folders
     }
-    func getPictures(_ path: String) -> [Picture] {
+    func getPictures(folderId: UUID, path: String) -> [Picture] {
         var pictures: [Picture] = []
         let fetchResult = fetchPictures()
         for result in fetchResult {
-            guard let id = result.id, let url = result.url, let itemPath = result.path, let name = result.name else { continue }
+            guard let id = result.id, let itemFolderId = result.folderId, let url = result.url, let itemPath = result.path, let name = result.name else { continue }
             let isSamePath = isSamePath(path: path, itemPath: itemPath)
             
-            if isSamePath {
-                let picture = Picture(id: id, path: path, url: url, name: name)
+            if isSamePath && itemFolderId == folderId {
+                let picture = Picture(id: id, folderId: id, path: path, url: url, name: name)
                 pictures.append(picture)
             }
         }
