@@ -32,17 +32,7 @@ class MainViewController: UIViewController {
     private let path = "root"
     private var imagePickerUrl: URL?
     private var folders: [Folder] = []
-    private var pictures: [Picture] = [] {
-        didSet {
-            print(">>")
-            pictures.forEach({
-                print($0.name)
-                print(type(of: $0.url))
-                print($0.url)
-            })
-            print("<<")
-        }
-    }
+    private var pictures: [Picture] = []
 
     private var column: CGFloat = 2
     private var topBottomPadding: CGFloat = 12

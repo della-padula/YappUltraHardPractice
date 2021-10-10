@@ -29,6 +29,7 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo.fill")
+        imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .systemGray
         return imageView
     }()
@@ -116,8 +117,10 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         scrollView.addSubview(imageView)
 
         imageView.snp.makeConstraints {
-            $0.width.height.equalTo(view.frame.width - 32)
-            $0.center.equalToSuperview()
+            $0.top.equalToSuperview().inset(64)
+            $0.width.equalTo(view.frame.width - 32)
+            $0.height.equalTo(view.frame.height - 80)
+            $0.centerX.equalToSuperview()
         }
     }
 }
