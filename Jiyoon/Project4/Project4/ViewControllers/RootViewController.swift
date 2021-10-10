@@ -14,6 +14,7 @@ class RootViewController: UIViewController {
     let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), collectionViewLayout: UICollectionViewFlowLayout.init())
     let sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
     var id: Int64 = 0
+    var newPath = ""
     
 
     let folderModel = CoreDataManager.shared.fetch()
@@ -87,7 +88,9 @@ class RootViewController: UIViewController {
                 let newFolder = Folder(context: CoreDataManager.context)
                 newFolder.id = self.id
                 newFolder.folderName = newFolderName
-                newFolder.folderLocation = self.manageFilePath()
+                let currentPath = self.manageFilePath()
+                self.newPath = "\(currentPath)/\(newFolderName)"
+                newFolder.folderLocation = self.newPath
                 CoreDataManager.shared.saveFolders()
                 CoreDataManager.folderArray.append(newFolder)
 
@@ -128,8 +131,6 @@ extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionPhotoCell.identifier, for: indexPath) as! CollectionPhotoCell
             
             photoCell.image = photo!
-//            collectionView.addSubview(UIImageView(image: photo))
-//            print("!!!!",photo!)
             collectionView.addSubview(photoCell)
 
             return photoCell
@@ -137,9 +138,9 @@ extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let folderVC = FolderViewController(folderModel![indexPath.row], indexPath)
-        let folderViewController = FolderViewController(folderModel![indexPath.row - CoreDataManager.shared.getFolderCount()], indexPath)
-        navigationController?.pushViewController(folderViewController, animated: true)
+        let folderVC = FolderView(folderModel![indexPath.row], path: newPath)
+//        let folderViewController = FolderViewController(folderModel![indexPath.row ], indexPath)
+        navigationController?.pushViewController(folderVC, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

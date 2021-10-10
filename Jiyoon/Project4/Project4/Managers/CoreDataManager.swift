@@ -14,14 +14,12 @@ class CoreDataManager {
     static var photoArray: [Photo] = []
     static let context = AppDelegate().persistentContainer.viewContext
     static var shared: CoreDataManager = CoreDataManager()
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     func fetch() -> [Folder]? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        else { return [] }
-        let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Folder")
         do {
-            let result = try managedContext.fetch(fetchRequest) as! [Folder]
+            let result = try CoreDataManager.context.fetch(fetchRequest) as! [Folder]
             return result
         } catch {
             print(error.localizedDescription)
@@ -29,6 +27,25 @@ class CoreDataManager {
         print("error")
         return nil
     }
+    
+    func fetchWithPath(path: String) -> [Folder]? {
+        let newFolder: [Folder] = []
+        let managedObjectContext = NSManagedObjectContext()
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Folder")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Folder")
+        let predicate = NSPredicate(format: "folderLocation == %@", path)
+        
+        do {
+            fetchRequest.predicate = predicate
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return results as! [Folder]
+            
+            } catch {
+                print("error")
+        }
+        return nil
+    }
+    
     
     func insertFolder(_ data: Folder) {
         let request: NSFetchRequest<Folder> = Folder.fetchRequest()
@@ -48,8 +65,6 @@ class CoreDataManager {
     }
     
     func deleteFolder(indexPath: IndexPath) {
-        print(indexPath.row)
-        print(CoreDataManager.folderArray)
         CoreDataManager.context.delete(CoreDataManager.folderArray[indexPath.row])
         CoreDataManager.folderArray.remove(at: indexPath.row)
         saveFolders()

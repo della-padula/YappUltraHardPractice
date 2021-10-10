@@ -11,9 +11,13 @@ import UIKit
 class FolderView: UIViewController {
     var rightButton = UIBarButtonItem()
     let button = UIButton()
+    var deleteButton = UIBarButtonItem()
+    var addButton = UIBarButtonItem()
     let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), collectionViewLayout: UICollectionViewFlowLayout.init())
     let sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
     var id: Int64 = 0
+    var currentPath: String = ""
+    var indexPath = IndexPath()
     
     let folderModel = CoreDataManager.shared.fetch()
     let photoModel = CoreDataManager.shared.fetchPhoto()
@@ -21,12 +25,14 @@ class FolderView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        currentPath = manageFilePath()
     }
-    init(_ folder: Folder) {
+    init(_ folder: Folder, path: String) {
         super.init(nibName: nil, bundle: nil)
         view.addSubview(collectionView)
         navigationItem.rightBarButtonItem = rightButton
-        navigationItem.title = "My Drive"
+        navigationItem.title = folder.folderName
+        
     }
     
     required init?(coder: NSCoder) {
@@ -36,6 +42,7 @@ class FolderView: UIViewController {
     func setView() {
         setNavigationItems()
         setCollectionView()
+        setButton()
     }
     
     func setCollectionView() {
@@ -55,6 +62,18 @@ class FolderView: UIViewController {
             maker.height.equalToSuperview()
             maker.width.equalToSuperview()
         }
+    }
+    
+    func setButton() {
+        deleteButton = {
+            let button = UIBarButtonItem(image: UIImage(systemName: "folder.badge.minus")?.withTintColor(.blue), style: .done, target: self, action: #selector(deleteData))
+            return button
+        }()
+        
+        addButton = {
+            let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(plusButtonPressed(_ :)))
+            return button
+        }()
     }
     
     func setNavigationItems() {
@@ -89,13 +108,15 @@ class FolderView: UIViewController {
         alert.addAction(UIAlertAction(title: "폴더", style: .default, handler: { _ in
             var newFolderName = ""
             let titleAlert = UIAlertController(title: "폴더 생성", message: "생성할 폴더 이름을 작성해 주세요", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .default) { ok in
+            let ok = UIAlertAction(title: "OK", style: .default) { [self] ok in
                 newFolderName = (titleAlert.textFields?[0].text)!
                 
                 let newFolder = Folder(context: CoreDataManager.context)
                 newFolder.id = self.id
                 newFolder.folderName = newFolderName
-                newFolder.folderLocation = self.manageFilePath()
+                
+                let newPath = "\(currentPath)\(newFolderName)"
+                newFolder.folderLocation = newPath
                 CoreDataManager.shared.saveFolders()
                 CoreDataManager.folderArray.append(newFolder)
                 
@@ -116,10 +137,18 @@ class FolderView: UIViewController {
         self.present(alert, animated: true) {
         }
     }
+    @objc
+    func deleteData(_ sender: Any?) {
+        CoreDataManager.shared.deleteFolder(indexPath: indexPath)
+        dismiss(animated: true, completion: nil)
+    }
 }
+
 extension FolderView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let folderWithPath = CoreDataManager.shared.fetchWithPath(path: currentPath)
+        print(folderWithPath)
         return CoreDataManager.shared.getFolderCount() + CoreDataManager.shared.getPhotoCount()
     }
     
@@ -142,7 +171,7 @@ extension FolderView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let folderVC = FolderViewController(folderModel![indexPath.row], indexPath)
+        let folderVC = FolderView(folderModel![indexPath.row], path: currentPath)
         navigationController?.pushViewController(folderVC, animated: true)
     }
 
