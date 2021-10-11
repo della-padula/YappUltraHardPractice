@@ -13,12 +13,14 @@ class PictureCellView: UIView {
         let view = UIView()
         return view
     }()
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo.fill")
         imageView.tintColor = .systemGray
         return imageView
     }()
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "새로운 사진"
@@ -60,10 +62,12 @@ class PictureCellView: UIView {
         containerView.snp.makeConstraints {
             $0.top.bottom.left.right.equalToSuperview()
         }
+        
         imageView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().inset(26)
         }
+        
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(6)
             $0.bottom.left.right.equalToSuperview()

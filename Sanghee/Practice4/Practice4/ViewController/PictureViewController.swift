@@ -13,12 +13,14 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         scrollView.backgroundColor = .black
         return scrollView
     }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()
+    
     private let cancelBtn: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -26,6 +28,7 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo.fill")

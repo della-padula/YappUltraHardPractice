@@ -13,6 +13,7 @@ class FolderCellView: UIView {
         let view = UIView()
         return view
     }()
+    
     private let folderImage: UIImageView = {
         let image = UIImage(systemName: "folder")
         let imageView = UIImageView(image: image)
@@ -20,6 +21,7 @@ class FolderCellView: UIView {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "새로운 폴더"
@@ -52,10 +54,12 @@ class FolderCellView: UIView {
         containerView.snp.makeConstraints {
             $0.top.bottom.left.right.equalToSuperview()
         }
+        
         folderImage.snp.makeConstraints {
             $0.top.left.right.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(26)
         }
+        
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(folderImage.snp.bottom).offset(6)
             $0.bottom.left.right.equalToSuperview()

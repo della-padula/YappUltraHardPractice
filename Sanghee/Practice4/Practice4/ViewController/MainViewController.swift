@@ -111,6 +111,7 @@ class MainViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
     private func showPictureNameAlert() {
         let alert = UIAlertController(title: "새로운 사진", message: "사진 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
@@ -158,6 +159,7 @@ class MainViewController: UIViewController {
             $0.left.right.equalToSuperview().inset(leftRightPadding)
             $0.height.equalTo(height)
         }
+        
         pictureCollectionView.snp.makeConstraints {
             $0.top.equalTo(folderCollectionView.snp.bottom)
             $0.bottom.left.right.equalToSuperview().inset(leftRightPadding)
@@ -170,6 +172,7 @@ class MainViewController: UIViewController {
         folderCollectionView.snp.updateConstraints {
             $0.height.equalTo(height)
         }
+        
         pictureCollectionView.snp.updateConstraints {
             $0.top.equalTo(folderCollectionView.snp.bottom)
         }
@@ -192,6 +195,7 @@ class MainViewController: UIViewController {
             }
         }
     }
+    
     @objc
     private func longPicturePress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
@@ -247,6 +251,7 @@ class MainViewController: UIViewController {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longFolderPress))
         folderCollectionView.addGestureRecognizer(longPress)
     }
+    
     private func setupPictureLongPressGesture() {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPicturePress))
         pictureCollectionView.addGestureRecognizer(longPress)

@@ -50,6 +50,7 @@ class CoreDataManager {
         }
         return []
     }
+    
     func fetchPictures() -> [PictureEntity] {
         do {
             let request: NSFetchRequest<PictureEntity> = PictureEntity.fetchRequest()
@@ -69,6 +70,7 @@ class CoreDataManager {
         managedObject.setValue(folder.name, forKey: "name")
         saveToContext()
     }
+    
     func createPicture(_ picture: Picture) {
         guard let entity = pictureEntity else { return }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
@@ -101,6 +103,7 @@ class CoreDataManager {
         }
         return folders
     }
+    
     func getPictures(folderId: UUID, path: String) -> [Picture] {
         var pictures: [Picture] = []
         let fetchResult = fetchPictures()
@@ -129,6 +132,7 @@ class CoreDataManager {
         }
         saveToContext()
     }
+    
     func updatePicture(_ path: String, newName: String) {
         let fetchResult = fetchPictures()
         for result in fetchResult {
@@ -162,6 +166,7 @@ class CoreDataManager {
 
         saveToContext()
     }
+    
     func deletePicture(_ path: String) {
         let picture = fetchPictures().filter({ $0.path == path })[0]
         context.delete(picture)
@@ -172,6 +177,7 @@ class CoreDataManager {
         resetAllFolders()
         resetAllPictures()
     }
+    
     func resetAllFolders() {
         let fetchResult = fetchFolders()
         fetchResult.forEach({
@@ -179,6 +185,7 @@ class CoreDataManager {
         })
         saveToContext()
     }
+    
     func resetAllPictures() {
         let fetchResult = fetchPictures()
         fetchResult.forEach({
