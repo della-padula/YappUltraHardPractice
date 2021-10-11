@@ -55,6 +55,7 @@ class CoreDataManager {
         do {
             let request: NSFetchRequest<PictureEntity> = PictureEntity.fetchRequest()
             let result = try context.fetch(request)
+            
             return result
         } catch {
             print(error.localizedDescription)
@@ -64,21 +65,25 @@ class CoreDataManager {
     
     func createFolder(_ folder: Folder) {
         guard let entity = folderEntity else { return }
+        
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         managedObject.setValue(folder.id, forKey: "id")
         managedObject.setValue(folder.path, forKey: "path")
         managedObject.setValue(folder.name, forKey: "name")
+        
         saveToContext()
     }
     
     func createPicture(_ picture: Picture) {
         guard let entity = pictureEntity else { return }
+        
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         managedObject.setValue(picture.id, forKey: "id")
         managedObject.setValue(picture.folderId, forKey: "folderId")
         managedObject.setValue(picture.path, forKey: "path")
         managedObject.setValue(picture.url, forKey: "url")
         managedObject.setValue(picture.name, forKey: "name")
+        
         saveToContext()
     }
     
@@ -92,6 +97,7 @@ class CoreDataManager {
     func getFolders(_ path: String) -> [Folder] {
         var folders: [Folder] = []
         let fetchResult = fetchFolders()
+        
         for result in fetchResult {
             guard let id = result.id, let itemPath = result.path, let name = result.name else { continue }
             let isSamePath = isSamePath(path: path, itemPath: itemPath)
@@ -101,12 +107,14 @@ class CoreDataManager {
                 folders.append(folder)
             }
         }
+        
         return folders
     }
     
     func getPictures(folderId: UUID, path: String) -> [Picture] {
         var pictures: [Picture] = []
         let fetchResult = fetchPictures()
+        
         for result in fetchResult {
             guard let id = result.id, let itemFolderId = result.folderId, let url = result.url, let itemPath = result.path, let name = result.name else { continue }
             let isSamePath = isSamePath(path: path, itemPath: itemPath)
@@ -116,11 +124,13 @@ class CoreDataManager {
                 pictures.append(picture)
             }
         }
+        
         return pictures
     }
     
     func updateFolder(_ path: String, newName: String) {
         let fetchResult = fetchFolders()
+        
         for result in fetchResult {
             if result.path == path {
                 var newPath = path.split(separator: "/")
@@ -130,11 +140,13 @@ class CoreDataManager {
                 result.path = folderPath
             }
         }
+        
         saveToContext()
     }
     
     func updatePicture(_ path: String, newName: String) {
         let fetchResult = fetchPictures()
+        
         for result in fetchResult {
             if result.path == path {
                 var newPath = path.split(separator: "/")
@@ -144,6 +156,7 @@ class CoreDataManager {
                 result.path = picturePath
             }
         }
+        
         saveToContext()
     }
     
@@ -157,6 +170,7 @@ class CoreDataManager {
                 context.delete(result)
             }
         }
+        
         for result in pictureResult {
             guard let resultPath = result.path else { continue }
             if resultPath.hasPrefix(path) {
@@ -170,6 +184,7 @@ class CoreDataManager {
     func deletePicture(_ path: String) {
         let picture = fetchPictures().filter({ $0.path == path })[0]
         context.delete(picture)
+        
         saveToContext()
     }
     
@@ -180,17 +195,21 @@ class CoreDataManager {
     
     func resetAllFolders() {
         let fetchResult = fetchFolders()
+        
         fetchResult.forEach({
             context.delete($0)
         })
+        
         saveToContext()
     }
     
     func resetAllPictures() {
         let fetchResult = fetchPictures()
+        
         fetchResult.forEach({
             context.delete($0)
         })
+        
         saveToContext()
     }
 }
