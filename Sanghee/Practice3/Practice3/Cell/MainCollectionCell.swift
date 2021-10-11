@@ -11,6 +11,8 @@ import UIKit
 class MainCollectionCell: UICollectionViewCell{
     static let identifier = "MainCollectionCell"
     
+    private let mainUnitView = MainUnitView()
+    
     var mainUnit: MainUnit? {
         didSet {
             setMainUnitView()
@@ -25,8 +27,7 @@ class MainCollectionCell: UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setMainUnitView(){
-        let mainUnitView = MainUnitView()
+    func setMainUnitView() {
         mainUnitView.mainUnit = mainUnit
         
         addSubview(mainUnitView)

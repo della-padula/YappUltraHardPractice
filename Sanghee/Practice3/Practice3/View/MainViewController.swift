@@ -107,12 +107,14 @@ extension MainViewController: MainView {
             label.textColor = .systemGray
             return label
         }()
+        
         titleLabel = {
             let label = UILabel()
             label.text = "투데이"
             label.font = UIFont.boldSystemFont(ofSize: 36)
             return label
         }()
+        
         profileImageView = {
             let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle"))
             return imageView
@@ -126,10 +128,12 @@ extension MainViewController: MainView {
             $0.top.equalToSuperview().inset(16)
             $0.left.equalToSuperview().inset(16)
         }
+        
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(timeLabel.snp.bottom).offset(4)
             $0.left.equalToSuperview().inset(16)
         }
+        
         profileImageView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.top)
             $0.left.equalToSuperview().inset(collectionView.frame.width - 52)

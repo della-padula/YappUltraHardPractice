@@ -11,6 +11,8 @@ import UIKit
 class DetailCollectionCell: UICollectionViewCell{
     static let identifier = "DetailCollectionCell"
     
+    private let detailUnitView = DetailUnitView()
+    
     var detailUnit: DetailUnit? {
         didSet {
             setDetailUnitView()
@@ -26,7 +28,6 @@ class DetailCollectionCell: UICollectionViewCell{
     }
 
     func setDetailUnitView(){
-        let detailUnitView = DetailUnitView()
         detailUnitView.detailUnit = detailUnit
         
         addSubview(detailUnitView)

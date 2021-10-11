@@ -42,6 +42,7 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                             transitionContext.completeTransition(true)
                            })
         }
+        
         if let fromView = fromView {
             containerView.addSubview(fromView)
             containerView.bringSubviewToFront(fromView)

@@ -14,18 +14,21 @@ class MainUnitView: UIView {
         view.layer.masksToBounds = true
         return view
     }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 28)
         label.textColor = .white
         return label
     }()
+    
     private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .systemGray4
         return label
     }()
+    
     private let emojiLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 100)
@@ -71,14 +74,17 @@ class MainUnitView: UIView {
         containerView.snp.makeConstraints {
             $0.top.bottom.left.right.equalToSuperview().inset(16)
         }
+        
         subTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.left.right.equalToSuperview()
         }
+        
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(subTitleLabel.snp.bottom).offset(4)
             $0.left.right.equalToSuperview()
         }
+        
         emojiLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(56)
             $0.centerX.equalToSuperview()
