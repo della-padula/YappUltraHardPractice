@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class MainViewController: UIViewController {
+class FolderViewController: UIViewController {
     private let imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
@@ -29,11 +29,10 @@ class MainViewController: UIViewController {
     }()
     
     private let manager = CoreDataManager.shared
-    private var folderId = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
-    private let path = "root"
-    private var imagePickerUrl: URL?
+    private var parentFolder = Folder(id: UUID(uuidString: "00000000-0000-0000-0000-000000000000")!, path: "root", name: "사진 탐색기")
     private var folders: [Folder] = []
     private var pictures: [Picture] = []
+    private var imagePickerUrl: URL?
 
     private var column: CGFloat = 2
     private var topBottomPadding: CGFloat = 12
@@ -54,8 +53,8 @@ class MainViewController: UIViewController {
     }
     
     private func getData() {
-        folders = manager.getFolders(path)
-        pictures = manager.getPictures(folderId: folderId, path: path)
+        folders = manager.getFolders(parentFolder.path)
+        pictures = manager.getPictures(folderId: parentFolder.id, path: parentFolder.path)
     }
     
     private func reloadCollection() {
@@ -66,7 +65,7 @@ class MainViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "사진 탐색기"
+        navigationItem.title = parentFolder.name
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateAlert))
         let columnButton = UIBarButtonItem(image: UIImage(systemName: column == 4 ? "square.grid.4x3.fill" : column == 2 ? "square.grid.2x2" : "square.grid.3x3"), style: .plain, target: self, action: #selector(columnButtonTapped))
         
@@ -95,7 +94,7 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "새로운 폴더", message: "폴더 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text else { return }
-            let newFolder = Folder(id: UUID(), path: "\(self.path)/\(name)", name: name)
+            let newFolder = Folder(id: UUID(), path: "\(self.parentFolder.path)/\(name)", name: name)
             
             self.folders.append(newFolder)
             self.reloadCollection()
@@ -116,7 +115,7 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "새로운 사진", message: "사진 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
             guard let name = alert.textFields?[0].text, let url = self.imagePickerUrl else { return }
-            let newPicture = Picture(id: UUID(), folderId: self.folderId, path: "\(self.path)/\(name)", url: url, name: name)
+            let newPicture = Picture(id: UUID(), folderId: self.parentFolder.id, path: "\(self.parentFolder.path)/\(name)", url: url, name: name)
             
             self.pictures.append(newPicture)
             self.reloadCollection()
@@ -208,7 +207,7 @@ class MainViewController: UIViewController {
     
     private func showEditAlert(index: Int, isFolder: Bool) {
         let itemName = isFolder ? "폴더" : "사진"
-        let itemPath = "\(self.path)/\(isFolder ? self.folders[index].name : self.pictures[index].name)"
+        let itemPath = "\(self.parentFolder.path)/\(isFolder ? self.folders[index].name : self.pictures[index].name)"
         
         let alert = UIAlertController(title: "\(itemName) 편집", message: "\(itemName)를 편집하시겠습니까?", preferredStyle: .alert)
         let editAction = UIAlertAction(title: "수정", style: .default) { _ in
@@ -216,11 +215,11 @@ class MainViewController: UIViewController {
             
             if isFolder {
                 self.folders[index].name = name
-                self.folders[index].path = "\(self.path)/\(name)"
+                self.folders[index].path = "\(self.parentFolder.path)/\(name)"
                 self.manager.updateFolder(itemPath, newName: name)
             } else {
                 self.pictures[index].name = name
-                self.pictures[index].path = "\(self.path)/\(name)"
+                self.pictures[index].path = "\(self.parentFolder.path)/\(name)"
                 self.manager.updatePicture(itemPath, newName: name)
             }
             self.reloadCollection()
@@ -258,7 +257,7 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension FolderViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     private func setupImagePicker() {
         imagePicker.delegate = self
     }
@@ -273,7 +272,7 @@ extension MainViewController:  UINavigationControllerDelegate, UIImagePickerCont
     }
 }
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
+extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case folderCollectionView: return folders.count
@@ -310,11 +309,16 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == folderCollectionView {
             let folder = folders[indexPath.row]
-            let folderVC = FolderViewController(folderId: folder.id, path: "\(path)/\(folder.name)", name: folder.name)
-            self.navigationController?.pushViewController(folderVC, animated: true)
+            let parentFolder = Folder(id: folder.id, path: "\(folder.path)/\(folder.name)", name: folder.name)
+
+            let mainVC = FolderViewController()
+            mainVC.parentFolder = parentFolder
+            
+            self.navigationController?.pushViewController(mainVC, animated: true)
         } else if collectionView == pictureCollectionView {
             let pictureVC = PictureViewController(pictures[indexPath.row])
             pictureVC.modalPresentationStyle = .overCurrentContext
+            
             self.present(pictureVC, animated: true, completion: nil)
         }
     }

@@ -1,5 +1,5 @@
 //
-//  PictureCellView.swift
+//  DataCellView.swift
 //  Practice4
 //
 //  Created by leeesangheee on 2021/10/09.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class PictureCellView: UIView {
+class DataCellView: UIView {
     private let containerView: UIView = {
         let view = UIView()
         return view
@@ -16,18 +16,22 @@ class PictureCellView: UIView {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "photo.fill")
+        imageView.image = UIImage(systemName: "folder")
         imageView.tintColor = .systemGray
         return imageView
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "새로운 사진"
-        label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         return label
     }()
+    
+    var folder: Folder? {
+        didSet {
+            setupFolderView()
+        }
+    }
     
     var picture: Picture? {
         didSet {
@@ -37,21 +41,11 @@ class PictureCellView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupPictureView() {
-        nameLabel.text = picture?.name
-        
-        if let url = picture?.url {
-            let image = UIImage(contentsOfFile: url.path)
-            imageView.image = image
-        }
     }
     
     private func setupView() {
@@ -72,5 +66,22 @@ class PictureCellView: UIView {
             $0.top.equalTo(imageView.snp.bottom).offset(6)
             $0.bottom.left.right.equalToSuperview()
         }
+    }
+    
+    private func setupFolderView() {
+        guard let folder = folder else { return }
+        
+        imageView.contentMode = .scaleAspectFit
+        
+        nameLabel.text = folder.name
+    }
+    
+    private func setupPictureView() {
+        guard let picture = picture else { return }
+        
+        let image = UIImage(contentsOfFile: picture.url.path)
+        imageView.image = image
+        
+        nameLabel.text = picture.name
     }
 }

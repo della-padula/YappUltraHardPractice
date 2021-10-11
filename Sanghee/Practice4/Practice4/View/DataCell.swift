@@ -11,17 +11,18 @@ import UIKit
 class DataCell: UICollectionViewCell{
     static let identifier = "DataCell"
     
-    private let folderCellView = FolderCellView()
-    private let pictureCellView = PictureCellView()
+    private let dataCellView = DataCellView()
     
     var folder: Folder? {
         didSet {
-            setupFolderView()
+            dataCellView.folder = folder
+            setupCellView()
         }
     }
     var picture: Picture? {
         didSet {
-            setupPictureView()
+            dataCellView.picture = picture
+            setupCellView()
         }
     }
     
@@ -33,20 +34,10 @@ class DataCell: UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupFolderView() {
-        folderCellView.folder = folder
-        addSubview(folderCellView)
+    private func setupCellView() {
+        addSubview(dataCellView)
         
-        folderCellView.snp.makeConstraints {
-            $0.top.bottom.left.right.equalToSuperview()
-        }
-    }
-    
-    private func setupPictureView() {
-        pictureCellView.picture = picture
-        addSubview(pictureCellView)
-        
-        pictureCellView.snp.makeConstraints {
+        dataCellView.snp.makeConstraints {
             $0.top.bottom.left.right.equalToSuperview()
         }
     }

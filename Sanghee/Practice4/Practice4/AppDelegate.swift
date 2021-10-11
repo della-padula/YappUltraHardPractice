@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         
         let navC = UINavigationController()
-        navC.viewControllers = [MainViewController()]
+        navC.viewControllers = [FolderViewController()]
         
         window?.rootViewController = navC
         window?.makeKeyAndVisible()
