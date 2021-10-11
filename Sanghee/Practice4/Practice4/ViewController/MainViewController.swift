@@ -154,12 +154,12 @@ class FolderViewController: UIViewController {
         view.addSubview(folderCollectionView)
         view.addSubview(pictureCollectionView)
         
-        let height = getFolderCollectionViewHeight()
+        let folderViewHeight = getCollectionViewHeight(count: folders.count)
 
         folderCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(92)
             $0.left.right.equalToSuperview().inset(leftRightPadding)
-            $0.height.equalTo(height)
+            $0.height.equalTo(folderViewHeight)
         }
         
         pictureCollectionView.snp.makeConstraints {
@@ -169,10 +169,10 @@ class FolderViewController: UIViewController {
     }
     
     private func updateFolderCollectionViewHeight() {
-        let height = getFolderCollectionViewHeight()
+        let folderViewHeight = getCollectionViewHeight(count: folders.count)
         
         folderCollectionView.snp.updateConstraints {
-            $0.height.equalTo(height)
+            $0.height.equalTo(folderViewHeight)
         }
         
         pictureCollectionView.snp.updateConstraints {
@@ -180,9 +180,9 @@ class FolderViewController: UIViewController {
         }
     }
     
-    private func getFolderCollectionViewHeight() -> CGFloat {
+    private func getCollectionViewHeight(count: Int) -> CGFloat {
         let cellHeight = (view.frame.width - leftRightPadding * (column + 1)) / column + extraHeightPadding
-        let rowCount = CGFloat(ceil(Double(folders.count) / Double(column)))
+        let rowCount = CGFloat(ceil(Double(count) / Double(column)))
         let folderViewHeight = (cellHeight + topBottomPadding) * rowCount
     
         return folderViewHeight
