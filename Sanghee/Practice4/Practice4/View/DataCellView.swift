@@ -16,14 +16,20 @@ class DataCellView: UIView {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "folder")
-        imageView.tintColor = .systemGray
+        imageView.tintColor = .systemGray5
+        return imageView
+    }()
+    
+    private let imageFillView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .systemGroupedBackground
         return imageView
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         return label
     }()
     
@@ -50,6 +56,7 @@ class DataCellView: UIView {
     
     private func setupView() {
         addSubview(containerView)
+        containerView.addSubview(imageFillView)
         containerView.addSubview(imageView)
         containerView.addSubview(nameLabel)
         
@@ -58,6 +65,11 @@ class DataCellView: UIView {
         }
         
         imageView.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(26)
+        }
+        
+        imageFillView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().inset(26)
         }
@@ -71,7 +83,11 @@ class DataCellView: UIView {
     private func setupFolderView() {
         guard let folder = folder else { return }
         
+        imageView.image = UIImage(systemName: "folder")
+        imageFillView.image = UIImage(systemName: "folder.fill")
+        
         imageView.contentMode = .scaleAspectFit
+        imageFillView.contentMode = .scaleAspectFit
         
         nameLabel.text = folder.name
     }
@@ -79,8 +95,7 @@ class DataCellView: UIView {
     private func setupPictureView() {
         guard let picture = picture else { return }
         
-        let image = UIImage(contentsOfFile: picture.url.path)
-        imageView.image = image
+        imageView.image = UIImage(contentsOfFile: picture.url.path)
         
         nameLabel.text = picture.name
     }
