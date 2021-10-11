@@ -19,13 +19,7 @@ class DataCellView: UIView {
         imageView.tintColor = .systemGray5
         return imageView
     }()
-    
-    private let imageFillView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = .systemGroupedBackground
-        return imageView
-    }()
-    
+
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -56,7 +50,6 @@ class DataCellView: UIView {
     
     private func setupView() {
         addSubview(containerView)
-        containerView.addSubview(imageFillView)
         containerView.addSubview(imageView)
         containerView.addSubview(nameLabel)
         
@@ -65,11 +58,6 @@ class DataCellView: UIView {
         }
         
         imageView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(26)
-        }
-        
-        imageFillView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().inset(26)
         }
@@ -84,10 +72,7 @@ class DataCellView: UIView {
         guard let folder = folder else { return }
         
         imageView.image = UIImage(systemName: "folder")
-        imageFillView.image = UIImage(systemName: "folder.fill")
-        
         imageView.contentMode = .scaleAspectFit
-        imageFillView.contentMode = .scaleAspectFit
         
         nameLabel.text = folder.name
     }
@@ -96,6 +81,7 @@ class DataCellView: UIView {
         guard let picture = picture else { return }
         
         imageView.image = UIImage(contentsOfFile: picture.url.path)
+        imageView.contentMode = .scaleToFill
         
         nameLabel.text = picture.name
     }

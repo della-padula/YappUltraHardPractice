@@ -15,14 +15,7 @@ class FolderViewController: UIViewController {
         return imagePicker
     }()
     
-    private let folderCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
-    
-    private let pictureCollectionView: UICollectionView = {
+    private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
@@ -49,8 +42,7 @@ class FolderViewController: UIViewController {
         setupNavigationBar()
         setupImagePicker()
         setupCollectionView()
-        setupFolderLongPressGesture()
-        setupPictureLongPressGesture()
+        setupLongPressGesture()
     }
     
     private func getData() {
@@ -59,10 +51,7 @@ class FolderViewController: UIViewController {
     }
     
     private func reloadCollection() {
-        updateFolderCollectionViewHeight()
-        
-        folderCollectionView.reloadData()
-        pictureCollectionView.reloadData()
+        collectionView.reloadData()
     }
     
     private func setupNavigationBar() {
@@ -116,7 +105,7 @@ class FolderViewController: UIViewController {
     private func showPictureNameAlert() {
         let alert = UIAlertController(title: "새로운 사진", message: "사진 이름을 입력하세요", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-            guard let name = alert.textFields?[0].text, let url = self.imagePickerUrl else { return }
+            guard let name = alert.textFields?[0].text, name.trimmingCharacters(in: .whitespaces).count > 0, let url = self.imagePickerUrl else { return }
             
             let newPicture = Picture(id: UUID(), folderId: self.parentFolder.id, path: "\(self.parentFolder.path)/\(name)", url: url, name: name)
             
@@ -143,67 +132,28 @@ class FolderViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        folderCollectionView.delegate = self
-        folderCollectionView.dataSource = self
-        folderCollectionView.register(DataCell.self, forCellWithReuseIdentifier: DataCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(DataCell.self, forCellWithReuseIdentifier: DataCell.identifier)
+    
+        view.addSubview(collectionView)
         
-        pictureCollectionView.delegate = self
-        pictureCollectionView.dataSource = self
-        pictureCollectionView.register(DataCell.self, forCellWithReuseIdentifier: DataCell.identifier)
-        
-        view.addSubview(folderCollectionView)
-        view.addSubview(pictureCollectionView)
-        
-        let folderViewHeight = getCollectionViewHeight(count: folders.count)
-
-        folderCollectionView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(92)
+        collectionView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(92)
             $0.left.right.equalToSuperview().inset(leftRightPadding)
-            $0.height.equalTo(folderViewHeight)
-        }
-        
-        pictureCollectionView.snp.makeConstraints {
-            $0.top.equalTo(folderCollectionView.snp.bottom)
-            $0.bottom.left.right.equalToSuperview().inset(leftRightPadding)
         }
     }
-    
-    private func updateFolderCollectionViewHeight() {
-        let folderViewHeight = getCollectionViewHeight(count: folders.count)
-        
-        folderCollectionView.snp.updateConstraints {
-            $0.height.equalTo(folderViewHeight)
-        }
-        
-        pictureCollectionView.snp.updateConstraints {
-            $0.top.equalTo(folderCollectionView.snp.bottom)
-        }
-    }
-    
-    private func getCollectionViewHeight(count: Int) -> CGFloat {
-        let cellHeight = (view.frame.width - leftRightPadding * (column + 1)) / column + extraHeightPadding
-        let rowCount = CGFloat(ceil(Double(count) / Double(column)))
-        let folderViewHeight = (cellHeight + topBottomPadding) * rowCount
-    
-        return folderViewHeight
-    }
-    
+ 
     @objc
-    private func longFolderPress(sender: UILongPressGestureRecognizer) {
+    private func longPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            let point = sender.location(in: folderCollectionView)
-            if let indexPath = folderCollectionView.indexPathForItem(at: point) {
-                showEditAlert(index: indexPath.row, isFolder: true)
-            }
-        }
-    }
-    
-    @objc
-    private func longPicturePress(sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            let point = sender.location(in: pictureCollectionView)
-            if let indexPath = pictureCollectionView.indexPathForItem(at: point) {
-                showEditAlert(index: indexPath.row, isFolder: false)
+            let point = sender.location(in: collectionView)
+            if let indexPath = collectionView.indexPathForItem(at: point) {
+                switch indexPath.section {
+                case 0: showEditAlert(index: indexPath.row, isFolder: true)
+                case 1: showEditAlert(index: indexPath.row, isFolder: false)
+                default: break
+                }
             }
         }
     }
@@ -214,7 +164,7 @@ class FolderViewController: UIViewController {
         
         let alert = UIAlertController(title: "\(itemName) 편집", message: "\(itemName)를 편집하시겠습니까?", preferredStyle: .alert)
         let editAction = UIAlertAction(title: "수정", style: .default) { _ in
-            guard let name = alert.textFields?[0].text else { return }
+            guard let name = alert.textFields?[0].text, name.trimmingCharacters(in: .whitespaces).count > 0 else { return }
             
             if isFolder {
                 self.folders[index].name = name
@@ -249,14 +199,9 @@ class FolderViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func setupFolderLongPressGesture() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longFolderPress))
-        folderCollectionView.addGestureRecognizer(longPress)
-    }
-    
-    private func setupPictureLongPressGesture() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPicturePress))
-        pictureCollectionView.addGestureRecognizer(longPress)
+    private func setupLongPressGesture() {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        collectionView.addGestureRecognizer(longPress)
     }
 }
 
@@ -276,10 +221,14 @@ extension FolderViewController:  UINavigationControllerDelegate, UIImagePickerCo
 }
 
 extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case folderCollectionView: return folders.count
-        case pictureCollectionView: return pictures.count
+        switch section {
+        case 0: return folders.count
+        case 1: return pictures.count
         default: return 0
         }
     }
@@ -287,10 +236,10 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DataCell.identifier, for: indexPath) as! DataCell
         
-        switch collectionView {
-        case folderCollectionView: cell.folder = folders[indexPath.row]
-        case pictureCollectionView: cell.picture = pictures[indexPath.row]
-        default: return UICollectionViewCell()
+        switch indexPath.section {
+        case 0: cell.folder = folders[indexPath.row]
+        case 1: cell.picture = pictures[indexPath.row]
+        default: break
         }
 
         return cell
@@ -311,7 +260,7 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == folderCollectionView {
+        if indexPath.section == 0 {
             let folder = folders[indexPath.row]
             let parentFolder = Folder(id: folder.id, path: "\(folder.path)/\(folder.name)", name: folder.name)
 
@@ -319,7 +268,7 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
             mainVC.parentFolder = parentFolder
             
             self.navigationController?.pushViewController(mainVC, animated: true)
-        } else if collectionView == pictureCollectionView {
+        } else if indexPath.section == 1 {
             let pictureVC = PictureViewController(pictures[indexPath.row])
             pictureVC.modalPresentationStyle = .overCurrentContext
             

@@ -182,8 +182,14 @@ class CoreDataManager {
     }
     
     func deletePicture(_ path: String) {
-        let picture = fetchPictures().filter({ $0.path == path })[0]
-        context.delete(picture)
+        let fetchResult = fetchPictures()
+        
+        for result in fetchResult {
+            if result.path == path {
+                context.delete(result)
+                break
+            }
+        }
         
         saveToContext()
     }
