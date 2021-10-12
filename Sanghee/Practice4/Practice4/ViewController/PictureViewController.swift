@@ -37,11 +37,11 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }()
     
-    var picture: Picture?
+    let picture: Picture
     
     init(_ picture: Picture) {
-        super.init(nibName: nil, bundle: nil)
         self.picture = picture
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -92,7 +92,7 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func setupTitleLabel() {
-        titleLabel.text = picture?.name
+        titleLabel.text = picture.name
         
         view.addSubview(titleLabel)
         
@@ -112,9 +112,7 @@ class PictureViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func setupPictureView() {
-        guard let url = picture?.url else { return }
-        
-        let image = UIImage(contentsOfFile: url.path)
+        let image = UIImage(contentsOfFile: picture.url.path)
         imageView.image = image
         
         scrollView.addSubview(imageView)
