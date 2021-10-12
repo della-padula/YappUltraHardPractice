@@ -5,7 +5,7 @@
 //  Created by leeesangheee on 2021/10/04.
 //
 
-import UIKit
+import Foundation
 
 protocol MainView: AnyObject {
     func setHeader()
