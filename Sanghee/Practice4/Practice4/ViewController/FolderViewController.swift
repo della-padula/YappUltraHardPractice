@@ -139,8 +139,8 @@ class FolderViewController: UIViewController {
         view.addSubview(collectionView)
         
         collectionView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(92)
-            $0.left.right.equalToSuperview().inset(leftRightPadding)
+            $0.top.equalToSuperview().inset(92)
+            $0.bottom.left.right.equalToSuperview().inset(leftRightPadding)
         }
     }
  
