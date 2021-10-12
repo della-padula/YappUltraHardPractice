@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  FolderViewController.swift
 //  Practice4
 //
 //  Created by leeesangheee on 2021/10/08.
@@ -29,9 +29,9 @@ class FolderViewController: UIViewController {
     private var imagePickerUrl: URL?
 
     private var column: CGFloat = 2
-    private var topBottomPadding: CGFloat = 12
+    private var topBottomPadding: CGFloat = 0
     private var leftRightPadding: CGFloat = 8
-    private var extraHeightPadding: CGFloat = 22
+    private var extraHeightPadding: CGFloat = 32
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,11 +149,8 @@ class FolderViewController: UIViewController {
         if sender.state == .began {
             let point = sender.location(in: collectionView)
             if let indexPath = collectionView.indexPathForItem(at: point) {
-                switch indexPath.section {
-                case 0: showEditAlert(index: indexPath.row, isFolder: true)
-                case 1: showEditAlert(index: indexPath.row, isFolder: false)
-                default: break
-                }
+                let isFolder = (indexPath.section == Section.folder.rawValue)
+                showEditAlert(index: indexPath.row, isFolder: isFolder)
             }
         }
     }
@@ -222,13 +219,13 @@ extension FolderViewController:  UINavigationControllerDelegate, UIImagePickerCo
 
 extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return Section.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return folders.count
-        case 1: return pictures.count
+        case Section.folder.rawValue: return folders.count
+        case Section.picture.rawValue: return pictures.count
         default: return 0
         }
     }
@@ -237,8 +234,8 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DataCell.identifier, for: indexPath) as! DataCell
         
         switch indexPath.section {
-        case 0: cell.folder = folders[indexPath.row]
-        case 1: cell.picture = pictures[indexPath.row]
+        case Section.folder.rawValue: cell.folder = folders[indexPath.row]
+        case Section.picture.rawValue: cell.picture = pictures[indexPath.row]
         default: break
         }
 
@@ -260,7 +257,7 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.section == Section.folder.rawValue {
             let folder = folders[indexPath.row]
             let parentFolder = Folder(id: folder.id, path: "\(folder.path)/\(folder.name)", name: folder.name)
 
@@ -268,7 +265,7 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDelega
             mainVC.parentFolder = parentFolder
             
             self.navigationController?.pushViewController(mainVC, animated: true)
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == Section.picture.rawValue {
             let pictureVC = PictureViewController(pictures[indexPath.row])
             pictureVC.modalPresentationStyle = .overCurrentContext
             

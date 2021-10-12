@@ -59,12 +59,12 @@ class DataCellView: UIView {
         
         imageView.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(26)
+            $0.bottom.equalToSuperview().inset(32)
         }
         
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(6)
-            $0.bottom.left.right.equalToSuperview()
+            $0.top.equalTo(imageView.snp.bottom).offset(4)
+            $0.left.right.equalToSuperview()
         }
     }
     
