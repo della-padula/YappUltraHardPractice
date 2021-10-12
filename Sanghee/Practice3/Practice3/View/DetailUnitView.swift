@@ -59,6 +59,7 @@ class DetailUnitView: UIView {
     
     private func setLabelTexts() {
         guard let detailUnit = detailUnit else { return }
+        
         titleLabel.text = detailUnit.title
         emojiLabel.text = detailUnit.emoji
         paragraphLabel.text = detailUnit.paragraph
