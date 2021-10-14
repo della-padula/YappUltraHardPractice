@@ -8,11 +8,15 @@
 import UIKit
 
 class ViewController: UIViewController {
+    let apiManager = GithubManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemTeal
+        view.backgroundColor = .white
+        let urlString = apiManager.fetchInfo()
+        apiManager.performRequest(url: urlString)
+        print(apiManager.commitArray)
     }
 
 

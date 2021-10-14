@@ -11,6 +11,9 @@
 		951613C6271858FC004A2451 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613C5271858FC004A2451 /* ViewController.swift */; };
 		951613CB271858FF004A2451 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 951613CA271858FF004A2451 /* Assets.xcassets */; };
 		951613CE271858FF004A2451 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 951613CC271858FF004A2451 /* LaunchScreen.storyboard */; };
+		951613D6271877E0004A2451 /* GithubManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613D5271877E0004A2451 /* GithubManager.swift */; };
+		951613D8271877F2004A2451 /* GithubJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613D7271877F2004A2451 /* GithubJSONModel.swift */; };
+		951613DA271884CF004A2451 /* GitLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613D9271884CF004A2451 /* GitLog.swift */; };
 		D7FC8F5312C735658D2B0BD0 /* Pods_Project5.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A367F066C78ABD161562CE54 /* Pods_Project5.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 		951613CA271858FF004A2451 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		951613CD271858FF004A2451 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		951613CF271858FF004A2451 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		951613D5271877E0004A2451 /* GithubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubManager.swift; sourceTree = "<group>"; };
+		951613D7271877F2004A2451 /* GithubJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubJSONModel.swift; sourceTree = "<group>"; };
+		951613D9271884CF004A2451 /* GitLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitLog.swift; sourceTree = "<group>"; };
 		A367F066C78ABD161562CE54 /* Pods_Project5.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project5.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +78,9 @@
 				951613CA271858FF004A2451 /* Assets.xcassets */,
 				951613CC271858FF004A2451 /* LaunchScreen.storyboard */,
 				951613CF271858FF004A2451 /* Info.plist */,
+				951613D5271877E0004A2451 /* GithubManager.swift */,
+				951613D7271877F2004A2451 /* GithubJSONModel.swift */,
+				951613D9271884CF004A2451 /* GitLog.swift */,
 			);
 			path = Project5;
 			sourceTree = "<group>";
@@ -198,8 +207,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				951613D8271877F2004A2451 /* GithubJSONModel.swift in Sources */,
 				951613C6271858FC004A2451 /* ViewController.swift in Sources */,
+				951613DA271884CF004A2451 /* GitLog.swift in Sources */,
 				951613C2271858FC004A2451 /* AppDelegate.swift in Sources */,
+				951613D6271877E0004A2451 /* GithubManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
