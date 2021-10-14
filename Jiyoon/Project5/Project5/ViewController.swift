@@ -9,24 +9,24 @@ import UIKit
 
 class ViewController: UIViewController {
     let apiManager = GithubManager()
-
+    var urlString = ""
+    static var resultList: [Date] = []
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
         view.backgroundColor = .white
-        let urlString = apiManager.fetchInfo()
+        urlString = apiManager.fetchInfo()
         apiManager.performRequest(url: urlString)
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("@@")
-        for date in GithubManager.dateArray {
-            print(date)
-        }
+        apiManager.stringToDate()
     }
     
-    func loadModel() {
-        
+    override func viewDidAppear(_ animated: Bool) {
+//        print(GithubManager.shared.dates)
     }
+
 
 
 }
