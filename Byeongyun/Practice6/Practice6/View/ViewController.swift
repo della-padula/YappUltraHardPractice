@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         graphPicker.resignFirstResponder()
         if presenter.showPick() == 0 {
             self.graphCounter = self.dayCounter
-            normalGraph()
+            updateGraph()
         } else {
             drawGraph(presenter.showPick())
         }
@@ -103,14 +103,13 @@ class ViewController: UIViewController {
             self.presenter.fetch() { day in
                 self.dayCounter = day
                 self.graphCounter = day
-                self.normalGraph()
+                self.updateGraph()
                 self.collectionView.reloadData()
             }
         }
     }
 
-    private func normalGraph() {
-
+    private func updateGraph() {
         let padding: CGFloat = 100
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.width - padding * 2, height: self.view.frame.height - padding * 4)
         let graphView = GraphView(frame: frame, values: self.graphCounter)
@@ -130,7 +129,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
             self.presenter.fetchMonthData(index) { day in
                 self.graphCounter = day
-                self.normalGraph()
+                self.updateGraph()
             }
         }
     }
