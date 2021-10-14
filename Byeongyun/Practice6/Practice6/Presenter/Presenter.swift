@@ -12,15 +12,19 @@ protocol ViewControllerProtocol {
     func fetchData(completion: @escaping (Array<String>) -> Void)
     func arrayMove(_ index: Int)
     func fetch(completion: @escaping (Array<CGFloat>) -> Void)
+    func selectFilter(_ select: Int)
+    func showPick() -> Int
+    func showPickerArray() -> [String]
+    func fetchMonthData(_ index: Int, completion: @escaping ([CGFloat]) -> Void)
 }
 
 class Presenter: ViewControllerProtocol {
-    let urlArray = [ "https://api.github.com/search/commits?q=author:ITlearning+committer-date:2021-10-01..2021-10-30",
+    private let urlArray = [ "https://api.github.com/search/commits?q=author:ITlearning+committer-date:2021-10-01..2021-10-30",
         "https://api.github.com/search/commits?q=committer-email:yo7504@kakao.com+committer-date:2021-10-01..2021-10-30",
         "https://api.github.com/search/commits?q=committer-email:yo7504@naver.com+committer-date:2021-10-01..2021-10-30"
     ]
-    let urlOriginal = "https://api.github.com/search/commits?q=author:ITlearning+committer-date:"
-    let ar = [["2021-10-01..2021-10-15"], ["2021-05-01..2021-05-31","2021-06-01..2021-06-30", "2021-07-01..2021-07-30", "2021-08-01..2021-08-31", "2021-09-01..2021-09-30", "2021-10-01..2021-10-31"], ["2019", "2020", "2021"] ]
+    private let urlOriginal = "https://api.github.com/search/commits?q=author:ITlearning+committer-date:"
+    private let ar = [["2021-10-01..2021-10-15"], ["2021-05-01..2021-05-31","2021-06-01..2021-06-30", "2021-07-01..2021-07-30", "2021-08-01..2021-08-31", "2021-09-01..2021-09-30", "2021-10-01..2021-10-31"], ["2019", "2020", "2021"] ]
     private var dayCounter = [CGFloat](repeating: 0, count: 31)
     private var data: [Item] = []
     private var count: [CGFloat] = []
