@@ -13,6 +13,7 @@ class GithubManager {
     var commitArray: [GitLog] = []
     var dateArray: [String] = []
     var dates: [Date] = []
+    var dateDict: [String:Int] = [:]
     
     func fetchInfo() -> String {
         let urlString = "https://api.github.com/repos/glossyyoon/DailyCoding/commits?per_page=100"
@@ -55,13 +56,33 @@ class GithubManager {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         
         dateArray.forEach({
-            dates.append(dateFormatter.date(from: $0)!)
+            let year = "\(dateFormatter.date(from: $0)!)".substring(from: 0, to: 3)
+            let month = "\(dateFormatter.date(from: $0)!)".substring(from: 5, to: 6)
+            let day = "\(dateFormatter.date(from: $0)!)".substring(from: 8, to: 9)
+            let shortDay = year + month + day
+            filterDates(date: shortDay)
         })
-        print(dates)
+        print(dateDict)
     }
     
-    func filterDates() {
-        
+    func filterDates(date: String) {
+        for k in dateDict.keys {
+            if date == k {
+                dateDict[date]! += 1
+                return
+            }
+        }
+        dateDict[date] = 1
     }
     
+}
+extension String {
+    func substring(from: Int, to: Int) -> String {
+        guard from < count, to >= 0, to - from >= 0 else {
+            return ""
+        }
+        let startIndex = index(self.startIndex, offsetBy: from)
+        let endIndex = index(self.startIndex, offsetBy: to + 1)
+        return String(self[startIndex ..< endIndex])
+    }
 }
