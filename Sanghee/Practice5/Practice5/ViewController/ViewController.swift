@@ -7,9 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
+    private let manager = GitHubManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        manager.getCommitsFromRepoPage()
     }
 }

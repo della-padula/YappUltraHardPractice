@@ -6,6 +6,7 @@ target 'Practice5' do
   use_frameworks!
 
   # Pods for Practice5
+  pod 'Alamofire'
   pod 'SnapKit'
 
 end
