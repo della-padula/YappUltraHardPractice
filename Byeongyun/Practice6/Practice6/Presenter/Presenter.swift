@@ -69,17 +69,13 @@ class Presenter: ViewControllerProtocol {
                         let dataJSON = try JSONSerialization.data(withJSONObject: res, options: .fragmentsAllowed)
                         let getInstanceData = try JSONDecoder().decode(CommitModel.self, from: dataJSON)
                         self.data = getInstanceData.items
-                        print(self.data)
                         for i in self.data {
                             if !self.array.contains(i.commit.committer.date) {
                                 self.array.append(i.commit.committer.date)
-                            } else {
-                                print(i.commit.committer.date)
                             }
                         }
                         self.array.sort()
                         completion(self.array)
-
 
                     } catch(let err) {
                         print(err.localizedDescription)
@@ -90,7 +86,6 @@ class Presenter: ViewControllerProtocol {
             }
         }
     }
-
 
     func fetchMonthData(_ index: Int, completion: @escaping ([CGFloat]) -> Void) {
         count = []
@@ -105,7 +100,6 @@ class Presenter: ViewControllerProtocol {
                         var num = Int()
                         num = getInstanceData.total_count
                         self.count.append(CGFloat(num))
-                        //print("달별", self.count )
                     } catch(let err) {
                         print(err.localizedDescription)
                     }

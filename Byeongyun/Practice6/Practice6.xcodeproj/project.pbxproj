@@ -17,7 +17,6 @@
 		A865B7D927187F2D006E244F /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7D827187F2D006E244F /* Presenter.swift */; };
 		A865B7DD27188B91006E244F /* GreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7DC27188B91006E244F /* GreenCollectionViewCell.swift */; };
 		A865B7DF2718AB0B006E244F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7DE2718AB0B006E244F /* GraphView.swift */; };
-		A865B7E12718CB4D006E244F /* Count.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7E02718CB4D006E244F /* Count.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		A865B7D827187F2D006E244F /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		A865B7DC27188B91006E244F /* GreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		A865B7DE2718AB0B006E244F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
-		A865B7E02718CB4D006E244F /* Count.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Count.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +94,6 @@
 			children = (
 				A865B7D227183E69006E244F /* CommitModel.swift */,
 				A865B7D627187CFE006E244F /* Month.swift */,
-				A865B7E02718CB4D006E244F /* Count.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,7 +241,6 @@
 				A865B7DD27188B91006E244F /* GreenCollectionViewCell.swift in Sources */,
 				A865B7D327183E69006E244F /* CommitModel.swift in Sources */,
 				A865B7A827173731006E244F /* ViewController.swift in Sources */,
-				A865B7E12718CB4D006E244F /* Count.swift in Sources */,
 				A865B7D727187CFE006E244F /* Month.swift in Sources */,
 				A865B7A427173731006E244F /* AppDelegate.swift in Sources */,
 				A865B7DF2718AB0B006E244F /* GraphView.swift in Sources */,

@@ -43,7 +43,6 @@ class GraphView: UIView {
                 let newPosition: CGPoint = CGPoint(x: currentX, y: self.frame.height - self.values[i])
                 path.addLine(to: newPosition)
             }
-
         }
 
         layer.fillColor = nil

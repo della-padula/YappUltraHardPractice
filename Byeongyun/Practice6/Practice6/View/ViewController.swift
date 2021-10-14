@@ -113,8 +113,8 @@ class ViewController: UIViewController {
         let padding: CGFloat = 100
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.width - padding * 2, height: self.view.frame.height - padding * 4)
         let graphView = GraphView(frame: frame, values: self.graphCounter)
-        print(self.graphCounter)
         graphView.backgroundColor = .systemGray5
+
         graphView.snp.removeConstraints()
         self.view.addSubview(graphView)
         graphView.snp.makeConstraints {
@@ -138,11 +138,8 @@ class ViewController: UIViewController {
         presenter.fetchData() { arr in
             self.array = arr
         }
-        presenter.fetchMonthData(0) { count in
-            self.graphCounter = count
-
-        }
     }
+
     private func configureCollectionView() {
         collectionView.register(GreenCollectionViewCell.self, forCellWithReuseIdentifier: GreenCollectionViewCell.cellId)
         collectionView.delegate = self
@@ -164,7 +161,6 @@ class ViewController: UIViewController {
             $0.top.equalTo(githubLogoImageView.snp.bottom).offset(10)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(10)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-10)
-
             $0.height.equalTo(height/4)
         }
 
@@ -172,7 +168,6 @@ class ViewController: UIViewController {
         graphPicker.snp.makeConstraints {
             $0.top.equalTo(collectionView.snp.bottom).offset(10)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(10)
-
         }
     }
 
@@ -212,13 +207,11 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 3
+        3
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-
         let index = presenter.showPickerArray()
-
         return index[row]
     }
 
