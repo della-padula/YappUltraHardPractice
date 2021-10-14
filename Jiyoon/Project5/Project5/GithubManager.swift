@@ -24,18 +24,22 @@ class GithubManager {
                     return
                 }
                 let decoder = JSONDecoder()
-                do {
-                    let commitLog = try decoder.decode(GithubJSONModel.self, from: data[0]!)
-                    let date = commitLog.commit.committer.date
-                    let message = commitLog.commit.message
-                    let name = commitLog.commit.committer.name
-                    let newCommitLog = GitLog(date: date, message: message, name: name)
-                    self.commitArray.append(newCommitLog)
-                }
-                catch {
-                    print(error.localizedDescription)
-                }
                 
+                if let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [Data] {
+                    for item in jsonData {
+                        do {
+                            let commitLog = try decoder.decode(GithubJSONModel.self, from: item as Data)
+                            let date = commitLog.commit.committer.date
+                            let message = commitLog.commit.message
+                            let name = commitLog.commit.committer.name
+                            let newCommitLog = GitLog(date: date, message: message, name: name)
+                            self.commitArray.append(newCommitLog)
+                        }
+                        catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
             }
             task.resume()
         }

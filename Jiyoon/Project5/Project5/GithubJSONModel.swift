@@ -8,6 +8,7 @@
 import Foundation
 
 struct GithubJSONModel: Codable {
+//    let sha: String
     let commit: Commit
 }
 struct Commit: Codable {
