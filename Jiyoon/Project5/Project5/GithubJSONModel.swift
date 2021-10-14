@@ -8,7 +8,6 @@
 import Foundation
 
 struct GithubJSONModel: Codable {
-//    let sha: String
     let commit: Commit
 }
 struct Commit: Codable {
@@ -17,5 +16,5 @@ struct Commit: Codable {
 }
 struct Committer: Codable {
     let name: String
-    let date: Date
+    let date: String
 }

@@ -12,11 +12,20 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         view.backgroundColor = .white
         let urlString = apiManager.fetchInfo()
         apiManager.performRequest(url: urlString)
-        print(apiManager.commitArray)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("@@")
+        for date in GithubManager.dateArray {
+            print(date)
+        }
+    }
+    
+    func loadModel() {
+        
     }
 
 

@@ -8,7 +8,7 @@
 import Foundation
 
 struct GitLog {
-    let date: Date
+    let date: String
     let message: String
     let name: String
 }
