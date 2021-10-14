@@ -13,6 +13,7 @@
 		5E4978A227171A6B004EE4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E4978A027171A6B004EE4B4 /* LaunchScreen.storyboard */; };
 		5EA4493727187DF70035D20A /* GitHubManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4493627187DF70035D20A /* GitHubManager.swift */; };
 		5EA4493927187E560035D20A /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4493827187E560035D20A /* Commit.swift */; };
+		5EA4493B2718BCF30035D20A /* GrassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4493A2718BCF30035D20A /* GrassCell.swift */; };
 		625BAC5F11579D86FCD93F67 /* Pods_Practice5.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F78B8CBEFC26204548A0CF /* Pods_Practice5.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		5E4978A327171A6B004EE4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EA4493627187DF70035D20A /* GitHubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubManager.swift; sourceTree = "<group>"; };
 		5EA4493827187E560035D20A /* Commit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		5EA4493A2718BCF30035D20A /* GrassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrassCell.swift; sourceTree = "<group>"; };
 		D1F78B8CBEFC26204548A0CF /* Pods_Practice5.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice5.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				5E4978A927171BB3004EE4B4 /* Model */,
+				5EA4493C2718BD060035D20A /* View */,
 				5E4978AB27171BBE004EE4B4 /* ViewController */,
 				5E4978AA27171BB8004EE4B4 /* Presenter */,
 				5EA4493627187DF70035D20A /* GitHubManager.swift */,
@@ -113,6 +116,14 @@
 				5E49789927171A68004EE4B4 /* ViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		5EA4493C2718BD060035D20A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5EA4493A2718BCF30035D20A /* GrassCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EA4493927187E560035D20A /* Commit.swift in Sources */,
+				5EA4493B2718BCF30035D20A /* GrassCell.swift in Sources */,
 				5EA4493727187DF70035D20A /* GitHubManager.swift in Sources */,
 				5E49789A27171A68004EE4B4 /* ViewController.swift in Sources */,
 				5E49789627171A68004EE4B4 /* AppDelegate.swift in Sources */,

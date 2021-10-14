@@ -66,7 +66,7 @@ final class ViewController: UIViewController {
     
     private let grassCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
-        collectionView.backgroundColor = .systemGreen
+        collectionView.backgroundColor = .systemGreen.withAlphaComponent(0.1)
         return collectionView
     }()
     
@@ -97,7 +97,7 @@ final class ViewController: UIViewController {
     
     private let graphCartView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .systemBlue.withAlphaComponent(0.1)
         return view
     }()
     
@@ -113,17 +113,20 @@ final class ViewController: UIViewController {
         
         manager.getCommitsFromRepoPage()
         
-        setupHeaderView()
-        setupTextField()
-        setupGrassView()
-        setupGraphView()
+        addHeaderView()
+        addTextField()
+        addGrassView()
+        addGraphView()
         
-        addButtonAction()
+        setupButtonAction()
     }
 }
 
+extension ViewController: UITextFieldDelegate {
+}
+
 private extension ViewController {
-    func addButtonAction() {
+    func setupButtonAction() {
         textFieldBtn.addTarget(self, action: #selector(textFieldBtnTapped), for: .touchUpInside)
     }
     
@@ -134,11 +137,8 @@ private extension ViewController {
     }
 }
 
-extension ViewController: UITextFieldDelegate {
-}
-
 private extension ViewController {
-    func setupHeaderView() {
+    func addHeaderView() {
         view.addSubview(headerView)
         headerView.addSubview(titleLabel)
         
@@ -153,7 +153,7 @@ private extension ViewController {
         }
     }
     
-    func setupTextField() {
+    func addTextField() {
         view.addSubview(textFieldView)
         textFieldView.addSubview(textField)
         textFieldView.addSubview(textFieldBtn)
@@ -174,7 +174,7 @@ private extension ViewController {
         }
     }
     
-    func setupGrassView() {
+    func addGrassView() {
         view.addSubview(grassView)
         grassView.addSubview(grassOwnerLabel)
         grassView.addSubview(grassContributionsLabel)
@@ -207,7 +207,7 @@ private extension ViewController {
         }
     }
     
-    func setupGraphView() {
+    func addGraphView() {
         view.addSubview(graphView)
         graphView.addSubview(graphOwnerLabel)
         graphView.addSubview(graphContributionsLabel)
