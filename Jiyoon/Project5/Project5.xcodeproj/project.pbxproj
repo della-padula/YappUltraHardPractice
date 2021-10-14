@@ -15,6 +15,7 @@
 		951613D8271877F2004A2451 /* GithubJSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613D7271877F2004A2451 /* GithubJSONModel.swift */; };
 		951613DA271884CF004A2451 /* GitLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613D9271884CF004A2451 /* GitLog.swift */; };
 		951613DC2718B149004A2451 /* DateSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613DB2718B149004A2451 /* DateSingleton.swift */; };
+		951613DE2718C7A7004A2451 /* lineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951613DD2718C7A7004A2451 /* lineView.swift */; };
 		D7FC8F5312C735658D2B0BD0 /* Pods_Project5.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A367F066C78ABD161562CE54 /* Pods_Project5.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		951613D7271877F2004A2451 /* GithubJSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubJSONModel.swift; sourceTree = "<group>"; };
 		951613D9271884CF004A2451 /* GitLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitLog.swift; sourceTree = "<group>"; };
 		951613DB2718B149004A2451 /* DateSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSingleton.swift; sourceTree = "<group>"; };
+		951613DD2718C7A7004A2451 /* lineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lineView.swift; sourceTree = "<group>"; };
 		A367F066C78ABD161562CE54 /* Pods_Project5.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project5.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 				951613D7271877F2004A2451 /* GithubJSONModel.swift */,
 				951613D9271884CF004A2451 /* GitLog.swift */,
 				951613DB2718B149004A2451 /* DateSingleton.swift */,
+				951613DD2718C7A7004A2451 /* lineView.swift */,
 			);
 			path = Project5;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				951613DA271884CF004A2451 /* GitLog.swift in Sources */,
 				951613C2271858FC004A2451 /* AppDelegate.swift in Sources */,
 				951613D6271877E0004A2451 /* GithubManager.swift in Sources */,
+				951613DE2718C7A7004A2451 /* lineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

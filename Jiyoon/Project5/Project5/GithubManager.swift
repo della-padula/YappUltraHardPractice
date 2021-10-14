@@ -62,7 +62,8 @@ class GithubManager {
             let shortDay = year + month + day
             filterDates(date: shortDay)
         })
-        print(dateDict)
+        countCommits()
+//        print(dateDict)
     }
     
     func filterDates(date: String) {
@@ -73,6 +74,30 @@ class GithubManager {
             }
         }
         dateDict[date] = 1
+    }
+    
+    func countCommits() {
+        for i in 20210801...20210831 {
+            if dateDict[String(i)] == nil {
+                dateDict[String(i)] = 0
+            }
+        }
+        for i in 20210901...20210930 {
+            if dateDict[String(i)] == nil {
+                dateDict[String(i)] = 0
+            }
+        }
+        for i in 20211001...20211015 {
+            if dateDict[String(i)] == nil {
+                dateDict[String(i)] = 0
+            }
+        }
+//        print(dateDict)
+
+    }
+    
+    func returnDict() -> [String:Int]  {
+        return dateDict
     }
     
 }
