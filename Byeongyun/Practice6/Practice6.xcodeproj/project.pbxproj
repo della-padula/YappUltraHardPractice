@@ -13,11 +13,11 @@
 		A865B7AD27173733006E244F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A865B7AC27173733006E244F /* Assets.xcassets */; };
 		A865B7B027173733006E244F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A865B7AE27173733006E244F /* LaunchScreen.storyboard */; };
 		A865B7D327183E69006E244F /* CommitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7D227183E69006E244F /* CommitModel.swift */; };
-		A865B7D52718660D006E244F /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7D42718660D006E244F /* Test.swift */; };
 		A865B7D727187CFE006E244F /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7D627187CFE006E244F /* Month.swift */; };
 		A865B7D927187F2D006E244F /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7D827187F2D006E244F /* Presenter.swift */; };
 		A865B7DD27188B91006E244F /* GreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7DC27188B91006E244F /* GreenCollectionViewCell.swift */; };
 		A865B7DF2718AB0B006E244F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7DE2718AB0B006E244F /* GraphView.swift */; };
+		A865B7E12718CB4D006E244F /* Count.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7E02718CB4D006E244F /* Count.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,11 +31,11 @@
 		A865B7AF27173733006E244F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A865B7B127173733006E244F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A865B7D227183E69006E244F /* CommitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitModel.swift; sourceTree = "<group>"; };
-		A865B7D42718660D006E244F /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A865B7D627187CFE006E244F /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		A865B7D827187F2D006E244F /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		A865B7DC27188B91006E244F /* GreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCollectionViewCell.swift; sourceTree = "<group>"; };
 		A865B7DE2718AB0B006E244F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		A865B7E02718CB4D006E244F /* Count.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Count.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				A865B7D227183E69006E244F /* CommitModel.swift */,
-				A865B7D42718660D006E244F /* Test.swift */,
 				A865B7D627187CFE006E244F /* Month.swift */,
+				A865B7E02718CB4D006E244F /* Count.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,8 +243,8 @@
 				A865B7D927187F2D006E244F /* Presenter.swift in Sources */,
 				A865B7DD27188B91006E244F /* GreenCollectionViewCell.swift in Sources */,
 				A865B7D327183E69006E244F /* CommitModel.swift in Sources */,
-				A865B7D52718660D006E244F /* Test.swift in Sources */,
 				A865B7A827173731006E244F /* ViewController.swift in Sources */,
+				A865B7E12718CB4D006E244F /* Count.swift in Sources */,
 				A865B7D727187CFE006E244F /* Month.swift in Sources */,
 				A865B7A427173731006E244F /* AppDelegate.swift in Sources */,
 				A865B7DF2718AB0B006E244F /* GraphView.swift in Sources */,

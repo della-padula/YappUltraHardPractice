@@ -40,10 +40,10 @@ class GreenCollectionViewCell: UICollectionViewCell {
     private func configureLayout() {
         contentView.addSubview(greenView)
         greenView.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top).offset(5)
-            $0.leading.equalTo(self.snp.leading).offset(5)
-            $0.trailing.equalTo(self.snp.trailing).offset(-5)
-            $0.bottom.equalTo(self.snp.bottom).offset(-5)
+            $0.top.equalTo(self.snp.top)
+            $0.leading.equalTo(self.snp.leading)
+            $0.trailing.equalTo(self.snp.trailing)
+            $0.bottom.equalTo(self.snp.bottom)
         }
     }
 }

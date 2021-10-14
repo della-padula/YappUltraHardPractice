@@ -8,19 +8,17 @@
 import Foundation
 
 struct CommitModel: Codable {
+    let total_count: Int
     var items: [Item]
     let incomplete_results: Bool
 }
 
 struct Item: Codable {
     let commit: Commit
-    //let url: String
-    //let sha: String
 }
 
 struct Commit: Codable {
     let committer: Commiter
-    //let message: String
 }
 
 struct Commiter: Codable {

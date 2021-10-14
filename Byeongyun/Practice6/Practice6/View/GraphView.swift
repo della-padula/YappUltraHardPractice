@@ -9,7 +9,7 @@ import UIKit
 
 class GraphView: UIView {
 
-    var values: [CGFloat] = []
+    private var values: [CGFloat] = []
 
     init(frame: CGRect, values: [CGFloat]) {
         super.init(frame: frame)
@@ -32,8 +32,18 @@ class GraphView: UIView {
 
         for i in 0..<values.count {
             currentX += xOffset
-            let newPosition: CGPoint = CGPoint(x: currentX, y: self.frame.height - self.values[i]*10)
-            path.addLine(to: newPosition)
+            if self.values[i] > self.frame.height {
+                print(self.values[i])
+                let newPosition: CGPoint = CGPoint(x: currentX, y: self.frame.height - self.values[i]/6)
+                path.addLine(to: newPosition)
+            } else if self.values[i] < 100 {
+                let newPosition: CGPoint = CGPoint(x: currentX, y: self.frame.height - self.values[i]*2)
+                path.addLine(to: newPosition)
+            } else {
+                let newPosition: CGPoint = CGPoint(x: currentX, y: self.frame.height - self.values[i])
+                path.addLine(to: newPosition)
+            }
+
         }
 
         layer.fillColor = nil
