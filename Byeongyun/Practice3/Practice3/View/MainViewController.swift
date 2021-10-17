@@ -7,12 +7,8 @@
 import UIKit
 import SnapKit
 class MainViewController: UIViewController {
-    
-    private var mainViewCell: MainCollectionViewCell?
-    private var isStatusBarHidden = false
-    private var collectionIndex: IndexPath?
+
     private let transition = Transition()
-    private let cellId = "MainCell"
     private var imageFrame = CGRect.zero
     
     private let dayLabel: UILabel = {
@@ -72,14 +68,11 @@ class MainViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override var prefersStatusBarHidden: Bool {
-        return isStatusBarHidden
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = presenter.backgroundColor
+        view.backgroundColor = .white
         configureUI()
         configureCollectionView()
     }
@@ -91,16 +84,13 @@ class MainViewController: UIViewController {
     private func configureCollectionView() {
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
-        presenter.registerCells(for: mainCollectionView, num: 1)
-        
+        mainCollectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.cellId)
     }
     
     private func configureUI() {
         view.addSubview(mainCollectionView)
         mainCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
         }
         
@@ -118,7 +108,6 @@ class MainViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
-
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIViewControllerTransitioningDelegate , UICollectionViewDataSource {
@@ -128,7 +117,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MainCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as? MainCollectionViewCell else { return UICollectionViewCell() }
         
         cell.cellMainImage = presenter.loadImage(index: indexPath.row)
         cell.cellMainString = presenter.loadMainString(index: indexPath.row)
@@ -143,7 +132,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionIndex = indexPath
         if let cell = collectionView.cellForItem(at: indexPath) as? MainCollectionViewCell {
             let a = collectionView.convert(cell.frame, to: collectionView.superview)
             
@@ -151,7 +139,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
             let image = presenter.loadImage(index: indexPath.row)
             let mainTitle = presenter.loadMainString(index: indexPath.row)
             let subTitle = presenter.loadSubString(index: indexPath.row)
-            let detail = DetailViewController(image: image, mainText: mainTitle, subText: subTitle)
+            let explatin = presenter.loadExplain(index: indexPath.row)
+            let detail = DetailViewController(image: image, mainText: mainTitle, subText: subTitle, explain: explatin)
             detail.transitioningDelegate = self
             detail.modalPresentationStyle = .custom
             

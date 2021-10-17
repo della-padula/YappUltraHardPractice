@@ -8,22 +8,18 @@
 import UIKit
 import SnapKit
 
-class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
-    
-    let cellId = "MainCell"
+class MainCollectionViewCell: UICollectionViewCell {
+    static let cellId = "MainCell"
     
     private var initalFrame: CGRect?
     private var initalCornerRadius: CGFloat?
     
-    private let presenter = Presenter()
-    
-    let cellImageView: UIImageView = {
+    private let cellImageView: UIImageView = {
         let imageView = UIImageView()
-        //imageView.contentMode = .scaleAspectFill
         imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.65)
-        //imageView.image?.resize(toWidth: UIScreen.main.bounds.width - 80)
         return imageView
     }()
+
     private let cellSubLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -43,7 +39,6 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = 1
-        
         return stackView
     }()
     
@@ -60,7 +55,6 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
         label.font = UIFont.systemFont(ofSize: 13)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        
         return label
     }()
     
@@ -71,7 +65,6 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textColor = .systemGray
-        
         return label
     }()
     
@@ -80,7 +73,6 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = 1
-        
         return stackView
     }()
     
@@ -91,23 +83,21 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 11)
         button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 13
-        
         return button
     }()
     
     private let cellSubView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        
         return view
     }()
     
     private let scrollView = UIScrollView()
     
-    var cellMainImage: UIImage? {
+    var cellMainImage: String? {
         didSet {
             guard let mainImage = cellMainImage else { return }
-            cellImageView.image = mainImage
+            cellImageView.image = UIImage(named: mainImage)
         }
     }
     
@@ -135,8 +125,6 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     private func configureCellUI() {
         
         contentView.addSubview(cellImageView)
@@ -146,6 +134,7 @@ class MainCollectionViewCell: UICollectionViewCell, CellProtocol {
             $0.trailing.equalTo(self.snp.trailing)
             $0.height.equalTo(600)
         }
+        
         contentView.addSubview(cellMainStackView)
         cellMainStackView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(10)

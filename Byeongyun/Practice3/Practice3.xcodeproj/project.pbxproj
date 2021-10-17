@@ -18,6 +18,7 @@
 		A827BF262709C85F00F8B879 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A827BF252709C85F00F8B879 /* DetailViewController.swift */; };
 		A827BF282709EB2700F8B879 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A827BF272709EB2700F8B879 /* Transition.swift */; };
 		A827BF2C270A249F00F8B879 /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A827BF2B270A249F00F8B879 /* DetailCollectionViewCell.swift */; };
+		A865B7E5271C160F006E244F /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7E4271C160F006E244F /* Dummy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		A827BF252709C85F00F8B879 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A827BF272709EB2700F8B879 /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		A827BF2B270A249F00F8B879 /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		A865B7E4271C160F006E244F /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		F8D71F515EDB95BFF0EB1BB9 /* Pods-Practice3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice3.debug.xcconfig"; path = "Target Support Files/Pods-Practice3/Pods-Practice3.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				A827BF21270985E200F8B879 /* Model.swift */,
+				A865B7E4271C160F006E244F /* Dummy.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				A827BF262709C85F00F8B879 /* DetailViewController.swift in Sources */,
 				A827BF062708AB0700F8B879 /* AppDelegate.swift in Sources */,
 				A827BF202709829300F8B879 /* MainCollectionViewCell.swift in Sources */,
+				A865B7E5271C160F006E244F /* Dummy.swift in Sources */,
 				A827BF2C270A249F00F8B879 /* DetailCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

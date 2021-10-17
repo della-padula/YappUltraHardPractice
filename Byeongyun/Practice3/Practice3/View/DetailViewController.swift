@@ -12,7 +12,7 @@ import SnapKit
 class DetailViewController: UIViewController {
     
     private let presenter = Presenter()
-    private let cellId = "DetailCell"
+    
     private let detailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -111,6 +111,7 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    private var explainString: String = ""
     
     @objc
     func cancelButtonAction() {
@@ -123,11 +124,12 @@ class DetailViewController: UIViewController {
     
     private let dismissButton = UIButton()
     
-    init(image: UIImage, mainText: String, subText: String) {
+    init(image: String, mainText: String, subText: String, explain: String) {
         super.init(nibName: nil, bundle: nil)
-        detailImageView.image = image
+        detailImageView.image = UIImage(named: image)
         detailMainLabel.text = mainText
         detailSubLabel.text = subText
+        explainString = explain
         cancelButton.alpha = 1.0
     }
     
@@ -138,7 +140,7 @@ class DetailViewController: UIViewController {
     private func configureCollectionView() {
         detailCollectionView.delegate = self
         detailCollectionView.dataSource = self
-        presenter.registerCells(for: detailCollectionView, num: 2)
+        detailCollectionView.register(DetailCollectionViewCell.self, forCellWithReuseIdentifier: DetailCollectionViewCell.cellId)
     }
     
     override func viewDidLoad() {
@@ -297,9 +299,9 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId , for: indexPath) as? DetailCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailCollectionViewCell.cellId , for: indexPath) as? DetailCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.explainString = presenter.loadExplain()
+        cell.explainString = explainString
         
         return cell
     }

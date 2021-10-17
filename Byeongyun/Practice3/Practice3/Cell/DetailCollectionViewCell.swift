@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 class DetailCollectionViewCell: UICollectionViewCell {
+    static let cellId = "DetailCell"
     
     private let appExplainLabel: UILabel = {
         let label = UILabel()
