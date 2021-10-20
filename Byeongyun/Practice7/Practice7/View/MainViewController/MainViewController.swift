@@ -80,6 +80,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let videoViewController = VideoViewController()
+        videoViewController.modalPresentationStyle = .overCurrentContext
+        present(videoViewController, animated: true, completion: nil)
+    }
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
             navigationController?.setNavigationBarHidden(true, animated: true)
