@@ -12,8 +12,11 @@
 		A865B7F7271F8043006E244F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B7F6271F8043006E244F /* MainViewController.swift */; };
 		A865B7FC271F8044006E244F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A865B7FB271F8044006E244F /* Assets.xcassets */; };
 		A865B7FF271F8044006E244F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A865B7FD271F8044006E244F /* LaunchScreen.storyboard */; };
-		A865B80C271F81EA006E244F /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B80B271F81EA006E244F /* Presenter.swift */; };
-		A865B80E271F81F6006E244F /* YouTubeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B80D271F81F6006E244F /* YouTubeModel.swift */; };
+		A865B80C271F81EA006E244F /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B80B271F81EA006E244F /* MainPresenter.swift */; };
+		A865B80E271F81F6006E244F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B80D271F81F6006E244F /* MainViewModel.swift */; };
+		A865B810271F8A31006E244F /* MainContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B80F271F8A31006E244F /* MainContract.swift */; };
+		A865B813271F98CB006E244F /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B812271F98CB006E244F /* MainTableViewCell.swift */; };
+		A865B816271FAD7D006E244F /* MainViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A865B815271FAD7D006E244F /* MainViewService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +28,11 @@
 		A865B7FB271F8044006E244F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A865B7FE271F8044006E244F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A865B800271F8044006E244F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A865B80B271F81EA006E244F /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
-		A865B80D271F81F6006E244F /* YouTubeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeModel.swift; sourceTree = "<group>"; };
+		A865B80B271F81EA006E244F /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		A865B80D271F81F6006E244F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		A865B80F271F8A31006E244F /* MainContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContract.swift; sourceTree = "<group>"; };
+		A865B812271F98CB006E244F /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		A865B815271FAD7D006E244F /* MainViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewService.swift; sourceTree = "<group>"; };
 		B26BDF38067A7A25E05D238C /* Pods_Practice7.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice7.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -71,6 +77,7 @@
 		A865B7F1271F8043006E244F /* Practice7 */ = {
 			isa = PBXGroup;
 			children = (
+				A865B814271FAD6B006E244F /* Service */,
 				A865B808271F81AA006E244F /* View */,
 				A865B807271F81A4006E244F /* Presenter */,
 				A865B806271F819E006E244F /* Model */,
@@ -85,7 +92,7 @@
 		A865B806271F819E006E244F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A865B80D271F81F6006E244F /* YouTubeModel.swift */,
+				A865B80D271F81F6006E244F /* MainViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -93,7 +100,7 @@
 		A865B807271F81A4006E244F /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				A865B80B271F81EA006E244F /* Presenter.swift */,
+				A865B80B271F81EA006E244F /* MainPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -101,7 +108,7 @@
 		A865B808271F81AA006E244F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A865B7F6271F8043006E244F /* MainViewController.swift */,
+				A865B811271F8B7F006E244F /* MainViewController */,
 				A865B809271F81B0006E244F /* Cell */,
 			);
 			path = View;
@@ -110,8 +117,26 @@
 		A865B809271F81B0006E244F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A865B812271F98CB006E244F /* MainTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		A865B811271F8B7F006E244F /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A865B7F6271F8043006E244F /* MainViewController.swift */,
+				A865B80F271F8A31006E244F /* MainContract.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		A865B814271FAD6B006E244F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				A865B815271FAD7D006E244F /* MainViewService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		E081E8B94A1F05AB291442EB /* Pods */ = {
@@ -236,10 +261,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A865B80C271F81EA006E244F /* Presenter.swift in Sources */,
+				A865B816271FAD7D006E244F /* MainViewService.swift in Sources */,
+				A865B810271F8A31006E244F /* MainContract.swift in Sources */,
+				A865B80C271F81EA006E244F /* MainPresenter.swift in Sources */,
 				A865B7F7271F8043006E244F /* MainViewController.swift in Sources */,
 				A865B7F3271F8043006E244F /* AppDelegate.swift in Sources */,
-				A865B80E271F81F6006E244F /* YouTubeModel.swift in Sources */,
+				A865B813271F98CB006E244F /* MainTableViewCell.swift in Sources */,
+				A865B80E271F81F6006E244F /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
