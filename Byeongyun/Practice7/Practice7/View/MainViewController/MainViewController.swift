@@ -40,7 +40,7 @@ class MainViewController: UIViewController, MainViewProtocol {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.miniView.transform = CGAffineTransform(translationX: 0, y: 100)
         }, completion: { _ in
-            self.miniView.removeFromSuperview()
+            self.miniView.isHidden = true
         })
     }
 
@@ -129,7 +129,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         print(indexPath.row)
         let videoViewController = VideoViewController()
         videoViewController.modalPresentationStyle = .overCurrentContext
-        present(videoViewController, animated: true, completion: nil)
+        present(videoViewController, animated: true, completion: {
+            self.miniView.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                print("여기")
+                self.miniView.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.miniView.alpha = 0.9
+            }, completion: nil)
+        })
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
