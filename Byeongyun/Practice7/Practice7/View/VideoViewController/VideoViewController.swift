@@ -36,11 +36,12 @@ class VideoViewController: UIViewController{
         case .changed:
             initialTouchPoint = sender.translation(in: view)
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                print(self.initialTouchPoint.y)
                 self.view.transform = CGAffineTransform(translationX: 0, y: self.initialTouchPoint.y)
             })
         case .ended:
             if initialTouchPoint.y < 300 {
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { print(self.initialTouchPoint.y)
                     self.view.transform = .identity
                 })
             } else {

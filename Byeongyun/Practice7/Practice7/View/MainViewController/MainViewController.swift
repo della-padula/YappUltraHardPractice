@@ -19,6 +19,31 @@ class MainViewController: UIViewController, MainViewProtocol {
         return imageView
     }()
 
+    private let miniView: UIView = {
+        let miniView = UIView()
+
+        return miniView
+    }()
+
+    private let miniViewCancelButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.imageView?.tintColor = .black
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(cancelMiniView), for: .touchUpInside)
+        button.sizeToFit()
+        return button
+    }()
+
+    @objc
+    func cancelMiniView() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.miniView.transform = CGAffineTransform(translationX: 0, y: 100)
+        }, completion: { _ in
+            self.miniView.removeFromSuperview()
+        })
+    }
+
     private let mainTableView = UITableView()
 
     private var presenter: MainPresenterProtocol!
@@ -50,7 +75,6 @@ class MainViewController: UIViewController, MainViewProtocol {
     private func configureNavigationBar() {
         navigationController?.navigationBar.barTintColor = .white
         navigationItem.setLeftBarButton(UIBarButtonItem.init(customView: youtubeTitle), animated: true)
-        //navigationItem.leftItemsSupplementBackButton = true
     }
 
     private func configureLayout() {
@@ -61,6 +85,27 @@ class MainViewController: UIViewController, MainViewProtocol {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+
+        miniView.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 150)
+        miniView.backgroundColor = .white
+        miniView.alpha = 0.9
+        view.addSubview(miniView)
+        miniView.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(60)
+            $0.width.equalTo(view.frame.width)
+        }
+
+        miniView.addSubview(miniViewCancelButton)
+        miniViewCancelButton.snp.makeConstraints {
+            $0.centerY.equalTo(miniView.snp.centerY)
+            $0.trailing.equalTo(miniView.snp.trailing).offset(-20)
+            $0.height.equalTo(50)
+            $0.width.equalTo(50)
+        }
+
+        view.bringSubviewToFront(miniView)
     }
 
     func updateTableView() {
