@@ -60,6 +60,30 @@ class MainViewController: UIViewController, MainViewProtocol {
         return videoMV
     }()
 
+    private var miniViewVideoNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10)
+
+        return label
+    }()
+
+    private var miniViewVideoChannelNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .systemGray
+
+        return label
+    }()
+
+    private lazy var miniStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [miniViewVideoNameLabel, miniViewVideoChannelNameLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 8
+
+        return stackView
+    }()
+
     private let mainTableView = UITableView()
 
     private var presenter: MainPresenterProtocol!
@@ -86,7 +110,10 @@ class MainViewController: UIViewController, MainViewProtocol {
 
     @objc
     func disMissView(_ notification: Notification) {
+        miniViewVideoNameLabel.text = presenter.getVideoList()[VideoLauncher.currentPlayindex].videoMainLabel
+        miniViewVideoChannelNameLabel.text = presenter.getVideoList()[VideoLauncher.currentPlayindex].channelName
         configureMiniLayout()
+
     }
 
     private func configureTableView() {
@@ -132,6 +159,11 @@ class MainViewController: UIViewController, MainViewProtocol {
             $0.leading.equalTo(miniView.snp.leading).offset(10)
             $0.height.equalTo(50)
             $0.width.equalTo(50)
+        }
+        miniView.addSubview(miniStackView)
+        miniStackView.snp.makeConstraints {
+            $0.centerY.equalTo(miniView.snp.centerY)
+            $0.leading.equalTo(videoMiniView.snp.trailing).offset(10)
         }
         //videoMiniView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         miniView.isHidden = true

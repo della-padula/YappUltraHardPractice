@@ -76,6 +76,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         view.backgroundColor = .white
         configureLayout()
         presenter.loadVideoList()
+        configureCollectionView()
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:))))
     }
 
@@ -119,17 +120,11 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     private func configureCollectionView() {
         videoCollectionView.delegate = self
         videoCollectionView.dataSource = self
-        //videoCollectionView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellWithReuseIdentifier: <#T##String#>)
+        videoCollectionView.register(VideoInfoCollectionViewCell.self, forCellWithReuseIdentifier: VideoInfoCollectionViewCell.cellId)
+        videoCollectionView.register(ChannelInfoCollectionViewCell.self, forCellWithReuseIdentifier: ChannelInfoCollectionViewCell.cellId)
     }
 
     private func configureLayout() {
-        view.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(50)
-            $0.width.equalTo(50)
-        }
 
         if let url = URL(string: presenter.getVideo()[index].videoUrl) {
             if VideoLauncher.player == nil {
@@ -144,7 +139,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                     $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
                     $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
                     $0.width.equalTo(view.snp.width)
-                    //$0.height.equalTo(200)
+                    $0.height.equalTo(250)
                     VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
                     VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
                 }
@@ -156,6 +151,15 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 VideoLauncher.currentPlayindex = index
                 self.showVideo()
             }
+        }
+
+        view.addSubview(videoCollectionView)
+        videoCollectionView.snp.makeConstraints {
+            $0.top.equalTo(videoPlayView.snp.bottom)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+
         }
     }
 
@@ -212,14 +216,37 @@ extension VideoViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+        2
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        switch indexPath.row {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoInfoCollectionViewCell.cellId, for: indexPath) as? VideoInfoCollectionViewCell else { return UICollectionViewCell() }
+            cell.configureData(presenter.getVideo()[index])
+
+            return cell
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChannelInfoCollectionViewCell.cellId, for: indexPath) as? ChannelInfoCollectionViewCell else { return UICollectionViewCell() }
+            cell.configureData(presenter.getVideo()[index])
+
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        if indexPath.item == 0 {
+            return CGSize(width: width, height: 80)
+        } else if indexPath.item == 1 {
+            return CGSize(width: width, height: 40)
+        }
+
+        return CGSize(width: width, height: 80)
+    }
 
 }

@@ -13,4 +13,6 @@ struct VideoContent {
     let videoMainLabel: String
     let profileLabel: String
     let videoUrl: String
+    let channelInfo: String
+    let channelName: String
 }
