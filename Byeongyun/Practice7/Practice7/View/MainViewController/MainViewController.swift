@@ -141,7 +141,7 @@ class MainViewController: UIViewController, MainViewProtocol {
         }
         miniView.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 150)
         miniView.backgroundColor = .white
-        miniView.alpha = 0.9
+        miniView.backgroundColor = UIColor.init(white: 1, alpha: 0.9)
         view.addSubview(miniView)
         miniView.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -181,6 +181,7 @@ class MainViewController: UIViewController, MainViewProtocol {
         videoMiniView.layer.addSublayer(VideoLauncher.playerLayer!)
         VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         videoMiniView.alpha = 1.0
+        miniView.bringSubviewToFront(videoMiniView)
     }
     func updateTableView() {
         mainTableView.reloadData()
@@ -194,7 +195,8 @@ class MainViewController: UIViewController, MainViewProtocol {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 print("여기")
                 self.miniView.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.miniView.alpha = 0.9
+                self.miniView.backgroundColor = UIColor.init(white: 1, alpha: 0.9)
+                self.videoMiniView.alpha = 1.0
             }, completion: nil)
         })
     }
