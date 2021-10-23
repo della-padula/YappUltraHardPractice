@@ -27,9 +27,13 @@ class MainViewController: UIViewController, MainViewProtocol {
 
     private let miniView: UIView = {
         let miniView = UIView()
-
         return miniView
     }()
+
+    @objc
+    func touchAction(sender: UITapGestureRecognizer) {
+        inToVideoView(index: VideoLauncher.currentPlayindex)
+    }
 
     private let miniViewCancelButton: UIButton = {
         let button = UIButton()
@@ -167,6 +171,8 @@ class MainViewController: UIViewController, MainViewProtocol {
         }
         //videoMiniView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         miniView.isHidden = true
+        let touch = UITapGestureRecognizer(target: self, action: #selector(touchAction(sender:)))
+        miniView.addGestureRecognizer(touch)
         view.bringSubviewToFront(miniView)
     }
 
@@ -178,6 +184,19 @@ class MainViewController: UIViewController, MainViewProtocol {
     }
     func updateTableView() {
         mainTableView.reloadData()
+    }
+
+    func inToVideoView(index: Int) {
+        let videoViewController = VideoViewController(index)
+        videoViewController.modalPresentationStyle = .overCurrentContext
+        present(videoViewController, animated: true, completion: {
+            self.miniView.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                print("여기")
+                self.miniView.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.miniView.alpha = 0.9
+            }, completion: nil)
+        })
     }
 }
 
@@ -195,16 +214,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-        let videoViewController = VideoViewController(indexPath.row)
-        videoViewController.modalPresentationStyle = .overCurrentContext
-        present(videoViewController, animated: true, completion: {
-            self.miniView.isHidden = false
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                print("여기")
-                self.miniView.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.miniView.alpha = 0.9
-            }, completion: nil)
-        })
+        inToVideoView(index: indexPath.row)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
