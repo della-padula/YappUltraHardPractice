@@ -30,18 +30,18 @@ class GameViewController: UIViewController {
     }()
     
     // 수정중
-    private var timerLabel: UILabel = {
+    private(set) var timerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.monospacedSystemFont(ofSize: 25, weight: UIFont.Weight.regular)
         label.text = "02:00:00"
         return label
     }()
     // 수정중
+    var time: String = "02:00:00"
     var changeTimerLabel: String? {
         didSet {
             guard let change = changeTimerLabel else { return }
-            print(change)
-            timerLabel.text = change
+            time = change
         }
     }
     
@@ -90,7 +90,7 @@ class GameViewController: UIViewController {
         
         settingLayout()
     }
-
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +126,11 @@ class GameViewController: UIViewController {
             timer = nil
         }
         timerNum -= 1
+    }
+    
+    private func setTime(_ time: String) {
+        print("fdssfd")
+        timerLabel.text = time
     }
     
     private func settingLayout() {
