@@ -2,14 +2,21 @@
 //  VideoViewModel.swift
 //  Practice7
 //
-//  Created by ITlearning on 2021/10/20.
+//  Created by ITlearning on 2021/10/23.
 //
 
 import Foundation
 
-struct Video {
-    let url: URL
-    let channelImage: String
-    let videoMainLabel: String
-    let profileLabel: String
+class VideoViewModel: VideoModelProtocol {
+
+    private var contentList: [VideoContent] = []
+
+    func applyVideoList(contents: [VideoContent]) {
+        contentList = contents
+    }
+
+    func getVideoList() -> [VideoContent] {
+        return contentList
+    }
+
 }

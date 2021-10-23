@@ -8,15 +8,15 @@
 import Foundation
 
 protocol VideoViewProtocol: AnyObject {
-    func playVideo()
+    func updateCurrentPlayer()
 }
 
 protocol VideoPresenterProtocol: AnyObject {
-    func loadVideo()
-    func getVideo()
+    func loadVideoList()
+    func getVideo() -> [VideoContent]
 }
 
 protocol VideoModelProtocol: AnyObject {
-    func applyVideoList()
-    func getVideoList()
+    func applyVideoList(contents: [VideoContent])
+    func getVideoList() -> [VideoContent]
 }

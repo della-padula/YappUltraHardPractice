@@ -9,10 +9,20 @@ import UIKit
 import SnapKit
 import AVFoundation
 
-class VideoViewController: UIViewController{
+class VideoViewController: UIViewController, VideoViewProtocol {
 
-    private let urlString = "https://firebasestorage.googleapis.com/v0/b/writing-3f2f0.appspot.com/o/%E1%84%85%E1%85%A9%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%B5%E1%86%B7(Roy%20Kim)%20-%20%E1%84%89%E1%85%A1%E1%86%AF%E1%84%8B%E1%85%A1%E1%84%80%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB%20%E1%84%80%E1%85%A5%E1%84%8B%E1%85%A3(Linger%20On)%20M-V.mp4?alt=media&token=05727f59-22c4-461f-bd62-4d95fc0c0a51"
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
+    func updateCurrentPlayer() {
+        videoCollectionView.reloadData()
+    }
+
+    private var index: Int
+    private var presenter: VideoPresenterProtocol!
+    private var launcher: VideoLauncher = VideoLauncher()
+    var player = AVPlayer()
     private let videoPlayView: UIView = {
         let videoView = UIView()
         videoView.backgroundColor = .black
@@ -43,10 +53,29 @@ class VideoViewController: UIViewController{
         return activity
     }()
 
+    private let videoCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
+
+    init(_ index: Int) {
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+        presenter = VideoPresenter(view: self)
+        presenter.loadVideoList()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureLayout()
+        presenter.loadVideoList()
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:))))
     }
 
@@ -55,21 +84,42 @@ class VideoViewController: UIViewController{
         switch sender.state {
         case .changed:
             initialTouchPoint = sender.translation(in: view)
+            print(initialTouchPoint.y)
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 print(self.initialTouchPoint.y)
                 self.view.transform = CGAffineTransform(translationX: 0, y: self.initialTouchPoint.y)
             })
+            if initialTouchPoint.y > 250 && initialTouchPoint.y < 410 {
+                videoPlayView.layer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
+                VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
+            } else if initialTouchPoint.y > 410 {
+                videoPlayView.layer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
+                VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
+            }
         case .ended:
             if initialTouchPoint.y < 300 {
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { print(self.initialTouchPoint.y)
                     self.view.transform = .identity
+                    //self.videoPlayView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 230)
+                    VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
                 })
             } else {
-                dismiss(animated: true, completion: nil)
+                dismiss(animated: true, completion: {
+                    NotificationCenter.default.post(name: NSNotification.Name("dismiss"), object: nil, userInfo: nil)
+
+                })
+                //launcher.player.pause()
             }
         default:
             break
         }
+    }
+
+
+    private func configureCollectionView() {
+        videoCollectionView.delegate = self
+        videoCollectionView.dataSource = self
+        //videoCollectionView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellWithReuseIdentifier: <#T##String#>)
     }
 
     private func configureLayout() {
@@ -81,33 +131,60 @@ class VideoViewController: UIViewController{
             $0.width.equalTo(50)
         }
 
-        if let url = URL(string: urlString) {
-            let player = AVPlayer(url: url)
-
-            let playerLayer = AVPlayerLayer(player: player)
-            self.videoPlayView.layer.addSublayer(playerLayer)
-
-            self.view.addSubview(videoPlayView)
-            videoPlayView.snp.makeConstraints {
-                $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-                $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-                $0.width.equalTo(view.snp.width)
-                $0.height.equalTo(250)
-
+        if let url = URL(string: presenter.getVideo()[index].videoUrl) {
+            if VideoLauncher.player == nil {
+                VideoLauncher.player = AVPlayer(url: url)
             }
-            self.view.addSubview(activityIndicator)
-            activityIndicator.snp.makeConstraints {
-                $0.centerX.equalTo(videoPlayView.snp.centerX)
-                $0.centerY.equalTo(videoPlayView.snp.centerY)
-                $0.height.equalTo(70)
-                $0.width.equalTo(70)
+            print(VideoLauncher.currentPlayindex, index)
+            if VideoLauncher.currentPlayindex == index {
+                self.videoPlayView.layer.addSublayer(VideoLauncher.playerLayer!)
+                self.view.addSubview(videoPlayView)
+                videoPlayView.snp.makeConstraints {
+                    $0.top.equalTo(view.snp.top)
+                    $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+                    $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+                    $0.width.equalTo(view.snp.width)
+                    //$0.height.equalTo(200)
+                    VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
+                    VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
+                }
+            } else {
+                VideoLauncher.player?.pause()
+                VideoLauncher.player = nil
+                VideoLauncher.player = AVPlayer(url: url)
+                VideoLauncher.playerLayer = nil
+                VideoLauncher.currentPlayindex = index
+                self.showVideo()
             }
-            playerLayer.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
-            player.play()
-            player.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
         }
     }
+
+    private func showVideo() {
+        VideoLauncher.playerLayer = AVPlayerLayer(player: VideoLauncher.player)
+
+        self.videoPlayView.layer.addSublayer(VideoLauncher.playerLayer!)
+
+        self.view.addSubview(videoPlayView)
+        videoPlayView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.top)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.width.equalTo(view.snp.width)
+            $0.height.equalTo(250)
+
+        }
+        self.view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints {
+            $0.centerX.equalTo(videoPlayView.snp.centerX)
+            $0.centerY.equalTo(videoPlayView.snp.centerY)
+            $0.height.equalTo(70)
+            $0.width.equalTo(70)
+        }
+        VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
+        VideoLauncher.player?.play()
+        VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
+    }
+
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(AVPlayerItem.status) {
@@ -133,4 +210,16 @@ extension VideoViewController: UIGestureRecognizerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+}
+
+extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+
+
 }

@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct VideoContent {
-    let videoImage: String
-    let channelImage: String
-    let videoMainLabel: String
-    let profileLabel: String
-}
-
 class MainViewModel: MainModelProtocol {
     private var contentList: [VideoContent] = []
 

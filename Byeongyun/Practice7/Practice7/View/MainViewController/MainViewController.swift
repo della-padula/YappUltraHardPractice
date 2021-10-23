@@ -7,9 +7,15 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 
 class MainViewController: UIViewController, MainViewProtocol {
 
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+
+    private var launcher: VideoLauncher = VideoLauncher()
     private let youtubeTitle: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         imageView.image = UIImage(named: "YouTube-Logo")
@@ -39,10 +45,20 @@ class MainViewController: UIViewController, MainViewProtocol {
     func cancelMiniView() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.miniView.transform = CGAffineTransform(translationX: 0, y: 100)
+
         }, completion: { _ in
             self.miniView.isHidden = true
+            VideoLauncher.player?.pause()
+            VideoLauncher.player = nil
         })
     }
+
+    private let videoMiniView: UIView = {
+        let videoMV = UIView()
+        videoMV.backgroundColor = .black
+
+        return videoMV
+    }()
 
     private let mainTableView = UITableView()
 
@@ -61,9 +77,16 @@ class MainViewController: UIViewController, MainViewProtocol {
         super.viewDidLoad()
         view.backgroundColor = .white
         presenter.fetchVideoList()
+        NotificationCenter.default.addObserver(self, selector: #selector(disMissView(_:)), name: NSNotification.Name("dismiss"), object: nil)
         configureNavigationBar()
         configureLayout()
+        //configureMiniLayout()
         configureTableView()
+    }
+
+    @objc
+    func disMissView(_ notification: Notification) {
+        configureMiniLayout()
     }
 
     private func configureTableView() {
@@ -85,7 +108,6 @@ class MainViewController: UIViewController, MainViewProtocol {
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-
         miniView.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 150)
         miniView.backgroundColor = .white
         miniView.alpha = 0.9
@@ -104,10 +126,24 @@ class MainViewController: UIViewController, MainViewProtocol {
             $0.height.equalTo(50)
             $0.width.equalTo(50)
         }
-
+        miniView.addSubview(videoMiniView)
+        videoMiniView.snp.makeConstraints {
+            $0.centerY.equalTo(miniView.snp.centerY)
+            $0.leading.equalTo(miniView.snp.leading).offset(10)
+            $0.height.equalTo(50)
+            $0.width.equalTo(50)
+        }
+        //videoMiniView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        miniView.isHidden = true
         view.bringSubviewToFront(miniView)
     }
 
+    func configureMiniLayout() {
+        miniView.isHidden = false
+        videoMiniView.layer.addSublayer(VideoLauncher.playerLayer!)
+        VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        videoMiniView.alpha = 1.0
+    }
     func updateTableView() {
         mainTableView.reloadData()
     }
@@ -127,7 +163,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-        let videoViewController = VideoViewController()
+        let videoViewController = VideoViewController(indexPath.row)
         videoViewController.modalPresentationStyle = .overCurrentContext
         present(videoViewController, animated: true, completion: {
             self.miniView.isHidden = false
