@@ -12,6 +12,7 @@ class VideoLauncher: NSObject {
     static var player: AVPlayer? = nil
     static var playerLayer: AVPlayerLayer? = nil
     static var currentPlayindex: Int = 999
+    static var isPlaying: Bool = true
     func showVideoPlayer() {
         print("ql디")
     }

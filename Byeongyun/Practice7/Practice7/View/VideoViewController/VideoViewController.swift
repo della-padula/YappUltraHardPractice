@@ -48,8 +48,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     private var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        //activity.hidesWhenStopped = false
-        //activity.startAnimating()
         activity.alpha = 1.0
         activity.color = .white
         activity.style = .medium
@@ -63,11 +61,63 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         return collectionView
     }()
 
+    private let videoControlButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(videoStatus), for: .touchUpInside)
+        return button
+    }()
+
+    @objc
+    func videoStatus() {
+
+        if VideoLauncher.isPlaying {
+            VideoLauncher.player?.pause()
+            videoControlButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else {
+            VideoLauncher.player?.play()
+            videoControlButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
+
+        VideoLauncher.isPlaying = !VideoLauncher.isPlaying
+    }
+
+    private let videoLengthLabel: UILabel = {
+        let label = UILabel()
+        label.text = "00:00"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textAlignment = .right
+        return label
+    }()
+
+    private let videoSlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumTrackTintColor = .red
+        slider.maximumTrackTintColor = .white
+        slider.setThumbImage(UIImage(named: "thumb"), for: .normal)
+        return slider
+    }()
+
     init(_ index: Int) {
         self.index = index
         super.init(nibName: nil, bundle: nil)
         presenter = VideoPresenter(view: self)
         presenter.loadVideoList()
+        print("비디오 상태: ",VideoLauncher.isPlaying)
+        buttonStatus()
+        getTime()
+        //videoControlButton.isHidden = true
+    }
+
+    private func buttonStatus() {
+        if VideoLauncher.isPlaying {
+            videoControlButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        } else {
+            videoControlButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -80,6 +130,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         configureLayout()
         presenter.loadVideoList()
         configureCollectionView()
+
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:))))
     }
 
@@ -132,15 +183,10 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         if let url = URL(string: presenter.getVideo()[index].videoUrl) {
             if VideoLauncher.player == nil {
                 VideoLauncher.player = AVPlayer(url: url)
+                videoControlButton.isHidden = true
             }
             print(VideoLauncher.currentPlayindex, index)
             if VideoLauncher.currentPlayindex == index {
-                if VideoLauncher.playerLayer == nil {
-                    print("여기로 들옴")
-                    VideoLauncher.playerLayer = AVPlayerLayer(player: VideoLauncher.player)
-                    VideoLauncher.player?.play()
-                }
-                self.videoPlayView.layer.addSublayer(VideoLauncher.playerLayer!)
                 self.view.addSubview(videoPlayView)
                 videoPlayView.snp.makeConstraints {
                     $0.top.equalTo(view.snp.top)
@@ -149,15 +195,53 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                     $0.width.equalTo(view.snp.width)
                     $0.height.equalTo(250)
                 }
+
+                if VideoLauncher.playerLayer == nil {
+                    videoControlButton.isHidden = true
+                    VideoLauncher.playerLayer = AVPlayerLayer(player: VideoLauncher.player)
+                    VideoLauncher.player?.play()
+                    self.videoPlayView.layer.addSublayer(VideoLauncher.playerLayer!)
+                    self.videoPlayView.addSubview(activityIndicator)
+                    activityIndicator.snp.makeConstraints {
+                        $0.centerX.equalTo(videoPlayView.snp.centerX)
+                        $0.centerY.equalTo(videoPlayView.snp.centerY)
+                        $0.height.equalTo(70)
+                        $0.width.equalTo(70)
+                    }
+                } else {
+                    self.videoPlayView.layer.addSublayer(VideoLauncher.playerLayer!)
+                }
                 VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
                 VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
             } else {
+                videoControlButton.isHidden = true
                 VideoLauncher.player?.pause()
                 VideoLauncher.player = nil
                 VideoLauncher.player = AVPlayer(url: url)
                 VideoLauncher.playerLayer = nil
                 VideoLauncher.currentPlayindex = index
                 self.showVideo()
+            }
+
+            self.videoPlayView.addSubview(videoControlButton)
+            videoControlButton.snp.makeConstraints {
+                $0.centerX.equalTo(videoPlayView.snp.centerX)
+                $0.centerY.equalTo(videoPlayView.snp.centerY)
+                $0.height.equalTo(70)
+                $0.width.equalTo(70)
+            }
+            self.videoPlayView.addSubview(videoLengthLabel)
+            videoLengthLabel.snp.makeConstraints {
+                $0.bottom.equalToSuperview()
+                $0.trailing.equalToSuperview().offset(-4)
+                $0.width.equalTo(50)
+                $0.height.equalTo(24)
+            }
+            self.videoPlayView.addSubview(videoSlider)
+            videoSlider.snp.makeConstraints {
+                $0.trailing.equalTo(videoLengthLabel.snp.leading)
+                $0.bottom.equalToSuperview()
+                $0.leading.equalToSuperview()
             }
         }
 
@@ -197,8 +281,17 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
     }
 
-
+    private func getTime() {
+        if VideoLauncher.player != nil {
+            let seconds = CMTimeGetSeconds((VideoLauncher.player?.currentItem!.asset.duration)!)
+            print("영상시간:",seconds)
+            let secondsText = Int(seconds) % 60
+            let minText = String(format: "%02d", Int(seconds)/60)
+            videoLengthLabel.text = "\(minText):\(secondsText)"
+        }
+    }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+
         if keyPath == #keyPath(AVPlayerItem.status) {
             let status: AVPlayerItem.Status
             if let statusNumber = change?[.newKey] as? NSNumber {
@@ -208,9 +301,11 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             }
 
             switch status {
-
             case .readyToPlay:
                 activityIndicator.stopAnimating()
+                videoControlButton.isHidden = false
+                VideoLauncher.isPlaying = true
+                getTime()
             default:
                 break
             }
