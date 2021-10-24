@@ -115,10 +115,15 @@ class VideoViewController: UIViewController, VideoViewProtocol {
 
             })
         }
-
-
-
     }
+
+    private let currentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "00:00"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        return label
+    }()
 
     init(_ index: Int) {
         self.index = index
@@ -128,6 +133,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         print("비디오 상태: ",VideoLauncher.isPlaying)
         buttonStatus()
         getTime()
+        getProgressTime()
     }
 
     private func buttonStatus() {
@@ -232,6 +238,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 }
                 VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
                 VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
+                getProgressTime()
             } else {
                 videoControlButton.isHidden = true
                 VideoLauncher.player?.pause()
@@ -251,16 +258,25 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             }
             self.videoPlayView.addSubview(videoLengthLabel)
             videoLengthLabel.snp.makeConstraints {
-                $0.bottom.equalToSuperview()
+                $0.bottom.equalToSuperview().offset(-4)
                 $0.trailing.equalToSuperview().offset(-4)
                 $0.width.equalTo(50)
-                $0.height.equalTo(24)
+                $0.height.equalTo(30)
             }
+
+            self.videoPlayView.addSubview(currentTimeLabel)
+            currentTimeLabel.snp.makeConstraints {
+                $0.leading.equalToSuperview().offset(4)
+                $0.bottom.equalToSuperview().offset(-4)
+                $0.width.equalTo(50)
+                $0.height.equalTo(30)
+            }
+
             self.videoPlayView.addSubview(videoSlider)
             videoSlider.snp.makeConstraints {
                 $0.trailing.equalTo(videoLengthLabel.snp.leading)
                 $0.bottom.equalToSuperview()
-                $0.leading.equalToSuperview()
+                $0.leading.equalTo(currentTimeLabel.snp.trailing)
             }
         }
 
@@ -298,6 +314,36 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
         VideoLauncher.player?.play()
         VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
+        getProgressTime()
+    }
+
+    private func getProgressTime() {
+        if VideoLauncher.currentSecond > 0 {
+            let secondsString = String(format: "%02d", Int(VideoLauncher.currentSecond) % 60)
+            let minString = String(format: "%02d", Int(VideoLauncher.currentSecond)/60)
+            if let duration = VideoLauncher.player?.currentItem!.asset.duration {
+                let durationSeconds = CMTimeGetSeconds(duration)
+                self.videoSlider.value = Float(VideoLauncher.currentSecond / durationSeconds)
+            }
+            self.currentTimeLabel.text = "\(minString):\(secondsString)"
+        }
+        let interval = CMTime(value: 1, timescale: 2)
+        VideoLauncher.player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { progress in
+            let seconds = CMTimeGetSeconds(progress)
+            print("시간", seconds)
+            VideoLauncher.currentSecond = seconds
+            let secondsString = String(format: "%02d", Int(seconds) % 60)
+            let minString = String(format: "%02d", Int(seconds)/60)
+            self.currentTimeLabel.text = "\(minString):\(secondsString)"
+
+
+            if let duration = VideoLauncher.player?.currentItem!.asset.duration {
+                let durationSeconds = CMTimeGetSeconds(duration)
+                self.videoSlider.value = Float(seconds / durationSeconds)
+            }
+            print(seconds)
+
+        })
     }
 
     private func getTime() {
