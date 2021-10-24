@@ -140,6 +140,50 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         return label
     }()
 
+    private let nextVideoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "arrowshape.turn.up.right.fill"), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(nextVideoAction), for: .touchUpInside)
+        return button
+    }()
+
+    private let prevVideoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "arrowshape.turn.up.backward.fill"), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(prevVideoAction), for: .touchUpInside)
+
+        return button
+    }()
+
+    @objc
+    func prevVideoAction() {
+        if 0 <= index-1 {
+            index -= 1
+            viewDidLoad()
+            videoCollectionView.reloadData()
+            buttonStatus()
+            getTime()
+            runTimer()
+            getProgressTime()
+        }
+    }
+
+    @objc
+    func nextVideoAction() {
+        if index+1 < presenter.getVideo().count-1 {
+            index += 1
+            viewDidLoad()
+            videoCollectionView.reloadData()
+            buttonStatus()
+            getTime()
+            runTimer()
+            getProgressTime()
+        }
+
+    }
+
     init(_ index: Int) {
         self.index = index
         super.init(nibName: nil, bundle: nil)
@@ -156,7 +200,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             videoControlButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         } else {
             videoControlButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-
         }
     }
 
@@ -294,11 +337,15 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             self.videoSlider.alpha = 1
             self.currentTimeLabel.alpha = 1
             self.videoLengthLabel.alpha = 1
+            self.nextVideoButton.alpha = 1
+            self.prevVideoButton.alpha = 1
         }
         self.videoControlButton.isEnabled = true
         self.videoSlider.isEnabled = true
         self.currentTimeLabel.isEnabled = true
         self.videoLengthLabel.isEnabled = true
+        self.nextVideoButton.isEnabled = true
+        self.prevVideoButton.isEnabled = true
         isAlpha = !isAlpha
     }
 
@@ -308,11 +355,15 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             self.videoSlider.alpha = 0.0
             self.currentTimeLabel.alpha = 0.0
             self.videoLengthLabel.alpha = 0.0
+            self.nextVideoButton.alpha = 0.0
+            self.prevVideoButton.alpha = 0.0
         }
         self.videoControlButton.isEnabled = false
         self.videoSlider.isEnabled = false
         self.currentTimeLabel.isEnabled = false
         self.videoLengthLabel.isEnabled = false
+        self.nextVideoButton.isEnabled = false
+        self.prevVideoButton.isEnabled = false
         isAlpha = !isAlpha
     }
 
@@ -410,6 +461,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             $0.height.equalToSuperview().multipliedBy(0.8)
             $0.width.equalToSuperview().multipliedBy(0.4)
         }
+
         videoPlayView.addSubview(rightSeekView)
         rightSeekView.snp.makeConstraints {
             $0.trailing.equalToSuperview()
@@ -423,9 +475,25 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+
+        rightSeekView.addSubview(nextVideoButton)
+        nextVideoButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(17)
+            $0.width.equalTo(50)
+            $0.height.equalTo(50)
+        }
+
+        leftSeekView.addSubview(prevVideoButton)
+        prevVideoButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(17)
+            $0.width.equalTo(50)
+            $0.height.equalTo(50)
 
         }
-        
+
     }
 
     private func showVideo() {
@@ -561,3 +629,4 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
 
 }
+
