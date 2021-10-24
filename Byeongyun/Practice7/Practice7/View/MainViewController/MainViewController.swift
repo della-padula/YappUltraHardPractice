@@ -54,6 +54,7 @@ class MainViewController: UIViewController, MainViewProtocol {
             self.miniView.isHidden = true
             VideoLauncher.player?.pause()
             VideoLauncher.player = nil
+            VideoLauncher.playerLayer = nil
         })
     }
 

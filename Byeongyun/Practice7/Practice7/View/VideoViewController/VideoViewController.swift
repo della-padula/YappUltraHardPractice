@@ -45,11 +45,14 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         self.dismiss(animated: true, completion: nil)
     }
 
-    private let activityIndicator: UIActivityIndicatorView = {
+    private var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        activity.hidesWhenStopped = false
-        activity.startAnimating()
+        //activity.hidesWhenStopped = false
+        //activity.startAnimating()
+        activity.alpha = 1.0
+        activity.color = .white
+        activity.style = .medium
         return activity
     }()
 
@@ -125,13 +128,18 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     }
 
     private func configureLayout() {
-
+        activityIndicator.startAnimating()
         if let url = URL(string: presenter.getVideo()[index].videoUrl) {
             if VideoLauncher.player == nil {
                 VideoLauncher.player = AVPlayer(url: url)
             }
             print(VideoLauncher.currentPlayindex, index)
             if VideoLauncher.currentPlayindex == index {
+                if VideoLauncher.playerLayer == nil {
+                    print("여기로 들옴")
+                    VideoLauncher.playerLayer = AVPlayerLayer(player: VideoLauncher.player)
+                    VideoLauncher.player?.play()
+                }
                 self.videoPlayView.layer.addSublayer(VideoLauncher.playerLayer!)
                 self.view.addSubview(videoPlayView)
                 videoPlayView.snp.makeConstraints {
@@ -140,9 +148,9 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                     $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
                     $0.width.equalTo(view.snp.width)
                     $0.height.equalTo(250)
-                    VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
-                    VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
                 }
+                VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
+                VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
             } else {
                 VideoLauncher.player?.pause()
                 VideoLauncher.player = nil
@@ -200,9 +208,9 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             }
 
             switch status {
+
             case .readyToPlay:
                 activityIndicator.stopAnimating()
-                activityIndicator.isHidden = true
             default:
                 break
             }

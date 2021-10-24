@@ -10,6 +10,7 @@ import UIKit
 class CommentCollectionViewCell: UICollectionViewCell {
 
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
