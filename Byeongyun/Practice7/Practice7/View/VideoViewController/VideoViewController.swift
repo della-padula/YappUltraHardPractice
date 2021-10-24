@@ -92,13 +92,33 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         return label
     }()
 
-    private let videoSlider: UISlider = {
+    private lazy var videoSlider: UISlider = {
         let slider = UISlider()
         slider.minimumTrackTintColor = .red
         slider.maximumTrackTintColor = .white
         slider.setThumbImage(UIImage(named: "thumb"), for: .normal)
+
+        slider.addTarget(self, action: #selector(moveSliderChange), for: .valueChanged)
         return slider
     }()
+
+    @objc
+    func moveSliderChange() {
+        print(videoSlider.value)
+
+        if let duration = VideoLauncher.player?.currentItem!.asset.duration {
+            let seconds = CMTimeGetSeconds(duration)
+
+            let value = Float64(videoSlider.value) * seconds
+            let seekTime = CMTime(value: Int64(value), timescale: 1)
+            VideoLauncher.player?.seek(to: seekTime, completionHandler: { _ in
+
+            })
+        }
+
+
+
+    }
 
     init(_ index: Int) {
         self.index = index
@@ -108,7 +128,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         print("비디오 상태: ",VideoLauncher.isPlaying)
         buttonStatus()
         getTime()
-        //videoControlButton.isHidden = true
     }
 
     private func buttonStatus() {
@@ -283,11 +302,15 @@ class VideoViewController: UIViewController, VideoViewProtocol {
 
     private func getTime() {
         if VideoLauncher.player != nil {
-            let seconds = CMTimeGetSeconds((VideoLauncher.player?.currentItem!.asset.duration)!)
-            print("영상시간:",seconds)
-            let secondsText = Int(seconds) % 60
-            let minText = String(format: "%02d", Int(seconds)/60)
-            videoLengthLabel.text = "\(minText):\(secondsText)"
+            if VideoLauncher.currentPlayindex != index {
+                videoLengthLabel.text = "00:00"
+            } else {
+                let seconds = CMTimeGetSeconds((VideoLauncher.player?.currentItem!.asset.duration)!)
+                print("영상시간:",seconds)
+                let secondsText = String(format: "%02d", Int(seconds)%60)
+                let minText = String(format: "%02d", Int(seconds)/60)
+                videoLengthLabel.text = "\(minText):\(secondsText)"
+            }
         }
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
