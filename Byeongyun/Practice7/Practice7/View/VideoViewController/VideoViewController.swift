@@ -18,6 +18,10 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     func updateCurrentPlayer() {
         videoCollectionView.reloadData()
     }
+    private var timer = Timer()
+    private var secondToFadeOut = 5
+    private var isTimerRunning: Bool = false
+    private var isAlpha: Bool = true
 
     private var index: Int
     private var presenter: VideoPresenterProtocol!
@@ -92,6 +96,16 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         return label
     }()
 
+    private let leftSeekView: UIView = {
+        let leftView = UIView()
+        return leftView
+    }()
+
+    private let rightSeekView: UIView = {
+        let rightView = UIView()
+        return rightView
+    }()
+
     private lazy var videoSlider: UISlider = {
         let slider = UISlider()
         slider.minimumTrackTintColor = .red
@@ -110,6 +124,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             let seconds = CMTimeGetSeconds(duration)
 
             let value = Float64(videoSlider.value) * seconds
+            print(seconds)
             let seekTime = CMTime(value: Int64(value), timescale: 1)
             VideoLauncher.player?.seek(to: seekTime, completionHandler: { _ in
 
@@ -130,9 +145,9 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         super.init(nibName: nil, bundle: nil)
         presenter = VideoPresenter(view: self)
         presenter.loadVideoList()
-        print("비디오 상태: ",VideoLauncher.isPlaying)
         buttonStatus()
         getTime()
+        runTimer()
         getProgressTime()
     }
 
@@ -155,8 +170,51 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         configureLayout()
         presenter.loadVideoList()
         configureCollectionView()
+        configureGesture()
 
+    }
+
+    private func configureGesture() {
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:))))
+        videoPlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapVideo(_:))))
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapVideo(_:)))
+        singleTapGesture.numberOfTapsRequired = 1
+        leftSeekView.addGestureRecognizer(singleTapGesture)
+        let leftDoubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(leftDoubleTapVideo(_:)))
+        leftDoubleTapGesture.numberOfTapsRequired = 2
+        leftSeekView.addGestureRecognizer(leftDoubleTapGesture)
+        rightSeekView.addGestureRecognizer(singleTapGesture)
+        let rightDoubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(rightDoubleTapVideo(_:)))
+        rightDoubleTapGesture.numberOfTapsRequired = 2
+        rightSeekView.addGestureRecognizer(rightDoubleTapGesture)
+    }
+
+    @objc
+    func rightDoubleTapVideo(_ gestureRecognizer: UITapGestureRecognizer) {
+        if let duration = VideoLauncher.player?.currentTime() {
+            let seconds = CMTimeGetSeconds(duration)
+
+            let value = seconds + 10
+            print(seconds)
+            let seekTime = CMTime(value: Int64(value), timescale: 1)
+            VideoLauncher.player?.seek(to: seekTime, completionHandler: { _ in
+
+            })
+        }
+    }
+
+    @objc
+    func leftDoubleTapVideo(_ gestureRecognizer: UITapGestureRecognizer) {
+        if let duration = VideoLauncher.player?.currentTime() {
+            let seconds = CMTimeGetSeconds(duration)
+
+            let value = seconds - 10
+            print(seconds)
+            let seekTime = CMTime(value: Int64(value), timescale: 1)
+            VideoLauncher.player?.seek(to: seekTime, completionHandler: { _ in
+
+            })
+        }
     }
 
     @objc
@@ -180,7 +238,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             if initialTouchPoint.y < 300 {
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { print(self.initialTouchPoint.y)
                     self.view.transform = .identity
-                    //self.videoPlayView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 230)
                     VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
                 })
             } else {
@@ -188,12 +245,77 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                     NotificationCenter.default.post(name: NSNotification.Name("dismiss"), object: nil, userInfo: nil)
 
                 })
-                //launcher.player.pause()
             }
         default:
             break
         }
     }
+
+    @objc
+    func tapVideo(_ gestureRecognizer: UITapGestureRecognizer) {
+        fadeInButton()
+        secondToFadeOut = 5
+        timer.invalidate()
+        if isTimerRunning == false {
+            runTimer()
+        } else {
+            runTimer()
+        }
+
+        if secondToFadeOut >= 0 {
+            if isAlpha {
+                fadeInButton()
+            } else {
+                fadeOutButton()
+            }
+            isAlpha = !isAlpha
+        }
+    }
+
+    private func runTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1 , target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        isTimerRunning = true
+    }
+
+    @objc
+    func updateTimer() {
+        secondToFadeOut -= 1
+        print(secondToFadeOut)
+        if secondToFadeOut < 1 {
+            fadeOutButton()
+            timer.invalidate()
+            isTimerRunning = false
+        }
+    }
+
+    private func fadeInButton() {
+        UIView.animate(withDuration: 0.5) {
+            self.videoControlButton.alpha = 1
+            self.videoSlider.alpha = 1
+            self.currentTimeLabel.alpha = 1
+            self.videoLengthLabel.alpha = 1
+        }
+        self.videoControlButton.isEnabled = true
+        self.videoSlider.isEnabled = true
+        self.currentTimeLabel.isEnabled = true
+        self.videoLengthLabel.isEnabled = true
+        isAlpha = !isAlpha
+    }
+
+    private func fadeOutButton() {
+        UIView.animate(withDuration: 0.5) {
+            self.videoControlButton.alpha = 0.0
+            self.videoSlider.alpha = 0.0
+            self.currentTimeLabel.alpha = 0.0
+            self.videoLengthLabel.alpha = 0.0
+        }
+        self.videoControlButton.isEnabled = false
+        self.videoSlider.isEnabled = false
+        self.currentTimeLabel.isEnabled = false
+        self.videoLengthLabel.isEnabled = false
+        isAlpha = !isAlpha
+    }
+
 
 
     private func configureCollectionView() {
@@ -220,7 +342,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                     $0.width.equalTo(view.snp.width)
                     $0.height.equalTo(250)
                 }
-
+                
                 if VideoLauncher.playerLayer == nil {
                     videoControlButton.isHidden = true
                     VideoLauncher.playerLayer = AVPlayerLayer(player: VideoLauncher.player)
@@ -235,10 +357,11 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                     }
                 } else {
                     self.videoPlayView.layer.addSublayer(VideoLauncher.playerLayer!)
+
                 }
                 VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
                 VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
-                getProgressTime()
+
             } else {
                 videoControlButton.isHidden = true
                 VideoLauncher.player?.pause()
@@ -279,7 +402,21 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 $0.leading.equalTo(currentTimeLabel.snp.trailing)
             }
         }
+        videoPlayView.addSubview(leftSeekView)
+        leftSeekView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalToSuperview()
 
+            $0.height.equalToSuperview().multipliedBy(0.8)
+            $0.width.equalToSuperview().multipliedBy(0.4)
+        }
+        videoPlayView.addSubview(rightSeekView)
+        rightSeekView.snp.makeConstraints {
+            $0.trailing.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.8)
+            $0.width.equalToSuperview().multipliedBy(0.4)
+        }
         view.addSubview(videoCollectionView)
         videoCollectionView.snp.makeConstraints {
             $0.top.equalTo(videoPlayView.snp.bottom)
@@ -288,6 +425,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
 
         }
+        
     }
 
     private func showVideo() {
@@ -314,7 +452,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
         VideoLauncher.player?.play()
         VideoLauncher.player?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status) , options: [.old, .new], context: nil)
-        getProgressTime()
     }
 
     private func getProgressTime() {
@@ -359,6 +496,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             }
         }
     }
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         if keyPath == #keyPath(AVPlayerItem.status) {
@@ -375,6 +513,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 videoControlButton.isHidden = false
                 VideoLauncher.isPlaying = true
                 getTime()
+                getProgressTime()
             default:
                 break
             }
