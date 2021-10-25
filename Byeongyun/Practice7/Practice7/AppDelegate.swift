@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import AVKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,6 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let main = MainViewController()
         window?.rootViewController = UINavigationController(rootViewController: main)
         window?.makeKeyAndVisible()
+
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playback)
+        } catch {
+            print("Falied to set audio session category.")
+        }
         return true
     }
 

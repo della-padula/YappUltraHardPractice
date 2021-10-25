@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-import AVFoundation
+import AVKit
 
 class VideoViewController: UIViewController, VideoViewProtocol {
 
@@ -19,7 +19,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     func updateCurrentPlayer() {
         videoCollectionView.reloadData()
     }
-
+    private var pictureInPictureController: AVPictureInPictureController?
     private var timer = Timer()
     private var secondToFadeOut = 5
     private var isTimerRunning: Bool = false
@@ -157,6 +157,33 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         return button
     }()
 
+    private let pipButton: UIButton = {
+        let startImage = AVPictureInPictureController.pictureInPictureButtonStartImage
+        let button = UIButton(type: .system)
+        button.setImage(startImage, for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(pipAction), for: .touchUpInside)
+
+        return button
+    }()
+
+    @objc
+    func pipAction() {
+        guard let isActive = pictureInPictureController?.isPictureInPictureActive else { return }
+
+        if isActive {
+            pictureInPictureController?.stopPictureInPicture()
+
+            let startImage = AVPictureInPictureController.pictureInPictureButtonStartImage
+            pipButton.setImage(startImage, for: .normal)
+        } else {
+            pictureInPictureController?.startPictureInPicture()
+
+            let stopImage = AVPictureInPictureController.pictureInPictureButtonStopImage
+            pipButton.setImage(stopImage, for: .normal)
+        }
+    }
+
     @objc
     func prevVideoAction() {
         if 0 <= index-1 {
@@ -216,6 +243,16 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         configureGesture()
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
         rotated()
+        checkPIP()
+    }
+
+    private func checkPIP() {
+        if AVPictureInPictureController.isPictureInPictureSupported() {
+            pictureInPictureController = AVPictureInPictureController(playerLayer: VideoLauncher.playerLayer!)
+            pictureInPictureController?.delegate = self
+        } else {
+            print("Not Supported")
+        }
     }
 
     @objc
@@ -299,15 +336,15 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 self.view.transform = CGAffineTransform(translationX: 0, y: self.initialTouchPoint.y)
             })
             print((initialTouchPoint.y-600)/2)
-            if initialTouchPoint.y > 600 && initialTouchPoint.y < 700 {
-                videoPlayView.layer.frame.size = CGSize(width: self.view.frame.width, height: 250 - (initialTouchPoint.y-600))
+            if initialTouchPoint.y > 450 && initialTouchPoint.y < 500 {
+                videoPlayView.layer.frame.size = CGSize(width: self.view.frame.width, height: 250 - (initialTouchPoint.y-500))
                 VideoLauncher.playerLayer?.frame.size = CGSize(width: 50, height: 50)
                 print("X 상황",initialTouchPoint.x)
                 print("Y 상황", initialTouchPoint.y)
-                VideoLauncher.playerLayer?.position = CGPoint(x: self.view.frame.minX+35, y: -(initialTouchPoint.y-600)+30)
+                VideoLauncher.playerLayer?.position = CGPoint(x: self.view.frame.minX+35, y: -(initialTouchPoint.y-500)+30)
             }
         case .ended:
-            if initialTouchPoint.y < 700 {
+            if initialTouchPoint.y < 480 {
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { print(self.initialTouchPoint.y)
                     self.view.transform = .identity
                     VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.videoPlayView.frame.height)
@@ -367,6 +404,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             self.videoLengthLabel.alpha = 1
             self.nextVideoButton.alpha = 1
             self.prevVideoButton.alpha = 1
+            self.pipButton.alpha = 1
         }
         self.videoControlButton.isEnabled = true
         self.videoSlider.isEnabled = true
@@ -374,6 +412,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         self.videoLengthLabel.isEnabled = true
         self.nextVideoButton.isEnabled = true
         self.prevVideoButton.isEnabled = true
+        self.pipButton.isEnabled = true
         isAlpha = !isAlpha
     }
 
@@ -385,6 +424,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             self.videoLengthLabel.alpha = 0.0
             self.nextVideoButton.alpha = 0.0
             self.prevVideoButton.alpha = 0.0
+            self.pipButton.alpha = 0.0
         }
         self.videoControlButton.isEnabled = false
         self.videoSlider.isEnabled = false
@@ -392,6 +432,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         self.videoLengthLabel.isEnabled = false
         self.nextVideoButton.isEnabled = false
         self.prevVideoButton.isEnabled = false
+        self.pipButton.isEnabled = false
         isAlpha = !isAlpha
     }
 
@@ -498,6 +539,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             $0.height.equalToSuperview().multipliedBy(0.8)
             $0.width.equalToSuperview().multipliedBy(0.4)
         }
+
         view.addSubview(videoCollectionView)
         videoCollectionView.snp.makeConstraints {
             $0.top.equalTo(videoPlayView.snp.bottom)
@@ -512,6 +554,14 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             $0.centerY.equalToSuperview().offset(17)
             $0.width.equalTo(50)
             $0.height.equalTo(50)
+        }
+
+        rightSeekView.addSubview(pipButton)
+        pipButton.snp.makeConstraints {
+            $0.trailing.equalTo(videoPlayView.safeAreaLayoutGuide.snp.trailing).offset(-4)
+            $0.top.equalTo(rightSeekView.snp.top).offset(5)
+            $0.height.equalTo(50)
+            $0.width.equalTo(50)
         }
 
         leftSeekView.addSubview(prevVideoButton)
@@ -659,3 +709,23 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 }
 
+extension VideoViewController: AVPictureInPictureControllerDelegate {
+    func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+        print("Start")
+    }
+    func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+        print("Started")
+    }
+    func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, failedToStartPictureInPictureWithError error: Error) {
+        print("failToStart")
+    }
+    func pictureInPictureControllerWillStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+        print("will Start")
+    }
+    func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+        print("Stopped")
+    }
+    func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
+        print("restore user Interface before stop")
+    }
+}
