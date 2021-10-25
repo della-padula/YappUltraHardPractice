@@ -85,14 +85,12 @@ class MainViewController: UIViewController, MainViewProtocol {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = 8
-
         return stackView
     }()
 
     private let mainTableView = UITableView()
 
     private var presenter: MainPresenterProtocol!
-
     init() {
         super.init(nibName: nil, bundle: nil)
         presenter = MainPresenter(view: self)
@@ -170,6 +168,10 @@ class MainViewController: UIViewController, MainViewProtocol {
             $0.centerY.equalTo(miniView.snp.centerY)
             $0.leading.equalTo(videoMiniView.snp.trailing).offset(10)
         }
+        miniViewVideoNameLabel.snp.makeConstraints {
+            $0.leading.equalTo(videoMiniView.snp.trailing).offset(5)
+            $0.trailing.equalTo(miniViewCancelButton.snp.leading).offset(-5)
+        }
         //videoMiniView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         miniView.isHidden = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(touchAction(sender:)))
@@ -194,7 +196,6 @@ class MainViewController: UIViewController, MainViewProtocol {
         present(videoViewController, animated: true, completion: {
             self.miniView.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                print("여기")
                 self.miniView.transform = CGAffineTransform(translationX: 0, y: 0)
                 self.miniView.backgroundColor = UIColor.init(white: 1, alpha: 0.9)
                 self.videoMiniView.alpha = 1.0
@@ -216,7 +217,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         inToVideoView(index: indexPath.row)
     }
 

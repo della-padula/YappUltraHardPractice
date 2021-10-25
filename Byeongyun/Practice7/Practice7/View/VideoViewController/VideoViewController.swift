@@ -119,13 +119,10 @@ class VideoViewController: UIViewController, VideoViewProtocol {
 
     @objc
     func moveSliderChange() {
-        print(videoSlider.value)
-
         if let duration = VideoLauncher.player?.currentItem!.asset.duration {
             let seconds = CMTimeGetSeconds(duration)
 
             let value = Float64(videoSlider.value) * seconds
-            print(seconds)
             let seekTime = CMTime(value: Int64(value), timescale: 1)
             VideoLauncher.player?.seek(to: seekTime, completionHandler: { _ in
 
@@ -301,9 +298,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     func rightDoubleTapVideo(_ gestureRecognizer: UITapGestureRecognizer) {
         if let duration = VideoLauncher.player?.currentTime() {
             let seconds = CMTimeGetSeconds(duration)
-
             let value = seconds + 10
-            print(seconds)
             let seekTime = CMTime(value: Int64(value), timescale: 1)
             VideoLauncher.player?.seek(to: seekTime, completionHandler: { _ in
 
@@ -315,9 +310,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     func leftDoubleTapVideo(_ gestureRecognizer: UITapGestureRecognizer) {
         if let duration = VideoLauncher.player?.currentTime() {
             let seconds = CMTimeGetSeconds(duration)
-
             let value = seconds - 10
-            print(seconds)
             let seekTime = CMTime(value: Int64(value), timescale: 1)
             VideoLauncher.player?.seek(to: seekTime, completionHandler: { _ in
 
@@ -330,22 +323,17 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         switch sender.state {
         case .changed:
             initialTouchPoint = sender.translation(in: view)
-            print(initialTouchPoint.y)
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                //print(self.initialTouchPoint.y)
                 self.view.transform = CGAffineTransform(translationX: 0, y: self.initialTouchPoint.y)
             })
-            print((initialTouchPoint.y-600)/2)
             if initialTouchPoint.y > 450 && initialTouchPoint.y < 500 {
                 videoPlayView.layer.frame.size = CGSize(width: self.view.frame.width, height: 250 - (initialTouchPoint.y-500))
                 VideoLauncher.playerLayer?.frame.size = CGSize(width: 50, height: 50)
-                print("X 상황",initialTouchPoint.x)
-                print("Y 상황", initialTouchPoint.y)
                 VideoLauncher.playerLayer?.position = CGPoint(x: self.view.frame.minX+35, y: -(initialTouchPoint.y-500)+30)
             }
         case .ended:
             if initialTouchPoint.y < 480 {
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { print(self.initialTouchPoint.y)
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     self.view.transform = .identity
                     VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.videoPlayView.frame.height)
                 })
@@ -388,7 +376,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     @objc
     func updateTimer() {
         secondToFadeOut -= 1
-        print(secondToFadeOut)
         if secondToFadeOut < 1 {
             fadeOutButton()
             timer.invalidate()
@@ -452,8 +439,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 VideoLauncher.player = AVPlayer(url: url)
                 videoControlButton.isHidden = true
             }
-
-            print(VideoLauncher.currentPlayindex, index)
             if VideoLauncher.currentPlayindex == index {
                 self.view.addSubview(videoPlayView)
                 videoPlayView.snp.makeConstraints {
@@ -614,7 +599,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         let interval = CMTime(value: 1, timescale: 2)
         VideoLauncher.player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { progress in
             let seconds = CMTimeGetSeconds(progress)
-            print("시간", seconds)
             VideoLauncher.currentSecond = seconds
             let secondsString = String(format: "%02d", Int(seconds) % 60)
             let minString = String(format: "%02d", Int(seconds)/60)
@@ -625,8 +609,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 let durationSeconds = CMTimeGetSeconds(duration)
                 self.videoSlider.value = Float(seconds / durationSeconds)
             }
-            print(seconds)
-
         })
     }
 
@@ -636,7 +618,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 videoLengthLabel.text = "00:00"
             } else {
                 let seconds = CMTimeGetSeconds((VideoLauncher.player?.currentItem!.asset.duration)!)
-                print("영상시간:",seconds)
                 let secondsText = String(format: "%02d", Int(seconds)%60)
                 let minText = String(format: "%02d", Int(seconds)/60)
                 videoLengthLabel.text = "\(minText):\(secondsText)"

@@ -14,7 +14,8 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
     private let videoTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
-
+        label.numberOfLines = 10
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
 
@@ -62,7 +63,7 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView(arrangedSubviews: [videoTitleLabel, videoInfoLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 1
+        stackView.spacing = 2
 
         return stackView
     }()
@@ -139,6 +140,11 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
             $0.leading.equalTo(contentView.snp.leading).offset(10)
             $0.height.equalToSuperview().multipliedBy(0.6)
             $0.bottom.equalTo(buttonStackView.snp.top)
+        }
+        videoInfoLabel.snp.makeConstraints {
+            $0.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(contentView.safeAreaLayoutGuide.snp.trailing)
+            $0.height.equalTo(20)
         }
     }
 }
