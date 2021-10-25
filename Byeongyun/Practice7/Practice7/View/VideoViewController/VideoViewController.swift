@@ -11,6 +11,7 @@ import AVFoundation
 
 class VideoViewController: UIViewController, VideoViewProtocol {
 
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -18,11 +19,11 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     func updateCurrentPlayer() {
         videoCollectionView.reloadData()
     }
+
     private var timer = Timer()
     private var secondToFadeOut = 5
     private var isTimerRunning: Bool = false
     private var isAlpha: Bool = true
-
     private var index: Int
     private var presenter: VideoPresenterProtocol!
     private var launcher: VideoLauncher = VideoLauncher()
@@ -153,7 +154,6 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         button.setImage(UIImage(systemName: "arrowshape.turn.up.backward.fill"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(prevVideoAction), for: .touchUpInside)
-
         return button
     }()
 
@@ -206,7 +206,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -214,7 +214,35 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         presenter.loadVideoList()
         configureCollectionView()
         configureGesture()
+        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        rotated()
+    }
 
+    @objc
+    func rotated() {
+        if UIDevice.current.orientation.isLandscape {
+            videoPlayView.snp.remakeConstraints {
+                $0.top.equalTo(view.snp.top)
+                $0.leading.equalTo(view.snp.leading)
+                $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+                $0.width.equalTo(view.snp.width)
+                $0.height.equalTo(view.snp.height)
+            }
+
+            VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.height)
+        }
+
+        if UIDevice.current.orientation.isPortrait {
+            videoPlayView.snp.remakeConstraints {
+                $0.top.equalTo(view.snp.top)
+                $0.leading.equalTo(view.snp.leading)
+                $0.trailing.equalTo(view.snp.trailing)
+                $0.width.equalTo(view.snp.width)
+                $0.height.equalTo(250)
+            }
+            VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
+        }
     }
 
     private func configureGesture() {
@@ -267,26 +295,26 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             initialTouchPoint = sender.translation(in: view)
             print(initialTouchPoint.y)
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                print(self.initialTouchPoint.y)
+                //print(self.initialTouchPoint.y)
                 self.view.transform = CGAffineTransform(translationX: 0, y: self.initialTouchPoint.y)
             })
-            if initialTouchPoint.y > 250 && initialTouchPoint.y < 410 {
-                videoPlayView.layer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
-                VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
-            } else if initialTouchPoint.y > 410 {
-                videoPlayView.layer.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
-                VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 250 - (initialTouchPoint.y-250))
+            print((initialTouchPoint.y-600)/2)
+            if initialTouchPoint.y > 600 && initialTouchPoint.y < 700 {
+                videoPlayView.layer.frame.size = CGSize(width: self.view.frame.width, height: 250 - (initialTouchPoint.y-600))
+                VideoLauncher.playerLayer?.frame.size = CGSize(width: 50, height: 50)
+                print("X 상황",initialTouchPoint.x)
+                print("Y 상황", initialTouchPoint.y)
+                VideoLauncher.playerLayer?.position = CGPoint(x: self.view.frame.minX+35, y: -(initialTouchPoint.y-600)+30)
             }
         case .ended:
-            if initialTouchPoint.y < 300 {
+            if initialTouchPoint.y < 700 {
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { print(self.initialTouchPoint.y)
                     self.view.transform = .identity
-                    VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
+                    VideoLauncher.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.videoPlayView.frame.height)
                 })
             } else {
                 dismiss(animated: true, completion: {
                     NotificationCenter.default.post(name: NSNotification.Name("dismiss"), object: nil, userInfo: nil)
-
                 })
             }
         default:
@@ -383,13 +411,14 @@ class VideoViewController: UIViewController, VideoViewProtocol {
                 VideoLauncher.player = AVPlayer(url: url)
                 videoControlButton.isHidden = true
             }
+
             print(VideoLauncher.currentPlayindex, index)
             if VideoLauncher.currentPlayindex == index {
                 self.view.addSubview(videoPlayView)
                 videoPlayView.snp.makeConstraints {
                     $0.top.equalTo(view.snp.top)
-                    $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-                    $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+                    $0.leading.equalTo(view.snp.leading)
+                    $0.trailing.equalTo(view.snp.trailing)
                     $0.width.equalTo(view.snp.width)
                     $0.height.equalTo(250)
                 }
@@ -433,14 +462,14 @@ class VideoViewController: UIViewController, VideoViewProtocol {
             self.videoPlayView.addSubview(videoLengthLabel)
             videoLengthLabel.snp.makeConstraints {
                 $0.bottom.equalToSuperview().offset(-4)
-                $0.trailing.equalToSuperview().offset(-4)
+                $0.trailing.equalTo(videoPlayView.safeAreaLayoutGuide.snp.trailing).offset(-4)
                 $0.width.equalTo(50)
                 $0.height.equalTo(30)
             }
 
             self.videoPlayView.addSubview(currentTimeLabel)
             currentTimeLabel.snp.makeConstraints {
-                $0.leading.equalToSuperview().offset(4)
+                $0.leading.equalTo(videoPlayView.safeAreaLayoutGuide.snp.leading).offset(4)
                 $0.bottom.equalToSuperview().offset(-4)
                 $0.width.equalTo(50)
                 $0.height.equalTo(30)
@@ -472,9 +501,9 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         view.addSubview(videoCollectionView)
         videoCollectionView.snp.makeConstraints {
             $0.top.equalTo(videoPlayView.snp.bottom)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.bottom.equalTo(view.snp.bottom)
         }
 
         rightSeekView.addSubview(nextVideoButton)
@@ -504,8 +533,8 @@ class VideoViewController: UIViewController, VideoViewProtocol {
         self.view.addSubview(videoPlayView)
         videoPlayView.snp.makeConstraints {
             $0.top.equalTo(view.snp.top)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
             $0.width.equalTo(view.snp.width)
             $0.height.equalTo(250)
 
