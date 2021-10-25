@@ -15,6 +15,7 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 10
+        label.textColor = UILabel.colorSwitch
         label.lineBreakMode = .byWordWrapping
         return label
     }()
@@ -30,7 +31,7 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
     private let thumbsUpButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
-        button.imageView?.tintColor = .black
+        button.imageView?.tintColor = UIColor.colorSwitch
         button.addTarget(self, action: #selector(thumbsUpAction), for: .touchUpInside)
         return button
     }()
@@ -38,7 +39,7 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
     private let thumbsDownButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "hand.thumbsdown"), for: .normal)
-        button.imageView?.tintColor = .black
+        button.imageView?.tintColor = UIColor.colorSwitch
         button.addTarget(self, action: #selector(thumbsDownAction), for: .touchUpInside)
         return button
     }()
@@ -46,7 +47,7 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
     private let shareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
-        button.imageView?.tintColor = .black
+        button.imageView?.tintColor = UIColor.colorSwitch
         button.addTarget(self, action: #selector(shareAction), for: .touchUpInside)
         return button
     }()
@@ -54,7 +55,7 @@ class VideoInfoCollectionViewCell: UICollectionViewCell {
     private let saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "square.and.arrow.down"), for: .normal)
-        button.imageView?.tintColor = .black
+        button.imageView?.tintColor = UIColor.colorSwitch
         button.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
         return button
     }()

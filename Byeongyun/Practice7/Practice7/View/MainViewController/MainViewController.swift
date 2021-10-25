@@ -27,6 +27,7 @@ class MainViewController: UIViewController, MainViewProtocol {
 
     private let miniView: UIView = {
         let miniView = UIView()
+        miniView.backgroundColor = UIColor.colorSwitch
         return miniView
     }()
 
@@ -38,8 +39,8 @@ class MainViewController: UIViewController, MainViewProtocol {
     private let miniViewCancelButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.imageView?.tintColor = .black
-        button.setTitleColor(.black, for: .normal)
+        button.imageView?.tintColor = UILabel.colorSwitch
+        button.setTitleColor(UIColor.colorSwitch, for: .normal)
         button.addTarget(self, action: #selector(cancelMiniView), for: .touchUpInside)
         button.sizeToFit()
         return button
@@ -68,7 +69,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     private var miniViewVideoNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
-
+        label.textColor = UILabel.colorSwitch
         return label
     }()
 
@@ -102,7 +103,7 @@ class MainViewController: UIViewController, MainViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.colorSwitch
         presenter.fetchVideoList()
         NotificationCenter.default.addObserver(self, selector: #selector(disMissView(_:)), name: NSNotification.Name("dismiss"), object: nil)
         configureNavigationBar()
@@ -126,7 +127,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     }
 
     private func configureNavigationBar() {
-        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.barTintColor = UIColor.colorSwitch
         navigationItem.setLeftBarButton(UIBarButtonItem.init(customView: youtubeTitle), animated: true)
     }
 
@@ -139,8 +140,8 @@ class MainViewController: UIViewController, MainViewProtocol {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         miniView.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 150)
-        miniView.backgroundColor = .white
-        miniView.backgroundColor = UIColor.init(white: 1, alpha: 0.9)
+        miniView.backgroundColor = UIColor.colorSwitch
+        miniView.backgroundColor = UIColor.colorSwitch
         view.addSubview(miniView)
         miniView.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -197,7 +198,7 @@ class MainViewController: UIViewController, MainViewProtocol {
             self.miniView.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.miniView.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.miniView.backgroundColor = UIColor.init(white: 1, alpha: 0.9)
+                self.miniView.backgroundColor = UIColor.colorSwitch.withAlphaComponent(0.9)
                 self.videoMiniView.alpha = 1.0
             }, completion: nil)
         })
@@ -225,6 +226,39 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.setNavigationBarHidden(true, animated: true)
         } else {
             navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+    }
+}
+
+extension UIColor {
+    static var colorSwitch: UIColor {
+        return color(light: .white, dark: .black)
+    }
+
+    private static func color(light: UIColor, dark: UIColor) -> UIColor {
+        if #available(iOS 13, *) {
+            return UIColor{ (traitCollection: UITraitCollection) -> UIColor in
+                return traitCollection.userInterfaceStyle == .dark ? dark : light
+            }
+        } else {
+            return light
+        }
+    }
+}
+
+
+extension UILabel {
+    static var colorSwitch: UIColor {
+        return color(light: .white, dark: .black)
+    }
+
+    private static func color(light: UIColor, dark: UIColor) -> UIColor {
+        if #available(iOS 13, *) {
+            return UIColor{ (traitCollection: UITraitCollection) -> UIColor in
+                return traitCollection.userInterfaceStyle == .dark ? light : dark
+            }
+        } else {
+            return dark
         }
     }
 }

@@ -62,7 +62,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     private let videoCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor.colorSwitch
         return collectionView
     }()
 
@@ -233,7 +233,7 @@ class VideoViewController: UIViewController, VideoViewProtocol {
     // MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.colorSwitch
         configureLayout()
         presenter.loadVideoList()
         configureCollectionView()
@@ -670,7 +670,7 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChannelInfoCollectionViewCell.cellId, for: indexPath) as? ChannelInfoCollectionViewCell else { return UICollectionViewCell() }
             cell.configureData(presenter.getVideo()[index])
-
+            cell.backgroundColor = UIColor.colorSwitch
             return cell
         default:
             return UICollectionViewCell()

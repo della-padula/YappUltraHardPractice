@@ -31,7 +31,7 @@ class MainTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = UILabel.colorSwitch
         return label
     }()
 

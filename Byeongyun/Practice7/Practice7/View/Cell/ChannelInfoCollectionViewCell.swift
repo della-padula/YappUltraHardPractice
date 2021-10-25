@@ -22,7 +22,7 @@ class ChannelInfoCollectionViewCell: UICollectionViewCell {
     private let channelNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
-
+        label.textColor = UILabel.colorSwitch
         return label
     }()
 
