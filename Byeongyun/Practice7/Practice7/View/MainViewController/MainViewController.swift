@@ -246,7 +246,6 @@ extension UIColor {
     }
 }
 
-
 extension UILabel {
     static var colorSwitch: UIColor {
         return color(light: .white, dark: .black)
